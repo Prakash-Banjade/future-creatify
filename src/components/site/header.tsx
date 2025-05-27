@@ -6,6 +6,8 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { Button } from '../ui/button';
 import Image from 'next/image';
+import { usePathname } from 'next/navigation';
+import { cn } from '@/lib/utils';
 
 interface HeaderProps {
     scrolled: boolean;
@@ -35,6 +37,7 @@ export const navLinks = [
 ]
 
 export default function Header({ scrolled }: HeaderProps) {
+    const pathname = usePathname();
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
     const toggleMobileMenu = () => {
@@ -61,15 +64,17 @@ export default function Header({ scrolled }: HeaderProps) {
 
                 {/* Desktop Navigation */}
                 <nav className="hidden md:flex items-center space-x-8">
-                    {navLinks.map((link) => (
-                        <Link
-                            key={link.label}
-                            href={link.href}
-                            className="nav-link"
-                        >
-                            {link.label}
-                        </Link>
-                    ))}
+                    {
+                        navLinks.map((link) => (
+                            <Link
+                                key={link.label}
+                                href={link.href}
+                                className={cn("hover:text-primary", pathname === link.href && "text-primary underline underline-offset-3 decoration-primary")}
+                            >
+                                {link.label}
+                            </Link>
+                        ))
+                    }
                     <Button asChild className='p-6'>
                         <Link href="/#contact" className="!text-base btn btn-primary">
                             Contact Us

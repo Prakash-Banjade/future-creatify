@@ -22,7 +22,7 @@ export default function Page() {
           <div className="grid md:grid-cols-2 items-center gap-12">
             <HeroLeftWrapper>
               <span className="text-primary font-semibold">Future Creatify</span>
-              <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold lg:leading-16 md:leading-14 leading-12 tracking-tighter mt-3 mb-6">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mt-3 mb-6 text-shadow-lg">
                 Empowering Educators for a <span className="text-primary">Creative Future</span>
               </h1>
               <p className="text-lg text-slate-600 mb-8">
@@ -30,12 +30,12 @@ export default function Page() {
                 project-based integrated pedagogy to shape the minds and futures of students.
               </p>
               <div className="flex flex-wrap gap-4">
-                <Button type="button" asChild className="px-9 py-6 text-base">
+                <Button type="button" asChild className="px-7 py-6 text-base">
                   <Link href="/about">
                     Learn More
                   </Link>
                 </Button>
-                <Button type="button" variant={'outline'} asChild className="group !px-8 py-6 text-base text-primary border-primary border-2 bg-transparent hover:bg-primary/5 hover:text-primary">
+                <Button type="button" variant={'outline'} asChild className="group !px-7 py-6 text-base text-primary border-primary border-2 bg-transparent hover:bg-primary/5 hover:text-primary">
                   <Link href="/blogs">
                     Read Our Blogs
                     <ArrowRight size={18} className="group-hover:translate-x-2 transition-transform ease-in-out duration-300" />

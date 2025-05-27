@@ -15,7 +15,7 @@ export default function BlogCardContent({ blog }: Props) {
         <article className="@container">
             <div className='card'>
                 <div className="flex flex-col @2xl:flex-row">
-                    <div className='rounded-t-xl overflow-hidden'>
+                    <div className='@2xl:rounded-l-xl @2xl:rounded-tr-none rounded-t-xl overflow-hidden'>
                         <Image
                             src={blog.image}
                             alt={blog.title}
