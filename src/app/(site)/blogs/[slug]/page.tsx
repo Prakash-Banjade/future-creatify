@@ -12,8 +12,10 @@ type Props = {
 }
 
 export async function generateMetadata(
-    { params }: Props,
+    props: Promise<Props>,
 ): Promise<Metadata> {
+    const { params } = await props;
+    
     const blog = blogPosts.find((post) => post.id === params.slug);
     return {
         title: blog?.title,

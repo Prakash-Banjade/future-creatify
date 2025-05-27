@@ -1,7 +1,6 @@
 import React from 'react'
 import { Star } from 'lucide-react';
 import { TestimonialCardProps } from './testimonial-card';
-import { Card } from '@/components/ui/card';
 import Image from 'next/image';
 
 type Props = {

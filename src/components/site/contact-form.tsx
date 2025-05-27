@@ -43,6 +43,8 @@ export default function ContactForm() {
   })
 
   const onSubmit = async (data: FormData) => {
+    console.log(data)
+    
     try {
       // Simulate form submission
       await new Promise((resolve) => setTimeout(resolve, 1000))
@@ -65,6 +67,7 @@ export default function ContactForm() {
         })
       }, 5000)
     } catch (error) {
+      console.error("Form submission error:", error)
       setFormStatus({
         submitted: true,
         success: false,
