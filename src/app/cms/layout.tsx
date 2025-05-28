@@ -1,3 +1,5 @@
+import SidebarLayout from '@/components/cms/sidebar/sidebar-layout';
+import { ThemeProvider } from '@/context/theme-provider';
 import getSession from '@/lib/getSession';
 import { redirect } from 'next/navigation';
 import React from 'react'
@@ -6,7 +8,7 @@ type Props = {
     children?: React.ReactNode;
 }
 
-export default async function CMSLayout({ children}: Props) {
+export default async function CMSLayout({ children }: Props) {
     const session = await getSession();
 
     if (!session) {
@@ -19,6 +21,15 @@ export default async function CMSLayout({ children}: Props) {
     }
 
     return (
-        <div>{children}</div>
+        // <ThemeProvider
+        //     attribute="class"
+        //     defaultTheme="system"
+        //     enableSystem
+        //     disableTransitionOnChange
+        // >
+        <SidebarLayout>
+            <div>{children}</div>
+        </SidebarLayout>
+        // </ThemeProvider>
     )
 }

@@ -50,4 +50,28 @@ function AvatarFallback({
   )
 }
 
-export { Avatar, AvatarImage, AvatarFallback }
+const ProfileAvatar = ({
+  src,
+  name,
+  className,
+  style,
+}: {
+  src: string | undefined
+  name: string
+  className?: string
+  style?: React.CSSProperties
+}) => {
+  const words = name.split(" ")
+
+  const firstInitial = words[0] ? words[0][0].toUpperCase() : ""
+  const secondInitial = words[1] ? words[1][0].toUpperCase() : ""
+
+  return <Avatar className={className} style={style} title={name}>
+    <AvatarImage src={src} alt={name} className="object-cover" />
+    <AvatarFallback>
+      {(firstInitial + secondInitial).slice(0, 2)}
+    </AvatarFallback>
+  </Avatar>
+}
+
+export { Avatar, AvatarImage, AvatarFallback, ProfileAvatar }
