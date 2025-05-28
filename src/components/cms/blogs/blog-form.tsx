@@ -1,12 +1,15 @@
 "use client";
 
 import AppForm from "@/components/forms/app-form"
-import { MinimalTiptapEditor } from "@/components/minimal-tiptap";
+
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { z } from "zod"
+import { useState } from "react";
+import NovelEditor from "@/components/novel-editor";
+import FullYooptaEditor from "@/components/yoopta-editor";
 
 type Props = {
     blogId?: undefined;
@@ -77,7 +80,7 @@ export default function BlogForm(props: Props) {
                                 <span className="text-red-500">*</span>
                             </FormLabel>
                             <FormControl>
-                                <MinimalTiptapEditor
+                                {/* <MinimalTiptapEditor
                                     value={form.getValues("description")}
                                     onChange={(value) => form.setValue("description", value as string)}
                                     className="w-full"
@@ -86,7 +89,8 @@ export default function BlogForm(props: Props) {
                                     placeholder="Type blog description here..."
                                     editable={true}
                                     editorClassName="focus:outline-none p-5 h-full"
-                                />
+                                /> */}
+                                <FullYooptaEditor />
                             </FormControl>
                             <FormMessage />
                         </FormItem>
