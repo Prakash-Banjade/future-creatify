@@ -1,5 +1,5 @@
 import BlogCard from '@/components/site/blogs/blog-card';
-import BlogPageHeroWrapper from '@/components/site/blogs/blog-page-hero-wrapper';
+import HeroWrapper from '@/components/site/hero-wrapper';
 import { blogPosts } from '@/data/blogs-data';
 import { Search } from 'lucide-react';
 import { Metadata } from 'next';
@@ -21,7 +21,7 @@ export default function BlogsPage({ }: Props) {
             <section className="pt-32 pb-20 md:pt-40 md:pb-28 bg-cream">
                 <div className="container">
                     <div className="max-w-4xl mx-auto text-center">
-                        <BlogPageHeroWrapper>
+                        <HeroWrapper>
 
                             <span className="text-primary font-semibold">Our Blog</span>
                             <h1 className="text-4xl md:text-5xl font-bold leading-tight mt-3 mb-6">
@@ -31,7 +31,7 @@ export default function BlogsPage({ }: Props) {
                                 Explore our collection of articles, guides, and resources designed to
                                 inspire and empower educators on their teaching journey.
                             </p>
-                        </BlogPageHeroWrapper>
+                        </HeroWrapper>
                     </div>
                 </div>
             </section >

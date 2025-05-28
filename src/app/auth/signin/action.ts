@@ -1,9 +1,10 @@
 "use server"
 
 import { signIn } from '@/auth'
+import { redirect } from 'next/navigation';
 import { z } from 'zod'
 
-const emailSchema = z.string().email("Invalid email address");
+const emailSchema = z.string().email("Invalid email address").trim();
 
 export async function signInAction(email: string) {
     if (typeof email !== "string") {
@@ -16,5 +17,7 @@ export async function signInAction(email: string) {
         throw new Error(parsedEmail.error.message);
     }
 
-    await signIn("resend", { email });
+    await signIn("resend", { email, redirect: false });
+
+    redirect("/auth/signin/verify-request?email=" + email);
 }

@@ -6,7 +6,7 @@ type Props = {
     children: React.ReactNode;
 }
 
-export default function BlogPageHeroWrapper({ children }: Props) {
+export default function HeroWrapper({ children }: Props) {
     return (
         <motion.div
             initial={{ opacity: 0, y: 20 }}

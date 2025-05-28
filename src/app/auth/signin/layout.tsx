@@ -1,6 +1,5 @@
 import getSession from '@/lib/getSession';
 import { redirect } from 'next/navigation';
-import React from 'react'
 
 type Props = {
     children?: React.ReactNode;
@@ -12,6 +11,8 @@ export default async function SignInLayout({ children }: Props) {
     if (session) redirect('/cms');
 
     return (
-        <div>{children}</div>
+        <section className='min-h-screen flex flex-col items-center justify-center bg-gray-50'>
+            {children}
+        </section>
     )
 }

@@ -4,8 +4,12 @@ import Google from "next-auth/providers/google"
 import Resend from "next-auth/providers/resend"
 import { db } from "./db"
 import { accounts, authenticators, sessions, users, verificationTokens } from "./db/schema/auth"
+import { sendVerificationRequest } from "./lib/authSendRequest"
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
+    theme: {
+        logo: "/logo-magenta.png",
+    },
     adapter: DrizzleAdapter(db, {
         usersTable: users,
         accountsTable: accounts,
@@ -17,7 +21,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         signIn: '/auth/signin',
         signOut: '/auth/signout',
         error: '/auth/error',
-        verifyRequest: '/auth/verify-request',
+        verifyRequest: '/auth/signin/verify-request',
         newUser: '/auth/new-user'
     },
     callbacks: {
@@ -33,6 +37,23 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         Google,
         Resend({
             from: "no-reply@qubide.cloud",
+            maxAge: 60 * 60, // 1 hour
+            sendVerificationRequest({ // for custom email template
+                identifier,
+                url,
+                provider,
+            }) {
+                if (!provider.apiKey || !provider.from) return;
+                
+                sendVerificationRequest({
+                    identifier,
+                    provider: {
+                        apiKey: provider.apiKey,
+                        from: provider.from,
+                    },
+                    url,
+                })
+            }
         })
     ],
 })

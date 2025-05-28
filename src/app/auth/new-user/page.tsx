@@ -17,7 +17,7 @@ export default async function NewUserPage({ }: Props) {
     }
 
     return (
-        <section>
+        <section className='flex flex-col items-center justify-center min-h-screen'>
             <h1 className="text-2xl font-bold mb-4">New User</h1>
             <p>Welcome to the new user page.</p>
 

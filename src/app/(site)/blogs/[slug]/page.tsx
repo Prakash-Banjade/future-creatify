@@ -1,5 +1,5 @@
 import BlogCard from '@/components/site/blogs/blog-card';
-import BlogPageHeroWrapper from '@/components/site/blogs/blog-page-hero-wrapper';
+import BlogPageHeroWrapper from '@/components/site/hero-wrapper';
 import { blogPosts } from '@/data/blogs-data';
 import { ArrowLeft, Calendar, Tag, User } from 'lucide-react';
 import { Metadata } from 'next';
@@ -22,7 +22,6 @@ export async function generateMetadata(
         description: blog?.excerpt || 'Read our latest blog post on educational insights and resources.',
     };
 }
-
 
 export default async function SingleBlogPage(props: Promise<Props>) {
     const { params } = await props;
