@@ -4,7 +4,7 @@ import { z } from "zod";
 export const blogSchema = z.object({
     title: z.string().min(1, { message: "Title is required" }),
     summary: z.string(),
-    content: z.object({}),
+    content: z.any(),
     coverImage: z.string().nullish(),
     keywords: z.array(z.string()),
 });

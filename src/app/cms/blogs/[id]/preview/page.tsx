@@ -1,8 +1,5 @@
-import React from 'react'
 
-type Props = {}
-
-export default function BlogPreviewPage({}: Props) {
+export default function BlogPreviewPage() {
   return (
     <div>BlogPreviewPage</div>
   )

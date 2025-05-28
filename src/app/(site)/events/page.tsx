@@ -1,8 +1,4 @@
-import React from 'react'
-
-type Props = {}
-
-export default function EventsPage({}: Props) {
+export default function EventsPage() {
   return (
     <div>EventsPage</div>
   )

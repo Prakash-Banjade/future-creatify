@@ -11,22 +11,20 @@ type Props = {
     }
 }
 
-export async function generateMetadata(
-    props: Promise<Props>,
-): Promise<Metadata> {
-    const { params } = await props;
-    
-    const blog = blogPosts.find((post) => post.id === params.slug);
+export async function generateMetadata(props: { params: Promise<Props["params"]> }): Promise<Metadata> {
+    const { slug } = await props.params;
+
+    const blog = blogPosts.find((post) => post.id === slug);
     return {
         title: blog?.title,
         description: blog?.excerpt || 'Read our latest blog post on educational insights and resources.',
     };
 }
 
-export default async function SingleBlogPage(props: Promise<Props>) {
-    const { params } = await props;
+export default async function SingleBlogPage(props: { params: Promise<Props["params"]> }) {
+    const { slug } = await props.params;
 
-    const blog = blogPosts.find((post) => post.id === params.slug);
+    const blog = blogPosts.find((post) => post.id === slug);
 
     if (!blog) {
         return (
@@ -105,9 +103,9 @@ export default async function SingleBlogPage(props: Promise<Props>) {
                             </p>
 
                             <blockquote className="border-l-4 border-primary pl-4 italic my-8">
-                                "How do we, as educators, make a difference every day in shaping the minds
+                                &quot;How do we, as educators, make a difference every day in shaping the minds
                                 and futures of our students? It begins with understanding that each student is
-                                on a unique journey of discovery."
+                                on a unique journey of discovery.&quot;
                             </blockquote>
 
                             <h2 className="text-2xl font-bold mt-8 mb-4">Practical Applications</h2>

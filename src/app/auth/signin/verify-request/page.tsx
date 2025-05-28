@@ -81,7 +81,7 @@ export default async function VerifyRequest(props: { searchParams: Promise<Props
 
                 <div className="space-y-3">
                     <p className="text-xs text-muted-foreground text-center">
-                        Didn't receive the email? Check your spam folder or try again
+                        Didn&apos;t receive the email? Check your spam folder or try again
                     </p>
                 </div>
             </CardContent>

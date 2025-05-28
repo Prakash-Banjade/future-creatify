@@ -2,11 +2,7 @@
 
 import YooptaEditor, {
     createYooptaEditor,
-    Elements,
-    Blocks,
-    useYooptaEditor,
     YooptaContentValue,
-    YooptaOnChangeOptions,
 } from '@yoopta/editor';
 
 import Paragraph from '@yoopta/paragraph';
@@ -119,7 +115,7 @@ const MARKS = [Bold, Italic, CodeMark, Underline, Strike, Highlight];
 
 interface Props {
     value: YooptaContentValue;
-    onChange: (value: string) => void;
+    onChange: (value: YooptaContentValue) => void;
     editorClassName?: string
     containerClassName?: string
 }
@@ -132,11 +128,11 @@ export default function FullYooptaEditor({ onChange, value: defaultValue, editor
     // debounce
     useEffect(() => {
         const handler = setTimeout(() => {
-            onChange(JSON.stringify(value));
+            onChange(value);
         }, 500);
 
         return () => clearTimeout(handler);
-    }, [value]);
+    }, [value, onchange]);
 
     return (
         <div
@@ -146,7 +142,7 @@ export default function FullYooptaEditor({ onChange, value: defaultValue, editor
             <YooptaEditor
                 className={cn('min-w-full', editorClassName)}
                 editor={editor}
-                // @ts-ignore
+                // @ts-expect-error This is fine
                 plugins={plugins}
                 tools={TOOLS}
                 marks={MARKS}

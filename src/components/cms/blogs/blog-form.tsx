@@ -3,11 +3,12 @@
 import AppForm from "@/components/forms/app-form"
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
-import { useState, useTransition } from "react";
+import { useEffect, useTransition } from "react";
 import FullYooptaEditor from "@/components/yoopta-editor";
-import { blogFormDefaultValues, blogSchema, blogSchemaType } from "@/schemas/blog.schema";
+import { blogSchema, blogSchemaType } from "@/schemas/blog.schema";
+import { toast } from "sonner";
+import { updateBlog } from "@/lib/actions/blogs.action";
 
 type Props = {
     blogId: string;
@@ -15,26 +16,36 @@ type Props = {
 }
 
 export default function BlogForm(props: Props) {
-    const router = useRouter();
     const [isPending, startTransition] = useTransition();
 
     const form = useForm<blogSchemaType>({
         resolver: zodResolver(blogSchema),
         defaultValues: props.defaultValues,
-    })
+    });
 
+    // auto save
+    useEffect(() => {
+        const handler = setTimeout(() => {
+            updateBlog(props.blogId, form.getValues());
+            toast.success("Blog updated");
+        }, 500);
+
+        return () => clearTimeout(handler);
+    }, [form.watch()]);
 
     async function onSubmit(values: blogSchemaType) {
-        return;
-
         startTransition(async () => {
             try {
-                router.push('/cms/blogs');
+                await updateBlog(props.blogId, values);
+
+                toast.success("Blog updated");
             } catch (e) {
                 if (e instanceof Error) {
-                    form.setError("title", { type: "manual", message: e.message });
+                    toast.error("Unexpected Error", {
+                        description: e.message,
+                    });
                 } else {
-                    form.setError("title", { type: "manual", message: "An unexpected error occurred" });
+                    toast.error("An unexpected error occurred");
                 }
             }
         })
@@ -44,7 +55,9 @@ export default function BlogForm(props: Props) {
         <section className="max-w-[1000px] mx-auto min-h-[calc(100vh-128px)]">
             <AppForm schema={blogSchema} form={form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 h-full">
+                    {isPending && <p className="text-center">Saving...</p>}
                     <textarea
+                        autoFocus
                         placeholder="Title"
                         className="field-sizing-content overflow-y-hidden resize-none text-4xl xl:text-5xl font-extrabold text-slate-800 w-full focus-visible:outline-0"
                         {...form.register("title")}

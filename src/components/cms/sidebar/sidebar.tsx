@@ -17,10 +17,10 @@ import {
     CollapsibleContent,
     CollapsibleTrigger,
 } from "@/components/ui/collapsible"
-import { ChevronRight } from "lucide-react"
+import { ChevronRight, LucideProps } from "lucide-react"
 import { AppSidebarHeader } from "./sidebar-header"
 import { AppSidebarFooter } from "./sidebar-footer"
-import { useMemo } from "react"
+import { ForwardRefExoticComponent, RefAttributes, useMemo } from "react"
 import { ScrollArea } from "../../ui/scroll-area"
 import { cn } from "@/lib/utils"
 import Link from "next/link"
@@ -30,7 +30,7 @@ import { cmsSidebarMenuItems } from "./menu-items"
 export type TSidebarMenuItem = {
     title: string,
     url: string,
-    icon?: any,
+    icon?: ForwardRefExoticComponent<Omit<LucideProps, "ref"> & RefAttributes<SVGSVGElement>>,
     items?: Omit<TSidebarMenuItem, "icon" | "items">[]
 }
 
@@ -69,13 +69,13 @@ export function AppSidebar() {
 export function NonCollapsibleMenuItem({ item }: { item: TSidebarMenuItem }) {
     const pathname = usePathname();
 
-    console.log(pathname, item.url)
-
     return (
         <SidebarMenuItem key={item.title}>
             <SidebarMenuButton asChild isActive={item.url === pathname}>
                 <Link href={item.url}>
-                    <item.icon />
+                    {
+                        item.icon && <item.icon />
+                    }
                     <span>{item.title}</span>
                 </Link>
             </SidebarMenuButton>

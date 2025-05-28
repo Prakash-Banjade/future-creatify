@@ -5,14 +5,12 @@ import { Search } from 'lucide-react';
 import { Metadata } from 'next';
 import React from 'react'
 
-type Props = {}
-
 export const metadata: Metadata = {
     title: "Blogs",
     description: "Explore our collection of articles, guides, and resources designed to inspire and empower educators on their teaching journey.",
 }
 
-export default function BlogsPage({ }: Props) {
+export default function BlogsPage() {
     const categories = ['All', ...new Set(blogPosts.map(blog => blog.category))];
 
     return (

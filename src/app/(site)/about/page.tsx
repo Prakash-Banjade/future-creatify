@@ -19,7 +19,7 @@ export default function AboutPage() {
                 Our Journey in <span className="text-primary">Educational Innovation</span>
               </h1>
               <p className="text-lg text-slate-600">
-                We're passionate about transforming education through innovative pedagogy and
+                We&apos;re passionate about transforming education through innovative pedagogy and
                 empowering educators to make a difference in shaping the minds and futures of students.
               </p>
             </HeroWrapper>
@@ -156,8 +156,8 @@ export default function AboutPage() {
                 inspiring curiosity, fostering creativity, and nurturing holistic development.
               </p>
               <p className="text-lg font-serif italic">
-                "How do we, as educators, make a difference every day in shaping the minds
-                and futures of our students? This question guides our work every day at Future Creatify."
+                &quot;How do we, as educators, make a difference every day in shaping the minds
+                and futures of our students? This question guides our work every day at Future Creatify.&quot;
               </p>
             </AboutVisionWrapper>
           </div>

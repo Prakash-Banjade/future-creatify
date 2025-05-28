@@ -95,7 +95,7 @@ export const UpdateProfileForm = ({ defaultValues }: { defaultValues?: UpdatePro
 
                                     <CldUploadWidget
                                         signatureEndpoint="/api/sign-cloudinary-params"
-                                        onSuccess={(result, { widget }) => {
+                                        onSuccess={(result) => {
                                             console.log(result.info)
                                             if (typeof result.info === "object" && "secure_url" in result.info) {
                                                 field.onChange(result.info.public_id);
@@ -109,7 +109,7 @@ export const UpdateProfileForm = ({ defaultValues }: { defaultValues?: UpdatePro
                                             folder: "profile-images",
                                             tags: ["profile-image"],
                                         }}
-                                        onQueuesEnd={(_, { widget }) => {
+                                        onQueuesEnd={() => {
                                             // widget.close();
                                         }}
                                     >

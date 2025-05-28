@@ -1,9 +1,7 @@
 import NewBlogButton from '@/components/cms/blogs/new-blog-btn'
 import ContainerLayout from '@/components/cms/container-layout'
 
-type Props = {}
-
-export default function BlogsPage({ }: Props) {
+export default function BlogsPage() {
     return (
         <ContainerLayout
             title='Blogs'

@@ -6,9 +6,7 @@ import Link from 'next/link';
 import React from 'react'
 import { UpdateProfileForm } from '../auth/new-user/components/update-profile.form';
 
-type Props = {}
-
-export default async function ProfilePage({ }: Props) {
+export default async function ProfilePage() {
     const session = await getSession();
     const isAdmin = session?.user?.role === 'admin';
 

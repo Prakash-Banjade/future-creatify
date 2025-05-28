@@ -3,9 +3,7 @@ import { redirect } from 'next/navigation';
 import React from 'react'
 import { UpdateProfileForm } from './components/update-profile.form';
 
-type Props = {}
-
-export default async function NewUserPage({ }: Props) {
+export default async function NewUserPage() {
     const session = await getSession();
 
     if (!session) {

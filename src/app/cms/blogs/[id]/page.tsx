@@ -10,10 +10,10 @@ type Props = {
     }
 }
 
-export default async function BlogEditPage(props: Promise<Props>) {
-    const { params } = await props;
+export default async function BlogEditPage(props: { params: Promise<Props["params"]> }) {
+    const { id } = await props.params;
 
-    const foundBlogs = await db.query.blogs.findMany({ where: eq(blogs.id, params.id) });
+    const foundBlogs = await db.query.blogs.findMany({ where: eq(blogs.id, id) });
 
     if (foundBlogs.length === 0) {
         return (

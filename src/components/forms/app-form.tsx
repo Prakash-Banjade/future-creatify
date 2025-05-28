@@ -17,7 +17,7 @@ import { NUMBER_REGEX_STRING } from '@/CONSTANTS';
 
 type SchemaContextType<T> = ZodType<T>;
 
-const SchemaContext = createContext<SchemaContextType<any> | null>(null);
+const SchemaContext = createContext<SchemaContextType<unknown> | null>(null);
 
 export type TFormFieldProps<T> = {
     name: keyof T;

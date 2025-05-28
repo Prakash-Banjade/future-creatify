@@ -1,5 +1,4 @@
 import SidebarLayout from '@/components/cms/sidebar/sidebar-layout';
-import { ThemeProvider } from '@/context/theme-provider';
 import getSession from '@/lib/getSession';
 import { redirect } from 'next/navigation';
 import React from 'react'
