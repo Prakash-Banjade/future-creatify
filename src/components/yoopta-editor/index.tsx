@@ -28,8 +28,9 @@ import ActionMenuList, { DefaultActionMenuRender } from '@yoopta/action-menu-lis
 import Toolbar, { DefaultToolbarRender } from '@yoopta/toolbar';
 import LinkTool, { DefaultLinkToolRender } from '@yoopta/link-tool';
 
-import { useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { uploadToCloudinary } from '@/lib/cloudinary';
+import { cn } from '@/lib/utils';
 
 const plugins = [
     Paragraph,
@@ -116,22 +117,34 @@ const TOOLS = {
 
 const MARKS = [Bold, Italic, CodeMark, Underline, Strike, Highlight];
 
-export default function FullYooptaEditor() {
-    const [value, setValue] = useState({});
+interface Props {
+    value: YooptaContentValue;
+    onChange: (value: string) => void;
+    editorClassName?: string
+    containerClassName?: string
+}
+
+export default function FullYooptaEditor({ onChange, value: defaultValue, editorClassName, containerClassName }: Props) {
+    const [value, setValue] = useState(defaultValue);
     const editor = useMemo(() => createYooptaEditor(), []);
     const selectionRef = useRef(null);
 
-    const onChange = (newValue: YooptaContentValue, options: YooptaOnChangeOptions) => {
-        setValue(newValue);
-    };
+    // debounce
+    useEffect(() => {
+        const handler = setTimeout(() => {
+            onChange(JSON.stringify(value));
+        }, 500);
+
+        return () => clearTimeout(handler);
+    }, [value]);
 
     return (
         <div
-            className=""
+            className={cn('relative', containerClassName)}
             ref={selectionRef}
         >
             <YooptaEditor
-                className='min-w-[800px] border border-red-500'
+                className={cn('min-w-full', editorClassName)}
                 editor={editor}
                 // @ts-ignore
                 plugins={plugins}
@@ -139,7 +152,7 @@ export default function FullYooptaEditor() {
                 marks={MARKS}
                 selectionBoxRoot={selectionRef}
                 value={value}
-                onChange={onChange}
+                onChange={val => setValue(val)}
                 autoFocus
             />
         </div>

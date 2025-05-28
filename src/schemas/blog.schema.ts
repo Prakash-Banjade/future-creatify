@@ -1,14 +1,31 @@
-import { createInsertSchema, createSelectSchema } from "drizzle-zod";
-import { blogs } from "@/db/schema/blog";
-import { z } from "zod/v4";
+import { YooptaContentValue } from "@yoopta/editor";
+import { z } from "zod";
 
-export const insertBlogSchema = createInsertSchema(blogs, {
-    title: (schema) => schema.min(1, "Title is required"),
-    content: (schema) => schema.min(1, "Content is required"),
-    summary: (schema) => schema.min(1, "Summary is required"),
-    coverImage: (schema) => schema.min(1, "Cover image is required"),
+export const blogSchema = z.object({
+    title: z.string().min(1, { message: "Title is required" }),
+    summary: z.string(),
+    content: z.object({}),
+    coverImage: z.string().nullish(),
+    keywords: z.array(z.string()),
 });
 
-export const selectBlogSchema = createSelectSchema(blogs);
+export type blogSchemaType = z.infer<typeof blogSchema>;
 
-export type InsertBlogSchemaType = z.infer<typeof insertBlogSchema>;
+export const blogFormDefaultValues: blogSchemaType = {
+    title: "Untitled",
+    summary: "",
+    content: {},
+    coverImage: undefined,
+    keywords: [],
+}
+
+export type TBlog = {
+    id: string;
+    title: string;
+    content: YooptaContentValue;
+    summary: string;
+    slug: string | null;
+    coverImage: string | null;
+    publishedAt: Date | null;
+    keywords: string[];
+}

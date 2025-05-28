@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils"
 import { useRouter } from "next/navigation"
 import { useSession } from "next-auth/react"
 import { useTransition } from "react"
-import logoutAction from "@/lib/logout.action"
+import logoutAction from "@/lib/actions/logout.action"
 
 export const AppSidebarFooter = () => {
     const router = useRouter();

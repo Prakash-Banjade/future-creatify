@@ -2,106 +2,63 @@
 
 import AppForm from "@/components/forms/app-form"
 
-import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
-import { z } from "zod"
-import { useState } from "react";
-import NovelEditor from "@/components/novel-editor";
+import { useState, useTransition } from "react";
 import FullYooptaEditor from "@/components/yoopta-editor";
+import { blogFormDefaultValues, blogSchema, blogSchemaType } from "@/schemas/blog.schema";
 
 type Props = {
-    blogId?: undefined;
-} | {
     blogId: string;
     defaultValues: blogSchemaType;
 }
 
-const blogSchema = z.object({
-    title: z.string().min(3, { message: "Title is required" }),
-    description: z.string({ required_error: "Description is required" }).min(100, { message: "Description seems too short. Min 100 characters." }),
-})
-
-const defaultValues: Partial<blogSchemaType> = {
-    title: "",
-    description: "",
-}
-
-export type blogSchemaType = z.infer<typeof blogSchema>;
-
 export default function BlogForm(props: Props) {
     const router = useRouter();
+    const [isPending, startTransition] = useTransition();
 
     const form = useForm<blogSchemaType>({
         resolver: zodResolver(blogSchema),
-        defaultValues: props.blogId ? props.defaultValues : defaultValues,
+        defaultValues: props.defaultValues,
     })
 
-    // const { mutateAsync } = useAppMutation<Partial<blogSchemaType>, any>();
 
     async function onSubmit(values: blogSchemaType) {
-        console.log(values);
-        // const method = !!props.blogId ? "patch" : "post";
+        return;
 
-        // const response = await mutateAsync({
-        //     method,
-        //     endpoint: QueryKey.BLOGS,
-        //     id: props.blogId,
-        //     data: values,
-        //     invalidateTags: [QueryKey.BLOGS],
-        // });
-
-        // const id = response?.data?.id;
-
-        // if (!!id) {
-        //     navigate(`/${payload?.role}/blogs/${id}`);
-        // }
+        startTransition(async () => {
+            try {
+                router.push('/cms/blogs');
+            } catch (e) {
+                if (e instanceof Error) {
+                    form.setError("title", { type: "manual", message: e.message });
+                } else {
+                    form.setError("title", { type: "manual", message: "An unexpected error occurred" });
+                }
+            }
+        })
     }
 
     return (
-        <AppForm schema={blogSchema} form={form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-                <AppForm.Text<blogSchemaType>
-                    name="title"
-                    label="Title"
-                    placeholder={`e.g. Dashain Leave`}
-                    description="Enter the name of the blog."
-                    required
-                />
+        <section className="max-w-[1000px] mx-auto min-h-[calc(100vh-128px)]">
+            <AppForm schema={blogSchema} form={form}>
+                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 h-full">
+                    <textarea
+                        placeholder="Title"
+                        className="field-sizing-content overflow-y-hidden resize-none text-4xl xl:text-5xl font-extrabold text-slate-800 w-full focus-visible:outline-0"
+                        {...form.register("title")}
+                    />
 
-                <FormField
-                    control={form.control}
-                    name={'description'}
-                    render={() => (
-                        <FormItem>
-                            <FormLabel>
-                                Description
-                                <span className="text-red-500">*</span>
-                            </FormLabel>
-                            <FormControl>
-                                {/* <MinimalTiptapEditor
-                                    value={form.getValues("description")}
-                                    onChange={(value) => form.setValue("description", value as string)}
-                                    className="w-full"
-                                    editorContentClassName="grow"
-                                    output="html"
-                                    placeholder="Type blog description here..."
-                                    editable={true}
-                                    editorClassName="focus:outline-none p-5 h-full"
-                                /> */}
-                                <FullYooptaEditor />
-                            </FormControl>
-                            <FormMessage />
-                        </FormItem>
-                    )}
-                />
+                    <FullYooptaEditor
+                        value={form.watch("content")}
+                        onChange={(value) => form.setValue("content", value)}
+                        containerClassName="min-h-full border border-red-500"
+                    />
 
-                <section className="flex gap-4 justify-end">
-                    <AppForm.Cancel action={() => router.push(`/cms/blogs`)}>Cancel</AppForm.Cancel>
-                    <AppForm.Submit>Save Changes</AppForm.Submit>
-                </section>
-            </form>
-        </AppForm>
+                </form>
+            </AppForm>
+        </section>
     )
 }
+
