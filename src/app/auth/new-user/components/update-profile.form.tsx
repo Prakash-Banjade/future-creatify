@@ -11,6 +11,7 @@ import { CldImage, CldUploadWidget } from 'next-cloudinary'
 import { Camera, User, X } from 'lucide-react'
 import { Card, CardContent } from '@/components/ui/card'
 import { updateProfileFormSchema, UpdateProfileFormSchemaType } from '@/schemas/updateProfile-form.schema'
+import { CLOUDINARY_SIGNATURE_ENDPOINT } from '@/CONSTANTS'
 
 export const UpdateProfileForm = ({ defaultValues }: { defaultValues?: UpdateProfileFormSchemaType }) => {
     const router = useRouter();
@@ -94,12 +95,11 @@ export const UpdateProfileForm = ({ defaultValues }: { defaultValues?: UpdatePro
                                     </div>
 
                                     <CldUploadWidget
-                                        signatureEndpoint="/api/sign-cloudinary-params"
+                                        signatureEndpoint={CLOUDINARY_SIGNATURE_ENDPOINT}
                                         onSuccess={(result) => {
                                             console.log(result.info)
                                             if (typeof result.info === "object" && "secure_url" in result.info) {
                                                 field.onChange(result.info.public_id);
-                                                // widget.close();
                                             }
                                         }}
                                         options={{
@@ -108,9 +108,6 @@ export const UpdateProfileForm = ({ defaultValues }: { defaultValues?: UpdatePro
                                             maxFileSize: 2 * 1024 * 1024, // 2MB
                                             folder: "profile-images",
                                             tags: ["profile-image"],
-                                        }}
-                                        onQueuesEnd={() => {
-                                            // widget.close();
                                         }}
                                     >
                                         {({ open }) => {

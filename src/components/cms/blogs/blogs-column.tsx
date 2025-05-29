@@ -2,7 +2,7 @@
 
 import { TBlog } from "@/schemas/blog.schema"
 import { ColumnDef } from "@tanstack/react-table"
-import { Globe, GlobeLock, MoreHorizontal, SquarePen, Trash } from "lucide-react"
+import { MoreHorizontal, SquarePen, Trash } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -22,6 +22,10 @@ import { deleteBlog } from "@/lib/actions/blogs.action"
 
 export const blogsColumns: ColumnDef<TBlog>[] = [
     {
+        header: "S.N",
+        cell: ({ row }) => <p className="text-14 font-medium"> {row.index + 1} </p>,
+    },
+    {
         accessorKey: "title",
         header: "Title",
     },
@@ -35,10 +39,10 @@ export const blogsColumns: ColumnDef<TBlog>[] = [
     },
     {
         accessorKey: "publishedAt",
-        header: "Published At",
+        header: "Last Published At",
         cell: ({ row }) => {
             const publishedAt = row.original.publishedAt;
-            return publishedAt ? new Date(publishedAt).toLocaleDateString() : <span className="text-destructive">Not Published</span>;
+            return publishedAt ? new Date(publishedAt).toLocaleString() : <span className="text-destructive">Not Published</span>;
         }
     },
     {
@@ -89,19 +93,6 @@ export const blogsColumns: ColumnDef<TBlog>[] = [
                         <DropdownMenuContent align="end">
                             <DropdownMenuLabel>Actions</DropdownMenuLabel>
                             <DropdownMenuSeparator />
-                            {
-                                blog.publishedAt ? (
-                                    <DropdownMenuItem>
-                                        <GlobeLock />
-                                        Unpublish
-                                    </DropdownMenuItem>
-                                ) : (
-                                    <DropdownMenuItem>
-                                        <Globe />
-                                        Publish
-                                    </DropdownMenuItem>
-                                )
-                            }
                             <DropdownMenuItem onClick={() => router.push(`/cms/blogs/${blog.id}`)}>
                                 <SquarePen />
                                 Edit

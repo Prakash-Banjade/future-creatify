@@ -9,6 +9,12 @@ type Props = {
 
 export default function BlogsList({ blogs }: Props) {
     return (
-        <DataTable columns={blogsColumns} data={blogs} />
+        <>
+            <DataTable columns={blogsColumns} data={blogs} />
+
+            <section>
+                <span className='text-sm text-muted-foreground'>{blogs.length} Blog(s)</span>
+            </section>
+        </>
     )
 }

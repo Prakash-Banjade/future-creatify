@@ -23,7 +23,6 @@ import Divider from '@yoopta/divider';
 import ActionMenuList, { DefaultActionMenuRender } from '@yoopta/action-menu-list';
 import Toolbar, { DefaultToolbarRender } from '@yoopta/toolbar';
 import LinkTool, { DefaultLinkToolRender } from '@yoopta/link-tool';
-
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { uploadToCloudinary } from '@/lib/cloudinary';
 import { cn } from '@/lib/utils';
@@ -65,6 +64,10 @@ const plugins = [
                     },
                 };
             },
+            maxSizes: {
+                maxWidth: 1000,
+                maxHeight: 1000,
+            },
         },
     }),
     Video.extend({
@@ -83,6 +86,10 @@ const plugins = [
             onUploadPoster: async (file) => {
                 const image = await uploadToCloudinary(file, 'image');
                 return image.secure_url;
+            },
+            maxSizes: {
+                maxWidth: 1000,
+                maxHeight: 1000,
             },
         },
     }),
@@ -155,7 +162,6 @@ export default function FullYooptaEditor({ onChange, value: defaultValue, editor
                 selectionBoxRoot={selectionRef}
                 value={value}
                 onChange={val => setValue(val)}
-                autoFocus
             />
         </div>
     );

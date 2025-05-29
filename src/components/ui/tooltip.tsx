@@ -58,4 +58,23 @@ function TooltipContent({
   )
 }
 
-export { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider }
+const TooltipWrapper = ({
+  children,
+  label,
+  contentClassName
+}: {
+  children: React.ReactNode,
+  label: React.ReactNode,
+  contentClassName?: string,
+}) => {
+  return <TooltipProvider delayDuration={100} disableHoverableContent>
+    <Tooltip>
+      <TooltipTrigger asChild>{children}</TooltipTrigger>
+      <TooltipContent className={contentClassName}>
+        {label}
+      </TooltipContent>
+    </Tooltip>
+  </TooltipProvider>
+}
+
+export { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider, TooltipWrapper }
