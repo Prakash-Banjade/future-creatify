@@ -28,4 +28,5 @@ export type TBlog = {
     coverImage: string | null;
     publishedAt: Date | null;
     keywords: string[];
+    updatedAt: Date;
 }

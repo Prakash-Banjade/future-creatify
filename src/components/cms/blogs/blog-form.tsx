@@ -69,7 +69,7 @@ export default function BlogForm(props: Props) {
                     <textarea
                         autoFocus
                         placeholder="Title"
-                        className="field-sizing-content overflow-y-hidden resize-none text-4xl xl:text-5xl font-extrabold text-slate-800 w-full focus-visible:outline-0"
+                        className="field-sizing-content overflow-y-hidden py-3 resize-none text-4xl xl:text-5xl font-extrabold text-slate-800 w-full focus-visible:outline-0"
                         {...form.register("title")}
                     />
 
