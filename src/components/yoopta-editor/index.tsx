@@ -118,21 +118,27 @@ interface Props {
     onChange: (value: YooptaContentValue) => void;
     editorClassName?: string
     containerClassName?: string
+    setLength?: (length: number) => void;
 }
 
-export default function FullYooptaEditor({ onChange, value: defaultValue, editorClassName, containerClassName }: Props) {
+export default function FullYooptaEditor({ onChange, value: defaultValue, editorClassName, containerClassName, setLength }: Props) {
     const [value, setValue] = useState(defaultValue);
     const editor = useMemo(() => createYooptaEditor(), []);
     const selectionRef = useRef(null);
 
     // debounce
     useEffect(() => {
+        if (setLength) {
+            const plaintext = editor.getPlainText(value).trim();
+            setLength(plaintext.length);
+        }
+
         const handler = setTimeout(() => {
             onChange(value);
         }, 500);
 
         return () => clearTimeout(handler);
-    }, [value, onchange]);
+    }, [value]);
 
     return (
         <div

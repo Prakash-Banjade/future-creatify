@@ -4,11 +4,12 @@ import AppForm from "@/components/forms/app-form"
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { useEffect, useTransition } from "react";
+import { useEffect, useState, useTransition } from "react";
 import FullYooptaEditor from "@/components/yoopta-editor";
 import { blogSchema, blogSchemaType } from "@/schemas/blog.schema";
 import { toast } from "sonner";
 import { updateBlog } from "@/lib/actions/blogs.action";
+import { Badge } from "@/components/ui/badge";
 
 type Props = {
     blogId: string;
@@ -17,28 +18,22 @@ type Props = {
 
 export default function BlogForm(props: Props) {
     const [isPending, startTransition] = useTransition();
+    const [editorState, setEditorState] = useState({
+        chars: 0,
+    });
 
     const form = useForm<blogSchemaType>({
         resolver: zodResolver(blogSchema),
         defaultValues: props.defaultValues,
     });
 
-    // auto save
-    useEffect(() => {
-        const handler = setTimeout(() => {
-            updateBlog(props.blogId, form.getValues());
-            toast.success("Blog updated");
-        }, 500);
-
-        return () => clearTimeout(handler);
-    }, [form.watch()]);
-
-    async function onSubmit(values: blogSchemaType) {
+    function update(values: blogSchemaType = form.getValues()) {
         startTransition(async () => {
             try {
-                await updateBlog(props.blogId, values);
-
-                toast.success("Blog updated");
+                await updateBlog(props.blogId, {
+                    ...values,
+                    title: values.title?.length ? values.title : "Untitled",
+                });
             } catch (e) {
                 if (e instanceof Error) {
                     toast.error("Unexpected Error", {
@@ -51,11 +46,26 @@ export default function BlogForm(props: Props) {
         })
     }
 
+    const title = form.watch("title");
+    const content = form.watch("content");
+
+    // auto save
+    useEffect(() => {
+        const handler = setTimeout(() => {
+            update();
+        }, 500);
+
+        return () => clearTimeout(handler);
+    }, [title, content]);
+
+    async function onSubmit(values: blogSchemaType) {
+        update(values);
+    }
+
     return (
         <section className="max-w-[1000px] mx-auto min-h-[calc(100vh-128px)]">
             <AppForm schema={blogSchema} form={form}>
-                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 h-full">
-                    {isPending && <p className="text-center">Saving...</p>}
+                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2 h-full">
                     <textarea
                         autoFocus
                         placeholder="Title"
@@ -63,10 +73,28 @@ export default function BlogForm(props: Props) {
                         {...form.register("title")}
                     />
 
+                    <section className="flex justify-end gap-1">
+                        <Badge variant={"secondary"}>
+                            {
+                                isPending ? "Saving..." : "Saved"
+                            }
+                        </Badge>
+
+                        <Badge variant={"secondary"}>
+                            {editorState.chars} chars
+                        </Badge>
+                    </section>
+
                     <FullYooptaEditor
                         value={form.watch("content")}
                         onChange={(value) => form.setValue("content", value)}
-                        containerClassName="min-h-full border border-red-500"
+                        containerClassName="min-h-full"
+                        setLength={(length) => {
+                            setEditorState(prevState => ({
+                                ...prevState,
+                                chars: length
+                            }))
+                        }}
                     />
 
                 </form>
