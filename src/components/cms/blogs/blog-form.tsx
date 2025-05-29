@@ -77,6 +77,7 @@ export default function BlogForm(props: Props) {
     function onFavoutiteChange() {
         update({
             isFavourite: !isFavourite,
+            title: props.defaultValues.title, // need to send title as well 
         });
 
         form.setValue("isFavourite", !isFavourite);
@@ -89,7 +90,7 @@ export default function BlogForm(props: Props) {
                     <TooltipWrapper
                         label={isFavourite ? "Remove from favourites" : "Add to favourites"}
                     >
-                        <Button size={'icon'} variant={'ghost'} onClick={onFavoutiteChange}>
+                        <Button type="button" size={'icon'} variant={'ghost'} onClick={onFavoutiteChange}>
                             <Star className={cn(isFavourite && "text-orange-400 fill-orange-400")} />
                         </Button>
                     </TooltipWrapper>

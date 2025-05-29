@@ -99,7 +99,7 @@ export const UpdateProfileForm = ({ defaultValues }: { defaultValues?: UpdatePro
                                         onSuccess={(result) => {
                                             console.log(result.info)
                                             if (typeof result.info === "object" && "secure_url" in result.info) {
-                                                field.onChange(result.info.public_id);
+                                                field.onChange(result.info.secure_url);
                                             }
                                         }}
                                         options={{

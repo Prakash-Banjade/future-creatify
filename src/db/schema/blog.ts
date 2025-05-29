@@ -11,7 +11,7 @@ export const blogs = pgTable(
         title: text("title").default("Untitled").notNull(),
         content: jsonb("content").default({}).$type<YooptaContentValue>().notNull(),
         summary: text("summary").default("").notNull(),
-        slug: text("slug").unique(),
+        slug: text("slug").unique().notNull(),
         coverImage: text("coverImage"),
         updatedAt: timestamp({ mode: 'date', precision: 3 }).$onUpdate(() => new Date()).notNull().default(new Date()),
         publishedAt: timestamp("publishedAt", { mode: "date" }),

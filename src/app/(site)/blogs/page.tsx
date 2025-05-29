@@ -1,16 +1,17 @@
+import { BlogsPageProps } from '@/app/cms/blogs/page';
 import BlogCard from '@/components/site/blogs/blog-card';
+import BlogsContainer from '@/components/site/blogs/blogs-container';
 import HeroWrapper from '@/components/site/hero-wrapper';
 import { blogPosts } from '@/data/blogs-data';
 import { Search } from 'lucide-react';
 import { Metadata } from 'next';
-import React from 'react'
 
 export const metadata: Metadata = {
     title: "Blogs",
     description: "Explore our collection of articles, guides, and resources designed to inspire and empower educators on their teaching journey.",
 }
 
-export default function BlogsPage() {
+export default async function BlogsPage({ searchParams }: { searchParams: Promise<BlogsPageProps["searchParams"]> }) {
     const categories = ['All', ...new Set(blogPosts.map(blog => blog.category))];
 
     return (
@@ -35,7 +36,7 @@ export default function BlogsPage() {
             </section >
 
             {/* Blogs Section */}
-            <section className="section bg-white" >
+            <section className="section bg-white">
                 <div className="container">
                     {/* Search and Filter */}
                     <div className="mb-12">
@@ -70,9 +71,7 @@ export default function BlogsPage() {
 
                     {/* Blog Posts Stack */}
                     <div className="space-y-8">
-                        {blogPosts.map((blog, index) => (
-                            <BlogCard key={blog.id} blog={blog} index={index} />
-                        ))}
+                        <BlogsContainer searchParams={searchParams} />
                     </div>
 
                     {/* <div className="text-center py-12">

@@ -42,3 +42,7 @@ export type TBlog = {
     updatedAt: Date;
     isFavourite: boolean;
 }
+
+export type TBlogsResponse = Pick<TBlog, "id" | "title" | "slug" | "updatedAt" | "publishedAt" | "isFavourite">[];
+
+export type TBlogsResponse_Public = Pick<TBlog, "id" | "title" | "slug" | "summary" | "publishedAt" | "keywords" | "coverImage">[]

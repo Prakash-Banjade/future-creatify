@@ -6,7 +6,7 @@ import { blogSchema, blogSchemaType, blogSummarySchema } from "@/schemas/blog.sc
 import { eq } from "drizzle-orm";
 import checkAuth from "../check-auth";
 import { revalidatePath } from "next/cache";
-import { throwZodErrorMsg } from "../utils";
+import { generateSlug, throwZodErrorMsg } from "../utils";
 
 export async function createBlog(values: blogSchemaType) {
     await checkAuth();
@@ -15,7 +15,7 @@ export async function createBlog(values: blogSchemaType) {
 
     if (!success) throwZodErrorMsg(error);
 
-    const inserted = await db.insert(blogs).values(data).returning({ id: blogs.id });
+    const inserted = await db.insert(blogs).values({ ...data, slug: generateSlug(data.title) }).returning({ id: blogs.id });
 
     if (inserted.length === 0) throw new Error("Failed to create blog");
 
@@ -25,15 +25,22 @@ export async function createBlog(values: blogSchemaType) {
 export async function updateBlog(id: string, values: Partial<blogSchemaType>) {
     await checkAuth();
 
-    console.log(values, 1)
-
     const { success, data, error } = blogSchema.partial().safeParse(values);
-
-    console.log(data, 2)
 
     if (!success) throwZodErrorMsg(error);
 
-    await db.update(blogs).set(data).where(eq(blogs.id, id));
+    const existing = await db.select({ title: blogs.title, slug: blogs.slug })
+        .from(blogs).where(eq(blogs.id, id)).limit(1);
+
+    if (existing.length === 0) throw new Error("Blog not found");
+
+    let slug = existing[0].slug;
+
+    if (data.title && (data.title !== existing[0].title || !slug)) {
+        slug = generateSlug(data.title);
+    }
+
+    await db.update(blogs).set({ ...data, slug }).where(eq(blogs.id, id));
 
     revalidatePath(`/cms/blogs`);
 }

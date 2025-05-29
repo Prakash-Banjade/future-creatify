@@ -1,8 +1,8 @@
 "use client"
 
-import { TBlog } from "@/schemas/blog.schema"
+import { TBlog, TBlogsResponse } from "@/schemas/blog.schema"
 import { ColumnDef } from "@tanstack/react-table"
-import { MoreHorizontal, SquarePen, Trash } from "lucide-react"
+import { MoreHorizontal, SquarePen, Star, Trash } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -20,7 +20,7 @@ import { ResponsiveAlertDialog } from "@/components/ui/responsive-alert-dialog"
 import { toast } from "sonner"
 import { deleteBlog } from "@/lib/actions/blogs.action"
 
-export const blogsColumns: ColumnDef<TBlog>[] = [
+export const blogsColumns: ColumnDef<TBlogsResponse[0]>[] = [
     {
         header: "S.N",
         cell: ({ row }) => <p className="text-14 font-medium"> {row.index + 1} </p>,
@@ -28,6 +28,14 @@ export const blogsColumns: ColumnDef<TBlog>[] = [
     {
         accessorKey: "title",
         header: "Title",
+        cell: ({ row }) => {
+            return (
+                <div className="flex gap-1 items-center">
+                    <span>{row.original.title}</span>
+                    {row.original.isFavourite && <Star size={16} className="text-orange-400 fill-orange-400" />}
+                </div>
+            )
+        }
     },
     {
         accessorKey: "updatedAt",

@@ -2,10 +2,10 @@
 
 import { motion } from 'framer-motion';
 import BlogCardContent from './blog-card-content';
-import { TBlog } from '../../../../types/blogs.type';
+import { TBlogsResponse_Public } from '@/schemas/blog.schema';
 
 export interface BlogCardProps {
-    blog: TBlog;
+    blog: TBlogsResponse_Public[0]
     index: number;
 }
 
