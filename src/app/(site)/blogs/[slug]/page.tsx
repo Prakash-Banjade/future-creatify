@@ -21,6 +21,7 @@ export async function generateMetadata(props: { params: Promise<Props["params"]>
     return {
         title: blog?.title,
         description: blog?.summary || 'Read our latest blog post on educational insights and resources.',
+        keywords: blog?.keywords || [],
     };
 }
 

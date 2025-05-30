@@ -24,6 +24,6 @@ export default async function BlogEditPage(props: { params: Promise<Props["param
     const blog = foundBlogs[0];
 
     return (
-        <BlogForm blogId={blog.id} defaultValues={blog} />
+        <BlogForm defaultValues={blog} />
     )
 }

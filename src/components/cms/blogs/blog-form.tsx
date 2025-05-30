@@ -4,7 +4,7 @@ import AppForm from "@/components/forms/app-form"
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { useEffect, useState, useTransition } from "react";
+import { useEffect, useTransition } from "react";
 import FullYooptaEditor from "@/components/yoopta-editor";
 import { blogSchema, blogSchemaType, TBlog } from "@/schemas/blog.schema";
 import { toast } from "sonner";
@@ -21,15 +21,11 @@ import AddKeywordsBtn from "./add-keywords-btn";
 import CoverImageUploadBtn from "./cover-image-upload-btn";
 
 type Props = {
-    blogId: string;
     defaultValues: TBlog;
 }
 
 export default function BlogForm(props: Props) {
     const [isPending, startTransition] = useTransition();
-    const [editorState, setEditorState] = useState({
-        chars: 0,
-    });
 
     const form = useForm<blogSchemaType>({
         resolver: zodResolver(blogSchema),
@@ -39,7 +35,7 @@ export default function BlogForm(props: Props) {
     function update(values: Partial<blogSchemaType> = form.getValues()) {
         startTransition(async () => {
             try {
-                await updateBlog(props.blogId, {
+                await updateBlog(props.defaultValues.id, {
                     ...values,
                     title: values.title?.length ? values.title : "Untitled",
                 });
@@ -110,9 +106,7 @@ export default function BlogForm(props: Props) {
                     </TooltipWrapper>
 
                     <PublishButton
-                        blogId={props.blogId}
-                        summary={props.defaultValues.summary}
-                        publishedAt={props.defaultValues.publishedAt}
+                        blog={props.defaultValues}
                     />
                 </section>
                 {
@@ -141,11 +135,11 @@ export default function BlogForm(props: Props) {
                 }
 
                 <section className="flex mt-1">
-                    <CoverImageUploadBtn blogId={props.blogId} title={title} coverImage={props.defaultValues.coverImage} />
+                    <CoverImageUploadBtn blogId={props.defaultValues.id} title={title} coverImage={props.defaultValues.coverImage} />
 
-                    <AddSummaryButton blogId={props.blogId} summary={props.defaultValues.summary} />
+                    <AddSummaryButton blogId={props.defaultValues.id} summary={props.defaultValues.summary} />
 
-                    <AddKeywordsBtn blogId={props.blogId} keywords={props.defaultValues.keywords} />
+                    <AddKeywordsBtn blogId={props.defaultValues.id} keywords={props.defaultValues.keywords} />
                 </section>
 
                 <AppForm schema={blogSchema} form={form}>
@@ -165,7 +159,7 @@ export default function BlogForm(props: Props) {
                             </Badge>
 
                             <Badge variant={"secondary"}>
-                                {editorState.chars} chars
+                                {form.getValues('length')} chars
                             </Badge>
                         </section>
 
@@ -174,10 +168,7 @@ export default function BlogForm(props: Props) {
                             onChange={(value) => form.setValue("content", value)}
                             containerClassName="min-h-full"
                             setLength={(length) => {
-                                setEditorState(prevState => ({
-                                    ...prevState,
-                                    chars: length
-                                }))
+                                form.setValue("length", length);
                             }}
                         />
 

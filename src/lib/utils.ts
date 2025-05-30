@@ -19,7 +19,15 @@ export function throwZodErrorMsg(error: ZodError): never { // if this function g
 }
 
 export function showServerError(e: unknown) {
-  if (e instanceof Error) {
+  if (e instanceof ZodError) {
+    const msg = JSON.parse(e.message);
+
+    if (Array.isArray(msg)) {
+      return toast.error(msg[0]?.message);
+    }
+
+    toast.error(e.message)
+  } else if (e instanceof Error) {
     toast.error("Unexpected Error", {
       description: e.message,
     });

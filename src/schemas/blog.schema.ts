@@ -16,6 +16,7 @@ export const blogSchema = z.object({
     keywords: blogKeywordsSchema,
     isFavourite: z.boolean(),
     publishedAt: z.date().nullish(),
+    length: z.number().min(0),
 });
 
 export type blogSchemaType = z.infer<typeof blogSchema>;
@@ -28,6 +29,7 @@ export const blogFormDefaultValues: blogSchemaType = {
     keywords: [],
     isFavourite: false,
     publishedAt: null,
+    length: 0,
 }
 
 export type TBlog = {
@@ -41,6 +43,7 @@ export type TBlog = {
     keywords: string[];
     updatedAt: Date;
     isFavourite: boolean;
+    length: number;
 }
 
 export type TBlogsResponse = Pick<TBlog, "id" | "title" | "slug" | "updatedAt" | "publishedAt" | "isFavourite">[];

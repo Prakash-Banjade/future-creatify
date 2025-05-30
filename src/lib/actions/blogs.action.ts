@@ -53,16 +53,11 @@ export async function deleteBlog(id: string) {
     revalidatePath(`/cms/blogs`);
 }
 
-export async function publishBlog({ id, summary }: { id: string, summary: string }) {
+export async function publishBlog({ id }: { id: string }) {
     await checkAuth('admin');
-
-    const { success, data, error } = blogSummarySchema.safeParse(summary);
-
-    if (!success) throwZodErrorMsg(error);
 
     await db.update(blogs)
         .set({
-            summary: data,
             publishedAt: new Date(),
         })
         .where(eq(blogs.id, id));

@@ -1,6 +1,6 @@
 import { YooptaContentValue } from "@yoopta/editor";
 import { sql } from "drizzle-orm";
-import { boolean, index, jsonb, pgTable, text, timestamp, uniqueIndex } from "drizzle-orm/pg-core";
+import { boolean, index, integer, jsonb, pgTable, text, timestamp, uniqueIndex } from "drizzle-orm/pg-core";
 
 export const blogs = pgTable(
     "blogs",
@@ -16,6 +16,7 @@ export const blogs = pgTable(
         updatedAt: timestamp({ mode: 'date', precision: 3 }).$onUpdate(() => new Date()).notNull().default(new Date()),
         publishedAt: timestamp("publishedAt", { mode: "date" }),
         isFavourite: boolean("isFavourite").default(false).notNull(),
+        length: integer("length").default(0).notNull(),
         keywords: text("keywords").array().default(sql`ARRAY[]::text[]`).notNull(),
     },
     (table) => [
