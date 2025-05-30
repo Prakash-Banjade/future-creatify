@@ -3,6 +3,7 @@ import BlogsContainer from '@/components/site/blogs/blogs-container';
 import BlogsSearchFilters_Public from '@/components/site/blogs/blogs-search-filters';
 import HeroWrapper from '@/components/site/hero-wrapper';
 import { Metadata } from 'next';
+import { Suspense } from 'react';
 
 export const metadata: Metadata = {
     title: "Blogs",
@@ -35,7 +36,9 @@ export default async function BlogsPage({ searchParams }: { searchParams: Promis
             <section className="section bg-white">
                 <div className="container">
                     {/* Search and Filter */}
-                    <BlogsSearchFilters_Public />
+                    <Suspense fallback={<div>Loading...</div>}>
+                        <BlogsSearchFilters_Public />
+                    </Suspense>
 
                     {/* Blog Posts Stack */}
                     <div className="space-y-8">

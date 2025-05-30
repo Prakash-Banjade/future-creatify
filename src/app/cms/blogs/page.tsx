@@ -1,9 +1,7 @@
 import BlogsList from '@/components/cms/blogs/blogs-list'
 import NewBlogButton from '@/components/cms/blogs/new-blog-btn'
 import ContainerLayout from '@/components/cms/container-layout'
-import { db } from '@/db'
-import { blogs } from '@/db/schema/blog'
-import { and, desc, eq, ilike, isNull, not, SQL } from 'drizzle-orm'
+import { Suspense } from 'react'
 
 export type BlogsPageProps = {
     searchParams: {
@@ -15,28 +13,8 @@ export type BlogsPageProps = {
     }
 }
 
-export default async function BlogsPage({ searchParams }: { searchParams: Promise<BlogsPageProps["searchParams"]> }) {
-    const { published, q, favourite } = await searchParams;
-
-    const filters: SQL[] = [];
-
-    if (q) filters.push(ilike(blogs.title, `%${q}%`));
-    if (published === "true") filters.push(not(isNull(blogs.publishedAt)));
-    if (published === "false") filters.push(isNull(blogs.publishedAt));
-    if (favourite === "true") filters.push(eq(blogs.isFavourite, true));
-
-    const foundBlogs = await db
-        .select({
-            id: blogs.id,
-            title: blogs.title,
-            slug: blogs.slug,
-            publishedAt: blogs.publishedAt,
-            updatedAt: blogs.updatedAt,
-            isFavourite: blogs.isFavourite,
-        })
-        .from(blogs)
-        .where(and(...filters))
-        .orderBy(desc(blogs.updatedAt));
+export default async function BlogsPage(props: { searchParams: Promise<BlogsPageProps["searchParams"]> }) {
+    const searchParams = await props.searchParams;
 
     return (
         <ContainerLayout
@@ -46,7 +24,9 @@ export default async function BlogsPage({ searchParams }: { searchParams: Promis
                 <NewBlogButton />
             }
         >
-            <BlogsList blogs={foundBlogs ?? []} />
+            <Suspense fallback={<div>Loading...</div>}>
+                <BlogsList searchParams={searchParams} />
+            </Suspense>
         </ContainerLayout>
     )
 }
