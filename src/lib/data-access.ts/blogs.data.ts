@@ -19,7 +19,8 @@ export const getBlogs_Public = cache(async (searchParams: BlogsPageProps["search
             summary: blogs.summary,
             publishedAt: blogs.publishedAt,
             keywords: blogs.keywords,
-            coverImage: blogs.coverImage
+            coverImage: blogs.coverImage,
+            length: blogs.length
         })
         .from(blogs)
         .where(and(...filters, not(isNull(blogs.publishedAt)))) // ensure blogs are published
@@ -38,7 +39,8 @@ export const getBlogBySlug_Public = cache(async (slug: string) => {
             content: blogs.content,
             publishedAt: blogs.publishedAt,
             keywords: blogs.keywords,
-            coverImage: blogs.coverImage
+            coverImage: blogs.coverImage,
+            length: blogs.length
         })
         .from(blogs)
         .where(and(eq(blogs.slug, slug), not(isNull(blogs.publishedAt))))

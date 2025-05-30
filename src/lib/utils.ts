@@ -90,3 +90,14 @@ export async function getBlurDataUrl(src: string | null, width: number = 100): P
 
   return dataUrl;
 }
+
+/**
+ * Calculates estimated reading time in minutes based on number of characters.
+ * @param characters - Total number of characters in the text.
+ * @param charsPerMinute - Average number of characters read per minute (default 1000).
+ * @returns Estimated reading time in minutes (rounded up).
+ */
+export function getReadingTimeInMinutes(characters: number, charsPerMinute: number = 1000): number {
+  if (characters <= 0) return 0;
+  return Math.ceil(characters / charsPerMinute);
+}

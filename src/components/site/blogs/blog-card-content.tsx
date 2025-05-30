@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { format } from 'date-fns'
 import { TBlogsResponse_Public } from '@/schemas/blog.schema'
 import CloudinaryImage from '@/components/ui/cloudinary-image'
+import { getReadingTimeInMinutes } from '@/lib/utils'
 
 type Props = {
     blog: TBlogsResponse_Public[0]
@@ -43,20 +44,28 @@ export default async function BlogCardContent({ blog, imgHeight = 500 }: Props) 
                             <h3 className="text-xl font-bold mb-3 w-fit">{blog.title}</h3>
                         </Link>
 
-                        <div className="flex items-center text-sm text-slate-500 mb-3">
-                            <div className="flex items-center mr-4">
-                                <Calendar size={14} className="mr-1" />
-                                {
-                                    blog.publishedAt && (
-                                        <span>{format(blog.publishedAt, "EEE MMM dd, yyy")}</span>
-                                    )
-                                }
+                        <section className='text-sm text-slate-500 mb-3 space-y-2'>
+                            <div className="flex items-center">
+                                <div className="flex items-center mr-4">
+                                    <Calendar size={14} className="mr-1" />
+                                    {
+                                        blog.publishedAt && (
+                                            <span>{format(blog.publishedAt, "EEE MMM dd, yyy")}</span>
+                                        )
+                                    }
+                                </div>
+                                <div>
+                                    <span className="mr-4">|</span>
+                                    <span>{getReadingTimeInMinutes(blog.length)} minutes read</span>
+                                </div>
                             </div>
+
+
                             <div className="flex items-center">
                                 <User size={14} className="mr-1" />
                                 <span>Anju Chhetri</span>
                             </div>
-                        </div>
+                        </section>
 
                         <p className="text-slate-600 mb-4 line-clamp-3 max-w-5xl">{blog.summary}</p>
 
