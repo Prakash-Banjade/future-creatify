@@ -11,10 +11,14 @@ type Props = {
     label?: string;
     placeholder?: string;
     searchKey?: string;
-    className?: string;
+    className?: {
+        container?: string;
+        input?: string;
+    }
+    showIcon?: boolean;
 }
 
-export default function SearchInput({ label, placeholder, searchKey = "q", className }: Props) {
+export default function SearchInput({ label, placeholder, searchKey = "q", className, showIcon = true }: Props) {
     const { searchParams, setSearchParams } = useCustomSearchParams();
     const [searchTerm, setSearchTerm] = useState<string>(searchParams.get(searchKey) || '');
 
@@ -31,28 +35,32 @@ export default function SearchInput({ label, placeholder, searchKey = "q", class
     };
 
     return !!label ? (
-        <div className="space-y-2">
+        <div className={cn("space-y-2", className?.container)}>
             <Label htmlFor="search">{label ?? "Search"}</Label>
-            <section className="relative flex items-center">
-                <Search className="absolute left-3 text-muted-foreground" size={16} />
+            <section className="relative flex items-center w-full">
+                {
+                    showIcon && <Search className="absolute left-3 text-muted-foreground" size={16} />
+                }
                 <Input
                     type="search"
                     placeholder={placeholder ?? "Search..."}
                     value={searchTerm}
                     onChange={handleInputChange}
-                    className={cn("min-w-[300px] !pl-9", className)}
+                    className={cn("min-w-[300px]", showIcon && "!pl-9", className?.input)}
                 />
             </section>
         </div>
     ) : (
-        <section className="relative flex items-center">
-            <Search className="absolute left-3 text-muted-foreground" size={16} />
+        <section className={cn("relative flex items-center", className?.container)}>
+            {
+                showIcon && <Search className="absolute left-3 text-muted-foreground" size={16} />
+            }
             <Input
                 type="search"
                 placeholder={placeholder ?? "Search..."}
                 value={searchTerm}
                 onChange={handleInputChange}
-                className={cn("min-w-[300px] !pl-9", className)}
+                className={cn("min-w-[300px]", showIcon && "!pl-9", className?.input)}
             />
         </section>
     )

@@ -1,6 +1,6 @@
 "use client"
 
-import { TBlog, TBlogsResponse } from "@/schemas/blog.schema"
+import { TBlogsResponse } from "@/schemas/blog.schema"
 import { ColumnDef } from "@tanstack/react-table"
 import { MoreHorizontal, SquarePen, Star, Trash } from "lucide-react"
 
@@ -32,7 +32,11 @@ export const blogsColumns: ColumnDef<TBlogsResponse[0]>[] = [
             return (
                 <div className="flex gap-1 items-center">
                     <span>{row.original.title}</span>
-                    {row.original.isFavourite && <Star size={16} className="text-orange-400 fill-orange-400" />}
+                    {row.original.isFavourite && (
+                        <span title="Favourite">
+                            <Star size={16} className="text-orange-400 fill-orange-400" />
+                        </span>
+                    )}
                 </div>
             )
         }

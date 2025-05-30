@@ -2,6 +2,7 @@ import { clsx, type ClassValue } from "clsx"
 import { toast } from "sonner";
 import { twMerge } from "tailwind-merge"
 import { ZodError } from "zod";
+import { getCldImageUrl } from 'next-cloudinary';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
@@ -64,4 +65,20 @@ export function generateUniqueId(size: number = 21): string {
   }
 
   return id;
+}
+
+export async function getBlurDataUrl(src: string | null, width: number = 100): Promise<string> {
+  if (!src) return '';
+
+  const imageUrl = getCldImageUrl({
+    src,
+    width,
+  });
+  const response = await fetch(imageUrl);
+  const arrayBuffer = await response.arrayBuffer();
+  const buffer = Buffer.from(arrayBuffer);
+  const base64 = buffer.toString("base64");
+  const dataUrl = `data:${response.type};base64,${base64}`;
+
+  return dataUrl;
 }

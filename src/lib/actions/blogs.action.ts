@@ -9,7 +9,7 @@ import { revalidatePath } from "next/cache";
 import { generateSlug, throwZodErrorMsg } from "../utils";
 
 export async function createBlog(values: blogSchemaType) {
-    await checkAuth();
+    await checkAuth('admin');
 
     const { success, data, error } = blogSchema.safeParse(values);
 
@@ -23,7 +23,7 @@ export async function createBlog(values: blogSchemaType) {
 }
 
 export async function updateBlog(id: string, values: Partial<blogSchemaType>) {
-    await checkAuth();
+    await checkAuth('admin');
 
     const { success, data, error } = blogSchema.partial().safeParse(values);
 
@@ -46,7 +46,7 @@ export async function updateBlog(id: string, values: Partial<blogSchemaType>) {
 }
 
 export async function deleteBlog(id: string) {
-    await checkAuth();
+    await checkAuth('admin');
 
     await db.delete(blogs).where(eq(blogs.id, id));
 
@@ -54,7 +54,7 @@ export async function deleteBlog(id: string) {
 }
 
 export async function publishBlog({ id, summary }: { id: string, summary: string }) {
-    await checkAuth();
+    await checkAuth('admin');
 
     const { success, data, error } = blogSummarySchema.safeParse(summary);
 
@@ -71,7 +71,7 @@ export async function publishBlog({ id, summary }: { id: string, summary: string
 }
 
 export async function unpublishBlog(id: string) {
-    await checkAuth();
+    await checkAuth('admin');
 
     await db.update(blogs).set({ publishedAt: null }).where(eq(blogs.id, id));
 

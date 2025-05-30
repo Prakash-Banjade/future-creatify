@@ -1,15 +1,14 @@
-import BlogCard from "@/components/site/blogs/blog-card";
 import ContactForm from "@/components/site/contact-form";
 import ContactFormWrapper from "@/components/site/home/contact-form-wrapper";
 import GetInTouchWrapper from "@/components/site/home/get-in-touch-wrapper";
 import HeroLeftWrapper from "@/components/site/home/hero-left-wrapper";
 import HeroRightWrapper from "@/components/site/home/hero-right-wrapper";
 import MissionCardWrapper from "@/components/site/home/mission-card-wrapper";
+import RecentBlogs from "@/components/site/home/recent-blogs";
 import SiteLayout from "@/components/site/site-layout";
 import TestimonialCard from "@/components/site/testimonials/testimonial-card";
 import { Button, LinkButton } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { featuredBlogs } from "@/data/blogs-data";
 import { testimonials } from "@/data/testimonialData";
 import { ArrowRight, BookOpen, Calendar, Mail, MapPin, Users } from "lucide-react";
 import Link from "next/link";
@@ -120,7 +119,7 @@ export default function Page() {
               }
             ].map((item, index) => (
               <MissionCardWrapper index={index + 1} key={index}>
-                <Card className="gap-1 hover:shadow-2xs transition-all">  
+                <Card className="gap-1 hover:shadow-2xs transition-all">
                   <CardHeader className="!pb-0">
                     <span className="mb-4">{item.icon}</span>
                     <h3 className="text-2xl font-bold mb-3">{item.title}</h3>
@@ -150,13 +149,7 @@ export default function Page() {
             </LinkButton>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 staggered-fade-in">
-            {
-              featuredBlogs.map((blog, index) => (
-                <BlogCard key={blog.id} blog={blog} index={index} />
-              ))
-            }
-          </div>
+          <RecentBlogs />
         </div>
       </section>
 

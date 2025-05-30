@@ -1,18 +1,17 @@
-import React from 'react'
-import { BlogCardProps } from './blog-card'
 import { Calendar, User } from 'lucide-react'
 import { LinkButton } from '@/components/ui/button'
-import Image from 'next/image'
 import { Badge } from '@/components/ui/badge'
 import Link from 'next/link'
 import { format } from 'date-fns'
-import { CldImage } from 'next-cloudinary'
+import { TBlogsResponse_Public } from '@/schemas/blog.schema'
+import CloudinaryImage from '@/components/ui/cloudinary-image'
 
 type Props = {
-    blog: BlogCardProps["blog"]
+    blog: TBlogsResponse_Public[0]
+    imgHeight?: number, // this is used to control the height of the image based on the blog card layout
 }
 
-export default function BlogCardContent({ blog }: Props) {
+export default async function BlogCardContent({ blog, imgHeight = 500 }: Props) {
     return (
         <article className="@container">
             <div className='card'>
@@ -20,23 +19,15 @@ export default function BlogCardContent({ blog }: Props) {
                     <div className='@2xl:rounded-l-xl @2xl:rounded-tr-none rounded-t-xl overflow-hidden'>
                         {
                             blog.coverImage ? (
-                                <CldImage
-                                    width="600"
-                                    height="400"
+                                <CloudinaryImage
+                                    width={600}
+                                    height={imgHeight}
                                     src={blog.coverImage}
-                                    sizes="600px"
+                                    sizes="400px"
                                     alt="Blog Cover Image"
-                                    title="Blog Cover Image"
-                                    crop={"auto"}
-                                    className="max-h-[300px]"
+                                    crop='auto'
+                                    className='w-full h-full'
                                 />
-                                // <Image
-                                //     src={blog.coverImage}
-                                //     alt={blog.title}
-                                //     width={600}
-                                //     height={400}
-                                //     className="w-full max-h-[300px] object-cover"
-                                // />
                             ) : (
                                 <></>
                             )
@@ -48,8 +39,8 @@ export default function BlogCardContent({ blog }: Props) {
                             General
                         </Badge>
 
-                        <Link href={`/blogs/${blog.id}`} className='hover:underline decoration-primary decoration-2'>
-                            <h3 className="text-xl font-bold mb-3">{blog.title}</h3>
+                        <Link href={`/blogs/${blog.slug}`} className='hover:underline decoration-primary decoration-2'>
+                            <h3 className="text-xl font-bold mb-3 w-fit">{blog.title}</h3>
                         </Link>
 
                         <div className="flex items-center text-sm text-slate-500 mb-3">
@@ -67,9 +58,9 @@ export default function BlogCardContent({ blog }: Props) {
                             </div>
                         </div>
 
-                        <p className="text-slate-600 mb-4">{blog.summary}</p>
+                        <p className="text-slate-600 mb-4 line-clamp-3 max-w-5xl">{blog.summary}</p>
 
-                        <LinkButton href={`/blogs/${blog.id}`} className='text-base'>
+                        <LinkButton href={`/blogs/${blog.slug}`} className='text-base'>
                             Read More
                         </LinkButton>
                     </div>

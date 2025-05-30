@@ -3,18 +3,16 @@
 import AppForm from "@/components/forms/app-form"
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm, useFormContext, UseFormReturn } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { useEffect, useState, useTransition } from "react";
 import FullYooptaEditor from "@/components/yoopta-editor";
 import { blogSchema, blogSchemaType, TBlog } from "@/schemas/blog.schema";
 import { toast } from "sonner";
 import { updateBlog } from "@/lib/actions/blogs.action";
 import { Badge } from "@/components/ui/badge";
-import { CldImage, CldUploadWidget } from "next-cloudinary";
-import { FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
+import { CldImage } from "next-cloudinary";
 import { Button } from "@/components/ui/button";
-import { ImagePlus, PenLine, Star } from "lucide-react";
-import { CLOUDINARY_SIGNATURE_ENDPOINT } from "@/CONSTANTS";
+import { Star } from "lucide-react";
 import { TooltipWrapper } from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
 import PublishButton from "./blog-publish-btn";
@@ -70,6 +68,22 @@ export default function BlogForm(props: Props) {
         return () => clearTimeout(handler);
     }, [title, content]);
 
+    // add event listener to save
+    useEffect(() => {
+        const handleKeyDown = (event: KeyboardEvent) => {
+            const isMac = navigator.userAgent.includes('Mac');
+            if ((isMac ? event.metaKey : event.ctrlKey) && event.key === 's') {
+                event.preventDefault(); // prevent the default browser save
+                update();
+            }
+        };
+
+        window.addEventListener('keydown', handleKeyDown);
+        return () => {
+            window.removeEventListener('keydown', handleKeyDown);
+        };
+    }, []);
+
     async function onSubmit(values: blogSchemaType) {
         update(values);
     }
@@ -110,7 +124,7 @@ export default function BlogForm(props: Props) {
                 }
             </div>
 
-            <section className="max-w-[1000px] mx-auto min-h-[calc(100vh-128px)]">
+            <section className="max-w-4xl mx-auto min-h-[calc(100vh-128px)]">
                 {
                     props.defaultValues.coverImage && (
                         <CldImage

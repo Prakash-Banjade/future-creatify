@@ -204,6 +204,12 @@ body {
   .card {
     @apply bg-white rounded-xl shadow-md transition-all duration-300 hover:shadow-lg;
   }
+
+  .editor-preview {
+    img {
+      @apply !-translate-y-[25px] rounded-sm;
+    }
+  }
 }
 
 /* Custom animations */

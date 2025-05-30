@@ -65,8 +65,8 @@ const plugins = [
                 };
             },
             maxSizes: {
-                maxWidth: 896, // w-4xl
-                maxHeight: 896, // w-4xl
+                maxWidth: 1000,
+                maxHeight: 1000,
             },
         },
     }),
@@ -88,8 +88,8 @@ const plugins = [
                 return image.secure_url;
             },
             maxSizes: {
-                maxWidth: 896, // w-4xl
-                maxHeight: 896, // w-4xl
+                maxWidth: 1000,
+                maxHeight: 1000,
             },
         },
     }),
@@ -122,31 +122,13 @@ const MARKS = [Bold, Italic, CodeMark, Underline, Strike, Highlight];
 
 interface Props {
     value: YooptaContentValue;
-    onChange: (value: YooptaContentValue) => void;
     editorClassName?: string
     containerClassName?: string
-    setLength?: (length: number) => void;
-    readOnly?: boolean
 }
 
-export default function FullYooptaEditor({ onChange, value: defaultValue, editorClassName, containerClassName, setLength, readOnly }: Props) {
-    const [value, setValue] = useState(defaultValue);
+export default function YooptaEditorReadonly({ value, editorClassName, containerClassName }: Props) {
     const editor = useMemo(() => createYooptaEditor(), []);
     const selectionRef = useRef(null);
-
-    // debounce
-    useEffect(() => {
-        if (setLength) {
-            const plaintext = editor.getPlainText(value).trim();
-            setLength(plaintext.length);
-        }
-
-        const handler = setTimeout(() => {
-            onChange(value);
-        }, 500);
-
-        return () => clearTimeout(handler);
-    }, [value]);
 
     return (
         <div
@@ -154,7 +136,7 @@ export default function FullYooptaEditor({ onChange, value: defaultValue, editor
             ref={selectionRef}
         >
             <YooptaEditor
-                className={cn('min-w-full', editorClassName)}
+                className={cn('editor-preview min-w-full prose', editorClassName)}
                 editor={editor}
                 // @ts-expect-error This is fine
                 plugins={plugins}
@@ -162,8 +144,7 @@ export default function FullYooptaEditor({ onChange, value: defaultValue, editor
                 marks={MARKS}
                 selectionBoxRoot={selectionRef}
                 value={value}
-                onChange={val => setValue(val)}
-                readOnly={readOnly}
+                readOnly
             />
         </div>
     );

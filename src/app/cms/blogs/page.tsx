@@ -11,6 +11,7 @@ export type BlogsPageProps = {
         category?: string;
         published?: string;
         favourite?: string;
+        limit?: string;
     }
 }
 
