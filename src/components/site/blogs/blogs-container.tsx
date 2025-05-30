@@ -23,7 +23,7 @@ export default async function BlogsContainer(props: { searchParams: Promise<Blog
                     <div className="text-center py-12">
                         <h3 className="text-2xl font-bold mb-4">No Results Found</h3>
                         <p className="text-muted-foreground mb-6">
-                            We couldn't find any blog posts matching your search criteria.
+                            We couldn&apos;t find any blog posts matching your search criteria.
                         </p>
                     </div>
                 )

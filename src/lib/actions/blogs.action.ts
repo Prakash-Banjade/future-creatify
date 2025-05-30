@@ -2,7 +2,7 @@
 
 import { db } from "@/db";
 import { blogs } from "@/db/schema/blog";
-import { blogSchema, blogSchemaType, blogSummarySchema } from "@/schemas/blog.schema";
+import { blogSchema, blogSchemaType } from "@/schemas/blog.schema";
 import { eq } from "drizzle-orm";
 import checkAuth from "../check-auth";
 import { revalidatePath } from "next/cache";

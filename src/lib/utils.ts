@@ -3,6 +3,7 @@ import { toast } from "sonner";
 import { twMerge } from "tailwind-merge"
 import { ZodError } from "zod";
 import { getCldImageUrl } from 'next-cloudinary';
+import * as crypto from 'crypto';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
@@ -63,8 +64,7 @@ export function generateUniqueId(size: number = 21): string {
   } else {
     // Node.js fallback
     // eslint-disable-next-line @typescript-eslint/no-var-requires
-    const nodeCrypto = require('crypto');
-    nodeCrypto.randomFillSync(randomBytes);
+    crypto.randomFillSync(randomBytes);
   }
 
   // Convert random bytes to characters in the alphabet

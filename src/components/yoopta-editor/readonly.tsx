@@ -23,7 +23,7 @@ import Divider from '@yoopta/divider';
 import ActionMenuList, { DefaultActionMenuRender } from '@yoopta/action-menu-list';
 import Toolbar, { DefaultToolbarRender } from '@yoopta/toolbar';
 import LinkTool, { DefaultLinkToolRender } from '@yoopta/link-tool';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useMemo, useRef } from 'react';
 import { uploadToCloudinary } from '@/lib/cloudinary';
 import { cn } from '@/lib/utils';
 

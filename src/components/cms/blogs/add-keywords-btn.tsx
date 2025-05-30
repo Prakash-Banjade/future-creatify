@@ -1,9 +1,8 @@
 import LoadingButton from '@/components/forms/loading-button';
 import { Button } from '@/components/ui/button'
-import { Form, FormControl, FormField, FormItem, FormMessage } from '@/components/ui/form';
+import { Form, } from '@/components/ui/form';
 import { ResponsiveDialog } from '@/components/ui/responsive-dialog';
 import TagsInput from '@/components/ui/tags-input';
-import { Textarea } from '@/components/ui/textarea';
 import { updateBlog } from '@/lib/actions/blogs.action';
 import { showServerError } from '@/lib/utils';
 import { blogKeywordsSchema } from '@/schemas/blog.schema';
@@ -70,7 +69,7 @@ export default function AddKeywordsButton({ blogId, keywords = [] }: Props) {
                             placeholder='Type and press space to add a new keyword...'
                             max={5}
                             description='Max 5 keywords allowed'
-                            
+
                         />
 
                         <div className="mt-3 flex justify-end">

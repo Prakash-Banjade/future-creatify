@@ -61,62 +61,67 @@ export const blogsColumns: ColumnDef<TBlogsResponse[0]>[] = [
         id: "actions",
         cell: ({ row }) => {
             const blog = row.original;
-            const router = useRouter();
-            const [isDeleting, startTransition] = useTransition();
-            const [isDeleteOpen, setIsDeleteOpen] = useState(false);
 
-            function handleDelete() {
-                startTransition(async () => {
-                    try {
-                        await deleteBlog(blog.id);
-                        toast.success("Blog deleted");
-                    } catch (e) {
-                        if (e instanceof Error) {
-                            toast.error("Unexpected Error", {
-                                description: e.message,
-                            });
-                        } else {
-                            toast.error("An unexpected error occurred");
-                        }
-                    }
-                });
-            }
-
-            return (
-                <>
-                    <ResponsiveAlertDialog
-                        action={handleDelete}
-                        isOpen={isDeleteOpen}
-                        setIsOpen={setIsDeleteOpen}
-                        title="Delete Blog"
-                        description="Are you sure you want to delete this blog? This action cannot be undone."
-                        actionLabel="Yes, delete"
-                        isLoading={isDeleting}
-                        loadingText="Deleting..."
-                    />
-
-                    <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
-                            <Button variant="ghost" className="h-8 w-8 p-0">
-                                <span className="sr-only">Open menu</span>
-                                <MoreHorizontal className="h-4 w-4" />
-                            </Button>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent align="end">
-                            <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                            <DropdownMenuSeparator />
-                            <DropdownMenuItem onClick={() => router.push(`/cms/blogs/${blog.id}`)}>
-                                <SquarePen />
-                                Edit
-                            </DropdownMenuItem>
-                            <DestructiveDropdownMenuButtonItem onClick={() => setIsDeleteOpen(true)}>
-                                <Trash className="text-destructive" />
-                                Delete
-                            </DestructiveDropdownMenuButtonItem>
-                        </DropdownMenuContent>
-                    </DropdownMenu>
-                </>
-            )
+            return <BlogsColumnActions blog={blog} />
         },
     },
 ]
+
+function BlogsColumnActions({ blog }: { blog: TBlogsResponse[0] }) {
+    const router = useRouter();
+    const [isDeleting, startTransition] = useTransition();
+    const [isDeleteOpen, setIsDeleteOpen] = useState(false);
+
+    function handleDelete() {
+        startTransition(async () => {
+            try {
+                await deleteBlog(blog.id);
+                toast.success("Blog deleted");
+            } catch (e) {
+                if (e instanceof Error) {
+                    toast.error("Unexpected Error", {
+                        description: e.message,
+                    });
+                } else {
+                    toast.error("An unexpected error occurred");
+                }
+            }
+        });
+    }
+
+    return (
+        <>
+            <ResponsiveAlertDialog
+                action={handleDelete}
+                isOpen={isDeleteOpen}
+                setIsOpen={setIsDeleteOpen}
+                title="Delete Blog"
+                description="Are you sure you want to delete this blog? This action cannot be undone."
+                actionLabel="Yes, delete"
+                isLoading={isDeleting}
+                loadingText="Deleting..."
+            />
+
+            <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                    <Button variant="ghost" className="h-8 w-8 p-0">
+                        <span className="sr-only">Open menu</span>
+                        <MoreHorizontal className="h-4 w-4" />
+                    </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                    <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem onClick={() => router.push(`/cms/blogs/${blog.id}`)}>
+                        <SquarePen />
+                        Edit
+                    </DropdownMenuItem>
+                    <DestructiveDropdownMenuButtonItem onClick={() => setIsDeleteOpen(true)}>
+                        <Trash className="text-destructive" />
+                        Delete
+                    </DestructiveDropdownMenuButtonItem>
+                </DropdownMenuContent>
+            </DropdownMenu>
+        </>
+    )
+}
