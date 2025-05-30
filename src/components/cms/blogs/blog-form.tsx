@@ -37,7 +37,7 @@ export default function BlogForm(props: Props) {
             try {
                 await updateBlog(props.defaultValues.id, {
                     ...values,
-                    title: values.title?.length ? values.title : "Untitled",
+                    title: values.title?.length ? values.title : (props.defaultValues.title || "Untitled"),
                 });
             } catch (e) {
                 if (e instanceof Error) {
