@@ -12,6 +12,7 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { testimonials } from "@/data/testimonialData";
 import { ArrowRight, BookOpen, Calendar, Mail, MapPin, Users } from "lucide-react";
 import Link from "next/link";
+import { Suspense } from "react";
 
 export default function Page() {
   return (
@@ -149,7 +150,9 @@ export default function Page() {
             </LinkButton>
           </div>
 
-          <RecentBlogs />
+          <Suspense fallback={<div>Loading...</div>}>
+            <RecentBlogs />
+          </Suspense>
         </div>
       </section>
 

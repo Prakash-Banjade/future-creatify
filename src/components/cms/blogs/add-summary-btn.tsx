@@ -16,13 +16,14 @@ import { z } from 'zod';
 type Props = {
     blogId: string;
     summary?: string;
+    onChange: (value: string) => void
 }
 
 const formSchema = z.object({
     summary: blogSummarySchema,
 });
 
-export default function AddSummaryButton({ blogId, summary = "" }: Props) {
+export default function AddSummaryButton({ blogId, summary = "", onChange }: Props) {
     const [open, setOpen] = useState(false);
     const [isPending, startTransition] = useTransition();
 
@@ -35,6 +36,8 @@ export default function AddSummaryButton({ blogId, summary = "" }: Props) {
 
     function onSubmit(values: z.infer<typeof formSchema>) {
         startTransition(async () => {
+            onChange(values.summary);
+
             try {
                 await updateBlog(
                     blogId,
@@ -43,10 +46,10 @@ export default function AddSummaryButton({ blogId, summary = "" }: Props) {
                     }
                 );
                 setOpen(false);
-
                 toast.success("Summary updated");
             } catch (e) {
                 showServerError(e);
+                onChange(summary); // revert if something went wrong
             }
         })
     }

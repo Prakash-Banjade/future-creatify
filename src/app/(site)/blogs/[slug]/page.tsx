@@ -1,7 +1,8 @@
 import BlogPageHeroWrapper from '@/components/site/hero-wrapper';
 import CloudinaryImage from '@/components/ui/cloudinary-image';
 import YooptaEditorReadonly from '@/components/yoopta-editor/readonly';
-import { getBlogBySlug_Public, getBlogs_Public } from '@/lib/data-access.ts/blogs.data';
+import { API_URL } from '@/CONSTANTS';
+import { TBlog } from '@/schemas/blog.schema';
 import { format } from 'date-fns';
 import { ArrowLeft, Calendar, Tag, User } from 'lucide-react';
 import { Metadata } from 'next';
@@ -16,7 +17,22 @@ type Props = {
 export async function generateMetadata(props: { params: Promise<Props["params"]> }): Promise<Metadata> {
     const { slug } = await props.params;
 
-    const blog = await getBlogBySlug_Public(slug);
+    const res = await fetch(`${API_URL}/blogs/${slug}`, {
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        cache: 'force-cache',
+        next: { revalidate: 3600 },
+    });
+
+    if (!res.ok) {
+        return {
+            title: 'Blog Post Not Found',
+            description: 'Read our latest blog post on educational insights and resources.',
+        };
+    }
+
+    const blog: TBlog = await res.json();
 
     return {
         title: blog?.title,
@@ -28,9 +44,15 @@ export async function generateMetadata(props: { params: Promise<Props["params"]>
 export default async function SingleBlogPage(props: { params: Promise<Props["params"]> }) {
     const { slug } = await props.params;
 
-    const blog = await getBlogBySlug_Public(slug);
+    const res = await fetch(`${API_URL}/blogs/${slug}`, {
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        cache: 'force-cache',
+        next: { revalidate: 3600 },
+    });
 
-    if (!blog) {
+    if (!res.ok) {
         return (
             <div className="min-h-screen flex items-center justify-center">
                 <div className="text-center">
@@ -42,6 +64,8 @@ export default async function SingleBlogPage(props: { params: Promise<Props["par
             </div>
         );
     }
+
+    const blog: TBlog = await res.json();
 
     return (
         <>
@@ -71,7 +95,7 @@ export default async function SingleBlogPage(props: { params: Promise<Props["par
                             </div>
                         </div>
 
-                        <h1 className="text-3xl md:text-5xl font-bold leading-tight mb-8">
+                        <h1 className="text-3xl md:text-5xl font-bold leading-tight mb-8 text-shadow-lg">
                             {blog.title}
                         </h1>
                     </BlogPageHeroWrapper>
@@ -142,12 +166,4 @@ export default async function SingleBlogPage(props: { params: Promise<Props["par
             </section> */}
         </>
     )
-}
-
-export async function generateStaticParams() {
-    const blogs = await getBlogs_Public({});
-
-    return blogs.map((blog) => ({
-        slug: blog.slug,
-    }));
 }

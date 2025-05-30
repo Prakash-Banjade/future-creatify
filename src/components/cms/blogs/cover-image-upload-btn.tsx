@@ -13,6 +13,7 @@ import { z } from 'zod';
 type Props = {
     blogId: string;
     coverImage?: string | null;
+    onChange: (value: string | null | undefined) => void;
     title: string;
 }
 
@@ -21,7 +22,7 @@ const formSchema = z.object({
 });
 
 
-export default function CoverImageUploadBtn({ blogId, coverImage, title }: Props) {
+export default function CoverImageUploadBtn({ blogId, coverImage, title, onChange }: Props) {
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -31,6 +32,8 @@ export default function CoverImageUploadBtn({ blogId, coverImage, title }: Props
 
     async function onSubmit(values: z.infer<typeof formSchema>) {
         try {
+            onChange(values.coverImage); // necessary to set in main form
+            
             await updateBlog(
                 blogId,
                 {
@@ -40,6 +43,7 @@ export default function CoverImageUploadBtn({ blogId, coverImage, title }: Props
             toast.success("Cover image updated");
         } catch (e) {
             showServerError(e);
+            onChange(coverImage); // revert if something went wrong 
         }
     }
 

@@ -1,5 +1,4 @@
 import SiteLayout from '@/components/site/site-layout'
-import React from 'react'
 
 type Props = {
     children?: React.ReactNode;

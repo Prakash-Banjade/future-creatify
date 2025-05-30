@@ -1,12 +1,34 @@
 import { BlogsPageProps } from "@/app/cms/blogs/page"
 import BlogCard from "./blog-card";
 import BlogCardContent from "./blog-card-content";
-import { getBlogs_Public } from "@/lib/data-access.ts/blogs.data";
+import { TBlogsResponse_Public } from "@/schemas/blog.schema";
+import { API_URL } from "@/CONSTANTS";
 
 export default async function BlogsContainer(props: { searchParams: Promise<BlogsPageProps["searchParams"]> }) {
     const searchParams = await props.searchParams;
 
-    const blogs = await getBlogs_Public(searchParams);
+    const queryString = new URLSearchParams(searchParams).toString();
+
+    const res = await fetch(`${API_URL}/blogs?${queryString}`, {
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        cache: 'force-cache',
+        next: { revalidate: 3600 },
+    });
+
+    if (!res.ok) {
+        return (
+            <div className="text-center py-12">
+                <h3 className="text-2xl font-bold mb-4">Fetch Failed</h3>
+                <p className="text-muted-foreground mb-6">
+                    Something is wrong.
+                </p>
+            </div>
+        )
+    }
+
+    const blogs: TBlogsResponse_Public = await res.json();
 
     return (
         <>

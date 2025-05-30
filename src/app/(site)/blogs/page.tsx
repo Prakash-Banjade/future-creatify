@@ -42,7 +42,9 @@ export default async function BlogsPage({ searchParams }: { searchParams: Promis
 
                     {/* Blog Posts Stack */}
                     <div className="space-y-8">
-                        <BlogsContainer searchParams={searchParams} />
+                        <Suspense fallback={<div>Loading...</div>}>
+                            <BlogsContainer searchParams={searchParams} />
+                        </Suspense>
                     </div>
                 </div>
             </section>

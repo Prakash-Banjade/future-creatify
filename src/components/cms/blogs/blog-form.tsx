@@ -57,8 +57,12 @@ export default function BlogForm(props: Props) {
 
     // auto save
     useEffect(() => {
+        const dataToUpdate = title !== props.defaultValues.title // this is to ensure if only title is change don't save content again
+            ? { title }
+            : { content };
+
         const handler = setTimeout(() => {
-            update();
+            update(dataToUpdate);
         }, 500);
 
         return () => clearTimeout(handler);
@@ -135,11 +139,24 @@ export default function BlogForm(props: Props) {
                 }
 
                 <section className="flex mt-1">
-                    <CoverImageUploadBtn blogId={props.defaultValues.id} title={title} coverImage={props.defaultValues.coverImage} />
+                    <CoverImageUploadBtn
+                        blogId={props.defaultValues.id}
+                        title={title}
+                        coverImage={form.watch("coverImage")}
+                        onChange={(value) => form.setValue("coverImage", value)}
+                    />
 
-                    <AddSummaryButton blogId={props.defaultValues.id} summary={props.defaultValues.summary} />
+                    <AddSummaryButton
+                        blogId={props.defaultValues.id}
+                        summary={form.watch("summary")}
+                        onChange={(value) => form.setValue("summary", value)}
+                    />
 
-                    <AddKeywordsBtn blogId={props.defaultValues.id} keywords={props.defaultValues.keywords} />
+                    <AddKeywordsBtn
+                        blogId={props.defaultValues.id}
+                        keywords={form.watch("keywords")}
+                        onChange={(value) => form.setValue("keywords", value)}
+                    />
                 </section>
 
                 <AppForm schema={blogSchema} form={form}>

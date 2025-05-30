@@ -16,13 +16,14 @@ import { z } from 'zod';
 type Props = {
     blogId: string;
     keywords?: string[];
+    onChange: (value: string[]) => void
 }
 
 const formSchema = z.object({
     keywords: blogKeywordsSchema,
 });
 
-export default function AddKeywordsButton({ blogId, keywords = [] }: Props) {
+export default function AddKeywordsButton({ blogId, keywords = [], onChange }: Props) {
     const [open, setOpen] = useState(false);
     const [isPending, startTransition] = useTransition();
 
@@ -35,8 +36,11 @@ export default function AddKeywordsButton({ blogId, keywords = [] }: Props) {
     })
 
     function onSubmit(values: z.infer<typeof formSchema>) {
+
         startTransition(async () => {
             try {
+                onChange(values.keywords); // instantly update the main form
+
                 await updateBlog(
                     blogId,
                     {
@@ -44,10 +48,10 @@ export default function AddKeywordsButton({ blogId, keywords = [] }: Props) {
                     }
                 );
                 setOpen(false);
-
                 toast.success("Keywords updated");
             } catch (e) {
                 showServerError(e);
+                onChange(keywords);  // revert if something went wrong
             }
         })
     }

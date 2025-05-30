@@ -1,10 +1,21 @@
-import { getBlogs_Public } from '@/lib/data-access.ts/blogs.data'
 import React from 'react'
 import BlogCard from '../blogs/blog-card';
 import BlogCardContent from '../blogs/blog-card-content';
+import { API_URL } from '@/CONSTANTS';
+import { TBlogsResponse_Public } from '@/schemas/blog.schema';
 
 export default async function RecentBlogs() {
-    const blogs = await getBlogs_Public({ limit: '3' });
+    const res = await fetch(`${API_URL}/blogs?limit=3`, {
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        cache: 'force-cache',
+        next: { revalidate: 3600 },
+    });
+
+    if (!res.ok) return null;
+
+    const blogs: TBlogsResponse_Public = await res.json();
 
     return (
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 staggered-fade-in">

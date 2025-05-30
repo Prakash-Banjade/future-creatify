@@ -15,7 +15,7 @@ export default function AboutPage() {
           <div className="max-w-4xl mx-auto text-center">
             <HeroWrapper>
               <span className="text-primary font-semibold">About Us</span>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mt-3 mb-6">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mt-3 mb-6 text-shadow-lg">
                 Our Journey in <span className="text-primary">Educational Innovation</span>
               </h1>
               <p className="text-lg text-slate-600">
