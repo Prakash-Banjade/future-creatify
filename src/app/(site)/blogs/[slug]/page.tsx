@@ -182,18 +182,18 @@ export default async function SingleBlogPage(props: { params: Promise<Props["par
     )
 }
 
-export const generateStaticParams = async () => {
-    const res = await fetch(`${API_URL}/blogs`, {
-        headers: {
-            'Content-Type': 'application/json',
-        },
-    });
+// export const generateStaticParams = async () => {
+//     const res = await fetch(`${API_URL}/blogs`, {
+//         headers: {
+//             'Content-Type': 'application/json',
+//         },
+//     });
 
-    if (!res.ok) {
-        return []
-    }
+//     if (!res.ok) {
+//         return []
+//     }
 
-    const blogs: TBlogsResponse_Public = await res.json();
+//     const blogs: TBlogsResponse_Public = await res.json();
 
-    return blogs.map((blog) => ({ slug: blog.slug }));
-}
+//     return blogs.map((blog) => ({ slug: blog.slug }));
+// }
