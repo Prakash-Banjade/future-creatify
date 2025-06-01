@@ -10,7 +10,7 @@ export default async function RecentBlogs() {
             'Content-Type': 'application/json',
         },
         cache: 'force-cache',
-        next: { revalidate: 3600 },
+        next: { revalidate: parseInt(process.env.DATA_REVALIDATE_SEC!) },
     });
 
     if (!res.ok) return null;
