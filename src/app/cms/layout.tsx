@@ -1,7 +1,14 @@
 import SidebarLayout from '@/components/cms/sidebar/sidebar-layout';
 import getSession from '@/lib/getSession';
+import { Metadata } from 'next';
 import { redirect } from 'next/navigation';
-import React from 'react'
+
+export const metadata: Metadata = {
+  title: {
+    default: "Future Creatify - The Education Hub",
+    template: "%s - CMS | Future Creatify",
+  },
+};
 
 type Props = {
     children?: React.ReactNode;

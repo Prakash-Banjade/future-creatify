@@ -5,9 +5,10 @@ import { Button } from '@/components/ui/button';
 import CloudinaryImage from '@/components/ui/cloudinary-image';
 import YooptaEditorReadonly from '@/components/yoopta-editor/readonly';
 import { API_URL } from '@/CONSTANTS';
+import { getReadingTimeInMinutes } from '@/lib/utils';
 import { TBlog, TBlogsResponse_Public } from '@/schemas/blog.schema';
 import { format } from 'date-fns';
-import { ArrowLeft, Calendar, Tag, User } from 'lucide-react';
+import { ArrowLeft, Calendar, FileSpreadsheet, Tag, User } from 'lucide-react';
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { Suspense } from 'react';
@@ -31,6 +32,13 @@ export async function generateMetadata(props: { params: Promise<Props["params"]>
     }
 
     const blog: TBlog = await res.json();
+
+    if (!blog) {
+        return {
+            title: 'Blog Post Not Found',
+            description: 'Read our latest blog post on educational insights and resources.',
+        };
+    }
 
     return {
         title: blog?.title,
@@ -87,8 +95,8 @@ export default async function SingleBlogPage(props: { params: Promise<Props["par
                         <ArrowLeft size={16} className="mr-2" /> Back to Blogs
                     </Link>
                     <BlogPageHeroWrapper>
-                        <div className="flex items-center text-sm text-slate-500 mb-4">
-                            <div className="flex items-center mr-4">
+                        <div className="flex items-center gap-4 text-sm text-slate-500 mb-4">
+                            <div className="flex items-center">
                                 <Calendar size={14} className="mr-1" />
                                 {
                                     blog.publishedAt && (
@@ -96,13 +104,18 @@ export default async function SingleBlogPage(props: { params: Promise<Props["par
                                     )
                                 }
                             </div>
-                            <div className="flex items-center mr-4">
+                            <div className="flex items-center">
                                 <User size={14} className="mr-1" />
                                 <span>Anju Chhetri</span>
                             </div>
                             <div className="flex items-center">
                                 <Tag size={14} className="mr-1" />
                                 <span>General</span>
+                            </div>
+
+                            <div className="flex items-center">
+                                <FileSpreadsheet size={14} className="mr-1" />
+                                <span>{getReadingTimeInMinutes(blog.length)} Minutes Read</span>
                             </div>
                         </div>
 

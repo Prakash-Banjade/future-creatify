@@ -23,7 +23,7 @@ export default async function BlogsPage({ searchParams }: { searchParams: Promis
 
                             <span className="text-primary font-semibold">Our Blog</span>
                             <h1 className="text-4xl md:text-5xl font-bold leading-tight mt-3 mb-6 text-shadow-lg">
-                                Educational Insights & Resources
+                                <span className="text-primary">Educational</span> Insights & Resources
                             </h1>
                             <p className="text-lg text-slate-600">
                                 Explore our collection of articles, guides, and resources designed to

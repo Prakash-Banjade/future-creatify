@@ -1,7 +1,12 @@
 import BlogsList from '@/components/cms/blogs/blogs-list'
 import NewBlogButton from '@/components/cms/blogs/new-blog-btn'
 import ContainerLayout from '@/components/cms/container-layout'
+import { Metadata } from 'next';
 import { Suspense } from 'react'
+
+export const metadata: Metadata = {
+    title: "Blogs"
+};
 
 export type BlogsPageProps = {
     searchParams: {

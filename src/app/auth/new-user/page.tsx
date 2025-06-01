@@ -1,6 +1,5 @@
 import getSession from '@/lib/getSession'
 import { redirect } from 'next/navigation';
-import React from 'react'
 import { UpdateProfileForm } from './components/update-profile.form';
 
 export default async function NewUserPage() {
