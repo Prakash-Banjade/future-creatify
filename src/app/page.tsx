@@ -12,6 +12,7 @@ import { Button, LinkButton } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { testimonials } from "@/data/testimonialData";
 import { ArrowRight, BookOpen, Calendar, Mail, MapPin, Users } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { Suspense } from "react";
 
@@ -47,7 +48,9 @@ export default function Page() {
 
             <HeroRightWrapper>
               <div className="relative">
-                <img
+                <Image
+                  width={600}
+                  height={600}
                   src="https://images.pexels.com/photos/3769714/pexels-photo-3769714.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
                   alt="Education Innovation"
                   className="rounded-xl shadow-2xl"

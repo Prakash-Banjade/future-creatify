@@ -1,7 +1,6 @@
 import { BlogCardSkeleton } from '@/components/site/blogs/blog-card-content';
 import RelatedBlogs from '@/components/site/blogs/related-blogs';
 import BlogPageHeroWrapper from '@/components/site/hero-wrapper';
-import RecentBlogs from '@/components/site/home/recent-blogs';
 import { Button } from '@/components/ui/button';
 import CloudinaryImage from '@/components/ui/cloudinary-image';
 import YooptaEditorReadonly from '@/components/yoopta-editor/readonly';

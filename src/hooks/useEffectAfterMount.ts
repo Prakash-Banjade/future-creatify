@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 
-export default function useEffectAfterMount(effect: () => void, deps?: any[]) {
+export default function useEffectAfterMount(effect: () => void, deps?: unknown[]) {
     const hasMounted = useRef(false);
 
     useEffect(() => {

@@ -29,7 +29,7 @@ export default async function BlogEditPage(props: { params: Promise<Props["param
                 blog.publishedAt && (
                     <div className='lg:mx-auto flex items-center gap-2 text-sm font-medium text-cyan-600 bg-cyan-50 border-cyan-300 border rounded-md p-2 w-fit'>
                         <Info size={16} />
-                        <p>You can't edit a published blog. If you wish to edit it, unpublish the blog first.</p>
+                        <p>You can&apos;t edit a published blog. If you wish to edit it, unpublish the blog first.</p>
                     </div>
                 )
             }
