@@ -19,25 +19,30 @@ import PublishButton from "./blog-publish-btn";
 import AddSummaryButton from "./add-summary-btn";
 import AddKeywordsBtn from "./add-keywords-btn";
 import CoverImageUploadBtn from "./cover-image-upload-btn";
+import useEffectAfterMount from "@/hooks/useEffectAfterMount";
+import YooptaEditorReadonly from "@/components/yoopta-editor/readonly";
 
 type Props = {
     defaultValues: TBlog;
 }
 
-export default function BlogForm(props: Props) {
+export default function BlogForm({ defaultValues }: Props) {
     const [isPending, startTransition] = useTransition();
+    const isPublished = defaultValues.publishedAt !== null;
 
     const form = useForm<blogSchemaType>({
         resolver: zodResolver(blogSchema),
-        defaultValues: props.defaultValues,
+        defaultValues,
     });
 
-    function update(values: Partial<blogSchemaType> = form.getValues()) {
+    function update({ values = form.getValues() }: { values?: Partial<blogSchemaType> }) {
+        if (isPublished) return;
+
         startTransition(async () => {
             try {
-                await updateBlog(props.defaultValues.id, {
+                await updateBlog(defaultValues.id, {
                     ...values,
-                    title: values.title?.length ? values.title : (props.defaultValues.title || "Untitled"),
+                    title: values.title?.length ? values.title : (defaultValues.title || "Untitled"),
                 });
             } catch (e) {
                 if (e instanceof Error) {
@@ -56,13 +61,13 @@ export default function BlogForm(props: Props) {
     const isFavourite = form.watch("isFavourite");
 
     // auto save
-    useEffect(() => {
-        const dataToUpdate = title !== props.defaultValues.title // this is to ensure if only title is change don't save content again
+    useEffectAfterMount(() => {
+        const dataToUpdate = title !== defaultValues.title // this is to ensure if only title is change don't save content again
             ? { title }
             : { content };
 
         const handler = setTimeout(() => {
-            update(dataToUpdate);
+            update({ values: dataToUpdate });
         }, 500);
 
         return () => clearTimeout(handler);
@@ -74,7 +79,7 @@ export default function BlogForm(props: Props) {
             const isMac = navigator.userAgent.includes('Mac');
             if ((isMac ? event.metaKey : event.ctrlKey) && event.key === 's') {
                 event.preventDefault(); // prevent the default browser save
-                update();
+                update({});
             }
         };
 
@@ -85,21 +90,24 @@ export default function BlogForm(props: Props) {
     }, []);
 
     async function onSubmit(values: blogSchemaType) {
-        update(values);
+        update({ values });
     }
 
-    function onFavoutiteChange() {
-        update({
-            isFavourite: !isFavourite,
-            title: props.defaultValues.title, // need to send title as well 
-        });
-
-        form.setValue("isFavourite", !isFavourite);
+    async function onFavoutiteChange() {
+        try {
+            form.setValue("isFavourite", !isFavourite);
+            await updateBlog(defaultValues.id, {
+                isFavourite: !isFavourite
+            }, false);
+        } catch (e) {
+            form.setValue("isFavourite", !isFavourite);
+            console.log(e);
+        }
     }
 
     return (
         <section>
-            <div className="-translate-y-12">
+            <div className="">
                 <section className="flex justify-end gap-2">
                     <TooltipWrapper
                         label={isFavourite ? "Remove from favourites" : "Add to favourites"}
@@ -110,13 +118,13 @@ export default function BlogForm(props: Props) {
                     </TooltipWrapper>
 
                     <PublishButton
-                        blog={props.defaultValues}
+                        blog={defaultValues}
                     />
                 </section>
                 {
-                    props.defaultValues.publishedAt && (
+                    defaultValues.publishedAt && (
                         <p className="text-right text-sm text-muted-foreground">
-                            Last published at: {props.defaultValues.publishedAt?.toLocaleString()}
+                            Last published at: {defaultValues.publishedAt?.toLocaleString()}
                         </p>
                     )
                 }
@@ -124,11 +132,11 @@ export default function BlogForm(props: Props) {
 
             <section className="max-w-4xl mx-auto min-h-[calc(100vh-128px)]">
                 {
-                    props.defaultValues.coverImage && (
+                    defaultValues.coverImage && (
                         <CldImage
                             width="200"
                             height="200"
-                            src={props.defaultValues.coverImage}
+                            src={defaultValues.coverImage}
                             sizes="200px"
                             alt="Blog Cover Image"
                             title="Blog Cover Image"
@@ -140,22 +148,25 @@ export default function BlogForm(props: Props) {
 
                 <section className="flex mt-1">
                     <CoverImageUploadBtn
-                        blogId={props.defaultValues.id}
+                        blogId={defaultValues.id}
                         title={title}
                         coverImage={form.watch("coverImage")}
                         onChange={(value) => form.setValue("coverImage", value)}
+                        disabled={isPublished}
                     />
 
                     <AddSummaryButton
-                        blogId={props.defaultValues.id}
+                        blogId={defaultValues.id}
                         summary={form.watch("summary")}
                         onChange={(value) => form.setValue("summary", value)}
+                        disabled={isPublished}
                     />
 
                     <AddKeywordsBtn
-                        blogId={props.defaultValues.id}
+                        blogId={defaultValues.id}
                         keywords={form.watch("keywords")}
                         onChange={(value) => form.setValue("keywords", value)}
+                        disabled={isPublished}
                     />
                 </section>
 
@@ -166,6 +177,10 @@ export default function BlogForm(props: Props) {
                             placeholder="Title"
                             className="field-sizing-content overflow-y-hidden py-3 pt-2 resize-none text-4xl xl:text-5xl font-extrabold text-slate-800 w-full focus-visible:outline-0"
                             {...form.register("title")}
+                            disabled={defaultValues.publishedAt !== null}
+                            aria-disabled={defaultValues.publishedAt !== null}
+                            readOnly={defaultValues.publishedAt !== null}
+                            aria-readonly={defaultValues.publishedAt !== null}
                         />
 
                         <section className="flex justify-end gap-1">
@@ -180,14 +195,21 @@ export default function BlogForm(props: Props) {
                             </Badge>
                         </section>
 
-                        <FullYooptaEditor
-                            value={form.watch("content")}
-                            onChange={(value) => form.setValue("content", value)}
-                            containerClassName="min-h-full"
-                            setLength={(length) => {
-                                form.setValue("length", length);
-                            }}
-                        />
+                        {
+                            isPublished ? (
+                                <YooptaEditorReadonly value={defaultValues.content} />
+                            ) : (
+                                <FullYooptaEditor
+                                    value={form.watch("content")}
+                                    onChange={(value) => form.setValue("content", value)}
+                                    containerClassName="min-h-full"
+                                    setLength={(length) => {
+                                        form.setValue("length", length);
+                                    }}
+                                    readOnly={defaultValues.publishedAt !== null} // TODO: idk why this prop is not causing the editor to be readonly, so used conditional editors
+                                />
+                            )
+                        }
 
                     </form>
                 </AppForm>

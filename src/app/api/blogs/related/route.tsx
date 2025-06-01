@@ -1,18 +1,21 @@
 import { db } from "@/db";
 import { blogs } from "@/db/schema/blog";
-import { and, desc, ilike, isNull, not, SQL } from "drizzle-orm";
+import { and, desc, eq, isNull, not, or, sql } from "drizzle-orm";
 import { NextResponse } from "next/server";
 import { type NextRequest } from 'next/server'
 
 export async function GET(request: NextRequest) {
-    const searchParams = request.nextUrl.searchParams
+    const searchParams = request.nextUrl.searchParams;
 
-    const q = searchParams.get("q");
-    const limit = searchParams.get("limit");
+    const slug = searchParams.get("slug");
 
-    const filters: SQL[] = [];
+    if (!slug) return NextResponse.json([]);
 
-    if (q) filters.push(ilike(blogs.title, `%${q}%`));
+    const [existingBlog] = await db.select({ keywords: blogs.keywords }).from(blogs).where(eq(blogs.slug, slug)).limit(1);
+
+    if (!existingBlog) return NextResponse.json([]);
+
+    const keywordsQuery = existingBlog.keywords.map(k => sql`${k} = ANY(${blogs.keywords})`);
 
     const foundBlogs = await db
         .select({
@@ -26,9 +29,9 @@ export async function GET(request: NextRequest) {
             length: blogs.length
         })
         .from(blogs)
-        .where(and(...filters, not(isNull(blogs.publishedAt)))) // ensure blogs are published
+        .where(and(not(isNull(blogs.publishedAt)), not(eq(blogs.slug, slug)), or(...keywordsQuery)))
         .orderBy(desc(blogs.publishedAt))
-        .limit(Number(limit) || 100); // TODO: this should not be hardcoded
+        .limit(3);
 
     return NextResponse.json(foundBlogs);
 }

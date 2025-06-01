@@ -22,17 +22,19 @@ export async function createBlog(values: blogSchemaType) {
     return { id: inserted[0].id };
 }
 
-export async function updateBlog(id: string, values: Partial<blogSchemaType>) {
+export async function updateBlog(id: string, values: Partial<blogSchemaType>, contentEdited: boolean = true) {
     await checkAuth('admin');
 
     const { success, data, error } = blogSchema.partial().safeParse(values);
 
     if (!success) throwZodErrorMsg(error);
 
-    const existing = await db.select({ title: blogs.title, slug: blogs.slug })
+    const existing = await db.select({ title: blogs.title, slug: blogs.slug, publishedAt: blogs.publishedAt })
         .from(blogs).where(eq(blogs.id, id)).limit(1);
 
     if (existing.length === 0) throw new Error("Blog not found");
+
+    if (existing[0].publishedAt && contentEdited) throw new Error("Cannot update published blog");
 
     let slug = existing[0].slug;
 

@@ -14,7 +14,7 @@ export default async function BlogsContainer(props: { searchParams: Promise<Blog
             'Content-Type': 'application/json',
         },
         cache: 'force-cache',
-        next: { revalidate: 3600 },
+        next: { revalidate: parseInt(process.env.DATA_REVALIDATE_SEC!) },
     });
 
     if (!res.ok) {

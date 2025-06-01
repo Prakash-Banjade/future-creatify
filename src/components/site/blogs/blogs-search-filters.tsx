@@ -55,13 +55,15 @@ export default function BlogsSearchFilters_Public() {
             <SearchInput
                 placeholder="Search blogs..."
                 className={{
-                    input: "flex-1 py-6 border-0 shadow-none focus-visible:ring-0",
+                    input: "min-w-auto flex-1 py-6 border-0 shadow-none focus-visible:ring-0",
                     container: "grow"
                 }}
                 showIcon={false}
             />
 
-            <Search className='text-muted-foreground group-focus-within:text-foreground' size={20} />
+            <div className='shrink-0 sm:block hidden'>
+                <Search className='text-muted-foreground group-focus-within:text-foreground' size={20} />
+            </div>
         </div>
     )
 }

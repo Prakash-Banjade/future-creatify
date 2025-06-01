@@ -1,3 +1,4 @@
+import { BlogCardSkeleton } from "@/components/site/blogs/blog-card-content";
 import ContactForm from "@/components/site/contact-form";
 import ContactFormWrapper from "@/components/site/home/contact-form-wrapper";
 import GetInTouchWrapper from "@/components/site/home/get-in-touch-wrapper";
@@ -150,7 +151,7 @@ export default function Page() {
             </LinkButton>
           </div>
 
-          <Suspense fallback={<div>Loading...</div>}>
+          <Suspense fallback={Array.from({ length: 3 }, (_, index) => <BlogCardSkeleton key={index} />)}>
             <RecentBlogs />
           </Suspense>
         </div>

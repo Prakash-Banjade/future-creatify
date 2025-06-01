@@ -6,6 +6,7 @@ import { format } from 'date-fns'
 import { TBlogsResponse_Public } from '@/schemas/blog.schema'
 import CloudinaryImage from '@/components/ui/cloudinary-image'
 import { getReadingTimeInMinutes } from '@/lib/utils'
+import { Skeleton } from '@/components/ui/skeleton'
 
 type Props = {
     blog: TBlogsResponse_Public[0]
@@ -19,18 +20,16 @@ export default async function BlogCardContent({ blog, imgHeight = 500 }: Props) 
                 <div className="flex flex-col @2xl:flex-row">
                     <div className='@2xl:rounded-l-xl @2xl:rounded-tr-none rounded-t-xl overflow-hidden'>
                         {
-                            blog.coverImage ? (
+                            blog.coverImage && (
                                 <CloudinaryImage
                                     width={600}
                                     height={imgHeight}
                                     src={blog.coverImage}
-                                    sizes="400px"
+                                    sizes="500px"
                                     alt="Blog Cover Image"
                                     crop='auto'
-                                    className='w-full h-full'
+                                    className='w-full h-full object-cover'
                                 />
-                            ) : (
-                                <></>
                             )
                         }
                     </div>
@@ -72,6 +71,58 @@ export default async function BlogCardContent({ blog, imgHeight = 500 }: Props) 
                         <LinkButton href={`/blogs/${blog.slug}`} className='text-base'>
                             Read More
                         </LinkButton>
+                    </div>
+                </div>
+            </div>
+        </article>
+    )
+}
+
+export function BlogCardSkeleton() {
+    return (
+        <article className="@container">
+            <div className="card">
+                <div className="flex flex-col @2xl:flex-row">
+                    {/* Image skeleton */}
+                    <Skeleton className="@2xl:rounded-l-xl @2xl:rounded-tr-none rounded-t-xl overflow-hidden w-full @4xl:max-w-[400px] @2xl:max-w-[250px] min-h-[300px]" />
+
+                    <div className="p-6 grow">
+                        {/* Badge skeleton */}
+                        <Skeleton className="w-16 h-5 rounded-full mb-1" />
+
+                        {/* Title skeleton */}
+                        <div className="mb-3">
+                            <Skeleton className="w-2/4 h-6 rounded mb-2" />
+                        </div>
+
+                        {/* Metadata section skeleton */}
+                        <section className="text-sm mb-3 space-y-2">
+                            <div className="flex items-center">
+                                <div className="flex items-center mr-4">
+                                    <Calendar size={14} className="mr-1 text-gray-300" />
+                                    <Skeleton className="w-24 h-4 rounded" />
+                                </div>
+                                <div className="flex items-center">
+                                    <span className="mr-4 text-gray-300">|</span>
+                                    <Skeleton className="w-20 h-4 rounded" />
+                                </div>
+                            </div>
+
+                            <div className="flex items-center">
+                                <User size={14} className="mr-1 text-gray-300" />
+                                <Skeleton className="w-24 h-4 rounded" />
+                            </div>
+                        </section>
+
+                        {/* Summary skeleton */}
+                        <div className="mb-4 space-y-2">
+                            <Skeleton className="w-full h-4 rounded" />
+                            <Skeleton className="w-full h-4 rounded" />
+                            <Skeleton className="w-3/4 h-4 rounded" />
+                        </div>
+
+                        {/* Button skeleton */}
+                        <Skeleton className="w-24 h-9 rounded" />
                     </div>
                 </div>
             </div>

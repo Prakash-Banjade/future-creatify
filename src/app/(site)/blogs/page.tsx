@@ -1,7 +1,9 @@
 import { BlogsPageProps } from '@/app/cms/blogs/page';
+import { BlogCardSkeleton } from '@/components/site/blogs/blog-card-content';
 import BlogsContainer from '@/components/site/blogs/blogs-container';
 import BlogsSearchFilters_Public from '@/components/site/blogs/blogs-search-filters';
 import HeroWrapper from '@/components/site/hero-wrapper';
+import { Skeleton } from '@/components/ui/skeleton';
 import { Metadata } from 'next';
 import { Suspense } from 'react';
 
@@ -36,13 +38,13 @@ export default async function BlogsPage({ searchParams }: { searchParams: Promis
             <section className="section bg-white">
                 <div className="container">
                     {/* Search and Filter */}
-                    <Suspense fallback={<div>Loading...</div>}>
+                    <Suspense fallback={<Skeleton className="h-12" />}>
                         <BlogsSearchFilters_Public />
                     </Suspense>
 
                     {/* Blog Posts Stack */}
                     <div className="space-y-8">
-                        <Suspense fallback={<div>Loading...</div>}>
+                        <Suspense fallback={Array.from({ length: 3 }, (_, index) => <BlogCardSkeleton key={index} />)}>
                             <BlogsContainer searchParams={searchParams} />
                         </Suspense>
                     </div>

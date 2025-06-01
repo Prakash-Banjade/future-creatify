@@ -17,13 +17,14 @@ type Props = {
     blogId: string;
     keywords?: string[];
     onChange: (value: string[]) => void
+    disabled?: boolean
 }
 
 const formSchema = z.object({
     keywords: blogKeywordsSchema,
 });
 
-export default function AddKeywordsButton({ blogId, keywords = [], onChange }: Props) {
+export default function AddKeywordsButton({ blogId, keywords = [], onChange, disabled = false }: Props) {
     const [open, setOpen] = useState(false);
     const [isPending, startTransition] = useTransition();
 
@@ -36,6 +37,7 @@ export default function AddKeywordsButton({ blogId, keywords = [], onChange }: P
     })
 
     function onSubmit(values: z.infer<typeof formSchema>) {
+        if (disabled) return;
 
         startTransition(async () => {
             try {
@@ -80,7 +82,7 @@ export default function AddKeywordsButton({ blogId, keywords = [], onChange }: P
                             <LoadingButton
                                 isLoading={isPending}
                                 loadingText="Updating..."
-                                disabled={isPending}
+                                disabled={isPending || disabled || !form.formState.isDirty}
                                 type="submit"
                             >
                                 Update
@@ -92,9 +94,13 @@ export default function AddKeywordsButton({ blogId, keywords = [], onChange }: P
 
             <Button
                 type="button"
-                onClick={() => setOpen(true)}
+                onClick={() => {
+                    if (disabled) return;
+                    setOpen(true);
+                }}
                 variant={'ghost'}
                 size={'sm'}
+                disabled={disabled}
                 className="w-fit text-muted-foreground"
             >
                 {

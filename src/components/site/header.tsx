@@ -122,7 +122,7 @@ export function NavLinks() {
         <Link
             key={link.label}
             href={link.href}
-            className={cn("hover:text-primary", pathname === link.href && "text-primary underline underline-offset-3 decoration-primary")}
+            className={cn("hover:text-primary w-fit", pathname === link.href && "text-primary underline underline-offset-3 decoration-primary")}
         >
             {link.label}
         </Link>

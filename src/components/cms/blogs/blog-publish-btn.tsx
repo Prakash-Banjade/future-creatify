@@ -4,9 +4,9 @@ import { blogSummarySchema, TBlog } from "@/schemas/blog.schema";
 import { useState, useTransition } from "react";
 import { z } from "zod"
 import { Button } from "@/components/ui/button"
-import { Globe, GlobeLock } from "lucide-react";
 import { toast } from "sonner";
 import { ResponsiveAlertDialog } from "@/components/ui/responsive-alert-dialog";
+import { Globe, GlobeLock } from "lucide-react";
 
 type Props = {
     blog: TBlog;
@@ -19,19 +19,25 @@ const schema = z.object({
 
 export default function PublishButton({ blog: { id, summary = "", publishedAt, coverImage = "" } }: Props) {
     const [unpublishOpen, setUnpublishOpen] = useState(false);
+    const [publishOpen, setpublishOpen] = useState(false);
     const [isPending, startTransition] = useTransition();
 
-    function onPublish() {
+    function onPublishOpen() {
         if (coverImage === null) return toast.error("Cover image is required");
 
         const { success, error } = schema.safeParse({ summary, coverImage });
 
         if (!success) return showServerError(error);
 
+        setpublishOpen(true);
+    }
+
+    function onPublish() {
         startTransition(async () => {
             try {
                 await publishBlog({ id });
                 toast.success("Blog published successfully");
+                setpublishOpen(false);
             } catch (e) {
                 showServerError(e);
             }
@@ -42,8 +48,8 @@ export default function PublishButton({ blog: { id, summary = "", publishedAt, c
         startTransition(async () => {
             try {
                 await unpublishBlog(id);
-                setUnpublishOpen(false);
                 toast.success("Blog unpublished successfully");
+                setUnpublishOpen(false);
             } catch (e) {
                 showServerError(e);
             }
@@ -63,6 +69,17 @@ export default function PublishButton({ blog: { id, summary = "", publishedAt, c
                 loadingText="Unpublishing..."
             />
 
+            <ResponsiveAlertDialog
+                title="Publish Blog?"
+                description="It will take upto an hour to publish the blog. You cannot edit the blog once it is published."
+                isOpen={publishOpen}
+                setIsOpen={setpublishOpen}
+                action={onPublish}
+                actionLabel="Publish"
+                isLoading={isPending}
+                loadingText="Publishing..."
+            />
+
             {
                 publishedAt ? (
                     <Button variant={'ghost'} onClick={() => setUnpublishOpen(true)}>
@@ -70,7 +87,7 @@ export default function PublishButton({ blog: { id, summary = "", publishedAt, c
                         Unpublish
                     </Button>
                 ) : (
-                    <Button variant={'ghost'} onClick={onPublish}>
+                    <Button variant={'ghost'} onClick={onPublishOpen}>
                         <Globe />
                         Publish
                     </Button>

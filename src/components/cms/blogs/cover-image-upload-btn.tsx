@@ -15,6 +15,7 @@ type Props = {
     coverImage?: string | null;
     onChange: (value: string | null | undefined) => void;
     title: string;
+    disabled?: boolean;
 }
 
 const formSchema = z.object({
@@ -22,7 +23,7 @@ const formSchema = z.object({
 });
 
 
-export default function CoverImageUploadBtn({ blogId, coverImage, title, onChange }: Props) {
+export default function CoverImageUploadBtn({ blogId, coverImage, title, onChange, disabled = false }: Props) {
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -31,9 +32,11 @@ export default function CoverImageUploadBtn({ blogId, coverImage, title, onChang
     })
 
     async function onSubmit(values: z.infer<typeof formSchema>) {
+        if (disabled) return;
+        
         try {
             onChange(values.coverImage); // necessary to set in main form
-            
+
             await updateBlog(
                 blogId,
                 {
@@ -75,6 +78,7 @@ export default function CoverImageUploadBtn({ blogId, coverImage, title, onChang
                                 >
                                     {({ open }) => {
                                         function handleOnClick() {
+                                            if (disabled) return;
                                             open();
                                         }
                                         return (
@@ -83,6 +87,7 @@ export default function CoverImageUploadBtn({ blogId, coverImage, title, onChang
                                                 onClick={handleOnClick}
                                                 variant={'ghost'}
                                                 size={'sm'}
+                                                disabled={disabled}
                                                 className="w-fit text-muted-foreground"
                                             >
                                                 {

@@ -16,14 +16,15 @@ import { z } from 'zod';
 type Props = {
     blogId: string;
     summary?: string;
-    onChange: (value: string) => void
+    onChange: (value: string) => void,
+    disabled?: boolean
 }
 
 const formSchema = z.object({
     summary: blogSummarySchema,
 });
 
-export default function AddSummaryButton({ blogId, summary = "", onChange }: Props) {
+export default function AddSummaryButton({ blogId, summary = "", onChange, disabled = false }: Props) {
     const [open, setOpen] = useState(false);
     const [isPending, startTransition] = useTransition();
 
@@ -35,6 +36,8 @@ export default function AddSummaryButton({ blogId, summary = "", onChange }: Pro
     })
 
     function onSubmit(values: z.infer<typeof formSchema>) {
+        if (disabled) return;
+        
         startTransition(async () => {
             onChange(values.summary);
 
@@ -87,7 +90,7 @@ export default function AddSummaryButton({ blogId, summary = "", onChange }: Pro
                             <LoadingButton
                                 isLoading={isPending}
                                 loadingText="Updating..."
-                                disabled={isPending}
+                                disabled={isPending || disabled || summary === form.getValues('summary')}
                                 type="submit"
                             >
                                 Update
@@ -99,9 +102,13 @@ export default function AddSummaryButton({ blogId, summary = "", onChange }: Pro
 
             <Button
                 type="button"
-                onClick={() => setOpen(true)}
+                onClick={() => {
+                    if (disabled) return;
+                    setOpen(true);
+                }}
                 variant={'ghost'}
                 size={'sm'}
+                disabled={isPending || disabled}
                 className="w-fit text-muted-foreground"
             >
                 {

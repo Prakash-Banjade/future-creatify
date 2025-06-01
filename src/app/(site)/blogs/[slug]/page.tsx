@@ -1,12 +1,17 @@
+import { BlogCardSkeleton } from '@/components/site/blogs/blog-card-content';
+import RelatedBlogs from '@/components/site/blogs/related-blogs';
 import BlogPageHeroWrapper from '@/components/site/hero-wrapper';
+import RecentBlogs from '@/components/site/home/recent-blogs';
+import { Button } from '@/components/ui/button';
 import CloudinaryImage from '@/components/ui/cloudinary-image';
 import YooptaEditorReadonly from '@/components/yoopta-editor/readonly';
 import { API_URL } from '@/CONSTANTS';
-import { TBlog } from '@/schemas/blog.schema';
+import { TBlog, TBlogsResponse_Public } from '@/schemas/blog.schema';
 import { format } from 'date-fns';
 import { ArrowLeft, Calendar, Tag, User } from 'lucide-react';
 import { Metadata } from 'next';
 import Link from 'next/link';
+import { Suspense } from 'react';
 
 type Props = {
     params: {
@@ -17,13 +22,7 @@ type Props = {
 export async function generateMetadata(props: { params: Promise<Props["params"]> }): Promise<Metadata> {
     const { slug } = await props.params;
 
-    const res = await fetch(`${API_URL}/blogs/${slug}`, {
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        cache: 'force-cache',
-        next: { revalidate: 3600 },
-    });
+    const res = await fetch(`${API_URL}/blogs/${slug}`);
 
     if (!res.ok) {
         return {
@@ -45,11 +44,8 @@ export default async function SingleBlogPage(props: { params: Promise<Props["par
     const { slug } = await props.params;
 
     const res = await fetch(`${API_URL}/blogs/${slug}`, {
-        headers: {
-            'Content-Type': 'application/json',
-        },
         cache: 'force-cache',
-        next: { revalidate: 3600 },
+        next: { revalidate: parseInt(process.env.DATA_REVALIDATE_SEC!) },
     });
 
     if (!res.ok) {
@@ -66,6 +62,22 @@ export default async function SingleBlogPage(props: { params: Promise<Props["par
     }
 
     const blog: TBlog = await res.json();
+
+    if (!blog) {
+        return (
+            <div className="min-h-screen flex items-center justify-center">
+                <div className="text-center">
+                    <h2 className="text-2xl font-bold mb-4">Blog Post Not Found</h2>
+                    <p>This can also happen if the author has updated the blog. You can checkout later.</p>
+                    <Button type="button" asChild variant={'link'}>
+                        <Link href="/blogs">
+                            Back to Blogs
+                        </Link>
+                    </Button>
+                </div>
+            </div>
+        );
+    }
 
     return (
         <>
@@ -151,19 +163,25 @@ export default async function SingleBlogPage(props: { params: Promise<Props["par
             </section>
 
             {/* Related Posts */}
-            {/* <section className="py-12 md:py-20 bg-cream">
-                <div className="container">
-                    <h2 className="text-3xl font-bold mb-12">Related Articles</h2>
-
-                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        {blogPosts.slice(3, 6).map((post, index) => (
-                            <BlogCard key={post.id} index={index}>
-                                <BlogCardContent blog={post} />
-                            </BlogCard>
-                        ))}
-                    </div>
-                </div>
-            </section> */}
+            <Suspense fallback={Array.from({ length: 3 }, (_, index) => <BlogCardSkeleton key={index} />)}>
+                <RelatedBlogs slug={slug} />
+            </Suspense>
         </>
     )
+}
+
+export const generateStaticParams = async () => {
+    const res = await fetch(`${API_URL}/blogs`, {
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    });
+
+    if (!res.ok) {
+        return []
+    }
+
+    const blogs: TBlogsResponse_Public = await res.json();
+
+    return blogs.map((blog) => ({ slug: blog.slug }));
 }

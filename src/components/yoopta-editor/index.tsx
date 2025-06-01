@@ -131,7 +131,11 @@ interface Props {
 
 export default function FullYooptaEditor({ onChange, value: defaultValue, editorClassName, containerClassName, setLength, readOnly }: Props) {
     const [value, setValue] = useState(defaultValue);
-    const editor = useMemo(() => createYooptaEditor(), []);
+
+    const editor = useMemo(() => {
+        return createYooptaEditor();
+    }, [readOnly]);
+    
     const selectionRef = useRef(null);
 
     // debounce
