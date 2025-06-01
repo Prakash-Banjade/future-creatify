@@ -6,7 +6,7 @@ import CloudinaryImage from '@/components/ui/cloudinary-image';
 import YooptaEditorReadonly from '@/components/yoopta-editor/readonly';
 import { API_URL } from '@/CONSTANTS';
 import { getReadingTimeInMinutes } from '@/lib/utils';
-import { TBlog, TBlogsResponse_Public } from '@/schemas/blog.schema';
+import { TBlog } from '@/schemas/blog.schema';
 import { format } from 'date-fns';
 import { ArrowLeft, Calendar, FileSpreadsheet, Tag, User } from 'lucide-react';
 import { Metadata } from 'next';
