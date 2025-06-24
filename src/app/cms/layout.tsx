@@ -1,13 +1,14 @@
 import SidebarLayout from '@/components/cms/sidebar/sidebar-layout';
+import { ThemeProvider } from '@/context/theme-provider';
 import getSession from '@/lib/getSession';
 import { Metadata } from 'next';
 import { redirect } from 'next/navigation';
 
 export const metadata: Metadata = {
-  title: {
-    default: "Future Creatify - The Education Hub",
-    template: "%s - CMS | Future Creatify",
-  },
+    title: {
+        default: "Future Creatify - The Education Hub",
+        template: "%s - CMS | Future Creatify",
+    },
 };
 
 type Props = {
@@ -27,15 +28,15 @@ export default async function CMSLayout({ children }: Props) {
     }
 
     return (
-        // <ThemeProvider
-        //     attribute="class"
-        //     defaultTheme="system"
-        //     enableSystem
-        //     disableTransitionOnChange
-        // >
-        <SidebarLayout>
-            <div>{children}</div>
-        </SidebarLayout>
-        // </ThemeProvider>
+        <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+        >
+            <SidebarLayout>
+                <div>{children}</div>
+            </SidebarLayout>
+        </ThemeProvider>
     )
 }

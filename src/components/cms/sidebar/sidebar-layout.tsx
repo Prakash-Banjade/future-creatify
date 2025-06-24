@@ -4,6 +4,7 @@ import { AppSidebar } from "./sidebar";
 import { Suspense } from "react";
 import { Skeleton } from "../../ui/skeleton";
 import AppBreadCrumb from "./app-bread-crumb";
+import { ThemeToggleBtn } from "@/components/ui/theme-toggle";
 
 type AppRootLayoutProps = {
     children: React.ReactNode,
@@ -21,7 +22,7 @@ export default function SidebarLayout({ children }: AppRootLayoutProps) {
                     <AppBreadCrumb />
 
                     <div className="ml-auto flex items-center gap-10">
-                        {/* <ThemeToggleBtn /> */}
+                        <ThemeToggleBtn />
                     </div>
                 </header>
                 <main className="p-6 h-full">
