@@ -1,0 +1,41 @@
+import type { Metadata } from "next";
+import { Inter } from "next/font/google";
+import "../globals.css";
+import Header from "@/components/site/header";
+import Footer from "@/components/site/footer";
+import { Toaster } from "sonner";
+
+const inter = Inter({
+    variable: "--font-inter",
+    subsets: ["latin"],
+});
+
+export const metadata: Metadata = {
+    title: {
+        default: "Site Builder",
+        template: "%s | Site Builder",
+    },
+};
+type Props = {
+    children: React.ReactNode
+}
+
+export default function SiteLayout({ children }: Props) {
+    return (
+        <html lang="en">
+            <body
+                className={`${inter.variable} antialiased`}
+            >
+
+                <div className="flex flex-col min-h-screen">
+                    <Header />
+                    <main className="flex-grow">
+                        {children}
+                    </main>
+                    <Footer />
+                    <Toaster richColors />
+                </div>
+            </body>
+        </html>
+    )
+}
