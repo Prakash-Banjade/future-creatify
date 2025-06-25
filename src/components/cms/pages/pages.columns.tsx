@@ -1,8 +1,7 @@
 "use client"
 
-import { TBlogsResponse } from "@/schemas/blog.schema"
 import { ColumnDef } from "@tanstack/react-table"
-import { MoreHorizontal, SquarePen, Star, Trash } from "lucide-react"
+import { MoreHorizontal, SquarePen, Trash } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -18,57 +17,45 @@ import { useRouter } from "next/navigation"
 import { useState, useTransition } from "react"
 import { ResponsiveAlertDialog } from "@/components/ui/responsive-alert-dialog"
 import { toast } from "sonner"
-import { deleteBlog } from "@/lib/actions/blogs.action"
 import Link from "next/link"
+import { TPage } from "@/schemas/page.schema"
+import { deletePage } from "@/lib/actions/pages.action"
 
-export const blogsColumns: ColumnDef<TBlogsResponse[0]>[] = [
+export const pagesColumns: ColumnDef<TPage>[] = [
     {
         header: "S.N",
         cell: ({ row }) => <p className="text-14 font-medium"> {row.index + 1} </p>,
     },
     {
-        accessorKey: "title",
-        header: "Title",
+        accessorKey: "name",
+        header: "Name",
         cell: ({ row }) => {
             return (
-                <Link href={`blogs/${row.original.id}`} className="flex gap-1 items-center">
-                    <span className="hover:underline">{row.original.title}</span>
-                    {row.original.isFavourite && (
-                        <span title="Favourite">
-                            <Star size={16} className="text-orange-400 fill-orange-400" />
-                        </span>
-                    )}
+                <Link href={`pages/${row.original.id}`} className="flex gap-1 items-center">
+                    <span className="hover:underline">{row.original.name}</span>
                 </Link>
             )
         }
     },
     {
-        accessorKey: "updatedAt",
-        header: "Last Updated At",
+        accessorKey: "createdAt",
+        header: "Created At",
         cell: ({ row }) => {
-            const updatedAt = row.original.updatedAt;
-            return new Date(updatedAt).toLocaleString();
-        }
-    },
-    {
-        accessorKey: "publishedAt",
-        header: "Last Published At",
-        cell: ({ row }) => {
-            const publishedAt = row.original.publishedAt;
-            return publishedAt ? new Date(publishedAt).toLocaleString() : <span className="text-destructive">Not Published</span>;
+            const createdAt = row.original.createdAt;
+            return createdAt ? new Date(createdAt).toLocaleString() : <span>-</span>;
         }
     },
     {
         id: "actions",
         cell: ({ row }) => {
-            const blog = row.original;
+            const page = row.original;
 
-            return <BlogsColumnActions blog={blog} />
+            return <PagesColumnActions page={page} />
         },
     },
 ]
 
-function BlogsColumnActions({ blog }: { blog: TBlogsResponse[0] }) {
+function PagesColumnActions({ page }: { page: TPage }) {
     const router = useRouter();
     const [isDeleting, startTransition] = useTransition();
     const [isDeleteOpen, setIsDeleteOpen] = useState(false);
@@ -76,8 +63,8 @@ function BlogsColumnActions({ blog }: { blog: TBlogsResponse[0] }) {
     function handleDelete() {
         startTransition(async () => {
             try {
-                await deleteBlog(blog.id);
-                toast.success("Blog deleted");
+                await deletePage(page.id);
+                toast.success("Page deleted");
             } catch (e) {
                 if (e instanceof Error) {
                     toast.error("Unexpected Error", {
@@ -98,8 +85,8 @@ function BlogsColumnActions({ blog }: { blog: TBlogsResponse[0] }) {
                 action={handleDelete}
                 isOpen={isDeleteOpen}
                 setIsOpen={setIsDeleteOpen}
-                title="Delete Blog"
-                description="Are you sure you want to delete this blog? This action cannot be undone."
+                title="Delete Page"
+                description="Are you sure you want to delete this page? This action cannot be undone."
                 actionLabel="Yes, delete"
                 isLoading={isDeleting}
                 loadingText="Deleting..."
@@ -115,7 +102,7 @@ function BlogsColumnActions({ blog }: { blog: TBlogsResponse[0] }) {
                 <DropdownMenuContent align="end">
                     <DropdownMenuLabel>Actions</DropdownMenuLabel>
                     <DropdownMenuSeparator />
-                    <DropdownMenuItem onClick={() => router.push(`blogs/${blog.id}`)}>
+                    <DropdownMenuItem onClick={() => router.push(`pages/${page.id}`)}>
                         <SquarePen />
                         Edit
                     </DropdownMenuItem>

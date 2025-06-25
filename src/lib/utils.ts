@@ -37,8 +37,10 @@ export function showServerError(e: unknown) {
   }
 }
 
-export function generateSlug(title: string) {
+export function generateSlug(title: string, genUniqueId: boolean = true): string {
   const slug = title.trim().toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, '')
+
+  if (!genUniqueId) return slug;
 
   return `${slug}-${generateUniqueId(10)}`;
 }

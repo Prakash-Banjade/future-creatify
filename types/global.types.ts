@@ -14,3 +14,14 @@ export type TMeta = {
     hasPreviousPage: boolean;
     hasNextPage: boolean;
 };
+
+export enum EAlignment {
+    Left = 'left',
+    Center = 'center',
+    Right = 'right',
+}
+
+export enum EAlignmentExcludeCenter {
+    Left = 'left',
+    Right = 'right'
+}

@@ -2,6 +2,7 @@ import postgres from "postgres"
 import { drizzle } from "drizzle-orm/postgres-js"
 import * as authSchema from "./schema/auth"
 import * as blogSchema from "./schema/blog"
+import * as pageSchema from "./schema/page"
 
 const connectionString = process.env.AUTH_DRIZZLE_URL!;
 const pool = postgres(connectionString, { max: 1 })
@@ -9,6 +10,7 @@ const pool = postgres(connectionString, { max: 1 })
 export const db = drizzle(pool, {
     schema: {
         ...authSchema,
-        ...blogSchema
+        ...blogSchema,
+        ...pageSchema
     }
 });

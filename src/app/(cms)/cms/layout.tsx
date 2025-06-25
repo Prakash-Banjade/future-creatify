@@ -5,10 +5,7 @@ import { Metadata } from 'next';
 import { redirect } from 'next/navigation';
 
 export const metadata: Metadata = {
-    title: {
-        default: "Site Builder",
-        template: "%s - CMS | Site Builder",
-    },
+    title: "CMS"
 };
 
 type Props = {

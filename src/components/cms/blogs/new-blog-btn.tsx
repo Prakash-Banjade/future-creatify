@@ -1,9 +1,9 @@
 "use client"
 
-import { Button } from "@/components/ui/button"
+import LoadingButton from "@/components/forms/loading-button"
 import { createBlog } from "@/lib/actions/blogs.action"
 import { blogFormDefaultValues } from "@/schemas/blog.schema"
-import { LoaderCircle, Plus } from "lucide-react"
+import { Plus } from "lucide-react"
 import { useRouter } from "next/navigation"
 import { useTransition } from "react"
 import { toast } from "sonner"
@@ -19,7 +19,6 @@ export default function NewBlogButton() {
                 const id = res.id;
 
                 if (id) {
-                    toast.success("Blog created");
                     router.push(`/cms/blogs/${id}`);
                 }
             } catch (e) {
@@ -35,18 +34,15 @@ export default function NewBlogButton() {
     }
 
     return (
-        <Button type="button" onClick={handleCreate}>
-            {
-                isPending
-                    ? <>
-                        <LoaderCircle className="animate-spin" />
-                        Creating...
-                    </>
-                    : <>
-                        <Plus />
-                        New Blog
-                    </>
-            }
-        </Button>
+        <LoadingButton
+            isLoading={isPending}
+            type="button"
+            onClick={handleCreate}
+            disabled={isPending}
+            loadingText='Creating...'
+        >
+            <Plus />
+            New Blog
+        </LoadingButton>
     )
 }
