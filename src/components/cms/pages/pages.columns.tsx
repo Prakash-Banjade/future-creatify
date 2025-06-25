@@ -18,10 +18,10 @@ import { useState, useTransition } from "react"
 import { ResponsiveAlertDialog } from "@/components/ui/responsive-alert-dialog"
 import { toast } from "sonner"
 import Link from "next/link"
-import { TPage } from "@/schemas/page.schema"
 import { deletePage } from "@/lib/actions/pages.action"
+import { TPagesResponse } from "../../../../types/page.types"
 
-export const pagesColumns: ColumnDef<TPage>[] = [
+export const pagesColumns: ColumnDef<TPagesResponse[0]>[] = [
     {
         header: "S.N",
         cell: ({ row }) => <p className="text-14 font-medium"> {row.index + 1} </p>,
@@ -55,7 +55,7 @@ export const pagesColumns: ColumnDef<TPage>[] = [
     },
 ]
 
-function PagesColumnActions({ page }: { page: TPage }) {
+function PagesColumnActions({ page }: { page: TPagesResponse[0] }) {
     const router = useRouter();
     const [isDeleting, startTransition] = useTransition();
     const [isDeleteOpen, setIsDeleteOpen] = useState(false);

@@ -14,16 +14,16 @@ export default function AppBreadCrumb() {
 
     const active = useMemo(() => {
         const menuItem = cmsSidebarMenuItems.find(group => group.menuItems
-            .some(item => pathname.includes(`/${item.url}`)))
-            ?.menuItems?.find(item => pathname.includes(`/${item.url}`))
+            .some(item => pathname.includes(`${item.url}`)))
+            ?.menuItems?.find(item => pathname.includes(`${item.url}`))
 
         const item = menuItem?.items?.length
             ? (
                 menuItem.items.find(item => {
-                    return pathname === (`/${menuItem.url}${!!item.url ? `/${item.url}` : ''}`)
+                    return pathname === (`${menuItem.url}${!!item.url ? `/${item.url}` : ''}`)
                 })
                 || menuItem.items.find(item => {
-                    return pathname.includes(`/${menuItem.url}${!!item.url ? `/${item.url}` : ''}`)
+                    return pathname.includes(`${menuItem.url}${!!item.url ? `/${item.url}` : ''}`)
                 })
             )
             : undefined;

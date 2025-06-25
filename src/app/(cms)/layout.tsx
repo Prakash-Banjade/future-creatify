@@ -3,6 +3,9 @@ import { Inter } from "next/font/google";
 import "../globals.css";
 import { SessionProvider } from "next-auth/react";
 import { Toaster } from "@/components/ui/sonner";
+import { ThemeProvider } from "@/context/theme-provider";
+import { QueryClientProvider } from "@tanstack/react-query";
+import { queryClient } from "@/lib/queryClient";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -27,10 +30,19 @@ export default async function RootLayout({
       <body
         className={`${inter.variable} antialiased`}
       >
-        <SessionProvider>
-          {children}
-        </SessionProvider>
-        <Toaster richColors />
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <SessionProvider>
+            <QueryClientProvider client={queryClient}>
+              {children}
+            </QueryClientProvider>
+          </SessionProvider>
+          <Toaster richColors />
+        </ThemeProvider>
       </body>
     </html>
   );

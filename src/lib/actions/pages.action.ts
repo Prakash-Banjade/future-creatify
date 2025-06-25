@@ -2,50 +2,32 @@
 
 import { db } from "@/db";
 import checkAuth from "../check-auth";
-import { heroSections, pages } from "@/db/schema/page";
+import { pages } from "@/db/schema/page";
 import { eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { generateSlug } from "../utils";
-import { EHeroLayoutTypes } from "../../../types/page.types";
-import { EAlignment } from "../../../types/global.types";
+import { heroSectionDtoDefaultValues } from "@/schemas/hero-section.schema";
 
 
 export async function createNewPage() {
     await checkAuth('admin');
 
-    let pageId: string | undefined;
+    const [page] = await db.insert(pages).values({
+        name: "Untitled",
+        slug: generateSlug("Untitled"),
+        metadata: {
+            title: "Untitled",
+            description: "",
+            keywords: [],
+        },
+        heroSections: [
+            heroSectionDtoDefaultValues
+        ]
+    }).returning({ id: pages.id });
 
-    await db.transaction(async (tx) => {
+    if (!page) throw new Error("Failed to create page");
 
-        const [page] = await tx.insert(pages).values({
-            name: "Untitled",
-            slug: generateSlug("Untitled"),
-            metadata: {
-                title: "Untitled",
-                description: "",
-                keywords: [],
-            }
-        }).returning({ id: pages.id });
-
-        if (!page) throw new Error("Failed to create page");
-
-        // insert hero-section
-        await tx.insert(heroSections).values({
-            pageId: page.id,
-            headline: "",
-            subheadline: "",
-            image: null,
-            layout: {
-                type: EHeroLayoutTypes.Jumbotron,
-                alignment: EAlignment.Center
-            },
-            cta: [],
-        });
-
-        pageId = page.id;
-    })
-
-    return { id: pageId };
+    return { id: page.id };
 }
 
 export async function deletePage(id: string) {

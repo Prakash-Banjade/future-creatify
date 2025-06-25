@@ -1,9 +1,9 @@
 import { DataTable } from '@/components/data-table/data-table';
 import { db } from '@/db'
 import { pages } from '@/db/schema/page'
-import { TPage } from '@/schemas/page.schema';
 import { desc } from 'drizzle-orm';
 import { pagesColumns } from './pages.columns';
+import { TPagesResponse } from '../../../../types/page.types';
 
 export default async function PagesList() {
     const foundPages = await getPages();
@@ -19,7 +19,7 @@ export default async function PagesList() {
     )
 }
 
-async function getPages(): Promise<TPage[]> {
+async function getPages(): Promise<TPagesResponse> {
     try {
         const foundPages = await db
             .select({

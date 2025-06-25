@@ -1,4 +1,6 @@
 import { EAlignment, EAlignmentExcludeCenter } from "./global.types"
+import { TMetadataDto, TPageSection } from "@/schemas/page.schema";
+import { THeroSectionDto } from "@/schemas/hero-section.schema";
 
 export enum EHeroLayoutTypes {
     Jumbotron = "jumbotron",
@@ -11,4 +13,22 @@ export type THeroLayout = {
 } | {
     type: EHeroLayoutTypes.Split_Hero,
     imagePosition: EAlignmentExcludeCenter,
+}
+
+export type TPagesResponse = {
+    id: string;
+    name: string;
+    slug: string;
+    createdAt: Date;
+}[]
+
+export type TPage = {
+    id: string;
+    name: string;
+    slug: string;
+    sections: TPageSection[];
+    metadata: TMetadataDto;
+    heroSections: THeroSectionDto[];
+    updatedAt: Date;
+    createdAt: Date;
 }
