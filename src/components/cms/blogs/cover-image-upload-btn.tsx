@@ -2,6 +2,7 @@ import { Button } from '@/components/ui/button'
 import { Form, FormControl, FormField, FormItem, FormMessage } from '@/components/ui/form';
 import { CLOUDINARY_SIGNATURE_ENDPOINT } from '@/CONSTANTS';
 import { updateBlog } from '@/lib/actions/blogs.action';
+import { uploadMedia } from '@/lib/actions/media.action';
 import { showServerError } from '@/lib/utils';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { ImagePlus, PenLine } from 'lucide-react';
@@ -33,7 +34,7 @@ export default function CoverImageUploadBtn({ blogId, coverImage, title, onChang
 
     async function onSubmit(values: z.infer<typeof formSchema>) {
         if (disabled) return;
-        
+
         try {
             onChange(values.coverImage); // necessary to set in main form
 
@@ -61,9 +62,23 @@ export default function CoverImageUploadBtn({ blogId, coverImage, title, onChang
                             <FormControl>
                                 <CldUploadWidget
                                     signatureEndpoint={CLOUDINARY_SIGNATURE_ENDPOINT}
-                                    onSuccess={(result) => {
+                                    onSuccess={async (result) => {
                                         if (typeof result.info === "object" && "secure_url" in result.info) {
                                             field.onChange(result.info.public_id);
+                                            await uploadMedia({
+                                                public_id: result.info.public_id,
+                                                alt: "<No alt>",
+                                                bytes: result.info.bytes,
+                                                caption: "<No caption>",
+                                                format: result.info.format,
+                                                height: result.info.height,
+                                                name: result.info.original_filename + '.' + result.info.format,
+                                                originalName: result.info.original_filename + '.' + result.info.format,
+                                                resource_type: result.info.resource_type,
+                                                secure_url: result.info.secure_url,
+                                                type: result.info.type,
+                                                width: result.info.width,
+                                            });
                                             form.handleSubmit(onSubmit)(); // save immediately
                                         }
                                     }}

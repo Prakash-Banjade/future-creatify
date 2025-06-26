@@ -1,12 +1,10 @@
 "use client";
 
-import AppForm from "@/components/forms/app-form"
-
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useEffect, useTransition } from "react";
 import FullYooptaEditor from "@/components/yoopta-editor";
-import { blogSchema, blogSchemaType, TBlog } from "@/schemas/blog.schema";
+import { blogSchema, blogSchemaType } from "@/schemas/blog.schema";
 import { toast } from "sonner";
 import { updateBlog } from "@/lib/actions/blogs.action";
 import { Badge } from "@/components/ui/badge";
@@ -21,6 +19,8 @@ import AddKeywordsBtn from "./add-keywords-btn";
 import CoverImageUploadBtn from "./cover-image-upload-btn";
 import useEffectAfterMount from "@/hooks/useEffectAfterMount";
 import YooptaEditorReadonly from "@/components/yoopta-editor/readonly";
+import { Form } from "@/components/ui/form";
+import { TBlog } from "../../../../types/blog.types";
 
 type Props = {
     defaultValues: TBlog;
@@ -170,7 +170,7 @@ export default function BlogForm({ defaultValues }: Props) {
                     />
                 </section>
 
-                <AppForm schema={blogSchema} form={form}>
+                <Form {...form}>
                     <form onSubmit={form.handleSubmit(onSubmit)} className="mt-2 space-y-2 h-full">
                         <textarea
                             autoFocus
@@ -213,7 +213,7 @@ export default function BlogForm({ defaultValues }: Props) {
                         }
 
                     </form>
-                </AppForm>
+                </Form>
             </section>
         </section>
     )

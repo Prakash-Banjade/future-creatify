@@ -1,4 +1,5 @@
 import { CLOUDINARY_SIGNATURE_ENDPOINT } from "@/CONSTANTS";
+import { uploadMedia } from "./actions/media.action";
 
 export type MediaObject = {
     secure_url: string;
@@ -68,6 +69,21 @@ export async function uploadToCloudinary(
     }
 
     const response = await uploadRes.json();
+
+    await uploadMedia({
+        public_id: response.public_id,
+        alt: "<No alt>",
+        bytes: response.bytes,
+        caption: "<No caption>",
+        format: response.format,
+        height: response.height,
+        name: response.original_filename + '.' + response.format,
+        originalName: response.original_filename + '.' + response.format,
+        resource_type: response.resource_type,
+        secure_url: response.secure_url,
+        type: response.type,
+        width: response.width,
+    });
 
     return {
         secure_url: response.secure_url,

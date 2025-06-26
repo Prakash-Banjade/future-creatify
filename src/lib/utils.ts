@@ -103,3 +103,45 @@ export function getReadingTimeInMinutes(characters: number, charsPerMinute: numb
   if (characters <= 0) return 0;
   return Math.ceil(characters / charsPerMinute);
 }
+
+
+export function createQueryString(params: Record<string, string | boolean | undefined | null>) {
+  // Remove undefined values
+  const filteredParams = Object.fromEntries(
+    Object.entries(params).filter(([key, value]) => !!value && !!key)
+      .map(([key, value]) => [key, String(value)])
+  );
+
+  return new URLSearchParams(filteredParams).toString();
+}
+
+/**
+ * Convert bytes into a human-readable string,
+ * choosing the largest unit (B, KB, MB, GB) for which the value is ≥ 1.
+ * Never goes above GB.
+ *
+ * @param {number} bytes
+ * @returns {string} e.g. "512 B", "0.92 MB", "1.20 GB"
+ */
+export function formatBytes(bytes: number): string {
+  const units = ['B', 'KB', 'MB', 'GB'];
+  let value = bytes;
+  let idx = 0;
+
+  // Climb up until the next unit would be < 1, or we hit GB
+  while (idx < units.length - 1 && value / 1024 >= 1) {
+    value /= 1024;
+    idx++;
+  }
+
+  // If this unit is < 1 (e.g. 0.55 MB), step back to previous
+  if (value < 1 && idx > 0) {
+    value *= 1024;
+    idx--;
+  }
+
+  // Round to two decimals, drop unnecessary zeros
+  const rounded = parseFloat(value.toFixed(2));
+
+  return `${rounded} ${units[idx]}`;
+}

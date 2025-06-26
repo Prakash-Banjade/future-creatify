@@ -20,6 +20,10 @@ import CtaAccordion from "./cta-accordion";
 import { Button } from "@/components/ui/button";
 import { ECtaVariant } from "../../../../../types/blocks.types";
 import { ECtaType, heroSectionDtoDefaultValues } from "@/schemas/hero-section.schema";
+import MediaField from "@/components/forms/media-field";
+import { Label } from "@/components/ui/label";
+import CloudinaryImage from "@/components/ui/cloudinary-image";
+import { formatBytes } from "@/lib/utils";
 
 type Props = {}
 
@@ -104,6 +108,46 @@ export default function HeroTabContent({ }: Props) {
                                             )}
                                         />
                                         <CtaField heroIdx={idx} />
+
+
+                                        <FormField
+                                            control={form.control}
+                                            name={`heroSections.${idx}.image`}
+                                            render={({ field }) => (
+                                                <FormItem>
+                                                    <FormLabel>Image <span className='text-red-500'>*</span></FormLabel>
+                                                    <FormControl>
+                                                        {
+                                                            field.value ? (
+                                                                <section className="border rounded-md p-3 flex items-center justify-between gap-4">
+                                                                    <section>
+                                                                        <CloudinaryImage
+                                                                            src={field.value.secure_url}
+                                                                            alt={field.value.alt ?? ""}
+                                                                            width={50}
+                                                                            height={50}
+                                                                        />
+                                                                        <section className="text-sm">
+                                                                            <p>{field.value.name}</p>
+                                                                            <p className="text-muted-foreground">{formatBytes(field.value.bytes)}</p>
+                                                                        </section>
+                                                                    </section>
+
+                                                                    <section>
+
+                                                                    </section>
+                                                                </section>
+                                                            ) : (
+                                                                <MediaField onChange={field.onChange} />
+                                                            )
+                                                        }
+
+                                                    </FormControl>
+                                                    <FormMessage />
+                                                </FormItem>
+                                            )}
+                                        />
+
                                     </AccordionContent>
                                 </AccordionItem>
                             </Accordion>
@@ -142,7 +186,7 @@ function CtaField({ heroIdx }: { heroIdx: number }) {
 
     return (
         <section className="space-y-2">
-            <h3 className="text-lg font-medium">Links</h3>
+            <Label>Links</Label>
             <section className="space-y-2">
                 {
                     fields.map((f, idx) => {

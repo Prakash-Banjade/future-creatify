@@ -1,6 +1,5 @@
 import { BlogCardSkeleton } from '@/components/site/blogs/blog-card';
 import RelatedBlogs from '@/components/site/blogs/related-blogs';
-import BlogPageHeroWrapper from '@/components/site/hero-wrapper';
 import { Button } from '@/components/ui/button';
 import CloudinaryImage from '@/components/ui/cloudinary-image';
 import YooptaEditorReadonly from '@/components/yoopta-editor/readonly';
@@ -94,35 +93,33 @@ export default async function SingleBlogPage(props: { params: Promise<Props["par
                     <Link href="/blogs" className="inline-flex items-center text-primary font-medium mb-6 hover:underline">
                         <ArrowLeft size={16} className="mr-2" /> Back to Blogs
                     </Link>
-                    <BlogPageHeroWrapper>
-                        <div className="flex items-center gap-4 text-sm text-slate-500 mb-4">
-                            <div className="flex items-center">
-                                <Calendar size={14} className="mr-1" />
-                                {
-                                    blog.publishedAt && (
-                                        <span>{format(new Date(blog.publishedAt), 'EEE MMM dd, yyyy')}</span>
-                                    )
-                                }
-                            </div>
-                            <div className="flex items-center">
-                                <User size={14} className="mr-1" />
-                                <span>Anju Chhetri</span>
-                            </div>
-                            <div className="flex items-center">
-                                <Tag size={14} className="mr-1" />
-                                <span>General</span>
-                            </div>
-
-                            <div className="flex items-center">
-                                <FileSpreadsheet size={14} className="mr-1" />
-                                <span>{getReadingTimeInMinutes(blog.length)} Minutes Read</span>
-                            </div>
+                    <div className="flex items-center gap-4 text-sm text-slate-500 mb-4">
+                        <div className="flex items-center">
+                            <Calendar size={14} className="mr-1" />
+                            {
+                                blog.publishedAt && (
+                                    <span>{format(new Date(blog.publishedAt), 'EEE MMM dd, yyyy')}</span>
+                                )
+                            }
+                        </div>
+                        <div className="flex items-center">
+                            <User size={14} className="mr-1" />
+                            <span>Anju Chhetri</span>
+                        </div>
+                        <div className="flex items-center">
+                            <Tag size={14} className="mr-1" />
+                            <span>General</span>
                         </div>
 
-                        <h1 className="text-3xl md:text-5xl font-bold leading-tight mb-8 text-shadow-lg">
-                            {blog.title}
-                        </h1>
-                    </BlogPageHeroWrapper>
+                        <div className="flex items-center">
+                            <FileSpreadsheet size={14} className="mr-1" />
+                            <span>{getReadingTimeInMinutes(blog.length)} Minutes Read</span>
+                        </div>
+                    </div>
+
+                    <h1 className="text-3xl md:text-5xl font-bold leading-tight mb-8 text-shadow-lg">
+                        {blog.title}
+                    </h1>
                 </div>
             </section>
 

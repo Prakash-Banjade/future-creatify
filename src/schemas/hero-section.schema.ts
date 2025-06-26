@@ -2,6 +2,7 @@ import { z } from "zod";
 import { ECtaVariant } from "../../types/blocks.types";
 import { EHeroLayoutTypes } from "../../types/page.types";
 import { EAlignment, EAlignmentExcludeCenter } from "../../types/global.types";
+import { mediaSchema } from "./media.schema";
 
 export enum ECtaType {
     External = "external",
@@ -59,10 +60,7 @@ export const HeroSectionDtoSchema = z.object({
         .trim()
         .max(200, { message: "Subheadline must be between 10 and 200 characters" }),
 
-    image: z
-        .string()
-        .url()
-        .nullish(),
+    image: mediaSchema.nullish(),
 
     cta: z
         .array(CTADtoSchema)
@@ -76,7 +74,7 @@ export type THeroSectionDto = z.infer<typeof HeroSectionDtoSchema>;
 export const heroSectionDtoDefaultValues: THeroSectionDto = {
     headline: "Untitled",
     subheadline: "",
-    image: null,
+    image: undefined,
     cta: [],
     layout: {
         type: EHeroLayoutTypes.Jumbotron,

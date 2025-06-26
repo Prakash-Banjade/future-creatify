@@ -31,21 +31,3 @@ export const blogFormDefaultValues: blogSchemaType = {
     publishedAt: null,
     length: 0,
 }
-
-export type TBlog = {
-    id: string;
-    title: string;
-    content: YooptaContentValue;
-    summary: string;
-    slug: string;
-    coverImage: string | null;
-    publishedAt: Date | null;
-    keywords: string[];
-    updatedAt: Date;
-    isFavourite: boolean;
-    length: number;
-}
-
-export type TBlogsResponse = Pick<TBlog, "id" | "title" | "slug" | "updatedAt" | "publishedAt" | "isFavourite">[];
-
-export type TBlogsResponse_Public = Pick<TBlog, "id" | "title" | "slug" | "summary" | "publishedAt" | "keywords" | "coverImage" | "length">[]
