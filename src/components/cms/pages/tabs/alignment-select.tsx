@@ -25,10 +25,10 @@ export default function AlignmentSelect<T extends FieldValues>({
             name={name}
             render={({ field }) => (
                 <FormItem>
-                    <FormLabel>{label} {required && <span className="text-red-500">*</span>}</FormLabel>
+                    <FormLabel>{label} {required && <span className="text-destructive">*</span>}</FormLabel>
                     <Select onValueChange={field.onChange} defaultValue={field.value} required={required}>
                         <FormControl>
-                            <SelectTrigger className="w-full">
+                            <SelectTrigger className="w-full py-5">
                                 <SelectValue placeholder={placeholder} />
                             </SelectTrigger>
                         </FormControl>

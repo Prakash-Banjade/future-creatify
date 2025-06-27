@@ -4,7 +4,7 @@ import { useState, type KeyboardEvent } from "react"
 import { Badge } from "@/components/ui/badge"
 import { Input } from "@/components/ui/input"
 import { X } from "lucide-react"
-import { useFormContext } from "react-hook-form"
+import { useFormContext, useWatch } from "react-hook-form"
 import { FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "./form"
 
 type Props = {
@@ -20,7 +20,11 @@ export default function TagsInput({ name, placeholder, label, max = 10, descript
 
     const [inputValue, setInputValue] = useState("");
 
-    const tags = form.watch(name);
+    const tags = useWatch({
+        name,
+        control: form.control,
+        defaultValue: []
+    });
 
     const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
         if (e.key === " " && inputValue.trim()) {
@@ -71,13 +75,13 @@ export default function TagsInput({ name, placeholder, label, max = 10, descript
                                             </button>
                                         </Badge>
                                     ))}
-                                    <Input
+                                    <input
                                         id="tag-input"
                                         value={inputValue}
                                         onChange={(e) => setInputValue(e.target.value)}
                                         onKeyDown={handleKeyDown}
                                         placeholder={tags.length === 0 ? (placeholder ?? "Type and press space to add tags...") : ""}
-                                        className="border-0 p-0 h-auto focus-visible:ring-0 focus-visible:ring-offset-0 flex-1 min-w-[120px]"
+                                        className="border-0 p-0 h-auto focus:outline-0 focus-visible:ring-0 focus-visible:ring-offset-0 flex-1 min-w-[120px]"
                                     />
                                 </div>
                             </div>

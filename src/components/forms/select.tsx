@@ -33,7 +33,7 @@ export function AppFormSelect<T extends FieldValues>({
                     <div className="">
                         <FormLabel className="">
                             {label}
-                            {required && <span className="text-red-500">*</span>}
+                            {required && <span className="text-destructive">*</span>}
                         </FormLabel>
                         {
                             !required && <span role="button" onClick={() => field.onChange('')} className="text-muted-foreground text-sm absolute right-0 mt-[2px]">

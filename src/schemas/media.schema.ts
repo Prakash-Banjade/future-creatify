@@ -12,7 +12,6 @@ export const mediaSchema = z.object({
     height: z.number().min(1, { message: "Height is required" }),
     format: z.string(),
     resource_type: z.string(),
-    type: z.string().min(1, { message: "Type is required" }),
     bytes: z.number().min(1, { message: "Bytes is required" }),
 });
 

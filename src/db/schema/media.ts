@@ -15,7 +15,6 @@ export const media = pgTable(
         height: integer("height").notNull(),
         format: text("format").notNull(),
         resource_type: text("resource_type").notNull(),
-        type: text("type").notNull(),
         bytes: integer("bytes").notNull(),
 
         createdAt: timestamp("created_at").notNull().defaultNow(),

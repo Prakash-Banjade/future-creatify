@@ -9,20 +9,20 @@ import {
 } from "@/components/ui/dialog"
 import { useState } from 'react';
 import Image from 'next/image';
-import { heroLayouts } from '@/lib/layouts/hero-layouts';
-import { THeroSectionDto } from '@/schemas/hero-section.schema';
+import { blockLayouts } from '@/lib/layouts/block-layouts';
+import { TBlock } from '@/schemas/page.schema';
 
 type Props = {
-    onSelect: (layout: THeroSectionDto["layout"]) => void,
+    onSelect: (block: TBlock) => void,
     length: number
 }
 
-export default function AddHeroSectionDialog({ onSelect, length }: Props) {
+export default function AddBlockDialog({ onSelect, length }: Props) {
     const [selectorOpen, setSelectorOpen] = useState(false);
 
-    function handleAdd(layout: THeroSectionDto["layout"]) {
+    function handleAdd(block: TBlock) {
         if (length >= 5) return;
-        onSelect(layout);
+        onSelect(block);
         setSelectorOpen(false);
     }
 
@@ -38,7 +38,7 @@ export default function AddHeroSectionDialog({ onSelect, length }: Props) {
                             className="font-normal text-xs"
                             disabled={length >= 5}
                         >
-                            <Plus size={16} /> Add Hero
+                            <Plus size={16} /> Add Block
                         </Button>
                     )
                 }
@@ -46,18 +46,18 @@ export default function AddHeroSectionDialog({ onSelect, length }: Props) {
             <DialogContent className='full-screen-dialog block'>
                 <DialogHeader>
                     <DialogTitle>
-                        <span id="dialog-title">Add Hero</span>
+                        <span id="dialog-title">Add Block</span>
                     </DialogTitle>
                 </DialogHeader>
                 <section className='pt-10 grid xl:grid-cols-6 lg:grid-cols-5 md:grid-cols-3 grid-cols-2 gap-6'>
                     {
-                        heroLayouts.map((l, ind) => {
+                        blockLayouts.map((l, ind) => {
                             return (
                                 <section
                                     key={ind}
                                     role='button'
                                     className='border rounded-md p-4 space-y-2 hover:ring-1 hover:ring-offset-2 transition-all cursor-pointer'
-                                    onClick={() => handleAdd(l.layout)}
+                                    onClick={() => handleAdd(l.block)}
                                 >
                                     <Image
                                         src={l.image}

@@ -34,7 +34,12 @@ export async function GET(request: NextRequest) {
                 width: media.width,
                 height: media.height,
                 alt: media.alt,
+                bytes: media.bytes,
+                originalName: media.originalName,
                 caption: media.caption,
+                public_id: media.public_id,
+                format: media.format,
+                resource_type: media.resource_type,
                 secure_url: media.secure_url,
                 updatedAt: media.updatedAt,
             })

@@ -1,0 +1,74 @@
+import { TBlock } from "@/schemas/page.schema"
+import jumboCenter from "@/assets/layouts/hero-layout/jumbotron-center.svg"
+import { EBlock, ECardsBlockLayout } from "../../../types/blocks.types"
+import { EAlignment } from "../../../types/global.types"
+
+const mediaDefaultValue = {
+    secure_url: "",
+    alt: "",
+    caption: "",
+    width: 0,
+    height: 0,
+    bytes: 0,
+    name: "",
+    originalName: "",
+    public_id: "",
+    format: "",
+    resource_type: "",
+}
+
+export const blockLayouts: {
+    block: TBlock,
+    image: any,
+    alt: string
+}[] = [
+        {
+            block: {
+                type: EBlock.Text,
+                headline: "",
+                subheadline: "",
+                body: "",
+                cta: [],
+                align: EAlignment.Left,
+            },
+            alt: "Text",
+            image: jumboCenter
+        },
+        {
+            block: {
+                type: EBlock.Image,
+                ...mediaDefaultValue,
+            },
+            alt: "Image",
+            image: jumboCenter
+        },
+        {
+            block: {
+                type: EBlock.Cards,
+                layout: ECardsBlockLayout.Horizontal,
+                cards: [],
+                maxColumns: 3,
+            },
+            alt: "Cards",
+            image: jumboCenter
+        },
+        {
+            block: {
+                type: EBlock.RefItem,
+                ref: "",
+                limit: 3,
+                order: "DESC",
+                refIds: [],
+            },
+            alt: "RefItem",
+            image: jumboCenter
+        },
+        {
+            block: {
+                type: EBlock.Form,
+                formId: "",
+            },
+            alt: "Form",
+            image: jumboCenter
+        }
+    ]

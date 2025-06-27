@@ -2,6 +2,7 @@ import { z } from "zod";
 import { EBlock, ECardsBlockLayout, ECtaVariant } from "../../types/blocks.types";
 import { EAlignment } from "../../types/global.types";
 import { CTADtoSchema, HeroSectionDtoSchema } from "./hero-section.schema";
+import { mediaSchema } from "./media.schema";
 
 // ---- BaseBlock ----
 export const BaseBlockSchema = z.object({
@@ -19,7 +20,6 @@ export const TextBlockSchema = BaseBlockSchema.extend({
     subheadline: z
         .string()
         .trim()
-        .min(3, { message: "Subheadline must be between 3 and 300 characters" })
         .max(300, { message: "Subheadline must be between 3 and 300 characters" }),
     body: z
         .string()
@@ -32,27 +32,9 @@ export const TextBlockSchema = BaseBlockSchema.extend({
 });
 
 // ---- ImageBlockDto ----
-export const ImageBlockSchema = BaseBlockSchema.extend({
+export const ImageBlockSchema = mediaSchema.merge(BaseBlockSchema.extend({
     type: z.literal(EBlock.Image),
-    url: z.string().url(),
-    alt: z
-        .string()
-        .trim()
-        .max(100, { message: "Alt text must be less than 100 characters" })
-        .optional(),
-    caption: z
-        .string()
-        .trim()
-        .max(100, { message: "Caption must be less than 100 characters" })
-        .optional(),
-    description: z
-        .string()
-        .trim()
-        .max(300, { message: "Description must be less than 300 characters" })
-        .optional(),
-    width: z.coerce.number().min(1).optional(),
-    height: z.coerce.number().min(1).optional(),
-});
+}));
 
 // ---- CardDto ----
 export const CardSchema = z.object({
@@ -72,7 +54,7 @@ export const CardSchema = z.object({
         .min(3, { message: "Description must be between 3 and 300 characters" })
         .max(300, { message: "Description must be between 3 and 300 characters" }),
     link: z.string().url().optional(),
-    image: z.string().url().nullish(),
+    image: mediaSchema.optional(),
 });
 
 // ---- CardsBlockDto ----
@@ -101,7 +83,7 @@ export const RefItemBlockSchema = BaseBlockSchema.extend({
 // ---- FormBlockDto ----
 export const FormBlockSchema = BaseBlockSchema.extend({
     type: z.literal(EBlock.Form),
-    formId: z.string().uuid(),
+    formId: z.string({ required_error: "Form id is required" }).uuid({ message: "Please select a form" }),
 });
 
 // ---- Discriminated union of all blocks ----
@@ -112,6 +94,8 @@ export const BlockSchema = z.discriminatedUnion("type", [
     RefItemBlockSchema,
     FormBlockSchema,
 ]);
+
+export type TBlock = z.infer<typeof BlockSchema>;
 
 // ---- PageBlocksDto ----
 export const PageBlocksSchema = z.object({
@@ -125,12 +109,10 @@ export const PageSectionSchema = z
         headline: z
             .string()
             .trim()
-            .min(3, { message: "Headline must be between 3 and 50 characters" })
             .max(50, { message: "Headline must be between 3 and 50 characters" }),
         subheadline: z
             .string()
             .trim()
-            .min(10, { message: "Subheadline must be between 10 and 300 characters" })
             .max(300, { message: "Subheadline must be between 10 and 300 characters" })
             .optional(),
         blocks: PageBlocksSchema.optional(),
@@ -157,7 +139,7 @@ export type TMetadataDto = z.infer<typeof MetadataDtoSchema>;
 // ---- PageDtoSchema ----
 export const PageDtoSchema = z.object({
     name: z.string().min(3, { message: "Name must be at least 3 characters long" }).max(50, { message: "Name must be at most 50 characters long" }),
-    sections: z.array(PageSectionSchema),
+    sections: z.array(PageSectionSchema).min(1, { message: "At least one section is required" }).max(20, { message: "Max 20 sections allowed" }),
     metadata: MetadataDtoSchema,
     heroSections: z
         .array(HeroSectionDtoSchema)

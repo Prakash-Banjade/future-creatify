@@ -30,7 +30,7 @@ import LoadingButton from './loading-button';
 
 
 type Props = {
-  onChange: (value: TMedia) => void
+  onChange: (value: TMediaSchema) => void
 }
 
 export default function MediaField({ onChange }: Props) {
@@ -115,8 +115,8 @@ function CreateNew({ onClose, onChange }: { onClose: () => void } & Props) {
   function onSubmit(data: TMediaSchema) {
     startTransition(async () => {
       try {
-        const uploaded = await uploadMedia(data);
-        onChange(uploaded);
+        await uploadMedia(data);
+        onChange(data);
         onClose();
       } catch (e) {
         showServerError(e);
@@ -132,97 +132,107 @@ function CreateNew({ onClose, onChange }: { onClose: () => void } & Props) {
             'border rounded-sm overflow-hidden',
             form.formState.errors.originalName && "border-destructive"
           )}>
-            {
-              !!form.watch("originalName") ? (
-                <section className='flex items-center'>
-                  <CloudinaryImage
-                    src={form.getValues("secure_url")}
-                    alt='alt'
-                    width={150}
-                    height={150}
-                  />
+            <FormField
+              control={form.control}
+              name="originalName"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    {
+                      !!field.value ? (
+                        <section className='flex items-center'>
+                          <CloudinaryImage
+                            src={form.getValues("secure_url")}
+                            alt='alt'
+                            width={150}
+                            height={150}
+                          />
 
-                  <section className='flex-1 p-6 flex items-center justify-between gap-6'>
-                    <FormField
-                      control={form.control}
-                      name="name"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Name <span className='text-destructive'>*</span></FormLabel>
-                          <FormControl>
-                            <Input
-                              className='py-5 min-w-[300px]'
-                              placeholder="Eg. brandLogo"
-                              {...field}
+                          <section className='flex-1 p-6 flex items-center justify-between gap-6'>
+                            <FormField
+                              control={form.control}
+                              name="name"
+                              render={({ field }) => (
+                                <FormItem>
+                                  <FormLabel>Name <span className='text-destructive'>*</span></FormLabel>
+                                  <FormControl>
+                                    <Input
+                                      className='py-5 min-w-[300px]'
+                                      placeholder="Eg. brandLogo"
+                                      {...field}
+                                    />
+                                  </FormControl>
+                                  <FormMessage />
+                                </FormItem>
+                              )}
                             />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
 
-                    <Button
-                      type='button'
-                      size={"icon"}
-                      variant={'outline'}
-                      onClick={() => form.reset({
-                        alt: form.getValues("alt"),
-                        caption: form.getValues("caption")
-                      })}
-                    >
-                      <X />
-                    </Button>
-                  </section>
-                </section>
-              ) : (
-                <section className='p-6'>
-                  <CldUploadWidget
-                    signatureEndpoint={CLOUDINARY_SIGNATURE_ENDPOINT}
-                    onSuccess={async (result) => {
-                      if (typeof result.info === "object" && "secure_url" in result.info) {
-                        form.reset({
-                          alt: form.getValues("alt"),
-                          caption: form.getValues("caption"),
-                          bytes: result.info.bytes,
-                          format: result.info.format,
-                          height: result.info.height,
-                          name: result.info.original_filename + '.' + result.info.format,
-                          originalName: result.info.original_filename + '.' + result.info.format,
-                          resource_type: result.info.resource_type,
-                          secure_url: result.info.secure_url,
-                          type: result.info.type,
-                          width: result.info.width,
-                          public_id: result.info.public_id,
-                        });
-                      }
-                    }}
-                    options={{
-                      cropping: true,
-                      maxFiles: 1,
-                      maxFileSize: 5 * 1024 * 1024, // 5MB
-                    }}
-                  >
-                    {({ open }) => {
-                      function handleOnClick() {
-                        open();
-                      }
+                            <Button
+                              type='button'
+                              size={"icon"}
+                              variant={'outline'}
+                              onClick={() => form.reset({
+                                alt: form.getValues("alt"),
+                                caption: form.getValues("caption")
+                              })}
+                            >
+                              <X />
+                            </Button>
+                          </section>
+                        </section>
+                      ) : (
+                        <section className='p-6'>
+                          <CldUploadWidget
+                            signatureEndpoint={CLOUDINARY_SIGNATURE_ENDPOINT}
+                            onSuccess={async (result) => {
+                              if (typeof result.info === "object" && "secure_url" in result.info) {
+                                form.reset({
+                                  alt: form.getValues("alt"),
+                                  caption: form.getValues("caption"),
+                                  bytes: result.info.bytes,
+                                  format: result.info.format,
+                                  height: result.info.height,
+                                  name: result.info.original_filename + '.' + result.info.format,
+                                  originalName: result.info.original_filename + '.' + result.info.format,
+                                  resource_type: result.info.resource_type,
+                                  secure_url: result.info.secure_url,
+                                  width: result.info.width,
+                                  public_id: result.info.public_id,
+                                });
+                              }
+                            }}
+                            options={{
+                              cropping: true,
+                              maxFiles: 1,
+                              maxFileSize: 5 * 1024 * 1024, // 5MB
+                            }}
+                          >
+                            {({ open }) => {
+                              function handleOnClick() {
+                                open();
+                              }
 
-                      return (
-                        <Button
-                          type="button"
-                          variant={"secondary"}
-                          size={"sm"}
-                          className='font-normal text-xs'
-                          onClick={handleOnClick}
-                        >
-                          Select a file
-                        </Button>
-                      );
-                    }}
-                  </CldUploadWidget>
-                </section>
-              )
-            }
+                              return (
+                                <Button
+                                  type="button"
+                                  variant={"secondary"}
+                                  size={"sm"}
+                                  className='font-normal text-xs'
+                                  onClick={handleOnClick}
+                                >
+                                  Select a file
+                                </Button>
+                              );
+                            }}
+                          </CldUploadWidget>
+                        </section>
+                      )
+                    }
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
           </section>
           {
             form.formState.errors.originalName && (
@@ -271,7 +281,6 @@ function CreateNew({ onClose, onChange }: { onClose: () => void } & Props) {
           <LoadingButton
             isLoading={isPending}
             loadingText='Saving...'
-            // disabled={isPending || !form.watch("name")}
             onClick={form.handleSubmit(onSubmit)}
           >
             Save
@@ -286,7 +295,7 @@ function MediaSelector({ onClose, onChange }: { onClose: () => void } & Props) {
   const [search, setSearch] = useState('');
   const [debouncedSearch, setDebouncedSearch] = useState('');
 
-  const { data, isLoading } = useFetchData<TMedia[]>({
+  const { data, isLoading } = useFetchData<(TMediaSchema & { updatedAt: Date })[]>({
     endpoint: '/media',
     queryKey: ['media', debouncedSearch],
     queryString: createQueryString({
@@ -303,7 +312,7 @@ function MediaSelector({ onClose, onChange }: { onClose: () => void } & Props) {
     return () => clearTimeout(handler);
   }, [search]);
 
-  const mediaColumns: ColumnDef<TMedia>[] = [
+  const mediaColumns: ColumnDef<(TMediaSchema & { updatedAt: Date })>[] = [
     {
       accessorKey: 'secure_url',
       header: "File Name",

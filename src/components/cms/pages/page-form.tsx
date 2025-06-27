@@ -4,7 +4,7 @@ import { TPage } from '../../../../types/page.types'
 import { Button } from '@/components/ui/button'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { PageDtoSchema, TPageDto } from "@/schemas/page.schema"
-import { useForm } from 'react-hook-form'
+import { useForm, useWatch } from 'react-hook-form'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Label } from '@/components/ui/label';
@@ -13,6 +13,7 @@ import { cn, generateSlug } from '@/lib/utils';
 import HeroTabContent from './tabs/hero-tab-content';
 import ContentTabContent from './tabs/content-tab-content';
 import SeoTabContent from './tabs/seo-tab-content';
+import { useMemo } from 'react';
 
 type Props = {
     page: TPage
@@ -43,14 +44,23 @@ export default function PageForm({ page }: Props) {
         console.log(data);
     }
 
-    const name = form.watch("name") || "Untitled";
+    const name = useWatch({
+        control: form.control,
+        name: "name",
+        defaultValue: "Untitled"
+    });
+
+    const slug = useMemo(() => {
+        const nonEmptyName = name || "Untitled"
+        return generateSlug(nonEmptyName, nonEmptyName === "Untitled")
+    }, [name])
 
     return (
         <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className='@container h-full'>
                 <section className="h-full flex flex-col space-y-6">
-                    <h2 className="@6xl:px-24 @3xl:px-16 px-8 text-3xl font-medium capitalize">{name}</h2>
-                    <section className="sticky top-0 z-50 backdrop-blur-3xl border-y mb-0">
+                    <h2 className="@6xl:px-24 @3xl:px-16 px-8 text-3xl font-medium capitalize">{name || "Untitled"}</h2>
+                    <section className="sticky top-0 z-[1] backdrop-blur-3xl border-y mb-0">
                         <section className="@6xl:px-24 @3xl:px-16 px-8 py-3 flex items-center justify-between flex-wrap gap-6">
                             <section className="text-sm flex gap-6">
                                 <p>
@@ -79,7 +89,7 @@ export default function PageForm({ page }: Props) {
                                     name="name"
                                     render={({ field }) => (
                                         <FormItem>
-                                            <FormLabel>Name <span className='text-red-500'>*</span></FormLabel>
+                                            <FormLabel>Name <span className='text-destructive'>*</span></FormLabel>
                                             <FormControl>
                                                 <Input
                                                     className='py-5'
@@ -130,7 +140,7 @@ export default function PageForm({ page }: Props) {
                                 <Label>Slug</Label>
                                 <Input
                                     className='py-5'
-                                    value={generateSlug(name, name === "Untitled")}
+                                    value={slug}
                                     disabled
                                     readOnly
                                 />

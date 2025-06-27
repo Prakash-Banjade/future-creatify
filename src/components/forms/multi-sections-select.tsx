@@ -47,7 +47,7 @@ export function MultiSectionSelect({ required, disabled, options, description, v
                     <div>
                         <FormLabel>
                             Sections
-                            {required && <span className="text-red-500">*</span>}
+                            {required && <span className="text-destructive">*</span>}
                         </FormLabel>
                     </div>
 

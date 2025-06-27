@@ -69,7 +69,7 @@ AppForm.Password = function Password<T extends FieldValues>({
                 <FormItem className={containerClassName}>
                     <FormLabel>
                         {label}
-                        {required && <span className="text-red-500">*</span>}
+                        {required && <span className="text-destructive">*</span>}
                     </FormLabel>
                     <FormControl>
                         <Input type="password" className={inputClassName} placeholder={placeholder} {...field} required={required} {...props} />
@@ -138,7 +138,7 @@ AppForm.DatePicker = function DatePicker<T extends FieldValues>({ name, label, p
                 <FormItem className={containerClassName}>
                     <FormLabel>
                         {label}
-                        {required && <span className="text-red-500">*</span>}
+                        {required && <span className="text-destructive">*</span>}
                     </FormLabel>
                     <FormControl>
                         <Input
@@ -189,7 +189,7 @@ AppForm.TimePicker = function TimePicker<T extends FieldValues>({
                 <FormItem className={containerClassName}>
                     <FormLabel>
                         {label}
-                        {required && <span className="text-red-500">*</span>}
+                        {required && <span className="text-destructive">*</span>}
                     </FormLabel>
                     <FormControl>
                         <Input type="time" className={inputClassName} placeholder={placeholder} {...field} required={required} {...props} />
@@ -213,7 +213,7 @@ AppForm.Textarea = function AppFormTextarea<T extends FieldValues>({ name, label
                 <FormItem className={containerClassName}>
                     <FormLabel>
                         {label}
-                        {required && <span className="text-red-500">*</span>}
+                        {required && <span className="text-destructive">*</span>}
                     </FormLabel>
                     <FormControl>
                         <Textarea rows={rows} className={inputClassName} placeholder={placeholder} {...field} required={required} value={field.value ?? ''} onChange={field.onChange} />
@@ -247,7 +247,7 @@ AppForm.Number = function Number<T extends FieldValues>({
                     {
                         !!label && <FormLabel>
                             {label}
-                            {required && <span className="text-red-500">*</span>}
+                            {required && <span className="text-destructive">*</span>}
                         </FormLabel>
                     }
                     <FormControl>

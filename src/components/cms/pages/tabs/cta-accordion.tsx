@@ -41,6 +41,8 @@ export default function CtaAccordion({ idx, name, onRemove }: Props) {
         queryKey: ['pages', 'options'],
     });
 
+    console.log('hi prakash')
+
     return (
         <Accordion type="multiple">
             <AccordionItem value={`${name}.id`} className="bg-secondary/50 border !border-b-1 rounded-md overflow-hidden">
@@ -82,7 +84,10 @@ export default function CtaAccordion({ idx, name, onRemove }: Props) {
                                     <FormLabel>Type</FormLabel>
                                     <FormControl>
                                         <RadioGroup
-                                            onValueChange={field.onChange}
+                                            onValueChange={val => {
+                                                form.setValue(`${name}.link`, "");
+                                                field.onChange(val);
+                                            }}
                                             defaultValue={field.value}
                                             className="flex"
                                         >
@@ -159,7 +164,7 @@ export default function CtaAccordion({ idx, name, onRemove }: Props) {
                             render={({ field }) => {
                                 return form.watch(`${name}.type`) === ECtaType.External ? (
                                     <FormItem>
-                                        <FormLabel>Custom URL <span className='text-red-500'>*</span></FormLabel>
+                                        <FormLabel>Custom URL <span className='text-destructive'>*</span></FormLabel>
                                         <FormControl>
                                             <Input
                                                 type="url"
@@ -172,7 +177,7 @@ export default function CtaAccordion({ idx, name, onRemove }: Props) {
                                     </FormItem>
                                 ) : (
                                     <FormItem className="w-auto">
-                                        <FormLabel>Document to link to <span className='text-red-500'>*</span></FormLabel>
+                                        <FormLabel>Document to link to <span className='text-destructive'>*</span></FormLabel>
                                         <Select onValueChange={field.onChange} defaultValue={field.value} required>
                                             <FormControl>
                                                 <SelectTrigger disabled={isLoading} className="w-full">
@@ -200,7 +205,7 @@ export default function CtaAccordion({ idx, name, onRemove }: Props) {
                             name={`${name}.text`}
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>Label <span className='text-red-500'>*</span></FormLabel>
+                                    <FormLabel>Label <span className='text-destructive'>*</span></FormLabel>
                                     <FormControl>
                                         <Input
                                             placeholder="Eg. Learm More"

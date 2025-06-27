@@ -24,7 +24,7 @@ export function AppFormText<T extends FieldValues>({
                     {
                         !!label && <FormLabel>
                             {label}
-                            {required && <span className="text-red-500">*</span>}
+                            {required && <span className="text-destructive">*</span>}
                         </FormLabel>
                     }
                     <FormControl>

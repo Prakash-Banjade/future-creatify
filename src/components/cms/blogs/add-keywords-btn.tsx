@@ -82,7 +82,7 @@ export default function AddKeywordsButton({ blogId, keywords = [], onChange, dis
                             <LoadingButton
                                 isLoading={isPending}
                                 loadingText="Updating..."
-                                disabled={isPending || disabled || !form.formState.isDirty}
+                                disabled={isPending || disabled}
                                 type="submit"
                             >
                                 Update

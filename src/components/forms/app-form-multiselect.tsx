@@ -71,7 +71,7 @@ export function MultiSelect<T extends FieldValues>({
                     <div>
                         <FormLabel>
                             {label}
-                            {(required && !isDisabled) && <span className="text-red-500">*</span>}
+                            {(required && !isDisabled) && <span className="text-destructive">*</span>}
                         </FormLabel>
                     </div>
 

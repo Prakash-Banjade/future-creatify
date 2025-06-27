@@ -23,7 +23,7 @@ export function AppFormPhone<T extends FieldValues>({
                 <FormItem className={containerClassName}>
                     <FormLabel>
                         {label}
-                        {required && <span className="text-red-500">*</span>}
+                        {required && <span className="text-destructive">*</span>}
                     </FormLabel>
                     <FormControl>
                         <Input

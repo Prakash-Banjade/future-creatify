@@ -34,7 +34,7 @@ export function AppFormRadioGroup<T extends FieldValues>({
                 <FormItem className={containerClassName}>
                     <FormLabel>
                         {label}
-                        {required && <span className="text-red-500">*</span>}
+                        {required && <span className="text-destructive">*</span>}
                     </FormLabel>
                     <FormControl>
                         <RadioGroup

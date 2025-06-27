@@ -82,7 +82,7 @@
 //                     <div>
 //                         <FormLabel>
 //                             {label}
-//                             {(required && !disabled) && <span className="text-red-500">*</span>}
+//                             {(required && !disabled) && <span className="text-destructive">*</span>}
 //                         </FormLabel>
 //                     </div>
 

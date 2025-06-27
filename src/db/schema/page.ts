@@ -16,7 +16,7 @@ export const pages = pgTable(
         heroSections: jsonb("heroSections").$type<THeroSectionDto[]>().notNull().default([]),
 
         createdAt: timestamp("created_at").notNull().defaultNow(),
-        updatedAt: timestamp({ mode: 'date', precision: 3 }).$onUpdate(() => new Date()).notNull().default(new Date()),
+        updatedAt: timestamp("updated_at").notNull().defaultNow().$onUpdate(() => new Date()),
     },
     (table) => [
         uniqueIndex("page_slug_idx").on(table.slug),
