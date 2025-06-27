@@ -25,7 +25,7 @@ export default async function CMSLayout({ children }: Props) {
 
     return (
         <SidebarLayout>
-            <div>{children}</div>
+            {children}
         </SidebarLayout>
     )
 }

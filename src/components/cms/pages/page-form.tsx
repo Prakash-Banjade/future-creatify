@@ -9,7 +9,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Input } from "@/components/ui/input"
 import { Label } from '@/components/ui/label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { cn } from '@/lib/utils';
+import { cn, generateSlug } from '@/lib/utils';
 import HeroTabContent from './tabs/hero-tab-content';
 import ContentTabContent from './tabs/content-tab-content';
 import SeoTabContent from './tabs/seo-tab-content';
@@ -43,13 +43,13 @@ export default function PageForm({ page }: Props) {
         console.log(data);
     }
 
-    const name = form.watch("name");
+    const name = form.watch("name") || "Untitled";
 
     return (
         <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className='@container'>
-                <section className="space-y-6">
-                    <h2 className="@6xl:px-24 @3xl:px-16 px-8 text-3xl font-medium capitalize">{name || "Untitled"}</h2>
+            <form onSubmit={form.handleSubmit(onSubmit)} className='@container h-full'>
+                <section className="h-full flex flex-col space-y-6">
+                    <h2 className="@6xl:px-24 @3xl:px-16 px-8 text-3xl font-medium capitalize">{name}</h2>
                     <section className="sticky top-0 z-50 backdrop-blur-3xl border-y mb-0">
                         <section className="@6xl:px-24 @3xl:px-16 px-8 py-3 flex items-center justify-between flex-wrap gap-6">
                             <section className="text-sm flex gap-6">
@@ -71,7 +71,7 @@ export default function PageForm({ page }: Props) {
                         </section>
                     </section>
 
-                    <section className='grid grid-cols-3 page-6'>
+                    <section className='grow grid grid-cols-3'>
                         <section className='col-span-2 border-r py-8'>
                             <div className='@6xl:ml-24 @3xl:ml-16 ml-8 @6xl:pr-16 pr-10'>
                                 <FormField
@@ -111,7 +111,7 @@ export default function PageForm({ page }: Props) {
                                         ))
                                     }
                                 </TabsList>
-                                <section className='@6xl:pl-24 @3xl:pl-16 pl-8 pt-4'>
+                                <section className='@6xl:pl-24 @3xl:pl-16 pl-8 pt-4 @6xl:pr-16 pr-10 '>
                                     <TabsContent value="hero">
                                         <HeroTabContent />
                                     </TabsContent>
@@ -130,7 +130,7 @@ export default function PageForm({ page }: Props) {
                                 <Label>Slug</Label>
                                 <Input
                                     className='py-5'
-                                    value={page.slug}
+                                    value={generateSlug(name, name === "Untitled")}
                                     disabled
                                     readOnly
                                 />

@@ -39,7 +39,7 @@ export default function HeroTabContent({ }: Props) {
     });
 
     return (
-        <section className="@6xl:pr-16 pr-10 space-y-2">
+        <section className="space-y-2">
             <section className="space-y-2">
                 {
                     fields.map((f, idx) => {

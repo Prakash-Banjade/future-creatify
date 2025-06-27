@@ -144,11 +144,10 @@ export const MetadataDtoSchema = z.object({
         .string()
         .trim()
         .min(3, { message: "Title must be between 3 and 50 characters" })
-        .max(50, { message: "Title must be between 3 and 50 characters" }),
+        .max(100, { message: "Title must be between 3 and 100 characters" }),
     description: z
         .string()
         .trim()
-        .min(3, { message: "Description must be between 3 and 300 characters" })
         .max(300, { message: "Description must be between 3 and 300 characters" }),
     keywords: z.array(z.string().max(50, "Keyword must be at most 50 characters").trim()).max(10, "You can add up to 10 keywords only"),
 });
