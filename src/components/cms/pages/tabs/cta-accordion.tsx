@@ -43,7 +43,7 @@ export default function CtaAccordion({ idx, name, onRemove }: Props) {
 
     return (
         <Accordion type="multiple">
-            <AccordionItem value={`${name}.id`} className="bg-secondary border !border-b-1 rounded-md overflow-hidden">
+            <AccordionItem value={`${name}.id`} className="bg-secondary/50 border !border-b-1 rounded-md overflow-hidden">
                 <section className="relative flex items-center gap-2 px-2">
                     <button type="button" className="hover:cursor-grab">
                         <GripVertical className="text-muted-foreground" size={16} />
@@ -157,7 +157,7 @@ export default function CtaAccordion({ idx, name, onRemove }: Props) {
                             control={form.control}
                             name={`${name}.link`}
                             render={({ field }) => {
-                                return form.watch(`${name}.type`) === ECtaType.Internal ? (
+                                return form.watch(`${name}.type`) === ECtaType.External ? (
                                     <FormItem>
                                         <FormLabel>Custom URL <span className='text-red-500'>*</span></FormLabel>
                                         <FormControl>

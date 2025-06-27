@@ -49,9 +49,9 @@ export default function PageForm({ page }: Props) {
         <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className='@container'>
                 <section className="space-y-6">
-                    <h2 className="@6xl:mx-40 @3xl:mx-20 mx-8 text-3xl font-medium capitalize">{name || "Untitled"}</h2>
+                    <h2 className="@6xl:px-24 @3xl:px-16 px-8 text-3xl font-medium capitalize">{name || "Untitled"}</h2>
                     <section className="sticky top-0 z-50 backdrop-blur-3xl border-y mb-0">
-                        <section className="@6xl:mx-40 @3xl:mx-20 mx-8 py-3 flex items-center justify-between flex-wrap gap-6">
+                        <section className="@6xl:px-24 @3xl:px-16 px-8 py-3 flex items-center justify-between flex-wrap gap-6">
                             <section className="text-sm flex gap-6">
                                 <p>
                                     <span className="text-muted-foreground">Last Modified:&nbsp;</span>
@@ -72,8 +72,8 @@ export default function PageForm({ page }: Props) {
                     </section>
 
                     <section className='grid grid-cols-3 page-6'>
-                        <section className='col-span-2 border-r py-10'>
-                            <div className='@6xl:ml-40 @3xl:ml-20 ml-8 @6xl:pr-16 pr-10'>
+                        <section className='col-span-2 border-r py-8'>
+                            <div className='@6xl:ml-24 @3xl:ml-16 ml-8 @6xl:pr-16 pr-10'>
                                 <FormField
                                     control={form.control}
                                     name="name"
@@ -95,7 +95,7 @@ export default function PageForm({ page }: Props) {
                             </div>
 
                             <Tabs defaultValue="hero" className='mt-8 w-full'>
-                                <TabsList className="@6xl:pl-40 @3xl:pl-20 pl-8 py-0 space-x-2 w-full bg-transparent border-b rounded-none h-auto justify-start">
+                                <TabsList className="@6xl:pl-24 @3xl:pl-16 pl-8 py-0 space-x-2 w-full bg-transparent border-b rounded-none h-auto justify-start">
                                     {
                                         tabs.map(t => (
                                             <TabsTrigger
@@ -111,7 +111,7 @@ export default function PageForm({ page }: Props) {
                                         ))
                                     }
                                 </TabsList>
-                                <section className='@6xl:pl-40 @3xl:pl-20 pl-8 pt-4'>
+                                <section className='@6xl:pl-24 @3xl:pl-16 pl-8 pt-4'>
                                     <TabsContent value="hero">
                                         <HeroTabContent />
                                     </TabsContent>
@@ -125,7 +125,7 @@ export default function PageForm({ page }: Props) {
                             </Tabs>
                         </section>
 
-                        <section className='@6xl:mr-40 @3xl:mr-20 mr-8 @6xl:pl-16 pl-10 py-10'>
+                        <section className='@6xl:mr-24 @3xl:mr-16 mr-8 @6xl:pl-16 pl-10 py-10'>
                             <div className='space-y-2'>
                                 <Label>Slug</Label>
                                 <Input

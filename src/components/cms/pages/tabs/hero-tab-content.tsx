@@ -19,18 +19,21 @@ import { Input } from "@/components/ui/input";
 import CtaAccordion from "./cta-accordion";
 import { Button } from "@/components/ui/button";
 import { ECtaVariant } from "../../../../../types/blocks.types";
-import { ECtaType, heroSectionDtoDefaultValues } from "@/schemas/hero-section.schema";
+import { ECtaType } from "@/schemas/hero-section.schema";
 import MediaField from "@/components/forms/media-field";
 import { Label } from "@/components/ui/label";
 import CloudinaryImage from "@/components/ui/cloudinary-image";
 import { formatBytes } from "@/lib/utils";
+import AddHeroSectionDialog from "./add-herosection-dialog";
+import { EHeroLayoutTypes } from "../../../../../types/page.types";
+import AlignmentSelect from "./alignment-select";
 
 type Props = {}
 
 export default function HeroTabContent({ }: Props) {
     const form = useFormContext<TPageDto>();
 
-    const { fields, append, prepend, remove, swap, move, insert } = useFieldArray({
+    const { fields, append, remove } = useFieldArray({
         control: form.control,
         name: "heroSections",
     });
@@ -40,9 +43,11 @@ export default function HeroTabContent({ }: Props) {
             <section className="space-y-2">
                 {
                     fields.map((f, idx) => {
+                        const layout = form.watch(`heroSections.${idx}.layout`);
+
                         return (
                             <Accordion key={f.id} type="multiple">
-                                <AccordionItem value={f.id} className="bg-secondary border !border-b-1 rounded-md overflow-hidden">
+                                <AccordionItem value={f.id} className="bg-secondary/50 border !border-b-1 rounded-md overflow-hidden">
                                     <section className="relative flex items-center gap-2 px-2">
                                         <button type="button" className="hover:cursor-grab">
                                             <GripVertical className="text-muted-foreground" size={16} />
@@ -109,7 +114,6 @@ export default function HeroTabContent({ }: Props) {
                                         />
                                         <CtaField heroIdx={idx} />
 
-
                                         <FormField
                                             control={form.control}
                                             name={`heroSections.${idx}.image`}
@@ -148,6 +152,20 @@ export default function HeroTabContent({ }: Props) {
                                             )}
                                         />
 
+                                        {
+                                            layout.type === EHeroLayoutTypes.Jumbotron ? (
+                                                <AlignmentSelect<TPageDto>
+                                                    name={`heroSections.${idx}.layout.alignment`}
+                                                />
+                                            ) : (
+                                                <AlignmentSelect<TPageDto>
+                                                    name={`heroSections.${idx}.layout.imagePosition`}
+                                                    excludeCenter
+                                                    label="Image Position"
+                                                />
+                                            )
+                                        }
+
                                     </AccordionContent>
                                 </AccordionItem>
                             </Accordion>
@@ -155,23 +173,18 @@ export default function HeroTabContent({ }: Props) {
                     })
                 }
             </section>
-            {
-                fields.length < 5 && (
-                    <Button
-                        type="button"
-                        variant={"outline"}
-                        size={"sm"}
-                        className="font-normal text-xs"
-                        disabled={fields.length >= 5}
-                        onClick={() => {
-                            if (fields.length >= 5) return;
-                            append(heroSectionDtoDefaultValues)
-                        }}
-                    >
-                        <Plus size={16} /> Add Hero
-                    </Button>
-                )
-            }
+            <AddHeroSectionDialog
+                length={fields.length}
+                onSelect={layout => {
+                    append({
+                        headline: "Untitled",
+                        subheadline: "",
+                        image: undefined,
+                        cta: [],
+                        layout
+                    });
+                }}
+            />
         </section>
     )
 }

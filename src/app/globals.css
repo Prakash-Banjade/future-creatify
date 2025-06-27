@@ -151,4 +151,12 @@ body {
       @apply !-translate-y-[25px] rounded-sm;
     }
   }
+
+  .full-screen-dialog {
+    @apply h-[98vh] min-w-[98vw] !w-[98vw] lg:!p-16 sm:!p-10 !p-6;
+  }
+
+  #dialog-title {
+    @apply text-2xl font-normal leading-none tracking-tight;
+  }
 }

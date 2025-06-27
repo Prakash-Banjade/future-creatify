@@ -42,7 +42,7 @@ export type TGroupMenuItem = {
 export function AppSidebar() {
 
     return (
-        <Sidebar variant="floating" collapsible="icon">
+        <Sidebar variant="sidebar" collapsible="icon" className="pr-0">
             <AppSidebarHeader />
             <SidebarContent className="overflow-hidden">
                 <ScrollArea className="max-h-full overflow-auto">

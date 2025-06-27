@@ -130,7 +130,7 @@ export default function BlogForm({ defaultValues }: Props) {
                 }
             </div>
 
-            <section className="max-w-4xl mx-auto min-h-[calc(100vh-128px)]">
+            <section className="px-6 max-w-4xl mx-auto min-h-[calc(100vh-128px)]">
                 {
                     defaultValues.coverImage && (
                         <CldImage

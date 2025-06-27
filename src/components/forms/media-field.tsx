@@ -43,7 +43,7 @@ export default function MediaField({ onChange }: Props) {
         isOpen={createNewOpen}
         onClose={() => setCreateNewOpen(false)}
         title='Create New Media'
-        className='h-full'
+        className="full-screen-dialog"
       >
         <CreateNew
           onClose={() => setCreateNewOpen(false)}
@@ -74,10 +74,10 @@ export default function MediaField({ onChange }: Props) {
             Choose Existing
           </Button>
         </DialogTrigger>
-        <DialogContent className='h-[95vh] min-w-[95vw] block'>
+        <DialogContent className='full-screen-dialog block'>
           <DialogHeader>
-            <DialogTitle className='space-x-2'>
-              <span>Media</span>
+            <DialogTitle className='flex items-center gap-2'>
+              <span id="dialog-title">Media</span>
               <Button
                 type="button"
                 variant={"secondary"}

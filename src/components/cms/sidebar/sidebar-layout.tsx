@@ -25,7 +25,7 @@ export default function SidebarLayout({ children }: AppRootLayoutProps) {
                         <ThemeToggleBtn />
                     </div>
                 </header>
-                <main className="p-6 h-full">
+                <main className="h-full">
                     <Suspense fallback={<Skeleton className="h-full"></Skeleton>}>
                         {children}
                     </Suspense>

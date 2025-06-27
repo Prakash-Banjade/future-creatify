@@ -65,7 +65,7 @@ export default function CustomDialog({
     return (
         <div
             ref={overlayRef}
-            className="fixed inset-0 z-50 bg-black/80 flex items-center justify-center p-4 py-6"
+            className="fixed inset-0 z-50 bg-black/80 flex items-center justify-center"
             onClick={handleOverlayClick}
             role="dialog"
             aria-modal="true"
@@ -75,7 +75,7 @@ export default function CustomDialog({
             <div
                 ref={dialogRef}
                 className={cn(
-                    `relative bg-background rounded-lg border border-border shadow-lg transform transition-all duration-300 ease-out animate-in fade-in-0 zoom-in-95 w-full mx-4`,
+                    `relative bg-background rounded-lg border border-border shadow-lg transform transition-transform duration-300 ease-out animate-in fade-in-0 zoom-in-95 w-full`,
                     className
                 )}
                 tabIndex={-1}
@@ -83,11 +83,8 @@ export default function CustomDialog({
             >
                 {/* Header */}
                 {title && (
-                    <div className="flex items-center justify-between p-6">
-                        <h2
-                            id="dialog-title"
-                            className="text-lg font-semibold leading-none tracking-tight"
-                        >
+                    <div className="flex items-center justify-between">
+                        <h2 id="dialog-title">
                             {title}
                         </h2>
                         <button
@@ -114,10 +111,8 @@ export default function CustomDialog({
                 )}
 
                 {/* Content */}
-                <div className={title ? "p-6 pt-0" : "p-6"}>
-                    <div className={title ? "pt-6" : ""}>
-                        {children}
-                    </div>
+                <div className={title ? "pt-10" : ""}>
+                    {children}
                 </div>
             </div>
         </div>
