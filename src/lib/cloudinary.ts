@@ -81,7 +81,6 @@ export async function uploadToCloudinary(
         originalName: response.original_filename + '.' + response.format,
         resource_type: response.resource_type,
         secure_url: response.secure_url,
-        type: response.type,
         width: response.width,
     });
 

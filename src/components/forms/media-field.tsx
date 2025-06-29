@@ -2,21 +2,14 @@
 
 import { useEffect, useState, useTransition } from 'react';
 import { Button } from '../ui/button'
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog"
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { useFetchData } from '@/hooks/useFetchData';
 import { DataTable } from '../data-table/data-table';
 import { LoaderCircle, Search, X } from 'lucide-react';
-import { ColumnDef } from '@tanstack/react-table';
+import { ColumnDef, getCoreRowModel, Row, Table, useReactTable } from '@tanstack/react-table';
 import CloudinaryImage from '../ui/cloudinary-image';
-import { TMedia } from '../../../types/media.types';
 import { Input } from '../ui/input';
-import { cn, createQueryString, showServerError } from '@/lib/utils';
+import { cn, createQueryString, formatBytes, showServerError } from '@/lib/utils';
 import { useForm } from 'react-hook-form';
 import { mediaSchema, TMediaSchema } from '@/schemas/media.schema';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -27,13 +20,53 @@ import { CldUploadWidget } from 'next-cloudinary';
 import { CLOUDINARY_SIGNATURE_ENDPOINT } from '@/CONSTANTS';
 import CustomDialog from '../ui/custom-dialog';
 import LoadingButton from './loading-button';
+import { Checkbox } from '../ui/checkbox';
+import { MediaSelectorDataTable } from '../data-table/media-select-data-table';
 
-
-type Props = {
-  onChange: (value: TMediaSchema) => void
+type MediaFieldProps = {
+  media: TMediaSchema;
+  onChange: (value: TMediaSchema | TMediaSchema[]) => void;
+  max?: number;
+  onClose: () => void;
+  onRemove: () => void;
 }
 
-export default function MediaField({ onChange }: Props) {
+export function MediaItem({ media, onRemove }: Pick<MediaFieldProps, 'media' | 'onRemove'>) {
+  return (
+    <section className="bg-card border rounded-md p-3 flex items-center justify-between gap-4">
+      <section className='flex items-center gap-4'>
+        <CloudinaryImage
+          src={media.secure_url}
+          alt={media.alt ?? ""}
+          width={50}
+          height={50}
+        />
+        <section className="text-sm space-y-1">
+          <p>{media.name}</p>
+          <p className="text-muted-foreground text-xs">
+            <span>{formatBytes(media.bytes)} | </span>
+            <span>{media.width} x {media.height} | </span>
+            <span>{media.resource_type}/{media.format}</span>
+          </p>
+        </section>
+      </section>
+
+      <section>
+        <Button
+          type="button"
+          variant={'ghost'}
+          size={'icon'}
+          title='Remove'
+          onClick={onRemove}
+        >
+          <X />
+        </Button>
+      </section>
+    </section>
+  )
+}
+
+export function MediaInput({ onChange, max = 1 }: Pick<MediaFieldProps, 'onChange' | 'max'>) {
   const [selectorOpen, setSelectorOpen] = useState(false);
   const [createNewOpen, setCreateNewOpen] = useState(false);
 
@@ -93,6 +126,7 @@ export default function MediaField({ onChange }: Props) {
             <MediaSelector
               onChange={onChange}
               onClose={() => setSelectorOpen(false)}
+              max={max}
             />
           </section>
         </DialogContent>
@@ -101,7 +135,7 @@ export default function MediaField({ onChange }: Props) {
   )
 }
 
-function CreateNew({ onClose, onChange }: { onClose: () => void } & Props) {
+function CreateNew({ onClose, onChange }: Pick<MediaFieldProps, 'onClose' | 'onChange'>) {
   const [isPending, startTransition] = useTransition();
 
   const form = useForm<TMediaSchema>({
@@ -139,7 +173,7 @@ function CreateNew({ onClose, onChange }: { onClose: () => void } & Props) {
                 <FormItem>
                   <FormControl>
                     {
-                      !!field.value ? (
+                      !!field.value && !Array.isArray(field.value) ? (
                         <section className='flex items-center'>
                           <CloudinaryImage
                             src={form.getValues("secure_url")}
@@ -246,7 +280,7 @@ function CreateNew({ onClose, onChange }: { onClose: () => void } & Props) {
           name="alt"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Alt <span className='text-destructive'>*</span></FormLabel>
+              <FormLabel>Alt</FormLabel>
               <FormControl>
                 <Input
                   className='py-5'
@@ -291,7 +325,7 @@ function CreateNew({ onClose, onChange }: { onClose: () => void } & Props) {
   )
 }
 
-function MediaSelector({ onClose, onChange }: { onClose: () => void } & Props) {
+function MediaSelector({ onClose, onChange, max }: Pick<MediaFieldProps, 'onClose' | 'onChange' | 'max'>) {
   const [search, setSearch] = useState('');
   const [debouncedSearch, setDebouncedSearch] = useState('');
 
@@ -313,6 +347,30 @@ function MediaSelector({ onClose, onChange }: { onClose: () => void } & Props) {
   }, [search]);
 
   const mediaColumns: ColumnDef<(TMediaSchema & { updatedAt: Date })>[] = [
+    ...(max === 1 ? [] : [
+      {
+        id: "select",
+        header: ({ table }: { table: Table<TMediaSchema & { updatedAt: Date }> }) => (
+          <Checkbox
+            checked={
+              table.getIsAllPageRowsSelected() ||
+              (table.getIsSomePageRowsSelected() && "indeterminate")
+            }
+            onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+            aria-label="Select all"
+          />
+        ),
+        cell: ({ row }: { row: Row<TMediaSchema & { updatedAt: Date }> }) => (
+          <Checkbox
+            checked={row.getIsSelected()}
+            onCheckedChange={(value) => row.toggleSelected(!!value)}
+            aria-label="Select row"
+          />
+        ),
+        enableSorting: false,
+        enableHiding: false,
+      },
+    ]),
     {
       accessorKey: 'secure_url',
       header: "File Name",
@@ -367,6 +425,12 @@ function MediaSelector({ onClose, onChange }: { onClose: () => void } & Props) {
     }
   ]
 
+  const table = useReactTable({
+    data: (data ?? []),
+    columns: mediaColumns,
+    getCoreRowModel: getCoreRowModel(),
+  })
+
   if (isLoading) return (
     <div className='flex items-center justify-center'>
       <LoaderCircle className='animate-spin' size={32} />
@@ -386,9 +450,9 @@ function MediaSelector({ onClose, onChange }: { onClose: () => void } & Props) {
         />
       </section>
 
-      <DataTable
+      <MediaSelectorDataTable
         columns={mediaColumns}
-        data={data ?? []}
+        table={table}
       />
     </div>
   )

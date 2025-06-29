@@ -20,13 +20,12 @@ import CtaAccordion from "./cta-accordion";
 import { Button } from "@/components/ui/button";
 import { ECtaVariant } from "../../../../../types/blocks.types";
 import { ECtaType } from "@/schemas/hero-section.schema";
-import MediaField from "@/components/forms/media-field";
+import { MediaInput, MediaItem } from "@/components/forms/media-field";
 import { Label } from "@/components/ui/label";
-import CloudinaryImage from "@/components/ui/cloudinary-image";
-import { formatBytes } from "@/lib/utils";
 import AddHeroSectionDialog from "./add-herosection-dialog";
 import { EHeroLayoutTypes } from "../../../../../types/page.types";
 import AlignmentSelect from "./alignment-select";
+import { TMediaSchema } from "@/schemas/media.schema";
 
 type Props = {}
 
@@ -125,42 +124,33 @@ export default function HeroTabContent({ }: Props) {
                                                             <FormField
                                                                 control={form.control}
                                                                 name={`heroSections.${idx}.image`}
-                                                                render={({ field }) => (
-                                                                    <FormItem>
-                                                                        <FormLabel>Image <span className='text-destructive'>*</span></FormLabel>
-                                                                        <FormControl>
-                                                                            {
-                                                                                field.value ? (
-                                                                                    <section className="border rounded-md p-3 flex items-center justify-between gap-4">
-                                                                                        <section>
-                                                                                            <CloudinaryImage
-                                                                                                src={field.value.secure_url}
-                                                                                                alt={field.value.alt ?? ""}
-                                                                                                width={50}
-                                                                                                height={50}
-                                                                                            />
-                                                                                            <section className="text-sm">
-                                                                                                <p>{field.value.name}</p>
-                                                                                                <p className="text-muted-foreground">{formatBytes(field.value.bytes)}</p>
-                                                                                            </section>
-                                                                                        </section>
+                                                                render={({ field }) => {
+                                                                    const value = field.value as TMediaSchema | null;
 
-                                                                                        <section>
+                                                                    return (
+                                                                        <FormItem>
+                                                                            <FormLabel>Image <span className='text-destructive'>*</span></FormLabel>
+                                                                            <FormControl>
+                                                                                {
+                                                                                    value ? (
+                                                                                        <MediaItem
+                                                                                            media={value}
+                                                                                            onRemove={() => {
+                                                                                                field.onChange(null)
+                                                                                            }}
+                                                                                        />
+                                                                                    ) : (
+                                                                                        <MediaInput onChange={(value) => {
+                                                                                            field.onChange(value)
+                                                                                        }} />
+                                                                                    )
 
-                                                                                        </section>
-                                                                                    </section>
-                                                                                ) : (
-                                                                                    <MediaField onChange={(value) => {
-                                                                                        console.log(value)
-                                                                                        field.onChange(value)
-                                                                                    }} />
-                                                                                )
-                                                                            }
-
-                                                                        </FormControl>
-                                                                        <FormMessage />
-                                                                    </FormItem>
-                                                                )}
+                                                                                }
+                                                                            </FormControl>
+                                                                            <FormMessage />
+                                                                        </FormItem>
+                                                                    )
+                                                                }}
                                                             />
 
                                                             {

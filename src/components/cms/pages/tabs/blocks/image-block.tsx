@@ -1,9 +1,8 @@
-import MediaField from '@/components/forms/media-field'
-import CloudinaryImage from '@/components/ui/cloudinary-image'
-import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
-import { formatBytes } from '@/lib/utils'
-import { useFormContext } from 'react-hook-form'
+import { MediaInput, MediaItem } from '@/components/forms/media-field'
 import { BlockComponentProps } from './blocks'
+import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
+import { useFormContext } from 'react-hook-form'
+import { TMediaSchema } from '@/schemas/media.schema'
 
 const ImageBlock: React.FC<BlockComponentProps> = ({ name }) => {
     const form = useFormContext();
@@ -11,40 +10,36 @@ const ImageBlock: React.FC<BlockComponentProps> = ({ name }) => {
     return (
         <FormField
             control={form.control}
-            name={name}
+            name={`${name}.images`}
             render={({ field }) => {
-                console.log(field.value)
+                const value = field.value as TMediaSchema[];
+
+                console.log(value)
 
                 return (
                     <FormItem>
-                        <FormLabel>Image <span className='text-destructive'>*</span></FormLabel>
-                        <FormControl>
+                        <FormLabel>Images <span className='text-destructive'>*</span></FormLabel>
+                        <section className='space-y-1'>
                             {
-                                !!field.value.secure_url ? (
-                                    <section className="border rounded-md p-3 flex items-center justify-between gap-4">
-                                        <section>
-                                            <CloudinaryImage
-                                                src={field.value.secure_url}
-                                                alt={field.value.alt ?? ""}
-                                                width={50}
-                                                height={50}
-                                            />
-                                            <section className="text-sm">
-                                                <p>{field.value.name}</p>
-                                                <p className="text-muted-foreground">{formatBytes(field.value.bytes)}</p>
-                                            </section>
-                                        </section>
+                                Array.isArray(value) && value.map((media, index) => (
+                                    <MediaItem
+                                        key={index}
+                                        media={media}
+                                        onRemove={() => {
+                                            field.onChange(value.filter((_, i) => i !== index))
+                                        }}
+                                    />
+                                ))
 
-                                        <section>
-
-                                        </section>
-                                    </section>
-                                ) : (
-                                    <MediaField onChange={val => {
-                                        field.onChange(val);
-                                    }} />
-                                )
                             }
+                        </section>
+                        <FormControl>
+                            <MediaInput
+                                onChange={(value) => {
+                                    field.onChange(Array.isArray(value) ? [...field.value, ...value] : [...field.value, value])
+                                }}
+                                max={3}
+                            />
 
                         </FormControl>
                         <FormMessage />

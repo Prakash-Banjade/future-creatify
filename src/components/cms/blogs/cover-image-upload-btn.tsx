@@ -76,7 +76,6 @@ export default function CoverImageUploadBtn({ blogId, coverImage, title, onChang
                                                 originalName: result.info.original_filename + '.' + result.info.format,
                                                 resource_type: result.info.resource_type,
                                                 secure_url: result.info.secure_url,
-                                                type: result.info.type,
                                                 width: result.info.width,
                                             });
                                             form.handleSubmit(onSubmit)(); // save immediately

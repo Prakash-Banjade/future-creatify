@@ -37,7 +37,7 @@ export const blockLayouts: {
         {
             block: {
                 type: EBlock.Image,
-                ...mediaDefaultValue,
+                images: []
             },
             alt: "Image",
             image: jumboCenter

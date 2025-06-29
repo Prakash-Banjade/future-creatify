@@ -79,7 +79,7 @@ export default function SeoTabContent() {
                             />
                         </FormControl>
                         <FormDescription>
-                            Comma separated values that describe the page and are relevant.
+                            Comma(,) separated values that describe the page and are relevant.
                         </FormDescription>
                         <FormMessage />
                     </FormItem>

@@ -32,9 +32,10 @@ export const TextBlockSchema = BaseBlockSchema.extend({
 });
 
 // ---- ImageBlockDto ----
-export const ImageBlockSchema = mediaSchema.merge(BaseBlockSchema.extend({
+export const ImageBlockSchema = BaseBlockSchema.extend({
     type: z.literal(EBlock.Image),
-}));
+    images: z.array(mediaSchema).min(1, { message: "At least one image is required" }),
+});
 
 // ---- CardDto ----
 export const CardSchema = z.object({
@@ -143,7 +144,6 @@ export const PageDtoSchema = z.object({
     metadata: MetadataDtoSchema,
     heroSections: z
         .array(HeroSectionDtoSchema)
-        .min(1, { message: "At least one hero section is required" })
         .max(5, { message: "Hero Sections must be less than 5" }),
 });
 
