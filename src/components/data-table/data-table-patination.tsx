@@ -57,7 +57,7 @@ export function DataTablePagination<TData>({
                             }
                         }}
                     >
-                        <SelectTrigger className="h-8 w-[70px]">
+                        <SelectTrigger className="!h-8 w-[70px]">
                             <SelectValue placeholder={meta.pageSize} />
                         </SelectTrigger>
                         <SelectContent side="top">

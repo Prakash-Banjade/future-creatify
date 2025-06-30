@@ -22,3 +22,20 @@ export enum EAlignmentExcludeCenter {
     Left = 'left',
     Right = 'right'
 }
+
+
+export enum ELinkType {
+    External = "external",
+    Internal = "internal",
+}
+
+export type TDataSearchParams = {
+    page?: string;
+    pageSize?: string;
+    q?: string
+}
+
+export type SelectOption = {
+    label: string;
+    value: string;
+}

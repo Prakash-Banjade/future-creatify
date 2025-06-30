@@ -2,15 +2,14 @@ import { useFieldArray, useFormContext } from "react-hook-form"
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { ECtaType } from "@/schemas/hero-section.schema";
 import { ECtaVariant } from "../../../../../../types/blocks.types";
 import { Plus } from "lucide-react";
 import { Label } from "@/components/ui/label";
-import CtaAccordion from "../cta-accordion";
+import CtaAccordion from "../common/cta-accordion";
 import { Textarea } from "@/components/ui/textarea";
 import { BlockComponentProps } from "./blocks";
-import AlignmentSelect from "../alignment-select";
-import { TPageDto } from "@/schemas/page.schema";
+import AlignmentSelect from "../common/alignment-select";
+import { ELinkType } from "../../../../../../types/global.types";
 
 const TextBlock: React.FC<BlockComponentProps> = ({ name, sectionIdx, blockIdx }) => {
     const form = useFormContext();
@@ -113,7 +112,7 @@ const TextBlock: React.FC<BlockComponentProps> = ({ name, sectionIdx, blockIdx }
                                 if (fields.length >= 2) return;
 
                                 append({
-                                    type: ECtaType.Internal,
+                                    type: ELinkType.Internal,
                                     variant: ECtaVariant.Primary,
                                     text: "",
                                     link: "",

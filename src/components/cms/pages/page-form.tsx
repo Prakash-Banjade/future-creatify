@@ -121,7 +121,7 @@ export default function PageForm({ page }: Props) {
                                         ))
                                     }
                                 </TabsList>
-                                <section className='@6xl:pl-24 @3xl:pl-16 pl-8 pt-4 @6xl:pr-16 pr-10 '>
+                                <section className='@6xl:pl-24 @3xl:pl-16 pl-8 pt-4 @6xl:pr-16 pr-10 pb-20'>
                                     <TabsContent value="hero">
                                         <HeroTabContent />
                                     </TabsContent>

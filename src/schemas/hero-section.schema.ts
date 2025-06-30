@@ -1,13 +1,8 @@
 import { z } from "zod";
 import { ECtaVariant } from "../../types/blocks.types";
 import { EHeroLayoutTypes } from "../../types/page.types";
-import { EAlignment, EAlignmentExcludeCenter } from "../../types/global.types";
+import { EAlignment, EAlignmentExcludeCenter, ELinkType } from "../../types/global.types";
 import { mediaSchema } from "./media.schema";
-
-export enum ECtaType {
-    External = "external",
-    Internal = "internal",
-}
 
 // ——— CTA ———
 export const CTADtoSchema = z.object({
@@ -22,7 +17,7 @@ export const CTADtoSchema = z.object({
         .min(3, { message: "Text must be between 3 and 15 characters" })
         .max(15, { message: "Text must be between 3 and 15 characters" }),
     variant: z.nativeEnum(ECtaVariant),
-    type: z.nativeEnum(ECtaType),
+    type: z.nativeEnum(ELinkType),
     arrow: z.boolean(),
     newTab: z.boolean(),
 });

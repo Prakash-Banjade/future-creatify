@@ -1,6 +1,6 @@
 import { z } from "zod";
-import { EBlock, ECardsBlockLayout, ECtaVariant } from "../../types/blocks.types";
-import { EAlignment } from "../../types/global.types";
+import { EBlock, ECardsBlockLayout } from "../../types/blocks.types";
+import { EAlignment, ELinkType } from "../../types/global.types";
 import { CTADtoSchema, HeroSectionDtoSchema } from "./hero-section.schema";
 import { mediaSchema } from "./media.schema";
 
@@ -40,32 +40,36 @@ export const ImageBlockSchema = BaseBlockSchema.extend({
 // ---- CardDto ----
 export const CardSchema = z.object({
     title: z
-        .string()
+        .string({ required_error: "Title is required" })
         .trim()
         .min(3, { message: "Title must be between 3 and 50 characters" })
         .max(50, { message: "Title must be between 3 and 50 characters" }),
     subtitle: z
         .string()
         .trim()
-        .min(3, { message: "Title must be between 3 and 50 characters" })
-        .max(50, { message: "Title must be between 3 and 50 characters" }),
+        .max(50, { message: "Title must be between 3 and 50 characters" })
+        .optional(),
     description: z
         .string()
         .trim()
-        .min(3, { message: "Description must be between 3 and 300 characters" })
-        .max(300, { message: "Description must be between 3 and 300 characters" }),
-    link: z.string().url().optional(),
-    image: mediaSchema.optional(),
+        .max(300, { message: "Description must be between 3 and 300 characters" })
+        .optional(),
+    link: z.object({
+        url: z.string().optional(),
+        type: z.nativeEnum(ELinkType),
+    }),
+    image: mediaSchema.nullish(),
 });
 
 // ---- CardsBlockDto ----
 export const CardsBlockSchema = BaseBlockSchema.extend({
     type: z.literal(EBlock.Cards),
     layout: z.nativeEnum(ECardsBlockLayout),
+    maxColumns: z.coerce.number().int().min(1),
     cards: z
         .array(CardSchema)
         .min(1, { message: "At least one card is required" }),
-    maxColumns: z.coerce.number().int().min(1),
+    borderLess: z.boolean(),
 });
 
 // ---- RefItemBlockDto ----

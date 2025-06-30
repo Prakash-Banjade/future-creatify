@@ -1,4 +1,4 @@
-import { EAlignment, EAlignmentExcludeCenter } from "./global.types"
+import { EAlignment, EAlignmentExcludeCenter, PaginatedResponse } from "./global.types"
 import { TMetadataDto, TPageSection } from "@/schemas/page.schema";
 import { THeroSectionDto } from "@/schemas/hero-section.schema";
 
@@ -15,12 +15,12 @@ export type THeroLayout = {
     imagePosition: EAlignmentExcludeCenter,
 }
 
-export type TPagesResponse = {
+export type TPagesResponse = PaginatedResponse<{
     id: string;
     name: string;
     slug: string;
     createdAt: Date;
-}[]
+}>
 
 export type TPage = {
     id: string;

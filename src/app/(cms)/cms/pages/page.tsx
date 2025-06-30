@@ -2,9 +2,13 @@ import ContainerLayout from "@/components/cms/container-layout"
 import NewPageButton from "@/components/cms/pages/new-page-btn"
 import PagesList from "@/components/cms/pages/pages-list"
 import { Suspense } from "react"
+import { TDataSearchParams } from "../../../../../types/global.types"
 
-export default function PagesPage() {
+export type PagesPageProps = {
+    searchParams: Promise<TDataSearchParams>
+}
 
+export default async function PagesPage(props: PagesPageProps) {
     return (
         <ContainerLayout
             title='Pages'
@@ -14,7 +18,7 @@ export default function PagesPage() {
             }
         >
             <Suspense fallback={<div>Loading...</div>}>
-                <PagesList />
+                <PagesList {...props} />
             </Suspense>
         </ContainerLayout>
     )

@@ -16,16 +16,16 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Input } from "@/components/ui/input";
-import CtaAccordion from "./cta-accordion";
+import CtaAccordion from "./common/cta-accordion";
 import { Button } from "@/components/ui/button";
 import { ECtaVariant } from "../../../../../types/blocks.types";
-import { ECtaType } from "@/schemas/hero-section.schema";
 import { MediaInput, MediaItem } from "@/components/forms/media-field";
 import { Label } from "@/components/ui/label";
 import AddHeroSectionDialog from "./add-herosection-dialog";
 import { EHeroLayoutTypes } from "../../../../../types/page.types";
-import AlignmentSelect from "./alignment-select";
+import AlignmentSelect from "./common/alignment-select";
 import { TMediaSchema } from "@/schemas/media.schema";
+import { ELinkType } from "../../../../../types/global.types";
 
 type Props = {}
 
@@ -244,7 +244,7 @@ function CtaField({ heroIdx }: { heroIdx: number }) {
                             if (fields.length >= 2) return;
 
                             append({
-                                type: ECtaType.Internal,
+                                type: ELinkType.Internal,
                                 variant: ECtaVariant.Primary,
                                 text: "",
                                 link: "",

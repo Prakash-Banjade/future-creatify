@@ -1,39 +1,26 @@
 import { DataTable } from '@/components/data-table/data-table';
-import { db } from '@/db'
-import { pages } from '@/db/schema/page'
-import { desc } from 'drizzle-orm';
 import { pagesColumns } from './pages.columns';
-import { TPagesResponse } from '../../../../types/page.types';
+import { getPages } from '@/lib/data-access.ts/pages.data';
+import { PagesPageProps } from '@/app/(cms)/cms/pages/page';
+import { DataTablePagination } from '@/components/data-table/data-table-patination';
+import SearchInput from '@/components/search/search-input';
 
-export default async function PagesList() {
-    const foundPages = await getPages();
+export default async function PagesList(props: PagesPageProps) {
+    const searchParams = await props.searchParams;
+
+    const result = await getPages(searchParams);
+
+    if (!result) return (
+        <section>Unable to fetch pages</section>
+    )
 
     return (
-        <>
-            <DataTable columns={pagesColumns} data={foundPages} />
-
-            <section>
-                <span className='text-sm text-muted-foreground'>{foundPages.length} Page(s)</span>
+        <section className='space-y-6'>
+            <section className='flex'>
+                <SearchInput />
             </section>
-        </>
+            <DataTable columns={pagesColumns} data={result.data} />
+            <DataTablePagination meta={result.meta} />
+        </section>
     )
-}
-
-async function getPages(): Promise<TPagesResponse> {
-    try {
-        const foundPages = await db
-            .select({
-                id: pages.id,
-                name: pages.name,
-                slug: pages.slug,
-                createdAt: pages.createdAt,
-            })
-            .from(pages)
-            .orderBy(desc(pages.createdAt));
-
-        return foundPages;
-    } catch (e) {
-        console.error(e);
-        return [];
-    }
 }

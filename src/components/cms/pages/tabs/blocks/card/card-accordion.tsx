@@ -12,20 +12,15 @@ import {
     DropdownMenuItem,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
+import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Input } from "@/components/ui/input";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
-import { ECtaType } from "@/schemas/hero-section.schema";
-import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-} from "@/components/ui/select"
-import { useFetchData } from "@/hooks/useFetchData";
+import { Textarea } from "@/components/ui/textarea";
+import { TMediaSchema } from "@/schemas/media.schema";
+import { MediaInput, MediaItem } from "@/components/forms/media-field";
+import { ELinkType } from "../../../../../../../types/global.types";
+import { InternalLinkField } from "../../common/internal-link-field";
 import { Checkbox } from "@/components/ui/checkbox";
-import { ECtaVariant } from "../../../../../types/blocks.types";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
 type Props = {
     idx: number
@@ -33,15 +28,8 @@ type Props = {
     onRemove?: () => void
 }
 
-export default function CtaAccordion({ idx, name, onRemove }: Props) {
+export default function CardAccordion({ idx, name, onRemove }: Props) {
     const form = useFormContext();
-
-    const { data, isLoading } = useFetchData<{ label: string, value: string }[]>({
-        endpoint: '/pages/options',
-        queryKey: ['pages', 'options'],
-    });
-
-    console.log('hi prakash')
 
     return (
         <Accordion type="multiple">
@@ -51,7 +39,7 @@ export default function CtaAccordion({ idx, name, onRemove }: Props) {
                         <GripVertical className="text-muted-foreground" size={16} />
                     </button>
                     <AccordionTrigger className="text-sm hover:no-underline py-3">
-                        <span>Link {idx + 1}</span>
+                        <span>Card {idx + 1}</span>
                     </AccordionTrigger>
                     <section className="absolute right-10">
                         <DropdownMenu>
@@ -75,6 +63,59 @@ export default function CtaAccordion({ idx, name, onRemove }: Props) {
                     </section>
                 </section>
                 <AccordionContent className="px-3 py-5 bg-background space-y-6">
+                    <FormField
+                        control={form.control}
+                        name={`${name}.title`}
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormLabel>Title <span className="text-destructive">*</span></FormLabel>
+                                <FormControl>
+                                    <Input
+                                        className="py-5"
+                                        required
+                                        {...field}
+                                    />
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+
+                    <FormField
+                        control={form.control}
+                        name={`metadata.subtitle`}
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormLabel>Subtitle <span className="text-destructive">*</span></FormLabel>
+                                <FormControl>
+                                    <Textarea
+                                        className="field-sizing-content overflow-y-hidden resize-none w-full focus-visible:outline-0"
+                                        required
+                                        {...field}
+                                    />
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+
+                    <FormField
+                        control={form.control}
+                        name={`metadata.description`}
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormLabel>Description</FormLabel>
+                                <FormControl>
+                                    <Textarea
+                                        className="field-sizing-content overflow-y-hidden resize-none w-full focus-visible:outline-0"
+                                        {...field}
+                                    />
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+
                     <section className="grid grid-cols-2 gap-6">
                         <FormField
                             control={form.control}
@@ -93,7 +134,7 @@ export default function CtaAccordion({ idx, name, onRemove }: Props) {
                                         >
                                             <FormItem className="flex items-center gap-3">
                                                 <FormControl>
-                                                    <RadioGroupItem value={ECtaType.Internal} />
+                                                    <RadioGroupItem value={ELinkType.Internal} />
                                                 </FormControl>
                                                 <FormLabel className="font-normal">
                                                     Internal Link
@@ -101,7 +142,7 @@ export default function CtaAccordion({ idx, name, onRemove }: Props) {
                                             </FormItem>
                                             <FormItem className="flex items-center gap-3">
                                                 <FormControl>
-                                                    <RadioGroupItem value={ECtaType.External} />
+                                                    <RadioGroupItem value={ELinkType.External} />
                                                 </FormControl>
                                                 <FormLabel className="font-normal">
                                                     Custom URL
@@ -162,7 +203,7 @@ export default function CtaAccordion({ idx, name, onRemove }: Props) {
                             control={form.control}
                             name={`${name}.link`}
                             render={({ field }) => {
-                                return form.watch(`${name}.type`) === ECtaType.External ? (
+                                return form.watch(`${name}.linkType`) === ELinkType.External ? (
                                     <FormItem>
                                         <FormLabel>Custom URL <span className='text-destructive'>*</span></FormLabel>
                                         <FormControl>
@@ -176,26 +217,9 @@ export default function CtaAccordion({ idx, name, onRemove }: Props) {
                                         <FormMessage />
                                     </FormItem>
                                 ) : (
-                                    <FormItem className="w-auto">
-                                        <FormLabel>Document to link to <span className='text-destructive'>*</span></FormLabel>
-                                        <Select onValueChange={field.onChange} defaultValue={field.value} required>
-                                            <FormControl>
-                                                <SelectTrigger disabled={isLoading} className="w-full">
-                                                    <SelectValue placeholder="Select an option" />
-                                                </SelectTrigger>
-                                            </FormControl>
-                                            <SelectContent>
-                                                {
-                                                    (data ?? []).map(o => (
-                                                        <SelectItem key={o.value} value={o.value}>
-                                                            {o.label}
-                                                        </SelectItem>
-                                                    ))
-                                                }
-                                            </SelectContent>
-                                        </Select>
-                                        <FormMessage />
-                                    </FormItem>
+                                    <InternalLinkField
+                                        onChange={field.onChange}
+                                    />
                                 )
                             }}
                         />
@@ -221,30 +245,32 @@ export default function CtaAccordion({ idx, name, onRemove }: Props) {
 
                     <FormField
                         control={form.control}
-                        name={`${name}.variant`}
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>Appearance</FormLabel>
-                                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                        name={`${name}.image`}
+                        render={({ field }) => {
+                            const value = field.value as TMediaSchema | null;
+
+                            return (
+                                <FormItem>
+                                    <FormLabel>Image</FormLabel>
                                     <FormControl>
-                                        <SelectTrigger className="w-full">
-                                            <SelectValue placeholder="Select an option" />
-                                        </SelectTrigger>
-                                    </FormControl>
-                                    <SelectContent>
                                         {
-                                            Object.entries(ECtaVariant).map(([key, value]) => (
-                                                <SelectItem key={key} value={value}>{key}</SelectItem>
-                                            ))
+                                            value ? (
+                                                <MediaItem
+                                                    media={value}
+                                                    onRemove={() => {
+                                                        field.onChange(null)
+                                                    }}
+                                                />
+                                            ) : (
+                                                <MediaInput onChange={field.onChange} />
+                                            )
+
                                         }
-                                    </SelectContent>
-                                </Select>
-                                <FormDescription>
-                                    Choose how the link should be rendered.
-                                </FormDescription>
-                                <FormMessage />
-                            </FormItem>
-                        )}
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )
+                        }}
                     />
                 </AccordionContent>
             </AccordionItem>
