@@ -1,4 +1,4 @@
-import { useFormContext } from "react-hook-form"
+import { useFormContext, useWatch } from "react-hook-form"
 import {
     Accordion,
     AccordionContent,
@@ -21,6 +21,7 @@ import { ELinkType } from "../../../../../../../types/global.types";
 import { InternalLinkField } from "../../common/internal-link-field";
 import { Checkbox } from "@/components/ui/checkbox";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Label } from "@/components/ui/label";
 
 type Props = {
     idx: number
@@ -30,6 +31,13 @@ type Props = {
 
 export default function CardAccordion({ idx, name, onRemove }: Props) {
     const form = useFormContext();
+
+    const linkType = useWatch({
+        control: form.control,
+        
+    })
+
+    console.log(1)
 
     return (
         <Accordion type="multiple">
@@ -83,14 +91,13 @@ export default function CardAccordion({ idx, name, onRemove }: Props) {
 
                     <FormField
                         control={form.control}
-                        name={`metadata.subtitle`}
+                        name={`${name}.subtitle`}
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel>Subtitle <span className="text-destructive">*</span></FormLabel>
+                                <FormLabel>Subtitle</FormLabel>
                                 <FormControl>
                                     <Textarea
                                         className="field-sizing-content overflow-y-hidden resize-none w-full focus-visible:outline-0"
-                                        required
                                         {...field}
                                     />
                                 </FormControl>
@@ -101,7 +108,7 @@ export default function CardAccordion({ idx, name, onRemove }: Props) {
 
                     <FormField
                         control={form.control}
-                        name={`metadata.description`}
+                        name={`${name}.description`}
                         render={({ field }) => (
                             <FormItem>
                                 <FormLabel>Description</FormLabel>
@@ -115,133 +122,6 @@ export default function CardAccordion({ idx, name, onRemove }: Props) {
                             </FormItem>
                         )}
                     />
-
-                    <section className="grid grid-cols-2 gap-6">
-                        <FormField
-                            control={form.control}
-                            name={`${name}.type`}
-                            render={({ field }) => (
-                                <FormItem>
-                                    <FormLabel>Type</FormLabel>
-                                    <FormControl>
-                                        <RadioGroup
-                                            onValueChange={val => {
-                                                form.setValue(`${name}.link`, "");
-                                                field.onChange(val);
-                                            }}
-                                            defaultValue={field.value}
-                                            className="flex"
-                                        >
-                                            <FormItem className="flex items-center gap-3">
-                                                <FormControl>
-                                                    <RadioGroupItem value={ELinkType.Internal} />
-                                                </FormControl>
-                                                <FormLabel className="font-normal">
-                                                    Internal Link
-                                                </FormLabel>
-                                            </FormItem>
-                                            <FormItem className="flex items-center gap-3">
-                                                <FormControl>
-                                                    <RadioGroupItem value={ELinkType.External} />
-                                                </FormControl>
-                                                <FormLabel className="font-normal">
-                                                    Custom URL
-                                                </FormLabel>
-                                            </FormItem>
-                                        </RadioGroup>
-                                    </FormControl>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        />
-
-                        <section className="flex gap-10 items-end">
-                            <FormField
-                                control={form.control}
-                                name={`${name}.arrow`}
-                                render={({ field }) => {
-                                    return (
-                                        <FormItem className="flex flex-row items-center gap-2">
-                                            <FormControl>
-                                                <Checkbox
-                                                    checked={field.value}
-                                                    onCheckedChange={(checked) => field.onChange(checked)}
-                                                />
-                                            </FormControl>
-                                            <FormLabel className="text-sm font-normal">
-                                                Include Arrow
-                                            </FormLabel>
-                                            <FormMessage />
-                                        </FormItem>
-                                    )
-                                }}
-                            />
-
-                            <FormField
-                                control={form.control}
-                                name={`${name}.newTab`}
-                                render={({ field }) => {
-                                    return (
-                                        <FormItem className="flex flex-row items-center gap-2">
-                                            <FormControl>
-                                                <Checkbox
-                                                    checked={field.value}
-                                                    onCheckedChange={(checked) => field.onChange(checked)}
-                                                />
-                                            </FormControl>
-                                            <FormLabel className="text-sm font-normal">
-                                                Open in new tab
-                                            </FormLabel>
-                                            <FormMessage />
-                                        </FormItem>
-                                    )
-                                }}
-                            />
-                        </section>
-
-                        <FormField
-                            control={form.control}
-                            name={`${name}.link`}
-                            render={({ field }) => {
-                                return form.watch(`${name}.linkType`) === ELinkType.External ? (
-                                    <FormItem>
-                                        <FormLabel>Custom URL <span className='text-destructive'>*</span></FormLabel>
-                                        <FormControl>
-                                            <Input
-                                                type="url"
-                                                placeholder="Eg. https://example.com"
-                                                required
-                                                {...field}
-                                            />
-                                        </FormControl>
-                                        <FormMessage />
-                                    </FormItem>
-                                ) : (
-                                    <InternalLinkField
-                                        onChange={field.onChange}
-                                    />
-                                )
-                            }}
-                        />
-
-                        <FormField
-                            control={form.control}
-                            name={`${name}.text`}
-                            render={({ field }) => (
-                                <FormItem>
-                                    <FormLabel>Label <span className='text-destructive'>*</span></FormLabel>
-                                    <FormControl>
-                                        <Input
-                                            placeholder="Eg. Learm More"
-                                            required
-                                            {...field}
-                                        />
-                                    </FormControl>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        />
-                    </section>
 
                     <FormField
                         control={form.control}
@@ -272,6 +152,103 @@ export default function CardAccordion({ idx, name, onRemove }: Props) {
                             )
                         }}
                     />
+
+                    {/* <div className="flex items-center gap-3">
+                        <Checkbox
+                            id="enable-link"
+                            checked={!!form.watch(`${name}.link`)}
+                            onCheckedChange={val => {
+                                if (val) {
+                                    form.setValue(`${name}.link`, {
+                                        url: "",
+                                        type: ELinkType.Internal
+                                    });
+                                } else {
+                                    form.setValue(`${name}.link`, undefined);
+                                }
+                            }}
+                        />
+                        <Label htmlFor="enable-link">Enable link?</Label>
+                    </div> */}
+
+                    <FormField
+                        control={form.control}
+                        name={`${name}.link`}
+                        render={({ field: linkField }) => {
+                            console.log(linkField.value)
+                            
+                            return (
+                                <>
+                                    <FormField
+                                        control={form.control}
+                                        name={`${name}.link.type`}
+                                        render={({ field }) => (
+                                            <FormItem>
+                                                <FormLabel>Type</FormLabel>
+                                                <FormControl>
+                                                    <RadioGroup
+                                                        onValueChange={val => {
+                                                            form.setValue(`${name}.link.url`, "");
+                                                            field.onChange(val);
+                                                        }}
+                                                        defaultValue={field.value}
+                                                        className="flex"
+                                                    >
+                                                        <FormItem className="flex items-center gap-3">
+                                                            <FormControl>
+                                                                <RadioGroupItem value={ELinkType.Internal} />
+                                                            </FormControl>
+                                                            <FormLabel className="font-normal">
+                                                                Internal Link
+                                                            </FormLabel>
+                                                        </FormItem>
+                                                        <FormItem className="flex items-center gap-3">
+                                                            <FormControl>
+                                                                <RadioGroupItem value={ELinkType.External} />
+                                                            </FormControl>
+                                                            <FormLabel className="font-normal">
+                                                                Custom URL
+                                                            </FormLabel>
+                                                        </FormItem>
+                                                    </RadioGroup>
+                                                </FormControl>
+                                                <FormMessage />
+                                            </FormItem>
+                                        )}
+                                    />
+
+                                    <FormField
+                                        control={form.control}
+                                        name={`${name}.link.url`}
+                                        render={({ field }) => {
+                                            console.log(linkField.value)
+                                            
+                                            return linkField.value.type === ELinkType.External ? (
+                                                <FormItem>
+                                                    <FormLabel>Custom URL <span className='text-destructive'>*</span></FormLabel>
+                                                    <FormControl>
+                                                        <Input
+                                                            type="url"
+                                                            placeholder="Eg. https://example.com"
+                                                            required
+                                                            {...field}
+                                                        />
+                                                    </FormControl>
+                                                    <FormMessage />
+                                                </FormItem>
+                                            ) : (
+                                                <InternalLinkField
+                                                    onChange={field.onChange}
+                                                />
+                                            )
+                                        }}
+                                    />
+                                </>
+                            )
+                        }}
+                    />
+
+
                 </AccordionContent>
             </AccordionItem>
         </Accordion>

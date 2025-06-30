@@ -54,10 +54,17 @@ export const CardSchema = z.object({
         .trim()
         .max(300, { message: "Description must be between 3 and 300 characters" })
         .optional(),
-    link: z.object({
-        url: z.string().optional(),
-        type: z.nativeEnum(ELinkType),
-    }),
+    link: z
+        .object({
+            url: z.string(),
+            type: z.nativeEnum(ELinkType),
+        })
+        .optional()
+        .refine((data) => {
+            if (!data) return true;
+            if (data.type === ELinkType.External && !z.string().url().safeParse(data.url).success) return false;
+            return true;
+        }, "Invalid URL"),
     image: mediaSchema.nullish(),
 });
 

@@ -1,4 +1,4 @@
-import { useFieldArray, useFormContext } from "react-hook-form"
+import { useFieldArray, useFormContext, useWatch } from "react-hook-form"
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -10,6 +10,7 @@ import { ECardsBlockLayout, ECtaVariant } from "../../../../../../../types/block
 import { Checkbox } from "@/components/ui/checkbox";
 import CardAccordion from "./card-accordion";
 import { ELinkType } from "../../../../../../../types/global.types";
+import { useMemo } from "react";
 
 const CardsBlock: React.FC<BlockComponentProps> = ({ name, sectionIdx, blockIdx }) => {
     const form = useFormContext();
@@ -20,6 +21,13 @@ const CardsBlock: React.FC<BlockComponentProps> = ({ name, sectionIdx, blockIdx 
         name: fieldName,
     });
 
+    const layout = useWatch({
+        control: form.control,
+        name: `${name}.layout`
+    });
+
+    const maxColsFieldDisabled = useMemo(() => [ECardsBlockLayout.Horizontal, ECardsBlockLayout.Vertical].includes(layout), [layout]);
+
     return (
         <section className="space-y-6">
             <section className="grid grid-cols-2 gap-6">
@@ -29,7 +37,15 @@ const CardsBlock: React.FC<BlockComponentProps> = ({ name, sectionIdx, blockIdx 
                     render={({ field }) => (
                         <FormItem>
                             <FormLabel>Layout <span className="text-destructive">*</span></FormLabel>
-                            <Select onValueChange={field.onChange} defaultValue={field.value} required>
+                            <Select
+                                onValueChange={(val: ECardsBlockLayout) => {
+                                    // reset only when layout is changed to Horizontal or Vertical from any other layout
+                                    !maxColsFieldDisabled && [ECardsBlockLayout.Horizontal, ECardsBlockLayout.Vertical].includes(val) && form.setValue(`${name}.maxColumns`, "");
+                                    field.onChange(val);
+                                }}
+                                defaultValue={field.value}
+                                required
+                            >
                                 <FormControl>
                                     <SelectTrigger className="w-full py-5">
                                         <SelectValue placeholder={"Select an option"} />
@@ -53,13 +69,14 @@ const CardsBlock: React.FC<BlockComponentProps> = ({ name, sectionIdx, blockIdx 
                     name={`${name}.maxColumns`}
                     render={({ field }) => (
                         <FormItem>
-                            <FormLabel>Max Columns <span className='text-destructive'>*</span></FormLabel>
+                            <FormLabel>Max Columns {!maxColsFieldDisabled && (<span className='text-destructive'>*</span>)}</FormLabel>
                             <FormControl>
                                 <Input
                                     type="number"
                                     className='py-5'
                                     required
                                     pattern={NUMBER_REGEX_STRING}
+                                    disabled={maxColsFieldDisabled} // not needed for horizontal and vertical layout
                                     min={1}
                                     {...field}
                                 />
@@ -160,8 +177,10 @@ const CardsBlock: React.FC<BlockComponentProps> = ({ name, sectionIdx, blockIdx 
                                             title: "",
                                             subtitle: "",
                                             description: "",
-                                            link: "",
-                                            linkType: ELinkType.Internal,
+                                            link: {
+                                                url: "",
+                                                type: ELinkType.Internal
+                                            },
                                             image: undefined,
                                         })
                                     }}

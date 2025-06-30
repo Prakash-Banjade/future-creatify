@@ -52,12 +52,12 @@ export function InternalLinkField<T extends FieldValues>({
                                 <CommandList>
                                     {data.map((group) => {
                                         return !!group.options?.length && (
-                                            <CommandGroup heading={group.label} key={group.label}>
+                                            <CommandGroup className='capitalize' heading={group.label} key={group.label}>
                                                 {group.options?.map((option) => {
                                                     return (
                                                         <CommandItem
                                                             key={option.value}
-                                                            value={option.value}
+                                                            value={group.label === 'pages' ? `/${option.value}` : `/${group.label}/${option.value}`}
                                                             onSelect={(currentValue) => {
                                                                 onChange(currentValue)
                                                                 setSelectedValue(option)

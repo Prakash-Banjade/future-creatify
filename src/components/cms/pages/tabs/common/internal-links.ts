@@ -19,11 +19,11 @@ export function useInternalLinks(queryString: string = "") {
     return {
         data: [
             {
-                label: 'Pages',
+                label: 'pages',
                 options: pages,
             },
             {
-                label: 'Blogs',
+                label: 'blogs',
                 options: blogs,
             },
         ],

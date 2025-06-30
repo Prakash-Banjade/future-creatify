@@ -31,7 +31,7 @@ export const blockLayouts: {
         {
             block: {
                 type: EBlock.Cards,
-                layout: ECardsBlockLayout.Horizontal,
+                layout: ECardsBlockLayout.Grid,
                 cards: [],
                 maxColumns: 3,
                 borderLess: false,

@@ -20,6 +20,14 @@ export const CTADtoSchema = z.object({
     type: z.nativeEnum(ELinkType),
     arrow: z.boolean(),
     newTab: z.boolean(),
+}).superRefine((data, ctx) => {
+    if (data.type === ELinkType.External && !z.string().url().safeParse(data.link).success) {
+        ctx.addIssue({
+            path: ["link"],
+            message: "Invalid URL",
+            code: z.ZodIssueCode.custom,
+        });
+    }
 });
 
 // ——— Hero Layouts ———
