@@ -1,14 +1,11 @@
 export interface PaginatedResponse<T> {
-    data: T & {
-        id: string,
-        [key: string]: any
-    }[];
+    data: T[];
     meta: TMeta;
 }
 
 export type TMeta = {
     page: number;
-    take: number;
+    pageSize: number;
     itemCount: number;
     pageCount: number;
     hasPreviousPage: boolean;

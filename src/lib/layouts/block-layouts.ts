@@ -3,20 +3,6 @@ import jumboCenter from "@/assets/layouts/hero-layout/jumbotron-center.svg"
 import { EBlock, ECardsBlockLayout } from "../../../types/blocks.types"
 import { EAlignment } from "../../../types/global.types"
 
-const mediaDefaultValue = {
-    secure_url: "",
-    alt: "",
-    caption: "",
-    width: 0,
-    height: 0,
-    bytes: 0,
-    name: "",
-    originalName: "",
-    public_id: "",
-    format: "",
-    resource_type: "",
-}
-
 export const blockLayouts: {
     block: TBlock,
     image: any,
@@ -39,7 +25,7 @@ export const blockLayouts: {
                 type: EBlock.Image,
                 images: []
             },
-            alt: "Image",
+            alt: "Images",
             image: jumboCenter
         },
         {

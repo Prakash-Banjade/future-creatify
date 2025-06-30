@@ -1,10 +1,9 @@
-export type TMedia = {
-    id: string,
-    name: string,
-    width: number,
-    height: number,
-    alt: string,
-    caption: string,
-    secure_url: string,
-    updatedAt: Date,
-};
+import { TMediaSchema } from "@/schemas/media.schema";
+import { PaginatedResponse } from "./global.types";
+
+export type TMedia = TMediaSchema & {
+    id: string;
+    updatedAt: string;
+}
+
+export type TMediaResponse = PaginatedResponse<TMedia>;

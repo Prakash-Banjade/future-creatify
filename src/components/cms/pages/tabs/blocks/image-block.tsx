@@ -4,6 +4,8 @@ import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/comp
 import { useFormContext } from 'react-hook-form'
 import { TMediaSchema } from '@/schemas/media.schema'
 
+const MAX_IMAGES = 3;
+
 const ImageBlock: React.FC<BlockComponentProps> = ({ name }) => {
     const form = useFormContext();
 
@@ -13,8 +15,6 @@ const ImageBlock: React.FC<BlockComponentProps> = ({ name }) => {
             name={`${name}.images`}
             render={({ field }) => {
                 const value = field.value as TMediaSchema[];
-
-                console.log(value)
 
                 return (
                     <FormItem>
@@ -30,17 +30,18 @@ const ImageBlock: React.FC<BlockComponentProps> = ({ name }) => {
                                         }}
                                     />
                                 ))
-
                             }
                         </section>
                         <FormControl>
-                            <MediaInput
-                                onChange={(value) => {
-                                    field.onChange(Array.isArray(value) ? [...field.value, ...value] : [...field.value, value])
-                                }}
-                                max={3}
-                            />
-
+                            {
+                                field.value?.length < MAX_IMAGES && (
+                                    <MediaInput
+                                        onChange={(value) => {
+                                            field.onChange(Array.isArray(value) ? [...field.value, ...value] : [...field.value, value])
+                                        }}
+                                    />
+                                )
+                            }
                         </FormControl>
                         <FormMessage />
                     </FormItem>

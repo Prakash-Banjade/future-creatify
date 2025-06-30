@@ -1,12 +1,11 @@
 "use client";
 
-import { useEffect, useState, useTransition } from 'react';
+import { useEffect, useMemo, useState, useTransition } from 'react';
 import { Button } from '../ui/button'
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { useFetchData } from '@/hooks/useFetchData';
-import { DataTable } from '../data-table/data-table';
 import { LoaderCircle, Search, X } from 'lucide-react';
-import { ColumnDef, getCoreRowModel, Row, Table, useReactTable } from '@tanstack/react-table';
+import { ColumnDef } from '@tanstack/react-table';
 import CloudinaryImage from '../ui/cloudinary-image';
 import { Input } from '../ui/input';
 import { cn, createQueryString, formatBytes, showServerError } from '@/lib/utils';
@@ -20,13 +19,14 @@ import { CldUploadWidget } from 'next-cloudinary';
 import { CLOUDINARY_SIGNATURE_ENDPOINT } from '@/CONSTANTS';
 import CustomDialog from '../ui/custom-dialog';
 import LoadingButton from './loading-button';
-import { Checkbox } from '../ui/checkbox';
-import { MediaSelectorDataTable } from '../data-table/media-select-data-table';
+import { TMedia, TMediaResponse } from '../../../types/media.types';
+import { MediaSelectDataTablePagination } from '../data-table/media-select-data-table-patination';
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+import { DataTable } from '../data-table/data-table';
 
 type MediaFieldProps = {
   media: TMediaSchema;
   onChange: (value: TMediaSchema | TMediaSchema[]) => void;
-  max?: number;
   onClose: () => void;
   onRemove: () => void;
 }
@@ -38,8 +38,8 @@ export function MediaItem({ media, onRemove }: Pick<MediaFieldProps, 'media' | '
         <CloudinaryImage
           src={media.secure_url}
           alt={media.alt ?? ""}
-          width={50}
-          height={50}
+          width={40}
+          height={40}
         />
         <section className="text-sm space-y-1">
           <p>{media.name}</p>
@@ -66,9 +66,9 @@ export function MediaItem({ media, onRemove }: Pick<MediaFieldProps, 'media' | '
   )
 }
 
-export function MediaInput({ onChange, max = 1 }: Pick<MediaFieldProps, 'onChange' | 'max'>) {
-  const [selectorOpen, setSelectorOpen] = useState(false);
+export function MediaInput({ onChange }: Pick<MediaFieldProps, 'onChange'>) {
   const [createNewOpen, setCreateNewOpen] = useState(false);
+  const [selectorOpen, setSelectorOpen] = useState(false);
 
   return (
     <section className='border rounded-md p-4 flex items-center gap-4'>
@@ -109,24 +109,15 @@ export function MediaInput({ onChange, max = 1 }: Pick<MediaFieldProps, 'onChang
         </DialogTrigger>
         <DialogContent className='full-screen-dialog block'>
           <DialogHeader>
-            <DialogTitle className='flex items-center gap-2'>
-              <span id="dialog-title">Media</span>
-              <Button
-                type="button"
-                variant={"secondary"}
-                size={"sm"}
-                className='font-normal text-xs'
-                onClick={() => setCreateNewOpen(true)}
-              >
-                Upload New
-              </Button>
+            <DialogTitle>
+              <span id="dialog-title">Select Media</span>
             </DialogTitle>
           </DialogHeader>
-          <section className='pt-10'>
+
+          <section className='h-full pt-10'>
             <MediaSelector
-              onChange={onChange}
               onClose={() => setSelectorOpen(false)}
-              max={max}
+              onChange={onChange}
             />
           </section>
         </DialogContent>
@@ -325,52 +316,32 @@ function CreateNew({ onClose, onChange }: Pick<MediaFieldProps, 'onClose' | 'onC
   )
 }
 
-function MediaSelector({ onClose, onChange, max }: Pick<MediaFieldProps, 'onClose' | 'onChange' | 'max'>) {
+function MediaSelector({ onClose, onChange }: Pick<MediaFieldProps, 'onClose' | 'onChange'>) {
   const [search, setSearch] = useState('');
-  const [debouncedSearch, setDebouncedSearch] = useState('');
+  const [queryParams, setQueryParams] = useState<Record<string, any>>({
+    resource_type: 'image',
+  });
 
-  const { data, isLoading } = useFetchData<(TMediaSchema & { updatedAt: Date })[]>({
+  const queryString = useMemo(() => createQueryString(queryParams), [queryParams]);
+
+  const { data, isLoading } = useFetchData<TMediaResponse>({
     endpoint: '/media',
-    queryKey: ['media', debouncedSearch],
-    queryString: createQueryString({
-      q: debouncedSearch,
-      resource_type: 'image',
-    })
+    queryKey: ['media', queryString],
+    queryString
   });
 
   useEffect(() => {
     const handler = setTimeout(() => {
-      setDebouncedSearch(search);
+      setQueryParams(prev => ({
+        ...prev,
+        q: search
+      }));
     }, 500);
 
     return () => clearTimeout(handler);
   }, [search]);
 
-  const mediaColumns: ColumnDef<(TMediaSchema & { updatedAt: Date })>[] = [
-    ...(max === 1 ? [] : [
-      {
-        id: "select",
-        header: ({ table }: { table: Table<TMediaSchema & { updatedAt: Date }> }) => (
-          <Checkbox
-            checked={
-              table.getIsAllPageRowsSelected() ||
-              (table.getIsSomePageRowsSelected() && "indeterminate")
-            }
-            onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-            aria-label="Select all"
-          />
-        ),
-        cell: ({ row }: { row: Row<TMediaSchema & { updatedAt: Date }> }) => (
-          <Checkbox
-            checked={row.getIsSelected()}
-            onCheckedChange={(value) => row.toggleSelected(!!value)}
-            aria-label="Select row"
-          />
-        ),
-        enableSorting: false,
-        enableHiding: false,
-      },
-    ]),
+  const mediaColumns: ColumnDef<TMedia>[] = [
     {
       accessorKey: 'secure_url',
       header: "File Name",
@@ -387,8 +358,8 @@ function MediaSelector({ onClose, onChange, max }: Pick<MediaFieldProps, 'onClos
             <CloudinaryImage
               src={row.original.secure_url}
               alt={row.original.alt}
-              height={48}
-              width={48}
+              height={40}
+              width={40}
               crop='auto'
             />
             <span className='text-sm underline underline-offset-2'>{row.original.name}</span>
@@ -401,7 +372,11 @@ function MediaSelector({ onClose, onChange, max }: Pick<MediaFieldProps, 'onClos
       header: "Alt",
       cell: ({ row }) => {
         return (
-          <span className='text-sm'>{row.original.alt || "<No Alt>"}</span>
+          row.original.alt ? (
+            <span className='text-sm'>{row.original.alt}</span>
+          ) : (
+            <span className='text-sm text-muted-foreground'>&lt;No Alt&gt;</span>
+          )
         )
       }
     },
@@ -410,7 +385,11 @@ function MediaSelector({ onClose, onChange, max }: Pick<MediaFieldProps, 'onClos
       header: "Caption",
       cell: ({ row }) => {
         return (
-          <span className='text-sm'>{row.original.caption || "<No Caption>"}</span>
+          row.original.caption ? (
+            <span className='text-sm'>{row.original.caption}</span>
+          ) : (
+            <span className='text-sm text-muted-foreground'>&lt;No Caption&gt;</span>
+          )
         )
       }
     },
@@ -425,15 +404,10 @@ function MediaSelector({ onClose, onChange, max }: Pick<MediaFieldProps, 'onClos
     }
   ]
 
-  const table = useReactTable({
-    data: (data ?? []),
-    columns: mediaColumns,
-    getCoreRowModel: getCoreRowModel(),
-  })
-
   if (isLoading) return (
-    <div className='flex items-center justify-center'>
+    <div className='h-full flex flex-col items-center justify-center text-muted-foreground'>
       <LoaderCircle className='animate-spin' size={32} />
+      <span>Loading...</span>
     </div>
   )
 
@@ -450,10 +424,20 @@ function MediaSelector({ onClose, onChange, max }: Pick<MediaFieldProps, 'onClos
         />
       </section>
 
-      <MediaSelectorDataTable
-        columns={mediaColumns}
-        table={table}
-      />
+      <ScrollArea className='h-[69vh] w-full'>
+        <DataTable
+          columns={mediaColumns}
+          data={data?.data ?? []}
+        />
+        <ScrollBar orientation="horizontal" />
+      </ScrollArea>
+
+      {
+        data?.meta && <MediaSelectDataTablePagination
+          meta={data.meta}
+          setQueryParams={setQueryParams}
+        />
+      }
     </div>
   )
 }
