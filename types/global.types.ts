@@ -12,6 +12,16 @@ export type TMeta = {
     hasNextPage: boolean;
 };
 
+export type SelectOption = {
+    label: string;
+    value: string;
+}
+
+export type TPaginatedOptions = {
+    data: SelectOption[];
+    meta: TMeta
+}
+
 export enum EAlignment {
     Left = 'left',
     Center = 'center',
@@ -22,7 +32,6 @@ export enum EAlignmentExcludeCenter {
     Left = 'left',
     Right = 'right'
 }
-
 
 export enum ELinkType {
     External = "external",
@@ -35,13 +44,8 @@ export type TDataSearchParams = {
     q?: string
 }
 
-export type SelectOption = {
-    label: string;
-    value: string;
-}
-
 export enum ERefRelation {
-    Posts = "posts",
+    Pages = "pages",
     Blogs = "blogs",
 }
 

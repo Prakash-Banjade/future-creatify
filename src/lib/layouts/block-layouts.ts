@@ -45,7 +45,7 @@ export const blockLayouts: {
                 ref: ERefRelation.Blogs,
                 limit: 3,
                 order: EOrder.Desc,
-                refIds: [],
+                selected: undefined
             },
             alt: "RefItem",
             image: jumboCenter

@@ -85,7 +85,10 @@ export const RefItemBlockSchema = BaseBlockSchema.extend({
     ref: z.nativeEnum(ERefRelation),
     limit: z.coerce.number().int().min(1),
     order: z.nativeEnum(EOrder),
-    refIds: z.array(z.string().uuid()),
+    selected: z.array(z.object({ // manually choosen items by the user
+        value: z.string().min(1, { message: "Value is required" }),
+        label: z.string().min(1, { message: "Label is required" }),
+    })).optional(), 
 });
 
 // ---- FormBlockDto ----

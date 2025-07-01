@@ -1,14 +1,14 @@
 import { useFetchData } from "@/hooks/useFetchData";
-import { SelectOption } from "../../../../../../types/global.types";
+import { TPaginatedOptions } from "../../../../../../types/global.types";
 
 export function useInternalLinks(queryString: string = "") {
-    const { data: pages, isLoading: isPagesLoading } = useFetchData<SelectOption[]>({
+    const { data: pages, isLoading: isPagesLoading } = useFetchData<TPaginatedOptions>({
         endpoint: '/pages/options',
         queryKey: ['pages', 'options', queryString],
         queryString,
     });
 
-    const { data: blogs, isLoading: isBlogsLoading } = useFetchData<SelectOption[]>({
+    const { data: blogs, isLoading: isBlogsLoading } = useFetchData<TPaginatedOptions>({
         endpoint: '/blogs/options',
         queryKey: ['blogs', 'options', queryString],
         queryString,

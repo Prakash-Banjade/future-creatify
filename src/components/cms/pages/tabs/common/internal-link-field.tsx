@@ -1,5 +1,4 @@
 import React, { useMemo, useState } from 'react'
-import { FieldValues } from 'react-hook-form'
 import { FormControl, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Check, ChevronsUpDown } from 'lucide-react'
 import { cn, createQueryString } from '@/lib/utils'
@@ -11,18 +10,21 @@ import { useInternalLinks } from './internal-links';
 
 type Props = {
     onChange: (value: string) => void
+    selected?: SelectOption
 }
 
-export function InternalLinkField<T extends FieldValues>({
-    onChange
+export function InternalLinkField({
+    onChange,
+    selected
 }: Props) {
-    const [selectedValue, setSelectedValue] = useState<SelectOption | null>(null);
-
     const [open, setOpen] = useState(false);
     const [search, setSearch] = useState<string>('');
+
     const debouncedValue = useDebounce(search, 500);
 
-    const queryString = useMemo(() => createQueryString({ q: debouncedValue }), [debouncedValue]);
+    const [selectedValue, setSelectedValue] = useState<Props["selected"]>(selected);
+
+    const queryString = useMemo(() => createQueryString({ q: debouncedValue, pageSize: "20" }), [debouncedValue]);
 
     const { isLoading, data } = useInternalLinks(queryString);
 
@@ -51,9 +53,9 @@ export function InternalLinkField<T extends FieldValues>({
                             <CommandGroup>
                                 <CommandList>
                                     {data.map((group) => {
-                                        return !!group.options?.length && (
+                                        return !!group.options?.data?.length && (
                                             <CommandGroup className='capitalize' heading={group.label} key={group.label}>
-                                                {group.options?.map((option) => {
+                                                {group.options?.data.map((option) => {
                                                     return (
                                                         <CommandItem
                                                             key={option.value}

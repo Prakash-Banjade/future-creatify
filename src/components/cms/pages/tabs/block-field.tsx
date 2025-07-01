@@ -12,22 +12,12 @@ import {
     DropdownMenuItem,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
-import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-} from "@/components/ui/select"
-import { useFetchData } from "@/hooks/useFetchData";
-import { Checkbox } from "@/components/ui/checkbox";
-import { ECtaVariant } from "../../../../../types/blocks.types";
-import { TPageDto } from "@/schemas/page.schema";
+import { FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form"
 import AddBlockDialog from "./add-block-dialog";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import { blocks } from "./blocks/blocks";
+import { TPageDto } from "@/schemas/page.schema";
 
 export default function BlockField({ sectionIdx }: { sectionIdx: number }) {
     const form = useFormContext<TPageDto>();
