@@ -5,12 +5,12 @@ import CloudinaryImage from '@/components/ui/cloudinary-image';
 import YooptaEditorReadonly from '@/components/yoopta-editor/readonly';
 import { API_URL } from '@/CONSTANTS';
 import { getReadingTimeInMinutes } from '@/lib/utils';
-import { TBlog } from '@/schemas/blog.schema';
 import { format } from 'date-fns';
 import { ArrowLeft, Calendar, FileSpreadsheet, Tag, User } from 'lucide-react';
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { Suspense } from 'react';
+import { TBlog, TBlogsResponse_Public } from '../../../../../types/blog.types';
 
 type Props = {
     params: {
@@ -87,7 +87,6 @@ export default async function SingleBlogPage(props: { params: Promise<Props["par
 
     return (
         <>
-            {/* Hero Section */}
             <section className="pt-32 pb-8 md:pt-40 md:pb-12 bg-cream">
                 <div className="container">
                     <Link href="/blogs" className="inline-flex items-center text-primary font-medium mb-6 hover:underline">
@@ -179,18 +178,18 @@ export default async function SingleBlogPage(props: { params: Promise<Props["par
     )
 }
 
-// export const generateStaticParams = async () => {
-//     const res = await fetch(`${API_URL}/blogs`, {
-//         headers: {
-//             'Content-Type': 'application/json',
-//         },
-//     });
+export const generateStaticParams = async () => {
+    const res = await fetch(`${API_URL}/blogs`, {
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    });
 
-//     if (!res.ok) {
-//         return []
-//     }
+    if (!res.ok) {
+        return []
+    }
 
-//     const blogs: TBlogsResponse_Public = await res.json();
+    const blogs: TBlogsResponse_Public = await res.json();
 
-//     return blogs.map((blog) => ({ slug: blog.slug }));
-// }
+    return blogs.map((blog) => ({ slug: blog.slug }));
+}

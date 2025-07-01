@@ -1,7 +1,7 @@
 "use client";
 
 import { TPage } from '../../../../types/page.types'
-import { Button } from '@/components/ui/button'
+import { LoadingButton } from '@/components/ui/button'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { PageDtoSchema, TPageDto } from "@/schemas/page.schema"
 import { useForm, useWatch } from 'react-hook-form'
@@ -9,11 +9,13 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Input } from "@/components/ui/input"
 import { Label } from '@/components/ui/label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { cn, generateSlug } from '@/lib/utils';
+import { cn, generateSlug, showServerError } from '@/lib/utils';
 import HeroTabContent from './tabs/hero-tab-content';
 import ContentTabContent from './tabs/content-tab-content';
 import SeoTabContent from './tabs/seo-tab-content';
-import { useMemo } from 'react';
+import { useMemo, useTransition } from 'react';
+import { toast } from 'sonner';
+import { updatePage } from '@/lib/actions/pages.action';
 
 type Props = {
     page: TPage
@@ -35,25 +37,34 @@ const tabs = [
 ]
 
 export default function PageForm({ page }: Props) {
+    const [isPending, startTransition] = useTransition();
+
     const form = useForm<TPageDto>({
         resolver: zodResolver(PageDtoSchema),
         defaultValues: page,
-    })
+    });
 
     function onSubmit(data: TPageDto) {
-        console.log(data);
+        startTransition(async () => {
+            try {
+                await updatePage(page.id, data);
+
+                toast.success("Page updated");
+            } catch (e) {
+                showServerError(e);
+            }
+        })
     }
 
     const name = useWatch({
         control: form.control,
         name: "name",
-        defaultValue: "Untitled"
     });
 
     const slug = useMemo(() => {
         const nonEmptyName = name || "Untitled"
         return generateSlug(nonEmptyName, nonEmptyName === "Untitled")
-    }, [name])
+    }, [name]);
 
     return (
         <Form {...form}>
@@ -74,9 +85,15 @@ export default function PageForm({ page }: Props) {
                             </section>
 
                             <section>
-                                <Button size={"lg"}>
+                                <LoadingButton
+                                    type="submit"
+                                    isLoading={isPending}
+                                    disabled={isPending}
+                                    loadingText='Saving...'
+                                    size={"lg"}
+                                >
                                     Save Changes
-                                </Button>
+                                </LoadingButton>
                             </section>
                         </section>
                     </section>

@@ -28,8 +28,6 @@ export default function ContentTabContent() {
         name: "sections",
     });
 
-    console.log(1)
-
     return (
         <section className="space-y-2">
             <p className="text-sm">Sections <span className="text-destructive">*</span></p>
@@ -44,7 +42,7 @@ export default function ContentTabContent() {
                                 key={f.id}
                                 control={form.control}
                                 name={`sections.${idx}`}
-                                render={({ field }) => {
+                                render={() => {
                                     const headline = form.watch(`sections.${idx}.headline`)?.trim();
 
                                     return (

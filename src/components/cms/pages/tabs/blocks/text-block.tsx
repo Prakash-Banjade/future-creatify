@@ -4,7 +4,6 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { ECtaVariant } from "../../../../../../types/blocks.types";
 import { Plus } from "lucide-react";
-import { Label } from "@/components/ui/label";
 import CtaAccordion from "../common/cta-accordion";
 import { Textarea } from "@/components/ui/textarea";
 import { BlockComponentProps } from "./blocks";
@@ -73,59 +72,69 @@ const TextBlock: React.FC<BlockComponentProps> = ({ name, sectionIdx, blockIdx }
             />
 
             {/* CTA */}
-            <section className="space-y-2">
-                <Label>Links</Label>
-                <section className="space-y-2">
-                    {
-                        fields.map((f, idx) => {
-                            return (
-                                <FormField
-                                    key={f.id}
-                                    control={form.control}
-                                    name={`${fieldName}.${idx}`}
-                                    render={() => (
-                                        <FormItem>
-                                            <FormControl>
-                                                <CtaAccordion
-                                                    idx={idx}
-                                                    name={`${fieldName}.${idx}`}
-                                                    onRemove={() => remove(idx)}
-                                                />
-                                            </FormControl>
-                                            <FormMessage />
-                                        </FormItem>
-                                    )}
-                                />
-                            )
-                        })
-                    }
-                </section>
-                {
-                    fields.length < 2 && (
-                        <Button
-                            type="button"
-                            variant={"outline"}
-                            size={"sm"}
-                            className="font-normal text-xs"
-                            disabled={fields.length >= 2}
-                            onClick={() => {
-                                if (fields.length >= 2) return;
-
-                                append({
-                                    type: ELinkType.Internal,
-                                    variant: ECtaVariant.Primary,
-                                    text: "",
-                                    link: "",
-                                    arrow: false,
-                                    newTab: false
+            <FormField
+                control={form.control}
+                name={fieldName}
+                render={() => (
+                    <FormItem>
+                        <FormLabel>Links</FormLabel>
+                        <section className="space-y-2">
+                            {
+                                fields.map((f, idx) => {
+                                    return (
+                                        <FormField
+                                            key={f.id}
+                                            control={form.control}
+                                            name={`${fieldName}.${idx}`}
+                                            render={() => (
+                                                <FormItem>
+                                                    <FormControl>
+                                                        <CtaAccordion
+                                                            idx={idx}
+                                                            name={`${fieldName}.${idx}`}
+                                                            onRemove={() => remove(idx)}
+                                                        />
+                                                    </FormControl>
+                                                    <FormMessage />
+                                                </FormItem>
+                                            )}
+                                        />
+                                    )
                                 })
-                            }}
-                        >
-                            <Plus size={16} /> Add Link
-                        </Button>
-                    )
-                }
-            </section>
+                            }
+                        </section>
+
+                        {
+                            fields.length < 2 && (
+                                <FormControl>
+                                    <Button
+                                        type="button"
+                                        variant={"outline"}
+                                        size={"sm"}
+                                        className="font-normal text-xs"
+                                        disabled={fields.length >= 2}
+                                        onClick={() => {
+                                            if (fields.length >= 2) return;
+
+                                            append({
+                                                type: ELinkType.Internal,
+                                                variant: ECtaVariant.Primary,
+                                                text: "",
+                                                link: "",
+                                                arrow: false,
+                                                newTab: false
+                                            })
+                                        }}
+                                    >
+                                        <Plus size={16} /> Add Link
+                                    </Button>
+                                </FormControl>
+                            )
+                        }
+                        <FormMessage />
+                    </FormItem>
+                )}
+            />
 
             <AlignmentSelect
                 name={`${name}.align`}

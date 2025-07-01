@@ -1,7 +1,7 @@
 import { TBlock } from "@/schemas/page.schema"
 import jumboCenter from "@/assets/layouts/hero-layout/jumbotron-center.svg"
 import { EBlock, ECardsBlockLayout } from "../../../types/blocks.types"
-import { EAlignment } from "../../../types/global.types"
+import { EAlignment, EOrder, ERefRelation } from "../../../types/global.types"
 
 export const blockLayouts: {
     block: TBlock,
@@ -42,9 +42,9 @@ export const blockLayouts: {
         {
             block: {
                 type: EBlock.RefItem,
-                ref: "",
+                ref: ERefRelation.Blogs,
                 limit: 3,
-                order: "DESC",
+                order: EOrder.Desc,
                 refIds: [],
             },
             alt: "RefItem",

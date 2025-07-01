@@ -39,3 +39,13 @@ export type SelectOption = {
     label: string;
     value: string;
 }
+
+export enum ERefRelation {
+    Posts = "posts",
+    Blogs = "blogs",
+}
+
+export enum EOrder {
+    Asc = "ASC",
+    Desc = "DESC",
+}

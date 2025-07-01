@@ -22,7 +22,6 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select"
-import { useFetchData } from "@/hooks/useFetchData";
 import { Checkbox } from "@/components/ui/checkbox";
 import { ECtaVariant } from "../../../../../../types/blocks.types";
 import { ELinkType } from "../../../../../../types/global.types";
@@ -36,11 +35,6 @@ type Props = {
 
 export default function CtaAccordion({ idx, name, onRemove }: Props) {
     const form = useFormContext();
-
-    const { data, isLoading } = useFetchData<{ label: string, value: string }[]>({
-        endpoint: '/pages/options',
-        queryKey: ['pages', 'options'],
-    });
 
     return (
         <Accordion type="multiple">

@@ -2,7 +2,6 @@
 
 import { useState, type KeyboardEvent } from "react"
 import { Badge } from "@/components/ui/badge"
-import { Input } from "@/components/ui/input"
 import { X } from "lucide-react"
 import { useFormContext, useWatch } from "react-hook-form"
 import { FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "./form"

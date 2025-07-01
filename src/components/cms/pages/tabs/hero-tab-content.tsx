@@ -27,9 +27,7 @@ import AlignmentSelect from "./common/alignment-select";
 import { TMediaSchema } from "@/schemas/media.schema";
 import { ELinkType } from "../../../../../types/global.types";
 
-type Props = {}
-
-export default function HeroTabContent({ }: Props) {
+export default function HeroTabContent() {
     const form = useFormContext<TPageDto>();
 
     const { fields, append, remove } = useFieldArray({
@@ -205,58 +203,67 @@ function CtaField({ heroIdx }: { heroIdx: number }) {
     });
 
     return (
-        <section className="space-y-2">
-            <Label>Links</Label>
-            <section className="space-y-2">
-                {
-                    fields.map((f, idx) => {
-                        return (
-                            <FormField
-                                key={f.id}
-                                control={form.control}
-                                name={`heroSections.${heroIdx}.cta.${idx}`}
-                                render={() => (
-                                    <FormItem>
-                                        <FormControl>
-                                            <CtaAccordion
-                                                idx={idx}
-                                                name={`heroSections.${heroIdx}.cta.${idx}`}
-                                                onRemove={() => remove(idx)}
-                                            />
-                                        </FormControl>
-                                        <FormMessage />
-                                    </FormItem>
-                                )}
-                            />
-                        )
-                    })
-                }
-            </section>
-            {
-                fields.length < 2 && (
-                    <Button
-                        type="button"
-                        variant={"outline"}
-                        size={"sm"}
-                        className="font-normal text-xs"
-                        disabled={fields.length >= 2}
-                        onClick={() => {
-                            if (fields.length >= 2) return;
-
-                            append({
-                                type: ELinkType.Internal,
-                                variant: ECtaVariant.Primary,
-                                text: "",
-                                link: "",
-                                arrow: false,
-                                newTab: false
+        <FormField
+            control={form.control}
+            name={`heroSections.${heroIdx}.cta`}
+            render={() => (
+                <FormItem>
+                    <FormLabel>Links</FormLabel>
+                    <section className="space-y-2">
+                        {
+                            fields.map((f, idx) => {
+                                return (
+                                    <FormField
+                                        key={f.id}
+                                        control={form.control}
+                                        name={`heroSections.${heroIdx}.cta.${idx}`}
+                                        render={() => (
+                                            <FormItem>
+                                                <FormControl>
+                                                    <CtaAccordion
+                                                        idx={idx}
+                                                        name={`heroSections.${heroIdx}.cta.${idx}`}
+                                                        onRemove={() => remove(idx)}
+                                                    />
+                                                </FormControl>
+                                                <FormMessage />
+                                            </FormItem>
+                                        )}
+                                    />
+                                )
                             })
-                        }}
-                    >
-                        <Plus size={16} /> Add Link
-                    </Button>
-                )
-            }
-        </section>
+                        }
+                    </section>
+                    {
+                        fields.length < 2 && (
+                            <FormControl>
+                                <Button
+                                    type="button"
+                                    variant={"outline"}
+                                    size={"sm"}
+                                    className="font-normal text-xs w-fit"
+                                    disabled={fields.length >= 2}
+                                    onClick={() => {
+                                        if (fields.length >= 2) return;
+
+                                        append({
+                                            type: ELinkType.Internal,
+                                            variant: ECtaVariant.Primary,
+                                            text: "",
+                                            link: "",
+                                            arrow: false,
+                                            newTab: false
+                                        })
+                                    }}
+                                >
+                                    <Plus size={16} /> Add Link
+                                </Button>
+                            </FormControl>
+                        )
+                    }
+                    <FormMessage />
+                </FormItem>
+            )}
+        />
     )
 }

@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { EBlock, ECardsBlockLayout } from "../../types/blocks.types";
-import { EAlignment, ELinkType } from "../../types/global.types";
+import { EAlignment, ELinkType, EOrder, ERefRelation } from "../../types/global.types";
 import { CTADtoSchema, HeroSectionDtoSchema } from "./hero-section.schema";
 import { mediaSchema } from "./media.schema";
 
@@ -82,13 +82,9 @@ export const CardsBlockSchema = BaseBlockSchema.extend({
 // ---- RefItemBlockDto ----
 export const RefItemBlockSchema = BaseBlockSchema.extend({
     type: z.literal(EBlock.RefItem),
-    ref: z
-        .string()
-        .trim()
-        .min(3, { message: "Reference must be between 3 and 50 characters" })
-        .max(50, { message: "Reference must be between 3 and 50 characters" }),
+    ref: z.nativeEnum(ERefRelation),
     limit: z.coerce.number().int().min(1),
-    order: z.enum(["ASC", "DESC"]),
+    order: z.nativeEnum(EOrder),
     refIds: z.array(z.string().uuid()),
 });
 

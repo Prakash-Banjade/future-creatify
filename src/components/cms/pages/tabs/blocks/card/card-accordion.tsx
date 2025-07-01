@@ -1,4 +1,4 @@
-import { useFormContext, useWatch } from "react-hook-form"
+import { useFormContext } from "react-hook-form"
 import {
     Accordion,
     AccordionContent,
@@ -19,8 +19,8 @@ import { TMediaSchema } from "@/schemas/media.schema";
 import { MediaInput, MediaItem } from "@/components/forms/media-field";
 import { ELinkType } from "../../../../../../../types/global.types";
 import { InternalLinkField } from "../../common/internal-link-field";
-import { Checkbox } from "@/components/ui/checkbox";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 
 type Props = {
@@ -31,13 +31,6 @@ type Props = {
 
 export default function CardAccordion({ idx, name, onRemove }: Props) {
     const form = useFormContext();
-
-    const linkType = useWatch({
-        control: form.control,
-        
-    })
-
-    console.log(1)
 
     return (
         <Accordion type="multiple">
@@ -144,7 +137,6 @@ export default function CardAccordion({ idx, name, onRemove }: Props) {
                                             ) : (
                                                 <MediaInput onChange={field.onChange} />
                                             )
-
                                         }
                                     </FormControl>
                                     <FormMessage />
@@ -153,7 +145,7 @@ export default function CardAccordion({ idx, name, onRemove }: Props) {
                         }}
                     />
 
-                    {/* <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-3">
                         <Checkbox
                             id="enable-link"
                             checked={!!form.watch(`${name}.link`)}
@@ -169,86 +161,76 @@ export default function CardAccordion({ idx, name, onRemove }: Props) {
                             }}
                         />
                         <Label htmlFor="enable-link">Enable link?</Label>
-                    </div> */}
+                    </div>
 
-                    <FormField
-                        control={form.control}
-                        name={`${name}.link`}
-                        render={({ field: linkField }) => {
-                            console.log(linkField.value)
-                            
-                            return (
-                                <>
-                                    <FormField
-                                        control={form.control}
-                                        name={`${name}.link.type`}
-                                        render={({ field }) => (
+                    {
+                        !!form.watch(`${name}.link`) && (
+                            <>
+                                <FormField
+                                    control={form.control}
+                                    name={`${name}.link.type`}
+                                    render={({ field }) => (
+                                        <FormItem>
+                                            <FormLabel>Type</FormLabel>
+                                            <FormControl>
+                                                <RadioGroup
+                                                    onValueChange={val => {
+                                                        form.setValue(`${name}.link.url`, "");
+                                                        field.onChange(val);
+                                                    }}
+                                                    defaultValue={field.value}
+                                                    className="flex"
+                                                >
+                                                    <FormItem className="flex items-center gap-3">
+                                                        <FormControl>
+                                                            <RadioGroupItem value={ELinkType.Internal} />
+                                                        </FormControl>
+                                                        <FormLabel className="font-normal">
+                                                            Internal Link
+                                                        </FormLabel>
+                                                    </FormItem>
+                                                    <FormItem className="flex items-center gap-3">
+                                                        <FormControl>
+                                                            <RadioGroupItem value={ELinkType.External} />
+                                                        </FormControl>
+                                                        <FormLabel className="font-normal">
+                                                            Custom URL
+                                                        </FormLabel>
+                                                    </FormItem>
+                                                </RadioGroup>
+                                            </FormControl>
+                                            <FormMessage />
+                                        </FormItem>
+                                    )}
+                                />
+
+                                <FormField
+                                    control={form.control}
+                                    name={`${name}.link.url`}
+                                    render={({ field }) => {
+                                        return form.watch(`${name}.link.type`) === ELinkType.External ? (
                                             <FormItem>
-                                                <FormLabel>Type</FormLabel>
+                                                <FormLabel>Custom URL <span className='text-destructive'>*</span></FormLabel>
                                                 <FormControl>
-                                                    <RadioGroup
-                                                        onValueChange={val => {
-                                                            form.setValue(`${name}.link.url`, "");
-                                                            field.onChange(val);
-                                                        }}
-                                                        defaultValue={field.value}
-                                                        className="flex"
-                                                    >
-                                                        <FormItem className="flex items-center gap-3">
-                                                            <FormControl>
-                                                                <RadioGroupItem value={ELinkType.Internal} />
-                                                            </FormControl>
-                                                            <FormLabel className="font-normal">
-                                                                Internal Link
-                                                            </FormLabel>
-                                                        </FormItem>
-                                                        <FormItem className="flex items-center gap-3">
-                                                            <FormControl>
-                                                                <RadioGroupItem value={ELinkType.External} />
-                                                            </FormControl>
-                                                            <FormLabel className="font-normal">
-                                                                Custom URL
-                                                            </FormLabel>
-                                                        </FormItem>
-                                                    </RadioGroup>
+                                                    <Input
+                                                        type="url"
+                                                        placeholder="Eg. https://example.com"
+                                                        required
+                                                        {...field}
+                                                    />
                                                 </FormControl>
                                                 <FormMessage />
                                             </FormItem>
-                                        )}
-                                    />
-
-                                    <FormField
-                                        control={form.control}
-                                        name={`${name}.link.url`}
-                                        render={({ field }) => {
-                                            console.log(linkField.value)
-                                            
-                                            return linkField.value.type === ELinkType.External ? (
-                                                <FormItem>
-                                                    <FormLabel>Custom URL <span className='text-destructive'>*</span></FormLabel>
-                                                    <FormControl>
-                                                        <Input
-                                                            type="url"
-                                                            placeholder="Eg. https://example.com"
-                                                            required
-                                                            {...field}
-                                                        />
-                                                    </FormControl>
-                                                    <FormMessage />
-                                                </FormItem>
-                                            ) : (
-                                                <InternalLinkField
-                                                    onChange={field.onChange}
-                                                />
-                                            )
-                                        }}
-                                    />
-                                </>
-                            )
-                        }}
-                    />
-
-
+                                        ) : (
+                                            <InternalLinkField
+                                                onChange={field.onChange}
+                                            />
+                                        )
+                                    }}
+                                />
+                            </>
+                        )
+                    }
                 </AccordionContent>
             </AccordionItem>
         </Accordion>

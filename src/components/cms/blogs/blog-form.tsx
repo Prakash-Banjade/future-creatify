@@ -107,7 +107,7 @@ export default function BlogForm({ defaultValues }: Props) {
 
     return (
         <section>
-            <div className="">
+            <div className="px-4">
                 <section className="flex justify-end gap-2">
                     <TooltipWrapper
                         label={isFavourite ? "Remove from favourites" : "Add to favourites"}
