@@ -1,4 +1,4 @@
-import { Columns4, LayoutDashboard, NotebookText } from "lucide-react";
+import { LayoutDashboard, NotebookText, Send, StickyNote, StretchHorizontal } from "lucide-react";
 import { TGroupMenuItem } from "./sidebar";
 
 export const cmsSidebarMenuItems: TGroupMenuItem[] = [
@@ -13,12 +13,22 @@ export const cmsSidebarMenuItems: TGroupMenuItem[] = [
             {
                 title: "Pages",
                 url: "/cms/pages",
-                icon: Columns4,
+                icon: StickyNote,
             },
             {
                 title: "Blogs",
                 url: "/cms/blogs",
                 icon: NotebookText,
+            },
+            {
+                title: "Forms",
+                url: "/cms/forms",
+                icon: StretchHorizontal,
+            },
+            {
+                title: "Form Submissions",
+                url: "/cms/form-submissions",
+                icon: Send,
             }
         ],
     },
