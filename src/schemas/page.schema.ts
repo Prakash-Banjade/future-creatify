@@ -77,6 +77,7 @@ export const CardsBlockSchema = BaseBlockSchema.extend({
         .array(CardSchema)
         .min(1, { message: "At least one card is required" }),
     borderLess: z.boolean(),
+    newTab: z.boolean(),
 });
 
 // ---- RefItemBlockDto ----
@@ -88,13 +89,17 @@ export const RefItemBlockSchema = BaseBlockSchema.extend({
     selected: z.array(z.object({ // manually choosen items by the user
         value: z.string().min(1, { message: "Value is required" }),
         label: z.string().min(1, { message: "Label is required" }),
-    })).optional(), 
+    })).optional(),
 });
 
 // ---- FormBlockDto ----
 export const FormBlockSchema = BaseBlockSchema.extend({
     type: z.literal(EBlock.Form),
-    formId: z.string({ required_error: "Form id is required" }).uuid({ message: "Please select a form" }),
+    form: z.object({
+        id: z.string({ required_error: "Form id is required" }).uuid({ message: "Please select a form" }),
+        title: z.string().min(1, { message: "Title is required" }),
+    }),
+    introContent: z.string().max(500, { message: "Intro content must be at most 500 characters long" }).optional(),
 });
 
 // ---- Discriminated union of all blocks ----

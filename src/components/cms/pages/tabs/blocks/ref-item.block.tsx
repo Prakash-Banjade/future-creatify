@@ -8,24 +8,27 @@ import { NUMBER_REGEX_STRING } from '@/CONSTANTS';
 import { InfiniteMultiSelect } from '@/components/forms/infinite-multi-select';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Label } from '@/components/ui/label';
+import { TPageDto } from '@/schemas/page.schema';
 
-const RefItemBlock: React.FC<BlockComponentProps> = ({ name }) => {
-    const form = useFormContext();
+export default function RefItemBlock({ blockIdx, sectionIdx }: BlockComponentProps) {
+    const form = useFormContext<TPageDto>();
 
-    const selected = form.watch(`${name}.selected`);
+    const blockName = `sections.${sectionIdx}.blocks.items.${blockIdx}` as const;
+
+    const selected = form.watch(`${blockName}.selected`);
 
     return (
         <section className="space-y-6">
             <FormField
                 control={form.control}
-                name={`${name}.ref`}
+                name={`${blockName}.ref`}
                 render={({ field }) => (
                     <FormItem>
                         <FormLabel>Reference <span className="text-destructive">*</span></FormLabel>
                         <Select
                             onValueChange={val => {
                                 field.onChange(val);
-                                form.setValue(`${name}.selected`, []); // reset selected on ref change
+                                form.setValue(`${blockName}.selected`, []); // reset selected on ref change
                             }}
                             defaultValue={field.value}
                             required
@@ -51,12 +54,12 @@ const RefItemBlock: React.FC<BlockComponentProps> = ({ name }) => {
             <div className="flex items-center gap-3">
                 <Checkbox
                     id="manual"
-                    checked={!!form.watch(`${name}.selected`)}
+                    checked={!!form.watch(`${blockName}.selected`)}
                     onCheckedChange={val => {
                         if (val) {
-                            form.setValue(`${name}.selected`, []);
+                            form.setValue(`${blockName}.selected`, []);
                         } else {
-                            form.setValue(`${name}.selected`, undefined);
+                            form.setValue(`${blockName}.selected`, undefined);
                         }
                     }}
                 />
@@ -68,7 +71,7 @@ const RefItemBlock: React.FC<BlockComponentProps> = ({ name }) => {
                     <>
                         <FormField
                             control={form.control}
-                            name={`${name}.limit`}
+                            name={`${blockName}.limit`}
                             render={({ field }) => (
                                 <FormItem>
                                     <FormLabel>Limit <span className='text-destructive'>*</span></FormLabel>
@@ -89,7 +92,7 @@ const RefItemBlock: React.FC<BlockComponentProps> = ({ name }) => {
 
                         <FormField
                             control={form.control}
-                            name={`${name}.order`}
+                            name={`${blockName}.order`}
                             render={({ field }) => (
                                 <FormItem>
                                     <FormLabel>Order <span className="text-destructive">*</span></FormLabel>
@@ -119,13 +122,13 @@ const RefItemBlock: React.FC<BlockComponentProps> = ({ name }) => {
                 Array.isArray(selected) && (
                     <FormField
                         control={form.control}
-                        name={`${name}.selected`}
+                        name={`${blockName}.selected`}
                         render={({ field }) => (
                             <FormItem>
                                 <FormLabel>Choose Specefic Ones</FormLabel>
                                 <FormControl>
                                     <InfiniteMultiSelect
-                                        endpoint={`${form.watch(`${name}.ref`)}/options`}
+                                        endpoint={`${form.watch(`${blockName}.ref`)}/options`}
                                         onSelectionChange={val => {
                                             console.log(val)
                                             field.onChange(val)
@@ -142,5 +145,3 @@ const RefItemBlock: React.FC<BlockComponentProps> = ({ name }) => {
         </section>
     )
 }
-
-export default RefItemBlock;

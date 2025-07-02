@@ -11,19 +11,22 @@ import { Checkbox } from "@/components/ui/checkbox";
 import CardAccordion from "./card-accordion";
 import { ELinkType } from "../../../../../../../types/global.types";
 import { useMemo } from "react";
+import { TPageDto } from "@/schemas/page.schema";
 
-const CardsBlock: React.FC<BlockComponentProps> = ({ name, sectionIdx, blockIdx }) => {
-    const form = useFormContext();
-    const fieldName = `sections.${sectionIdx}.blocks.items.${blockIdx}.cards`;
+export default function CardsBlock({ sectionIdx, blockIdx }: BlockComponentProps) {
+    const form = useFormContext<TPageDto>();
+
+    const blockName = `sections.${sectionIdx}.blocks.items.${blockIdx}` as const;
+    const cardFieldName = `${blockName}.cards` as const;
 
     const { fields, append, remove } = useFieldArray({
         control: form.control,
-        name: fieldName,
+        name: cardFieldName,
     });
 
     const layout = useWatch({
         control: form.control,
-        name: `${name}.layout`
+        name: `${blockName}.layout`
     });
 
     const maxColsFieldDisabled = useMemo(() => [ECardsBlockLayout.Horizontal, ECardsBlockLayout.Vertical].includes(layout), [layout]);
@@ -33,14 +36,14 @@ const CardsBlock: React.FC<BlockComponentProps> = ({ name, sectionIdx, blockIdx 
             <section className="grid grid-cols-2 gap-6">
                 <FormField
                     control={form.control}
-                    name={`${name}.layout`}
+                    name={`${blockName}.layout`}
                     render={({ field }) => (
                         <FormItem>
                             <FormLabel>Layout <span className="text-destructive">*</span></FormLabel>
                             <Select
                                 onValueChange={(val: ECardsBlockLayout) => {
                                     // reset only when layout is changed to Horizontal or Vertical from any other layout
-                                    !maxColsFieldDisabled && [ECardsBlockLayout.Horizontal, ECardsBlockLayout.Vertical].includes(val) && form.setValue(`${name}.maxColumns`, "");
+                                    !maxColsFieldDisabled && [ECardsBlockLayout.Horizontal, ECardsBlockLayout.Vertical].includes(val) && form.setValue(`${blockName}.maxColumns`, 0);
                                     field.onChange(val);
                                 }}
                                 defaultValue={field.value}
@@ -66,7 +69,7 @@ const CardsBlock: React.FC<BlockComponentProps> = ({ name, sectionIdx, blockIdx 
 
                 <FormField
                     control={form.control}
-                    name={`${name}.maxColumns`}
+                    name={`${blockName}.maxColumns`}
                     render={({ field }) => (
                         <FormItem>
                             <FormLabel>Max Columns {!maxColsFieldDisabled && (<span className='text-destructive'>*</span>)}</FormLabel>
@@ -89,7 +92,7 @@ const CardsBlock: React.FC<BlockComponentProps> = ({ name, sectionIdx, blockIdx 
                 <section className="flex gap-6">
                     <FormField
                         control={form.control}
-                        name={`${name}.borderLess`}
+                        name={`${blockName}.borderLess`}
                         render={({ field }) => {
                             return (
                                 <FormItem className="flex flex-row items-center gap-2">
@@ -110,7 +113,7 @@ const CardsBlock: React.FC<BlockComponentProps> = ({ name, sectionIdx, blockIdx 
 
                     <FormField
                         control={form.control}
-                        name={`${name}.newTab`}
+                        name={`${blockName}.newTab`}
                         render={({ field }) => {
                             return (
                                 <FormItem className="flex flex-row items-center gap-2">
@@ -135,7 +138,7 @@ const CardsBlock: React.FC<BlockComponentProps> = ({ name, sectionIdx, blockIdx 
             <section className="space-y-2">
                 <FormField
                     control={form.control}
-                    name={`${name}.cards`}
+                    name={`${blockName}.cards`}
                     render={() => (
                         <FormItem>
                             <FormLabel>Cards <span className='text-destructive'>*</span></FormLabel>
@@ -147,13 +150,13 @@ const CardsBlock: React.FC<BlockComponentProps> = ({ name, sectionIdx, blockIdx 
                                             <FormField
                                                 key={f.id}
                                                 control={form.control}
-                                                name={`${fieldName}.${idx}`}
+                                                name={`${cardFieldName}.${idx}`}
                                                 render={() => (
                                                     <FormItem>
                                                         <FormControl>
                                                             <CardAccordion
                                                                 idx={idx}
-                                                                name={`${fieldName}.${idx}`}
+                                                                name={`${cardFieldName}.${idx}`}
                                                                 onRemove={() => remove(idx)}
                                                             />
                                                         </FormControl>
@@ -196,5 +199,3 @@ const CardsBlock: React.FC<BlockComponentProps> = ({ name, sectionIdx, blockIdx 
         </section>
     )
 }
-
-export default CardsBlock;

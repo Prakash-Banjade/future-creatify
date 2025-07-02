@@ -19,6 +19,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import BlockField from "./block-field";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 
 const sectionDefaultValue = {
     headline: "",
@@ -66,7 +67,7 @@ export default function ContentTabContent() {
                                                             <AccordionTrigger className="text-sm hover:no-underline py-3">
                                                                 <section className="space-x-3">
                                                                     <span className="font-light">{(idx + 1).toString().padStart(2, "0")}</span>
-                                                                    {!!headline?.length && <Badge>{headline}</Badge>}
+                                                                    {!!headline?.length && <Badge className="max-w-[50ch] truncate">{headline}</Badge>}
                                                                 </section>
                                                             </AccordionTrigger>
                                                             <section className="absolute right-10">
@@ -105,6 +106,7 @@ export default function ContentTabContent() {
                                                                         <FormControl>
                                                                             <Input
                                                                                 className='py-5'
+                                                                                maxLength={50}
                                                                                 {...field}
                                                                             />
                                                                         </FormControl>
@@ -121,6 +123,7 @@ export default function ContentTabContent() {
                                                                         <FormControl>
                                                                             <Textarea
                                                                                 className="field-sizing-content overflow-y-hidden resize-none w-full focus-visible:outline-0"
+                                                                                maxLength={300}
                                                                                 {...field}
                                                                             />
                                                                         </FormControl>
@@ -130,6 +133,33 @@ export default function ContentTabContent() {
                                                             />
 
                                                             <BlockField sectionIdx={idx} />
+
+                                                            {
+                                                                !!field.value.blocks?.items?.length && (
+                                                                    <FormField
+                                                                        control={form.control}
+                                                                        name={`sections.${idx}.blocks.direction`}
+                                                                        render={({ field }) => (
+                                                                            <FormItem>
+                                                                                <FormLabel>Blocks Direction</FormLabel>
+                                                                                <Select onValueChange={field.onChange} defaultValue={field.value} required>
+                                                                                    <FormControl>
+                                                                                        <SelectTrigger className="w-full py-5">
+                                                                                            <SelectValue placeholder={"Select an option"} />
+                                                                                        </SelectTrigger>
+                                                                                    </FormControl>
+                                                                                    <SelectContent>
+                                                                                        <SelectItem value={"horizontal"}>Horizontal</SelectItem>
+                                                                                        <SelectItem value={"vertical"}>Vertical</SelectItem>
+                                                                                    </SelectContent>
+                                                                                </Select>
+                                                                                <FormMessage />
+                                                                            </FormItem>
+                                                                        )}
+                                                                    />
+                                                                )
+                                                            }
+
                                                         </AccordionContent>
                                                     </AccordionItem>
                                                 </Accordion>

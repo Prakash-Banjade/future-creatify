@@ -3,16 +3,19 @@ import { BlockComponentProps } from './blocks'
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { useFormContext } from 'react-hook-form'
 import { TMediaSchema } from '@/schemas/media.schema'
+import { TPageDto } from '@/schemas/page.schema'
 
 const MAX_IMAGES = 3;
 
-const ImageBlock: React.FC<BlockComponentProps> = ({ name }) => {
-    const form = useFormContext();
+export default function ImageBlock({ blockIdx, sectionIdx }: BlockComponentProps) {
+    const form = useFormContext<TPageDto>();
+
+    const blockName = `sections.${sectionIdx}.blocks.items.${blockIdx}` as const;
 
     return (
         <FormField
             control={form.control}
-            name={`${name}.images`}
+            name={`${blockName}.images`}
             render={({ field }) => {
                 const value = field.value as TMediaSchema[];
 
@@ -50,5 +53,3 @@ const ImageBlock: React.FC<BlockComponentProps> = ({ name }) => {
         />
     )
 }
-
-export default ImageBlock;

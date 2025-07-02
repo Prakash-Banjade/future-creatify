@@ -77,7 +77,7 @@ export function InfiniteSelect({
                         className="w-full justify-between min-h-10 h-auto bg-transparent"
                     >
                         <div className="flex flex-wrap gap-1 flex-1">
-                            {!selected ? (
+                            {!selected || !selected.label || !selected.value ? (
                                 <span className="text-muted-foreground">{placeholder}</span>
                             ) : (
                                 <span>{selected.label}</span>

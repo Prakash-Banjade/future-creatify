@@ -74,6 +74,8 @@ export default function CardAccordion({ idx, name, onRemove }: Props) {
                                     <Input
                                         className="py-5"
                                         required
+                                        minLength={3}
+                                        maxLength={50}
                                         {...field}
                                     />
                                 </FormControl>
@@ -90,6 +92,7 @@ export default function CardAccordion({ idx, name, onRemove }: Props) {
                                 <FormLabel>Subtitle</FormLabel>
                                 <FormControl>
                                     <Textarea
+                                        maxLength={50}
                                         className="field-sizing-content overflow-y-hidden resize-none w-full focus-visible:outline-0"
                                         {...field}
                                     />
@@ -107,6 +110,7 @@ export default function CardAccordion({ idx, name, onRemove }: Props) {
                                 <FormLabel>Description</FormLabel>
                                 <FormControl>
                                     <Textarea
+                                        maxLength={300}
                                         className="field-sizing-content overflow-y-hidden resize-none w-full focus-visible:outline-0"
                                         {...field}
                                     />

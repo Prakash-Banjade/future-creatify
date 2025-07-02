@@ -100,7 +100,6 @@ export default function BlockField({ sectionIdx }: { sectionIdx: number }) {
                                                                 BlockComponent && <BlockComponent
                                                                     sectionIdx={sectionIdx}
                                                                     blockIdx={idx}
-                                                                    name={`sections.${sectionIdx}.blocks.items.${idx}`}
                                                                 />
                                                             }
                                                         </AccordionContent>

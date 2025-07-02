@@ -1,4 +1,4 @@
-import { useFieldArray, useFormContext } from "react-hook-form"
+import { Path, useFieldArray, useFormContext } from "react-hook-form"
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -9,21 +9,24 @@ import { Textarea } from "@/components/ui/textarea";
 import { BlockComponentProps } from "./blocks";
 import AlignmentSelect from "../common/alignment-select";
 import { ELinkType } from "../../../../../../types/global.types";
+import { TPageDto } from "@/schemas/page.schema";
 
-const TextBlock: React.FC<BlockComponentProps> = ({ name, sectionIdx, blockIdx }) => {
-    const form = useFormContext();
-    const fieldName = `sections.${sectionIdx}.blocks.items.${blockIdx}.cta`;
+export default function TextBlock({ sectionIdx, blockIdx }: BlockComponentProps) {
+    const form = useFormContext<TPageDto>();
+
+    const blockName = `sections.${sectionIdx}.blocks.items.${blockIdx}` as const;
+    const ctaFieldName = `${blockName}.cta` as const;
 
     const { fields, append, remove } = useFieldArray({
         control: form.control,
-        name: fieldName,
+        name: ctaFieldName,
     });
 
     return (
         <section className="space-y-6">
             <FormField
                 control={form.control}
-                name={`${name}.headline`}
+                name={`${blockName}.headline`}
                 render={({ field }) => (
                     <FormItem>
                         <FormLabel>Headline <span className='text-destructive'>*</span></FormLabel>
@@ -31,6 +34,8 @@ const TextBlock: React.FC<BlockComponentProps> = ({ name, sectionIdx, blockIdx }
                             <Input
                                 className='py-5'
                                 required
+                                minLength={3}
+                                maxLength={50}
                                 {...field}
                             />
                         </FormControl>
@@ -40,13 +45,14 @@ const TextBlock: React.FC<BlockComponentProps> = ({ name, sectionIdx, blockIdx }
             />
             <FormField
                 control={form.control}
-                name={`${name}.subheadline`}
+                name={`${blockName}.subheadline`}
                 render={({ field }) => (
                     <FormItem>
                         <FormLabel>Sub Headline</FormLabel>
                         <FormControl>
                             <Input
                                 className='py-5'
+                                maxLength={300}
                                 {...field}
                             />
                         </FormControl>
@@ -56,13 +62,14 @@ const TextBlock: React.FC<BlockComponentProps> = ({ name, sectionIdx, blockIdx }
             />
             <FormField
                 control={form.control}
-                name={`${name}.body`}
+                name={`${blockName}.body`}
                 render={({ field }) => (
                     <FormItem>
                         <FormLabel>Body</FormLabel>
                         <FormControl>
                             <Textarea
                                 className="field-sizing-content overflow-y-hidden resize-none w-full focus-visible:outline-0"
+                                maxLength={1000}
                                 {...field}
                             />
                         </FormControl>
@@ -74,7 +81,7 @@ const TextBlock: React.FC<BlockComponentProps> = ({ name, sectionIdx, blockIdx }
             {/* CTA */}
             <FormField
                 control={form.control}
-                name={fieldName}
+                name={ctaFieldName}
                 render={() => (
                     <FormItem>
                         <FormLabel>Links</FormLabel>
@@ -85,13 +92,13 @@ const TextBlock: React.FC<BlockComponentProps> = ({ name, sectionIdx, blockIdx }
                                         <FormField
                                             key={f.id}
                                             control={form.control}
-                                            name={`${fieldName}.${idx}`}
+                                            name={`${ctaFieldName}.${idx}`}
                                             render={() => (
                                                 <FormItem>
                                                     <FormControl>
                                                         <CtaAccordion
                                                             idx={idx}
-                                                            name={`${fieldName}.${idx}`}
+                                                            name={`${ctaFieldName}.${idx}`}
                                                             onRemove={() => remove(idx)}
                                                         />
                                                     </FormControl>
@@ -139,11 +146,9 @@ const TextBlock: React.FC<BlockComponentProps> = ({ name, sectionIdx, blockIdx }
             />
 
             <AlignmentSelect
-                name={`${name}.align`}
+                name={`${blockName}.align`}
             />
 
         </section>
     )
 }
-
-export default TextBlock;
