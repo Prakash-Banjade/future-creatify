@@ -6,6 +6,7 @@ import { Toaster } from "@/components/ui/sonner";
 import { ThemeProvider } from "@/context/theme-provider";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "@/lib/queryClient";
+import NextTopLoader from 'nextjs-toploader';
 
 const inter = Inter({
   variable: "--font-inter",
@@ -38,6 +39,7 @@ export default async function RootLayout({
         >
           <SessionProvider>
             <QueryClientProvider client={queryClient}>
+              <NextTopLoader />
               {children}
             </QueryClientProvider>
           </SessionProvider>

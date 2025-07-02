@@ -26,7 +26,7 @@ export const formSubmissions = pgTable(
         id: text("id").primaryKey().$defaultFn(() => crypto.randomUUID()),
         formId: text("form_id")
             .references(() => forms.id, { onDelete: "cascade" }).notNull(),
-        data: jsonb("data").$type<Record<string, any>>(),
+        data: jsonb("data").$type<Record<string, any>>().notNull(),
 
         createdAt: timestamp("created_at").notNull().defaultNow(),
         updatedAt: timestamp("updated_at").notNull().defaultNow().$onUpdate(() => new Date()),

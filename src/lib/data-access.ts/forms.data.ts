@@ -1,10 +1,13 @@
 import { FormsPageProps } from "@/app/(cms)/cms/forms/page";
 import { db } from "@/db";
-import { forms } from "@/db/schema/form";
+import { forms, formSubmissions } from "@/db/schema/form";
 import { and, desc, eq, ilike, SQL } from "drizzle-orm";
 import checkAuth from "../check-auth";
 import { getPaginationQueryParams, paginatedResponse } from "../db-utils";
 import { cache } from "react";
+import { z } from "zod";
+import { throwZodErrorMsg } from "../utils";
+import { TDataSearchParams } from "../../../types/global.types";
 
 export const getForms = cache(async (searchParamsProps: FormsPageProps["searchParams"]) => {
     try {
@@ -54,6 +57,38 @@ export const getFormById = cache(async (id: string) => {
         }).from(forms).where(eq(forms.id, id)).limit(1);
 
         return form;
+    } catch (e) {
+        console.error(e);
+        return null;
+    }
+});
+
+
+export const getFormSubmissions = cache(async (formId: string, searchParamsProps: TDataSearchParams) => {
+    try {
+        await checkAuth('admin');
+
+        const searchParams = await searchParamsProps;
+        const { page, pageSize } = getPaginationQueryParams(new URLSearchParams(searchParams));
+
+        const filters: SQL[] = [];
+        const { q } = searchParams;
+        if (q) filters.push(ilike(forms.title, `%${q}%`));
+
+        const query = db.select().from(formSubmissions)
+            .where(and(
+                eq(formSubmissions.formId, formId),
+                ...filters
+            ))
+
+        const submissions = await paginatedResponse({
+            orderByColumn: desc(formSubmissions.createdAt),
+            qb: query.$dynamic(),
+            page,
+            pageSize
+        });
+
+        return submissions;
     } catch (e) {
         console.error(e);
         return null;

@@ -4,11 +4,10 @@ import { Button } from "@/components/ui/button"
 import { Plus } from "lucide-react"
 import Link from "next/link"
 import { Suspense } from "react"
+import { TDataSearchParams } from "../../../../../types/global.types"
 
 export type FormsPageProps = {
-    searchParams: Promise<{
-        q?: string;
-    }>
+    searchParams: Promise<TDataSearchParams>
 }
 
 export default function FormsPage(props: FormsPageProps) {

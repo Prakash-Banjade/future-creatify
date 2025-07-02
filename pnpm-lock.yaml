@@ -191,6 +191,9 @@ importers:
       next-themes:
         specifier: ^0.4.6
         version: 0.4.6(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      nextjs-toploader:
+        specifier: ^3.8.16
+        version: 3.8.16(next@15.3.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       postgres:
         specifier: ^3.4.7
         version: 3.4.7
@@ -3335,6 +3338,13 @@ packages:
       sass:
         optional: true
 
+  nextjs-toploader@3.8.16:
+    resolution: {integrity: sha512-xiejFF9OQD8ovvHfrFhnEmRytvZtwIOY/mMtI9punOAACXpYpgC0y1afJ4DSIEmUi4Syy9A5BsFpUORTJ9z8Ng==}
+    peerDependencies:
+      next: '>= 6.0.0'
+      react: '>= 16.0.0'
+      react-dom: '>= 16.0.0'
+
   nigel@1.0.1:
     resolution: {integrity: sha512-bs0NxZsCVwz2Uzu/OyOyACETg3pXqPtWLt+k/E4G1Wo0cwc1YeSmDoH2dCz95fqrhKTsx9sHCcNR1amm8dCT5g==}
     engines: {node: '>=0.10.32'}
@@ -3344,6 +3354,9 @@ packages:
     resolution: {integrity: sha512-yLOppNa5UG0TG8PqeljaC9cpHhHF6VNgaI8wJaZZitjeOzOszA3IYspbUFZr9YesKaBob5F4dex27rYEtvkZbA==}
     engines: {node: '>=0.10.30'}
     deprecated: This module is no longer maintained and contains known bugs and security issues.
+
+  nprogress@0.2.0:
+    resolution: {integrity: sha512-I19aIingLgR1fmhftnbWWO3dXc0hSxqHQHQb3H8m+K3TnEn/iSeTZZOyvKXWqQESMwuUVnatlCnZdLBZZt2VSA==}
 
   oauth4webapi@3.5.1:
     resolution: {integrity: sha512-txg/jZQwcbaF7PMJgY7aoxc9QuCxHVFMiEkDIJ60DwDz3PbtXPQnrzo+3X4IRYGChIwWLabRBRpf1k9hO9+xrQ==}
@@ -7189,6 +7202,14 @@ snapshots:
       - '@babel/core'
       - babel-plugin-macros
 
+  nextjs-toploader@3.8.16(next@15.3.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
+    dependencies:
+      next: 15.3.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      nprogress: 0.2.0
+      prop-types: 15.8.1
+      react: 19.1.0
+      react-dom: 19.1.0(react@19.1.0)
+
   nigel@1.0.1:
     dependencies:
       hoek: 2.16.3
@@ -7198,6 +7219,8 @@ snapshots:
     dependencies:
       boom: 2.10.1
       hoek: 2.16.3
+
+  nprogress@0.2.0: {}
 
   oauth4webapi@3.5.1: {}
 

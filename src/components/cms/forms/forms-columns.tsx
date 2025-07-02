@@ -1,7 +1,7 @@
 "use client"
 
 import { ColumnDef } from "@tanstack/react-table"
-import { MoreHorizontal, SquarePen, Trash } from "lucide-react"
+import { MoreHorizontal, Send, SquarePen, Trash } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -105,6 +105,10 @@ function FormsColumnActions({ form }: { form: TFormsResponse["data"][0] }) {
                     <DropdownMenuItem onClick={() => router.push(`forms/${form.id}`)}>
                         <SquarePen />
                         Edit
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => router.push(`forms/${form.id}/submissions`)}>
+                        <Send />
+                        Submissions
                     </DropdownMenuItem>
                     <DestructiveDropdownMenuButtonItem onClick={() => setIsDeleteOpen(true)}>
                         <Trash className="text-destructive" />

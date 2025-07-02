@@ -3,10 +3,11 @@
 import { db } from "@/db";
 import checkAuth from "../check-auth";
 import { revalidatePath } from "next/cache";
-import { forms } from "@/db/schema/form";
+import { forms, formSubmissions } from "@/db/schema/form";
 import { eq, ilike } from "drizzle-orm";
 import { FormDtoSchema, TFormDto } from "@/schemas/forms.schema";
 import { generateSlug, throwZodErrorMsg } from "../utils";
+import { buildFormValidator, formatZodErrors } from "../zod-schema-builder";
 
 export async function createForm(values: TFormDto) {
     await checkAuth('admin');
@@ -48,4 +49,22 @@ export async function deleteForm(id: string) {
     await db.delete(forms).where(eq(forms.id, id));
 
     revalidatePath(`/cms/forms`);
+}
+
+export async function createFormSubmission(formId: string, values: Record<string, any>) {
+    const [form] = await db.select({ id: forms.id, fields: forms.fields }).from(forms).where(eq(forms.id, formId)).limit(1);
+    if (!form) throw new Error("Form not found");
+
+    const validator = buildFormValidator(form.fields);
+
+    const { success, data, error } = validator.safeParse(values);
+
+    if (!success) return Promise.reject({
+        errors: formatZodErrors(error),
+        cause: "FormValidationException"
+    });
+
+    // TODO: also need to handle relation fields
+
+    await db.insert(formSubmissions).values({ formId, data });
 }
