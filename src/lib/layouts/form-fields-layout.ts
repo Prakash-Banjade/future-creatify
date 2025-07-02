@@ -4,10 +4,10 @@ import jumboCenter from "@/assets/layouts/hero-layout/jumbotron-center.svg"
 const baseField: TBaseFormField = {
     name: "",
     label: "",
-    order: 0,
     required: false,
     placeholder: "",
     validation: undefined,
+
 }
 
 export const formFieldsLayout: {
@@ -18,14 +18,16 @@ export const formFieldsLayout: {
         {
             field: {
                 type: FormFieldType.Text,
+                defaultValue: "",
                 ...baseField
             },
             alt: "Text",
-            image: jumboCenter
+            image: jumboCenter,
         },
         {
             field: {
                 type: FormFieldType.Email,
+                defaultValue: "",
                 ...baseField
             },
             alt: "Email",
@@ -34,6 +36,7 @@ export const formFieldsLayout: {
         {
             field: {
                 type: FormFieldType.Number,
+                defaultValue: "",
                 ...baseField
             },
             alt: "Number",
@@ -42,6 +45,7 @@ export const formFieldsLayout: {
         {
             field: {
                 type: FormFieldType.Tel,
+                defaultValue: "",
                 ...baseField
             },
             alt: "Tel",
@@ -50,6 +54,7 @@ export const formFieldsLayout: {
         {
             field: {
                 type: FormFieldType.Textarea,
+                defaultValue: "",
                 ...baseField
             },
             alt: "Text Area",
@@ -68,6 +73,7 @@ export const formFieldsLayout: {
             field: {
                 type: FormFieldType.Select,
                 options: [],
+                multiple: false,
                 ...baseField
             },
             alt: "Select",
@@ -77,7 +83,9 @@ export const formFieldsLayout: {
             field: {
                 type: FormFieldType.Relation,
                 dataSource: {
-                    entity: FormFieldDataSourceEntity.Job,
+                    entity: FormFieldDataSourceEntity.Blogs,
+                    filter: "",
+                    multiple: false
                 },
                 ...baseField
             },

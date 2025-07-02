@@ -18,11 +18,12 @@ import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import { blocks } from "./blocks/blocks";
 import { TPageDto } from "@/schemas/page.schema";
+import { Button } from "@/components/ui/button";
 
 export default function BlockField({ sectionIdx }: { sectionIdx: number }) {
     const form = useFormContext<TPageDto>();
 
-    const { fields, append, remove } = useFieldArray({
+    const { fields, append, remove, insert, swap } = useFieldArray({
         control: form.control,
         name: `sections.${sectionIdx}.blocks.items`,
     });
@@ -64,11 +65,29 @@ export default function BlockField({ sectionIdx }: { sectionIdx: number }) {
                                                                     </DropdownMenuTrigger>
                                                                     <DropdownMenuContent side="top">
                                                                         {
-                                                                            idx !== 0 && <DropdownMenuItem><ChevronUp /> Move Up</DropdownMenuItem>
+                                                                            idx !== 0 && <DropdownMenuItem onClick={() => swap(idx, idx - 1)}>
+                                                                                <ChevronUp /> Move Up
+                                                                            </DropdownMenuItem>
                                                                         }
-                                                                        <DropdownMenuItem><ChevronDown /> Move Down</DropdownMenuItem>
-                                                                        <DropdownMenuItem><Plus /> Add Below</DropdownMenuItem>
-                                                                        <DropdownMenuItem><Copy /> Duplicate</DropdownMenuItem>
+                                                                        <DropdownMenuItem onClick={() => swap(idx, idx + 1)}>
+                                                                            <ChevronDown /> Move Down
+                                                                        </DropdownMenuItem>
+                                                                        <AddBlockDialog
+                                                                            length={fields.length}
+                                                                            onSelect={block => {
+                                                                                append(block);
+                                                                            }}
+                                                                        >
+                                                                            <Button
+                                                                                variant={"ghost"}
+                                                                                className="w-full justify-start !px-2 !py-1.5 hover:!bg-accent font-normal"
+                                                                            >
+                                                                                <span className="text-muted-foreground"><Plus /></span>
+                                                                                Add Below
+                                                                            </Button>
+                                                                        </AddBlockDialog>
+                                                                        <DropdownMenuItem onClick={() => insert(idx + 1, field.value)}><Copy /> Duplicate
+                                                                        </DropdownMenuItem>
                                                                         <DropdownMenuItem onClick={() => remove(idx)}>
                                                                             <X /> Remove
                                                                         </DropdownMenuItem>
@@ -104,7 +123,17 @@ export default function BlockField({ sectionIdx }: { sectionIdx: number }) {
                 onSelect={block => {
                     append(block);
                 }}
-            />
+            >
+                <Button
+                    type="button"
+                    variant={"outline"}
+                    size={"sm"}
+                    className="font-normal text-xs"
+                    disabled={length >= 5}
+                >
+                    <Plus size={16} /> Add Block
+                </Button>
+            </AddBlockDialog>
         </section>
     )
 }

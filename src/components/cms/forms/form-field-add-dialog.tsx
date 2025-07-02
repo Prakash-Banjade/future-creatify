@@ -14,9 +14,10 @@ import { formFieldsLayout } from '@/lib/layouts/form-fields-layout';
 
 type Props = {
     onSelect: (field: TFormFieldDef) => void,
+    children: React.ReactNode
 }
 
-export default function AddFormFieldDialog({ onSelect }: Props) {
+export default function AddFormFieldDialog({ onSelect, children }: Props) {
     const [selectorOpen, setSelectorOpen] = useState(false);
 
     function handleAdd(field: TFormFieldDef) {
@@ -27,16 +28,7 @@ export default function AddFormFieldDialog({ onSelect }: Props) {
     return (
         <Dialog open={selectorOpen} onOpenChange={setSelectorOpen}>
             <DialogTrigger asChild>
-                {
-                    <Button
-                        type="button"
-                        variant={"outline"}
-                        size={"sm"}
-                        className="font-normal text-xs"
-                    >
-                        <Plus size={16} /> Add Field
-                    </Button>
-                }
+                {children}
             </DialogTrigger>
             <DialogContent className='full-screen-dialog block'>
                 <DialogHeader>

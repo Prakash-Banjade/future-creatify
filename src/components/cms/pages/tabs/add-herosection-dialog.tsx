@@ -14,10 +14,11 @@ import { THeroSectionDto } from '@/schemas/hero-section.schema';
 
 type Props = {
     onSelect: (layout: THeroSectionDto["layout"]) => void,
-    length: number
+    length: number,
+    children: React.ReactNode
 }
 
-export default function AddHeroSectionDialog({ onSelect, length }: Props) {
+export default function AddHeroSectionDialog({ onSelect, length, children }: Props) {
     const [selectorOpen, setSelectorOpen] = useState(false);
 
     function handleAdd(layout: THeroSectionDto["layout"]) {
@@ -30,17 +31,7 @@ export default function AddHeroSectionDialog({ onSelect, length }: Props) {
         <Dialog open={selectorOpen} onOpenChange={setSelectorOpen}>
             <DialogTrigger asChild>
                 {
-                    length < 5 && (
-                        <Button
-                            type="button"
-                            variant={"outline"}
-                            size={"sm"}
-                            className="font-normal text-xs"
-                            disabled={length >= 5}
-                        >
-                            <Plus size={16} /> Add Hero
-                        </Button>
-                    )
+                    length < 5 && children
                 }
             </DialogTrigger>
             <DialogContent className='full-screen-dialog block'>

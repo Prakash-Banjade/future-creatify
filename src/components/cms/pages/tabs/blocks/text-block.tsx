@@ -107,27 +107,29 @@ const TextBlock: React.FC<BlockComponentProps> = ({ name, sectionIdx, blockIdx }
                         {
                             fields.length < 2 && (
                                 <FormControl>
-                                    <Button
-                                        type="button"
-                                        variant={"outline"}
-                                        size={"sm"}
-                                        className="font-normal text-xs"
-                                        disabled={fields.length >= 2}
-                                        onClick={() => {
-                                            if (fields.length >= 2) return;
+                                    <section>
+                                        <Button
+                                            type="button"
+                                            variant={"outline"}
+                                            size={"sm"}
+                                            className="font-normal text-xs"
+                                            disabled={fields.length >= 2}
+                                            onClick={() => {
+                                                if (fields.length >= 2) return;
 
-                                            append({
-                                                type: ELinkType.Internal,
-                                                variant: ECtaVariant.Primary,
-                                                text: "",
-                                                link: "",
-                                                arrow: false,
-                                                newTab: false
-                                            })
-                                        }}
-                                    >
-                                        <Plus size={16} /> Add Link
-                                    </Button>
+                                                append({
+                                                    type: ELinkType.Internal,
+                                                    variant: ECtaVariant.Primary,
+                                                    text: "",
+                                                    link: "",
+                                                    arrow: false,
+                                                    newTab: false
+                                                })
+                                            }}
+                                        >
+                                            <Plus size={16} /> Add Link
+                                        </Button>
+                                    </section>
                                 </FormControl>
                             )
                         }

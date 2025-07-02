@@ -29,7 +29,7 @@ export function showServerError(e: unknown) {
 
     toast.error(e.message)
   } else if (e instanceof Error) {
-    toast.error("Unexpected Error", {
+    toast.error("Error", {
       description: e.message,
     });
   } else {

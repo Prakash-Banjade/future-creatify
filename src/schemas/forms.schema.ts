@@ -3,24 +3,24 @@ import { z } from "zod";
 export enum FormFieldType {
     Text = 'text',
     Email = 'email',
-    File = 'file',
     Tel = 'tel',
-    Select = 'select',
     Textarea = 'textarea',
     Number = 'number',
+    File = 'file',
+    Select = 'select',
     Relation = 'relation'
 }
 
 export enum FormFieldDataSourceEntity {
-    Job = 'job',
-    Course = 'course'
+    Blogs = 'blogs',
+    Pages = 'pages'
 }
 
 // --- FieldValidationPropDto ---
 export const FieldValidationPropSchema = z
     .object({
-        minLength: z.number().int().min(0).optional(),
-        maxLength: z.number().int().min(0).optional(),
+        minLength: z.coerce.number().int({ message: "Must be an integer" }).min(0).optional(),
+        maxLength: z.coerce.number().int({ message: "Must be an integer" }).min(0).optional(),
         pattern: z
             .string()
             .optional()
@@ -55,25 +55,24 @@ const BaseField = z.object({
         .string()
         .trim()
         .min(3, { message: "Name must be between 3 and 50 characters" })
-        .max(50, { message: "Name must be between 3 and 50 characters" }),
+        .max(50, { message: "Name must be between 3 and 50 characters" })
+        .regex(/^[A-Za-z0-9]+$/, { message: "No white space, special characters allowed" }),
     label: z
         .string()
         .trim()
-        .min(3, { message: "Label must be between 3 and 50 characters" })
-        .max(50, { message: "Label must be between 3 and 50 characters" }),
+        .max(50, { message: "Max 50 characters allowed" }),
     placeholder: z
         .string()
         .trim()
-        .min(3, { message: "Placeholder must be between 3 and 50 characters" })
-        .max(50, { message: "Placeholder must be between 3 and 50 characters" })
-        .optional(),
+        .max(50, { message: "Max 50 characters allowed" }),
     required: z.boolean().optional(),
     validation: FieldValidationPropSchema.optional(),
-    order: z
-        .coerce
-        .number()
-        .int({ message: "Order must be an integer" })
-        .min(0, { message: "Order must be greater than or equal to 0" }),
+    defaultValue: z.string().optional(),
+    // order: z
+    //     .coerce
+    //     .number()
+    //     .int({ message: "Order must be an integer" })
+    //     .min(0, { message: "Order must be greater than or equal to 0" }),
 });
 
 export type TBaseFormField = z.infer<typeof BaseField>;

@@ -20,7 +20,6 @@ import CtaAccordion from "./common/cta-accordion";
 import { Button } from "@/components/ui/button";
 import { ECtaVariant } from "../../../../../types/blocks.types";
 import { MediaInput, MediaItem } from "@/components/forms/media-field";
-import { Label } from "@/components/ui/label";
 import AddHeroSectionDialog from "./add-herosection-dialog";
 import { EHeroLayoutTypes } from "../../../../../types/page.types";
 import AlignmentSelect from "./common/alignment-select";
@@ -30,7 +29,7 @@ import { ELinkType } from "../../../../../types/global.types";
 export default function HeroTabContent() {
     const form = useFormContext<TPageDto>();
 
-    const { fields, append, remove } = useFieldArray({
+    const { fields, append, remove, swap, insert } = useFieldArray({
         control: form.control,
         name: "heroSections",
     });
@@ -69,14 +68,40 @@ export default function HeroTabContent() {
                                                                         <MoreHorizontal size={16} />
                                                                     </DropdownMenuTrigger>
                                                                     <DropdownMenuContent side="top">
-                                                                        <DropdownMenuItem><ChevronUp /> Move Up</DropdownMenuItem>
-                                                                        <DropdownMenuItem><ChevronDown /> Move Down</DropdownMenuItem>
-                                                                        <DropdownMenuItem><Plus /> Add Below</DropdownMenuItem>
-                                                                        <DropdownMenuItem><Copy /> Duplicate</DropdownMenuItem>
-                                                                        <DropdownMenuItem
-                                                                            onClick={() => remove(idx)}
+                                                                        {
+                                                                            idx !== 0 && <DropdownMenuItem onClick={() => swap(idx, idx - 1)}>
+                                                                                <ChevronUp /> Move Up
+                                                                            </DropdownMenuItem>
+                                                                        }
+                                                                        <DropdownMenuItem onClick={() => swap(idx, idx + 1)}>
+                                                                            <ChevronDown /> Move Down
+                                                                        </DropdownMenuItem>
+                                                                        <AddHeroSectionDialog
+                                                                            length={fields.length}
+                                                                            onSelect={layout => {
+                                                                                insert(idx + 1, {
+                                                                                    headline: "Untitled",
+                                                                                    subheadline: "",
+                                                                                    image: undefined,
+                                                                                    cta: [],
+                                                                                    layout
+                                                                                });
+                                                                            }}
                                                                         >
-                                                                            <X /> Remove</DropdownMenuItem>
+                                                                            <Button
+                                                                                variant={"ghost"}
+                                                                                className="w-full justify-start !px-2 !py-1.5 hover:!bg-accent font-normal"
+                                                                            >
+                                                                                <span className="text-muted-foreground"><Plus /></span>
+                                                                                Add Below
+                                                                            </Button>
+                                                                        </AddHeroSectionDialog>
+                                                                        <DropdownMenuItem onClick={() => insert(idx + 1, field.value)}>
+                                                                            <Copy /> Duplicate
+                                                                        </DropdownMenuItem>
+                                                                        <DropdownMenuItem onClick={() => remove(idx)}>
+                                                                            <X /> Remove
+                                                                        </DropdownMenuItem>
                                                                     </DropdownMenuContent>
                                                                 </DropdownMenu>
                                                             </section>
@@ -189,7 +214,17 @@ export default function HeroTabContent() {
                         layout
                     });
                 }}
-            />
+            >
+                <Button
+                    type="button"
+                    variant={"outline"}
+                    size={"sm"}
+                    className="font-normal text-xs"
+                    disabled={length >= 5}
+                >
+                    <Plus size={16} /> Add Hero
+                </Button>
+            </AddHeroSectionDialog>
         </section>
     )
 }

@@ -20,10 +20,19 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import BlockField from "./block-field";
 
+const sectionDefaultValue = {
+    headline: "",
+    subheadline: "",
+    blocks: {
+        direction: "horizontal" as "horizontal" | "vertical",
+        items: []
+    }
+}
+
 export default function ContentTabContent() {
     const form = useFormContext<TPageDto>();
 
-    const { fields, append, remove } = useFieldArray({
+    const { fields, append, remove, swap, insert } = useFieldArray({
         control: form.control,
         name: "sections",
     });
@@ -42,7 +51,7 @@ export default function ContentTabContent() {
                                 key={f.id}
                                 control={form.control}
                                 name={`sections.${idx}`}
-                                render={() => {
+                                render={({ field }) => {
                                     const headline = form.watch(`sections.${idx}.headline`)?.trim();
 
                                     return (
@@ -66,14 +75,22 @@ export default function ContentTabContent() {
                                                                         <MoreHorizontal size={16} />
                                                                     </DropdownMenuTrigger>
                                                                     <DropdownMenuContent side="top">
-                                                                        <DropdownMenuItem><ChevronUp /> Move Up</DropdownMenuItem>
-                                                                        <DropdownMenuItem><ChevronDown /> Move Down</DropdownMenuItem>
-                                                                        <DropdownMenuItem><Plus /> Add Below</DropdownMenuItem>
-                                                                        <DropdownMenuItem><Copy /> Duplicate</DropdownMenuItem>
-                                                                        <DropdownMenuItem
-                                                                            onClick={() => remove(idx)}
-                                                                        >
-                                                                            <X /> Remove</DropdownMenuItem>
+                                                                        {
+                                                                            idx !== 0 && <DropdownMenuItem onClick={() => swap(idx, idx - 1)}>
+                                                                                <ChevronUp /> Move Up
+                                                                            </DropdownMenuItem>
+                                                                        }
+                                                                        <DropdownMenuItem onClick={() => swap(idx, idx + 1)}>
+                                                                            <ChevronDown /> Move Down
+                                                                        </DropdownMenuItem>
+                                                                        <DropdownMenuItem onClick={() => insert(idx + 1, sectionDefaultValue)}>
+                                                                            <Plus /> Add Below
+                                                                        </DropdownMenuItem>
+                                                                        <DropdownMenuItem onClick={() => insert(idx + 1, field.value)}><Copy /> Duplicate
+                                                                        </DropdownMenuItem>
+                                                                        <DropdownMenuItem onClick={() => remove(idx)}>
+                                                                            <X /> Remove
+                                                                        </DropdownMenuItem>
                                                                     </DropdownMenuContent>
                                                                 </DropdownMenu>
                                                             </section>
@@ -131,14 +148,7 @@ export default function ContentTabContent() {
                 variant={"outline"}
                 size={"sm"}
                 className="font-normal text-xs"
-                onClick={() => append({
-                    headline: "",
-                    subheadline: "",
-                    blocks: {
-                        direction: "horizontal",
-                        items: []
-                    }
-                })}
+                onClick={() => append(sectionDefaultValue)}
             >
                 <Plus size={16} /> Add Section
             </Button>

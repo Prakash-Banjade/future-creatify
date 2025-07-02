@@ -1,4 +1,4 @@
-import { integer, jsonb, pgTable, text, timestamp, uniqueIndex } from "drizzle-orm/pg-core";
+import { index, jsonb, pgTable, text, timestamp, uniqueIndex } from "drizzle-orm/pg-core";
 import { relations } from "drizzle-orm";
 import { TFormFieldDef } from "@/schemas/forms.schema";
 
@@ -8,7 +8,8 @@ export const forms = pgTable(
         id: text("id").primaryKey().$defaultFn(() => crypto.randomUUID()),
         title: text("title").notNull(),
         slug: text("slug").notNull(),
-        fields: jsonb("fields").$type<TFormFieldDef[]>(),
+        fields: jsonb("fields").$type<TFormFieldDef[]>().notNull().default([]),
+        submitBtnLabel: text("submit_btn_label").notNull().default("Submit"),
 
         createdAt: timestamp("created_at").notNull().defaultNow(),
         updatedAt: timestamp("updated_at").notNull().defaultNow().$onUpdate(() => new Date()),
@@ -23,7 +24,7 @@ export const formSubmissions = pgTable(
     "form_submissions",
     {
         id: text("id").primaryKey().$defaultFn(() => crypto.randomUUID()),
-        formId: integer("form_id")
+        formId: text("form_id")
             .references(() => forms.id, { onDelete: "cascade" }).notNull(),
         data: jsonb("data").$type<Record<string, any>>(),
 
@@ -31,7 +32,7 @@ export const formSubmissions = pgTable(
         updatedAt: timestamp("updated_at").notNull().defaultNow().$onUpdate(() => new Date()),
     },
     (table) => ({
-        formIdUnique: uniqueIndex("form_submissions_form_id_unique").on(table.formId),
+        formIdUnique: index("form_submissions_form_id_unique").on(table.formId),
     })
 );
 

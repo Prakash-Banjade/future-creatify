@@ -4,8 +4,43 @@ import { db } from "@/db";
 import checkAuth from "../check-auth";
 import { revalidatePath } from "next/cache";
 import { forms } from "@/db/schema/form";
-import { eq } from "drizzle-orm";
+import { eq, ilike } from "drizzle-orm";
+import { FormDtoSchema, TFormDto } from "@/schemas/forms.schema";
+import { generateSlug, throwZodErrorMsg } from "../utils";
 
+export async function createForm(values: TFormDto) {
+    await checkAuth('admin');
+
+    const { success, data, error } = FormDtoSchema.safeParse(values);
+
+    if (!success) throwZodErrorMsg(error);
+
+    // check for existing with same name
+    const [existing] = await db.select({ id: forms.id }).from(forms).where(ilike(forms.title, data.title)).limit(1);
+    if (existing) throw new Error("Form with same name already exists. Please choose a different name.");
+
+    await db.insert(forms).values({ ...data, slug: generateSlug(data.title) });
+}
+
+export async function updateForm(id: string, values: TFormDto) {
+    await checkAuth('admin');
+
+    const { success, data, error } = FormDtoSchema.safeParse(values);
+
+    if (!success) throwZodErrorMsg(error);
+
+    // check for existing
+    const [existing] = await db.select({ title: forms.title }).from(forms).where(eq(forms.id, id)).limit(1);
+    if (!existing) throw new Error("Form not found");
+
+    // check for existing with same name
+    if (values.title && values.title !== existing.title) {
+        const [existingName] = await db.select({ id: forms.id }).from(forms).where(ilike(forms.title, data.title)).limit(1);
+        if (existingName && existingName.id !== id) throw new Error("Form with same name already exists. Please choose a different name.");
+    }
+
+    await db.update(forms).set({ ...data, slug: generateSlug(data.title) }).where(eq(forms.id, id));
+}
 
 export async function deleteForm(id: string) {
     await checkAuth('admin');

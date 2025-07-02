@@ -1,11 +1,12 @@
 import { FormsPageProps } from "@/app/(cms)/cms/forms/page";
 import { db } from "@/db";
 import { forms } from "@/db/schema/form";
-import { and, desc, ilike, SQL } from "drizzle-orm";
+import { and, desc, eq, ilike, SQL } from "drizzle-orm";
 import checkAuth from "../check-auth";
 import { getPaginationQueryParams, paginatedResponse } from "../db-utils";
+import { cache } from "react";
 
-export async function getForms(searchParamsProps: FormsPageProps["searchParams"]) {
+export const getForms = cache(async (searchParamsProps: FormsPageProps["searchParams"]) => {
     try {
         await checkAuth('admin');
 
@@ -38,4 +39,23 @@ export async function getForms(searchParamsProps: FormsPageProps["searchParams"]
         console.error(e);
         return null;
     }
-}
+});
+
+export const getFormById = cache(async (id: string) => {
+    try {
+        await checkAuth('admin');
+
+        const [form] = await db.select({
+            id: forms.id,
+            title: forms.title,
+            fields: forms.fields,
+            slug: forms.slug,
+            submitBtnLabel: forms.submitBtnLabel
+        }).from(forms).where(eq(forms.id, id)).limit(1);
+
+        return form;
+    } catch (e) {
+        console.error(e);
+        return null;
+    }
+});
