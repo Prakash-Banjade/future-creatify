@@ -26,17 +26,17 @@ function getNearestTensArray(num: number) {
     return result;
 }
 
-interface DataTablePaginationProps<TData> {
+interface DataTablePaginationProps {
     meta: TMeta;
-    setQueryParams: Dispatch<SetStateAction<Record<string, any>>>;
+    setQueryParams: Dispatch<SetStateAction<Record<string, string | undefined>>>;
 }
 
-export function MediaSelectDataTablePagination<TData>({
+export function MediaSelectDataTablePagination({
     meta,
     setQueryParams
-}: DataTablePaginationProps<TData>) {
+}: DataTablePaginationProps) {
 
-    const setParams = (key: string, value: any) => {
+    const setParams = (key: string, value: string | undefined) => {
         setQueryParams(prev => ({
             ...prev,
             [key]: value

@@ -152,7 +152,7 @@ export default function PageForm({ page }: Props) {
                             </Tabs>
                         </section>
 
-                        <section className='@6xl:mr-24 @3xl:mr-16 mr-8 @6xl:pl-16 pl-10 py-10'>
+                        <section className='@6xl:mr-24 @3xl:mr-16 mr-8 @6xl:pl-16 pl-10 py-8'>
                             <div className='space-y-2'>
                                 <Label>Slug</Label>
                                 <Input

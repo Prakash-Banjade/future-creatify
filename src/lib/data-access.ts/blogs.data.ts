@@ -1,4 +1,3 @@
-import { BlogsPageProps } from "@/app/(cms)/cms/blogs/page";
 import { db } from "@/db";
 import { blogs } from "@/db/schema/blog";
 import { and, eq, isNull, not } from "drizzle-orm";

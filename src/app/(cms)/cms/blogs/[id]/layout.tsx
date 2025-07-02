@@ -1,5 +1,3 @@
-import React, { Suspense } from 'react'
-
 type Props = {
     children: React.ReactNode
 }

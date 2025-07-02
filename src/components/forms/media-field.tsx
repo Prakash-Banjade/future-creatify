@@ -318,7 +318,7 @@ function CreateNew({ onClose, onChange }: Pick<MediaFieldProps, 'onClose' | 'onC
 
 function MediaSelector({ onClose, onChange }: Pick<MediaFieldProps, 'onClose' | 'onChange'>) {
   const [search, setSearch] = useState('');
-  const [queryParams, setQueryParams] = useState<Record<string, any>>({
+  const [queryParams, setQueryParams] = useState<Record<string, string | undefined>>({
     resource_type: 'image',
   });
 

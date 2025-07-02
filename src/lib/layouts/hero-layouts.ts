@@ -6,10 +6,11 @@ import splitHeroImgRight from "@/assets/layouts/hero-layout/split-hero-img-right
 import { EHeroLayoutTypes } from "../../../types/page.types"
 import { EAlignment, EAlignmentExcludeCenter } from "../../../types/global.types"
 import { THeroSectionDto } from "@/schemas/hero-section.schema"
+import { StaticImageData } from "next/image"
 
 export const heroLayouts: {
     layout: THeroSectionDto["layout"],
-    image: any,
+    image: StaticImageData,
     alt: string
 }[] = [
         {

@@ -1,5 +1,6 @@
 import { FormFieldDataSourceEntity, FormFieldType, TBaseFormField, TFormFieldDef } from "@/schemas/forms.schema"
 import jumboCenter from "@/assets/layouts/hero-layout/jumbotron-center.svg"
+import { StaticImageData } from "next/image"
 
 const baseField: TBaseFormField = {
     name: "",
@@ -12,7 +13,7 @@ const baseField: TBaseFormField = {
 
 export const formFieldsLayout: {
     field: TFormFieldDef,
-    image: any,
+    image: StaticImageData,
     alt: string
 }[] = [
         {

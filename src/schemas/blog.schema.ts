@@ -1,4 +1,3 @@
-import { YooptaContentValue } from "@yoopta/editor";
 import { z } from "zod";
 
 export const blogSummarySchema = z.string({ required_error: "Summary is required" })

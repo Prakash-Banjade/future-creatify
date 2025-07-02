@@ -35,6 +35,7 @@ export const blockLayouts: {
                 cards: [],
                 maxColumns: 3,
                 borderLess: false,
+                newTab: false
             },
             alt: "Cards",
             image: jumboCenter,
@@ -53,7 +54,10 @@ export const blockLayouts: {
         {
             block: {
                 type: EBlock.Form,
-                formId: "",
+                form: {
+                    id: "",
+                    title: ""
+                }
             },
             alt: "Form",
             image: jumboCenter

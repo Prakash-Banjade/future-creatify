@@ -36,10 +36,10 @@ export default async function FormSubmissionsList({ params, searchParams, form }
                         {
                             submissions?.data.map((submission, ind) => {
                                 return (
-                                    <TableRow>
+                                    <TableRow key={submission.id}>
                                         <TableCell>{ind + 1}</TableCell>
                                         {
-                                            fieldNames.map(fieldName => <TableCell key={fieldName}>{submission.data[fieldName]}</TableCell>)
+                                            fieldNames.map(fieldName => <TableCell key={fieldName}>{submission.data[fieldName] as string}</TableCell>)
                                         }
                                         <TableCell>{new Date(submission.createdAt).toLocaleString()}</TableCell>
                                     </TableRow>

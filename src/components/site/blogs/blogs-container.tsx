@@ -1,7 +1,7 @@
 import { BlogsPageProps } from "@/app/(cms)/cms/blogs/page"
-import { TBlogsResponse_Public } from "@/schemas/blog.schema";
 import { API_URL } from "@/CONSTANTS";
 import BlogCard from "./blog-card";
+import { TBlogsResponse_Public } from "../../../../types/blog.types";
 
 export default async function BlogsContainer(props: { searchParams: Promise<BlogsPageProps["searchParams"]> }) {
     const searchParams = await props.searchParams;
@@ -33,7 +33,7 @@ export default async function BlogsContainer(props: { searchParams: Promise<Blog
         <>
             {
                 blogs.map((blog) => (
-                    <BlogCard blog={blog} />
+                    <BlogCard key={blog.slug} blog={blog} />
                 ))
             }
 

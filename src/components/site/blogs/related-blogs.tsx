@@ -1,6 +1,6 @@
 import { API_URL } from '@/CONSTANTS';
-import { TBlogsResponse_Public } from '@/schemas/blog.schema';
 import BlogCard from './blog-card';
+import { TBlogsResponse_Public } from '../../../../types/blog.types';
 
 type Props = {
     slug: string;
@@ -25,7 +25,7 @@ export default async function RelatedBlogs({ slug }: Props) {
 
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {blogs.map((post) => (
-                        <BlogCard blog={post} />
+                        <BlogCard key={post.slug} blog={post} />
                     ))}
                 </div>
             </div>

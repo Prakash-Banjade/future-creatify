@@ -51,7 +51,7 @@ export async function deleteForm(id: string) {
     revalidatePath(`/cms/forms`);
 }
 
-export async function createFormSubmission(formId: string, values: Record<string, any>) {
+export async function createFormSubmission(formId: string, values: Record<string, unknown>) {
     const [form] = await db.select({ id: forms.id, fields: forms.fields }).from(forms).where(eq(forms.id, formId)).limit(1);
     if (!form) throw new Error("Form not found");
 
