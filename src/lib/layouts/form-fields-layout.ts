@@ -37,7 +37,7 @@ export const formFieldsLayout: {
         {
             field: {
                 type: FormFieldType.Number,
-                defaultValue: "",
+                defaultValue: undefined,
                 ...baseField
             },
             alt: "Number",
@@ -63,6 +63,15 @@ export const formFieldsLayout: {
         },
         {
             field: {
+                type: FormFieldType.Checkbox,
+                defaultValue: false,
+                ...baseField
+            },
+            alt: "Checkbox",
+            image: jumboCenter
+        },
+        {
+            field: {
                 type: FormFieldType.File,
                 accept: "",
                 ...baseField,
@@ -78,6 +87,15 @@ export const formFieldsLayout: {
                 ...baseField
             },
             alt: "Select",
+            image: jumboCenter
+        },
+        {
+            field: {
+                type: FormFieldType.Radio,
+                options: [],
+                ...baseField
+            },
+            alt: "Radio",
             image: jumboCenter
         },
         {

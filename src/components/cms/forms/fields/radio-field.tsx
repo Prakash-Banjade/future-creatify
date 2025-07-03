@@ -13,7 +13,7 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 
-export default function SelectField({ idx }: FormFieldComponentProps) {
+export default function RadioField({ idx }: FormFieldComponentProps) {
     const form = useFormContext<TFormDto>();
 
     return (
@@ -98,26 +98,6 @@ export default function SelectField({ idx }: FormFieldComponentProps) {
                 <section className='flex gap-6'>
                     <FormField
                         control={form.control}
-                        name={`fields.${idx}.multiple`}
-                        render={({ field }) => {
-                            return (
-                                <FormItem className="flex flex-row items-center gap-2">
-                                    <FormControl>
-                                        <Checkbox
-                                            checked={field.value}
-                                            onCheckedChange={(checked) => field.onChange(checked)}
-                                        />
-                                    </FormControl>
-                                    <FormLabel className="text-sm font-normal">
-                                        Multiple
-                                    </FormLabel>
-                                    <FormMessage />
-                                </FormItem>
-                            )
-                        }}
-                    />
-                    <FormField
-                        control={form.control}
                         name={`fields.${idx}.required`}
                         render={({ field }) => {
                             return (
@@ -157,7 +137,7 @@ function OptionsField({ idx }: FormFieldComponentProps) {
             render={() => {
                 return (
                     <FormItem className='@container'>
-                        <FormLabel>Select Attribute Options <span className='text-destructive'>*</span></FormLabel>
+                        <FormLabel>Radio Attribute Options <span className='text-destructive'>*</span></FormLabel>
 
                         <section className='space-y-2'>
                             {

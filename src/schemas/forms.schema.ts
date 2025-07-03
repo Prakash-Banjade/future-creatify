@@ -8,6 +8,8 @@ export enum FormFieldType {
     Number = 'number',
     File = 'file',
     Select = 'select',
+    Checkbox = 'checkbox',
+    Radio = 'radio',
     Relation = 'relation'
 }
 
@@ -67,7 +69,6 @@ const BaseField = z.object({
         .max(50, { message: "Max 50 characters allowed" }),
     required: z.boolean().optional(),
     validation: FieldValidationPropSchema.optional(),
-    defaultValue: z.string().optional(),
     // order: z
     //     .coerce
     //     .number()
@@ -80,18 +81,28 @@ export type TBaseFormField = z.infer<typeof BaseField>;
 // --- Simple fields (no extra props) ---
 export const TextFieldSchema = BaseField.extend({
     type: z.literal(FormFieldType.Text),
+    defaultValue: z.string().optional(),
 });
 export const EmailFieldSchema = BaseField.extend({
     type: z.literal(FormFieldType.Email),
+    defaultValue: z.string().email({ message: "Invalid email format" }).optional(),
 });
 export const TelFieldSchema = BaseField.extend({
     type: z.literal(FormFieldType.Tel),
+    defaultValue: z.string().optional(),
 });
 export const TextareaFieldSchema = BaseField.extend({
     type: z.literal(FormFieldType.Textarea),
+    defaultValue: z.string().optional(),
 });
 export const NumberFieldSchema = BaseField.extend({
     type: z.literal(FormFieldType.Number),
+    defaultValue: z.coerce.number().optional(),
+});
+
+export const CheckboxFieldSchema = BaseField.extend({
+    type: z.literal(FormFieldType.Checkbox),
+    defaultValue: z.boolean().optional(),
 });
 
 // --- File field (must have accept) ---
@@ -107,15 +118,25 @@ export const FileFieldSchema = BaseField.extend({
 export const SelectFieldSchema = BaseField.extend({
     type: z.literal(FormFieldType.Select),
     options: z
+    .array(FormFieldOptionSchema)
+    .min(1, { message: "At least one option is required" }),
+    multiple: z.boolean().optional(),
+    defaultValue: z.string().optional(),
+});
+
+export const RadioFieldSchema = BaseField.extend({
+    type: z.literal(FormFieldType.Radio),
+    options: z
         .array(FormFieldOptionSchema)
         .min(1, { message: "At least one option is required" }),
-    multiple: z.boolean().optional(),
+    defaultValue: z.string().optional(),
 });
 
 // --- Relation field (must have dataSource) ---
 export const RelationFieldSchema = BaseField.extend({
     type: z.literal(FormFieldType.Relation),
     dataSource: FormFieldDataSourcePropSchema,
+    defaultValue: z.string().optional(),
 });
 
 // --- Discriminated union of all field definitions ---
@@ -125,6 +146,8 @@ export const FormFieldDefSchema = z.discriminatedUnion("type", [
     TelFieldSchema,
     TextareaFieldSchema,
     NumberFieldSchema,
+    CheckboxFieldSchema,
+    RadioFieldSchema,
     FileFieldSchema,
     SelectFieldSchema,
     RelationFieldSchema,

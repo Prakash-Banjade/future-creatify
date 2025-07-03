@@ -75,6 +75,7 @@ export default function BaseField({ idx }: FormFieldComponentProps) {
                                 <Input
                                     maxLength={50}
                                     {...field}
+                                    value={(field.value || "") as string | number | undefined}
                                 />
                             </FormControl>
                             <FormMessage />
