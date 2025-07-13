@@ -220,7 +220,7 @@ export default function HeroTabContent() {
                     variant={"outline"}
                     size={"sm"}
                     className="font-normal text-xs"
-                    disabled={length >= 5}
+                    disabled={fields.length >= 5}
                 >
                     <Plus size={16} /> Add Hero
                 </Button>

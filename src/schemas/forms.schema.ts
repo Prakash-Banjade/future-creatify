@@ -69,11 +69,6 @@ const BaseField = z.object({
         .max(50, { message: "Max 50 characters allowed" }),
     required: z.boolean().optional(),
     validation: FieldValidationPropSchema.optional(),
-    // order: z
-    //     .coerce
-    //     .number()
-    //     .int({ message: "Order must be an integer" })
-    //     .min(0, { message: "Order must be greater than or equal to 0" }),
 });
 
 export type TBaseFormField = z.infer<typeof BaseField>;
