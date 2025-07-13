@@ -4,7 +4,6 @@ import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/comp
 import { Input } from "@/components/ui/input";
 import { TFormDto } from '@/schemas/forms.schema';
 import { useFormContext } from 'react-hook-form';
-import { NUMBER_REGEX_STRING } from '@/CONSTANTS';
 
 export default function CheckboxField({ idx }: FormFieldComponentProps) {
     const form = useFormContext<TFormDto>();

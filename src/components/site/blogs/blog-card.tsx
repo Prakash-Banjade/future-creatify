@@ -3,10 +3,10 @@ import { LinkButton } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import Link from 'next/link'
 import { format } from 'date-fns'
-import { TBlogsResponse_Public } from '@/schemas/blog.schema'
 import CloudinaryImage from '@/components/ui/cloudinary-image'
 import { getReadingTimeInMinutes } from '@/lib/utils'
 import { Skeleton } from '@/components/ui/skeleton'
+import { TBlogsResponse_Public } from '../../../../types/blog.types'
 
 type Props = {
     blog: TBlogsResponse_Public[0]
@@ -62,7 +62,7 @@ export default async function BlogCard({ blog, imgHeight = 500 }: Props) {
 
                             <div className="flex items-center">
                                 <User size={14} className="mr-1" />
-                                <span>Anju Chhetri</span>
+                                <span>Annonymous</span>
                             </div>
                         </section>
 

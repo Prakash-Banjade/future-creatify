@@ -1,12 +1,13 @@
 import { publishBlog, unpublishBlog } from "@/lib/actions/blogs.action";
 import { showServerError } from "@/lib/utils";
-import { blogSummarySchema, TBlog } from "@/schemas/blog.schema";
+import { blogSummarySchema } from "@/schemas/blog.schema";
 import { useState, useTransition } from "react";
 import { z } from "zod"
 import { Button } from "@/components/ui/button"
 import { toast } from "sonner";
 import { ResponsiveAlertDialog } from "@/components/ui/responsive-alert-dialog";
 import { Globe, GlobeLock } from "lucide-react";
+import { TBlog } from "../../../../types/blog.types";
 
 type Props = {
     blog: TBlog;

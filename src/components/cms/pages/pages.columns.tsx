@@ -21,7 +21,7 @@ import Link from "next/link"
 import { deletePage } from "@/lib/actions/pages.action"
 import { TPagesResponse } from "../../../../types/page.types"
 
-export const pagesColumns: ColumnDef<TPagesResponse[0]>[] = [
+export const pagesColumns: ColumnDef<TPagesResponse["data"][0]>[] = [
     {
         header: "S.N",
         cell: ({ row }) => <p className="text-14 font-medium"> {row.index + 1} </p>,
@@ -55,7 +55,7 @@ export const pagesColumns: ColumnDef<TPagesResponse[0]>[] = [
     },
 ]
 
-function PagesColumnActions({ page }: { page: TPagesResponse[0] }) {
+function PagesColumnActions({ page }: { page: TPagesResponse["data"][0] }) {
     const router = useRouter();
     const [isDeleting, startTransition] = useTransition();
     const [isDeleteOpen, setIsDeleteOpen] = useState(false);

@@ -2,10 +2,11 @@ import { TBlock } from "@/schemas/page.schema"
 import jumboCenter from "@/assets/layouts/hero-layout/jumbotron-center.svg"
 import { EBlock, ECardsBlockLayout } from "../../../types/blocks.types"
 import { EAlignment, EOrder, ERefRelation } from "../../../types/global.types"
+import { StaticImageData } from "next/image"
 
 export const blockLayouts: {
     block: TBlock,
-    image: any,
+    image: StaticImageData,
     alt: string
 }[] = [
         {

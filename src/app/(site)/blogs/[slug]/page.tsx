@@ -10,7 +10,9 @@ import { ArrowLeft, Calendar, FileSpreadsheet, Tag, User } from 'lucide-react';
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { Suspense } from 'react';
-import { TBlog, TBlogsResponse_Public } from '../../../../../types/blog.types';
+import { TBlog } from '../../../../../types/blog.types';
+import { db } from '@/db';
+import { blogs } from '@/db/schema/blog';
 
 type Props = {
     params: {
@@ -103,7 +105,7 @@ export default async function SingleBlogPage(props: { params: Promise<Props["par
                         </div>
                         <div className="flex items-center">
                             <User size={14} className="mr-1" />
-                            <span>Anju Chhetri</span>
+                            <span>Annonymous</span>
                         </div>
                         <div className="flex items-center">
                             <Tag size={14} className="mr-1" />
@@ -154,14 +156,13 @@ export default async function SingleBlogPage(props: { params: Promise<Props["par
                             <div className="flex items-center">
                                 <img
                                     src="https://scontent.fktm1-1.fna.fbcdn.net/v/t39.30808-6/401558454_24193895270226074_7245478317597615581_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=4owI84cZm2MQ7kNvwFwTa40&_nc_oc=AdlvSfJo9Z80_JbAlQ1xNDKMaF5z-0YJMvVjL1t5NX8f_3Xl80PVxgsS_LYcK5uxFUc&_nc_zt=23&_nc_ht=scontent.fktm1-1.fna&_nc_gid=k01VXrOLe1At21l9JpyiZQ&oh=00_AfI9SR-XIgcySXTTOP2aCBXING_GQo4Q-8tJ50gJ5Hh07A&oe=682D3B50"
-                                    alt="Anju Chhetri"
+                                    alt="Annonymous"
                                     className="w-16 h-16 rounded-full mr-4 object-cover"
                                 />
                                 <div>
-                                    <h3 className="font-bold text-lg">Anju Chhetri</h3>
+                                    <h3 className="font-bold text-lg">Annonymous</h3>
                                     <p className="text-slate-600">
-                                        Passionate educator with over 10 years of experience in curriculum design
-                                        and innovative teaching methodologies.
+                                        Hello I am from no where.
                                     </p>
                                 </div>
                             </div>
@@ -179,17 +180,12 @@ export default async function SingleBlogPage(props: { params: Promise<Props["par
 }
 
 export const generateStaticParams = async () => {
-    const res = await fetch(`${API_URL}/blogs`, {
-        headers: {
-            'Content-Type': 'application/json',
-        },
-    });
-
-    if (!res.ok) {
-        return []
+    try {
+        const foundBlogs = await db.select({ slug: blogs.slug }).from(blogs);
+        return foundBlogs.map((blog) => ({ slug: blog.slug }));
+    } catch (e) {
+        console.log(e)
+        return [];
     }
 
-    const blogs: TBlogsResponse_Public = await res.json();
-
-    return blogs.map((blog) => ({ slug: blog.slug }));
 }

@@ -44,7 +44,9 @@ export default function CardsBlock({ sectionIdx, blockIdx }: BlockComponentProps
                                 onValueChange={(val: ECardsBlockLayout) => {
                                     // reset only when layout is changed to Horizontal or Vertical from any other layout
                                     if (!maxColsFieldDisabled) {
-                                        [ECardsBlockLayout.Horizontal, ECardsBlockLayout.Vertical].includes(val) && form.setValue(`${blockName}.maxColumns`, 0)
+                                        if ([ECardsBlockLayout.Horizontal, ECardsBlockLayout.Vertical].includes(val)) {
+                                            form.setValue(`${blockName}.maxColumns`, 0)
+                                        }
                                     }
                                     field.onChange(val);
                                 }}
