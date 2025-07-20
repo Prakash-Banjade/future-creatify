@@ -20,6 +20,7 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import BlockField from "./block-field";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { cn } from "@/lib/utils";
 
 const sectionDefaultValue = {
     headline: "",
@@ -54,12 +55,16 @@ export default function ContentTabContent() {
                                 name={`sections.${idx}`}
                                 render={({ field }) => {
                                     const headline = form.watch(`sections.${idx}.headline`)?.trim();
+                                    const fieldError = Array.isArray(form.formState.errors.sections) && !!form.formState.errors.sections[idx];
 
                                     return (
                                         <FormItem>
                                             <FormControl>
                                                 <Accordion type="multiple">
-                                                    <AccordionItem value={f.id} className="bg-secondary/50 border !border-b-1 rounded-md overflow-hidden">
+                                                    <AccordionItem value={f.id} className={cn(
+                                                        "bg-secondary/50 border !border-b-1 rounded-md overflow-hidden",
+                                                        fieldError && "bg-destructive/10 border-destructive"
+                                                    )}>
                                                         <section className="relative flex items-center gap-2 px-2">
                                                             <button type="button" className="hover:cursor-grab">
                                                                 <GripVertical className="text-muted-foreground" size={16} />

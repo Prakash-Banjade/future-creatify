@@ -155,18 +155,23 @@ export default function CardsBlock({ sectionIdx, blockIdx }: BlockComponentProps
                                                 key={f.id}
                                                 control={form.control}
                                                 name={`${cardFieldName}.${idx}`}
-                                                render={() => (
-                                                    <FormItem>
-                                                        <FormControl>
-                                                            <CardAccordion
-                                                                idx={idx}
-                                                                name={`${cardFieldName}.${idx}`}
-                                                                onRemove={() => remove(idx)}
-                                                            />
-                                                        </FormControl>
-                                                        <FormMessage />
-                                                    </FormItem>
-                                                )}
+                                                render={() => {
+                                                    const isFieldError = Array.isArray(form.formState.errors.sections) && !!form.formState.errors.sections[sectionIdx].blocks.items[blockIdx].cards?.[idx];
+
+                                                    return (
+                                                        <FormItem>
+                                                            <FormControl>
+                                                                <CardAccordion
+                                                                    idx={idx}
+                                                                    name={`${cardFieldName}.${idx}`}
+                                                                    onRemove={() => remove(idx)}
+                                                                    isFieldError={isFieldError}
+                                                                />
+                                                            </FormControl>
+                                                            <FormMessage />
+                                                        </FormItem>
+                                                    )
+                                                }}
                                             />
                                         )
                                     })

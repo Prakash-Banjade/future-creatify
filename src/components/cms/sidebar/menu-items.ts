@@ -1,4 +1,4 @@
-import { LayoutDashboard, NotebookText, StickyNote, StretchHorizontal } from "lucide-react";
+import { Footprints, Heading, LayoutDashboard, NotebookText, Settings, StickyNote, StretchHorizontal } from "lucide-react";
 import { TGroupMenuItem } from "./sidebar";
 
 export const cmsSidebarMenuItems: TGroupMenuItem[] = [
@@ -27,4 +27,29 @@ export const cmsSidebarMenuItems: TGroupMenuItem[] = [
             },
         ],
     },
+    {
+        groupLabel: "Globals",
+        menuItems: [
+            {
+                title: "Header",
+                url: "/cms/globals/header",
+                icon: Heading
+            },
+            {
+                title: "Footer",
+                url: "/cms/globals/footer",
+                icon: Footprints
+            }
+        ]
+    },
+    {
+        groupLabel: "Settings",
+        menuItems: [
+            {
+                title: "Site Settings",
+                url: "/cms/site-settings",
+                icon: Settings
+            }
+        ]
+    }
 ]

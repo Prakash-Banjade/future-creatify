@@ -22,19 +22,24 @@ import { InternalLinkField } from "../../common/internal-link-field";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
+import { cn } from "@/lib/utils";
 
 type Props = {
     idx: number
     name: string
-    onRemove?: () => void
+    onRemove?: () => void,
+    isFieldError: boolean
 }
 
-export default function CardAccordion({ idx, name, onRemove }: Props) {
+export default function CardAccordion({ idx, name, onRemove, isFieldError }: Props) {
     const form = useFormContext();
 
     return (
         <Accordion type="multiple">
-            <AccordionItem value={`${name}.id`} className="bg-secondary/50 border !border-b-1 rounded-md overflow-hidden">
+            <AccordionItem value={`${name}.id`} className={cn(
+                "bg-secondary/50 border !border-b-1 rounded-md overflow-hidden",
+                isFieldError && "bg-destructive/10 border-destructive"
+            )}>
                 <section className="relative flex items-center gap-2 px-2">
                     <button type="button" className="hover:cursor-grab">
                         <GripVertical className="text-muted-foreground" size={16} />
@@ -227,6 +232,7 @@ export default function CardAccordion({ idx, name, onRemove }: Props) {
                                             </FormItem>
                                         ) : (
                                             <InternalLinkField
+                                                name={`${name}.link.url`}
                                                 onChange={field.onChange}
                                             />
                                         )

@@ -3,12 +3,11 @@
 import { db } from "@/db";
 import checkAuth from "../check-auth";
 import { pages } from "@/db/schema/page";
-import { eq } from "drizzle-orm";
+import { and, eq, not } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { generateSlug, throwZodErrorMsg } from "../utils";
 import { heroSectionDtoDefaultValues } from "@/schemas/hero-section.schema";
 import { PageDtoSchema, TPageDto } from "@/schemas/page.schema";
-
 
 export async function createNewPage() {
     await checkAuth('admin');
@@ -38,7 +37,18 @@ export async function updatePage(id: string, values: TPageDto) {
 
     if (!success) throwZodErrorMsg(error);
 
-    await db.update(pages).set(data).where(eq(pages.id, id));
+    const slug = generateSlug(data.name, data.name.toLowerCase() === "untitled");
+
+    // check if slug has taken
+    const [existingPage] = await db.select({ id: pages.id }).from(pages)
+        .where(and(eq(pages.slug, slug), not(eq(pages.id, id))))
+        .limit(1);
+
+    if (existingPage) {
+        throw new Error("Conflict: A page with this slug already exists. Please choose a different name.");
+    }
+
+    await db.update(pages).set({ ...data, slug }).where(eq(pages.id, id));
 
     revalidatePath(`/cms/pages`);
 

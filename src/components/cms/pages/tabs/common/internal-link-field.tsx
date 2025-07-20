@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { FormControl, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Check, ChevronsUpDown } from 'lucide-react'
 import { cn, createQueryString } from '@/lib/utils'
@@ -6,27 +6,88 @@ import { Button } from '@/components/ui/button'
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command"
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
 import { SelectOption } from '../../../../../../types/global.types';
-import { useInternalLinks } from './internal-links';
+import { useFetchData } from "@/hooks/useFetchData";
+import { TPaginatedOptions } from "../../../../../../types/global.types";
+import { useFormContext } from 'react-hook-form';
+
+export function useInternalLinks(queryString: string = "") {
+    const { data: pages, isLoading: isPagesLoading } = useFetchData<TPaginatedOptions>({
+        endpoint: '/pages/options',
+        queryKey: ['pages', 'options', queryString],
+        queryString,
+        options: {
+            staleTime: 1000 * 60 * 5, // 5 minutes
+            gcTime: 1000 * 60 * 5, // 5 minutes
+        }
+    });
+
+    const { data: blogs, isLoading: isBlogsLoading } = useFetchData<TPaginatedOptions>({
+        endpoint: '/blogs/options',
+        queryKey: ['blogs', 'options', queryString],
+        queryString,
+        options: {
+            staleTime: 1000 * 60 * 5, // 5 minutes
+            gcTime: 1000 * 60 * 5, // 5 minutes
+        }
+    });
+
+    const isLoading = isPagesLoading || isBlogsLoading;
+
+    return {
+        data: [
+            {
+                label: 'pages',
+                options: pages,
+            },
+            {
+                label: 'blogs',
+                options: blogs,
+            },
+        ],
+        isLoading
+    }
+}
 
 type Props = {
+    name: string;
     onChange: (value: string) => void
-    selected?: SelectOption
 }
 
 export function InternalLinkField({
     onChange,
-    selected
+    name
 }: Props) {
     const [open, setOpen] = useState(false);
     const [search, setSearch] = useState<string>('');
 
     const debouncedValue = useDebounce(search, 500);
-
-    const [selectedValue, setSelectedValue] = useState<Props["selected"]>(selected);
-
     const queryString = useMemo(() => createQueryString({ q: debouncedValue, pageSize: "20" }), [debouncedValue]);
-
     const { isLoading, data } = useInternalLinks(queryString);
+
+    const [selectedValue, setSelectedValue] = useState<SelectOption>();
+
+    const form = useFormContext();
+
+    // setting the intial value
+    useEffect(() => {
+        const formValue = form.getValues(name);
+
+        if (data && data.length > 0 && !!formValue) {
+            const found = data
+                .flatMap(group => {
+                    return group.options?.data?.map(option => ({
+                        label: option.label,
+                        value: group.label === 'pages' ? `${option.value}` : `${group.label}/${option.value}`
+                    }))
+                })
+                .find(option => option?.value === formValue);
+
+            setSelectedValue(found ? {
+                label: found.label,
+                value: found.value
+            } : undefined);
+        }
+    }, [isLoading])
 
     return (
         <FormItem>
@@ -34,12 +95,13 @@ export function InternalLinkField({
 
             <FormControl>
                 <Popover open={open} onOpenChange={setOpen}>
-                    <PopoverTrigger asChild className="hover:bg-secondary/20">
+                    <PopoverTrigger asChild className="hover:bg-secondary/20" disabled={isLoading}>
                         <Button
                             variant="outline"
                             role="combobox"
                             aria-expanded={open}
-                            className="w-full justify-between overflow-hidden disabled:!cursor-not-allowed disabled:pointer-events-auto"
+                            disabled={isLoading}
+                            className="py-5 w-full justify-between overflow-hidden disabled:!cursor-not-allowed disabled:pointer-events-auto"
                         >
                             <span className='truncate font-normal'>{selectedValue?.label ?? 'Select a value...'}</span>
                             <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
@@ -59,7 +121,7 @@ export function InternalLinkField({
                                                     return (
                                                         <CommandItem
                                                             key={option.value}
-                                                            value={group.label === 'pages' ? `/${option.value}` : `/${group.label}/${option.value}`}
+                                                            value={group.label === 'pages' ? `${option.value}` : `${group.label}/${option.value}`}
                                                             onSelect={(currentValue) => {
                                                                 onChange(currentValue)
                                                                 setSelectedValue(option)

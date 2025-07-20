@@ -45,7 +45,7 @@ export default function SeoTabContent() {
                         <FormLabel>Description</FormLabel>
                         <FormControl>
                             <Textarea
-                                className="field-sizing-content overflow-y-hidden resize-none w-full focus-visible:outline-0"
+                                className="field-sizing-content overflow-y-hidden resize-none w-full"
                                 {...field}
                             />
                         </FormControl>

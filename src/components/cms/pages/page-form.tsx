@@ -62,9 +62,11 @@ export default function PageForm({ page }: Props) {
     });
 
     const slug = useMemo(() => {
+        if (!name || (name?.toLowerCase() === "untitled" && page.name.toLowerCase() === "untitled")) return page.slug;
+
         const nonEmptyName = name || "Untitled"
         return generateSlug(nonEmptyName, nonEmptyName === "Untitled")
-    }, [name]);
+    }, [name, page]);
 
     return (
         <Form {...form}>
@@ -109,7 +111,6 @@ export default function PageForm({ page }: Props) {
                                             <FormLabel>Name <span className='text-destructive'>*</span></FormLabel>
                                             <FormControl>
                                                 <Input
-                                                    className='py-5'
                                                     placeholder="Eg. About us"
                                                     required
                                                     {...field}

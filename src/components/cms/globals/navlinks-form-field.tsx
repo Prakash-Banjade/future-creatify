@@ -1,4 +1,4 @@
-import { useFormContext } from "react-hook-form"
+import { useFieldArray, useFormContext } from "react-hook-form"
 import {
     Accordion,
     AccordionContent,
@@ -23,22 +23,35 @@ import {
     SelectValue,
 } from "@/components/ui/select"
 import { Checkbox } from "@/components/ui/checkbox";
-import { ECtaVariant } from "../../../../../../types/blocks.types";
-import { ELinkType } from "../../../../../../types/global.types";
-import { InternalLinkField } from "./internal-link-field";
+import { ELinkType } from "../../../../types/global.types";
+import { InternalLinkField } from "../pages/tabs/common/internal-link-field";
+import { ECtaVariant } from "../../../../types/blocks.types";
+import { MAX_NAV_SUB_LINKS } from "@/schemas/globals.schema";
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 type Props = {
     idx: number
     name: string
-    onRemove?: () => void
+    onRemove?: () => void,
+    isSubLink?: boolean
+    isFieldError?: boolean
 }
 
-export default function CtaAccordion({ idx, name, onRemove }: Props) {
+export default function NavLinkFormField({ idx, name, onRemove, isSubLink = false, isFieldError }: Props) {
     const form = useFormContext();
+
+    const { fields, append, remove } = useFieldArray({
+        name: `${name}.subLinks`,
+        control: form.control,
+    });
 
     return (
         <Accordion type="multiple">
-            <AccordionItem value={`${name}.id`} className="bg-secondary/50 border !border-b-1 rounded-md overflow-hidden">
+            <AccordionItem value={`${name}.id`} className={cn(
+                "bg-secondary/50 border !border-b-1 rounded-md overflow-hidden",
+                isFieldError && "bg-destructive/10 border-destructive"
+            )}>
                 <section className="relative flex items-center gap-2 px-2">
                     <button type="button" className="hover:cursor-grab">
                         <GripVertical className="text-muted-foreground" size={16} />
@@ -110,27 +123,6 @@ export default function CtaAccordion({ idx, name, onRemove }: Props) {
                         <section className="flex gap-10 items-end">
                             <FormField
                                 control={form.control}
-                                name={`${name}.arrow`}
-                                render={({ field }) => {
-                                    return (
-                                        <FormItem className="flex flex-row items-center gap-2">
-                                            <FormControl>
-                                                <Checkbox
-                                                    checked={field.value}
-                                                    onCheckedChange={(checked) => field.onChange(checked)}
-                                                />
-                                            </FormControl>
-                                            <FormLabel className="text-sm font-normal">
-                                                Include Arrow
-                                            </FormLabel>
-                                            <FormMessage />
-                                        </FormItem>
-                                    )
-                                }}
-                            />
-
-                            <FormField
-                                control={form.control}
                                 name={`${name}.newTab`}
                                 render={({ field }) => {
                                     return (
@@ -153,7 +145,7 @@ export default function CtaAccordion({ idx, name, onRemove }: Props) {
 
                         <FormField
                             control={form.control}
-                            name={`${name}.link`}
+                            name={`${name}.url`}
                             render={({ field }) => {
                                 return form.watch(`${name}.type`) === ELinkType.External ? (
                                     <FormItem>
@@ -171,7 +163,7 @@ export default function CtaAccordion({ idx, name, onRemove }: Props) {
                                 ) : (
                                     <InternalLinkField
                                         onChange={field.onChange}
-                                        name={`${name}.link`}
+                                        name={`${name}.url`}
                                     />
                                 )
                             }}
@@ -223,6 +215,79 @@ export default function CtaAccordion({ idx, name, onRemove }: Props) {
                             </FormItem>
                         )}
                     />
+
+                    {
+                        !isSubLink && (
+                            <FormField
+                                control={form.control}
+                                name={`navLinks.${idx}.subLinks`}
+                                render={() => (
+                                    <FormItem>
+                                        <FormLabel>Sub Nav Links</FormLabel>
+                                        <section className="space-y-2">
+                                            <section className="space-y-2">
+                                                {
+                                                    fields.map((f, subIdx) => (
+                                                        <FormField
+                                                            key={f.id}
+                                                            control={form.control}
+                                                            name={`${name}.subLinks.${subIdx}`}
+                                                            render={() => {
+                                                                const isFieldError = Array.isArray(form.formState.errors.navLinks) && !!form.formState.errors.navLinks[idx]?.subLinks?.[subIdx];
+
+                                                                return (
+                                                                    <FormItem>
+                                                                        <FormControl>
+                                                                            <NavLinkFormField
+                                                                                idx={subIdx}
+                                                                                name={`${name}.subLinks.${subIdx}`}
+                                                                                onRemove={() => remove(subIdx)}
+                                                                                isSubLink
+                                                                                isFieldError={isFieldError}
+                                                                            />
+                                                                        </FormControl>
+                                                                        <FormMessage />
+                                                                    </FormItem>
+                                                                )
+                                                            }}
+                                                        />
+                                                    ))
+                                                }
+                                            </section>
+
+                                            {
+                                                fields.length < MAX_NAV_SUB_LINKS && (
+                                                    <FormControl>
+                                                        <Button
+                                                            type="button"
+                                                            variant={"outline"}
+                                                            size={"sm"}
+                                                            className="font-normal text-xs w-fit"
+                                                            disabled={fields.length >= MAX_NAV_SUB_LINKS}
+                                                            onClick={() => {
+                                                                if (fields.length >= MAX_NAV_SUB_LINKS) return;
+
+                                                                append({
+                                                                    type: ELinkType.Internal,
+                                                                    text: "",
+                                                                    newTab: false,
+                                                                    subLinks: [],
+                                                                    url: "",
+                                                                    icon: "",
+                                                                })
+                                                            }}
+                                                        >
+                                                            <Plus size={16} /> Add Sub Link
+                                                        </Button>
+                                                    </FormControl>
+                                                )
+                                            }
+                                        </section>
+                                    </FormItem>
+                                )}
+                            />
+                        )
+                    }
                 </AccordionContent>
             </AccordionItem>
         </Accordion>
