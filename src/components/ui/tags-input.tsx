@@ -60,7 +60,7 @@ export default function TagsInput({ name, placeholder, label, max = 10, descript
                     {label && <FormLabel>{label}</FormLabel>}
                     <FormControl>
                         <div className="relative">
-                            <div className="min-h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2">
+                            <div className="min-h-10 w-full rounded-md border border-input bg-transparent dark:bg-input/30 px-3 py-2 text-sm ring-offset-background focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2">
                                 <div className="flex flex-wrap gap-1 items-center">
                                     {field.value.map((tag: string) => (
                                         <Badge key={tag} variant="secondary" className="px-2 py-1 flex items-center gap-1">
