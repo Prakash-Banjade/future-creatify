@@ -25,11 +25,10 @@ import { ActionsPlugin } from "@/components/editor/plugins/actions/actions-plugi
 import { CharacterLimitPlugin } from "@/components/editor/plugins/actions/character-limit-plugin"
 import { ClearEditorActionPlugin } from "@/components/editor/plugins/actions/clear-editor-plugin"
 import { CounterCharacterPlugin } from "@/components/editor/plugins/actions/counter-character-plugin"
-import { EditModeTogglePlugin } from "@/components/editor/plugins/actions/edit-mode-toggle-plugin"
+// import { EditModeTogglePlugin } from "@/components/editor/plugins/actions/edit-mode-toggle-plugin"
 import { MarkdownTogglePlugin } from "@/components/editor/plugins/actions/markdown-toggle-plugin"
 import { MaxLengthPlugin } from "@/components/editor/plugins/actions/max-length-plugin"
 import { SpeechToTextPlugin } from "@/components/editor/plugins/actions/speech-to-text-plugin"
-import { TreeViewPlugin } from "@/components/editor/plugins/actions/tree-view-plugin"
 import { AutoLinkPlugin } from "@/components/editor/plugins/auto-link-plugin"
 import { AutocompletePlugin } from "@/components/editor/plugins/autocomplete-plugin"
 import { CodeActionMenuPlugin } from "@/components/editor/plugins/code-action-menu-plugin"
@@ -100,13 +99,11 @@ import { InsertPoll } from "@/components/editor/plugins/toolbar/block-insert/ins
 import { InsertTable } from "@/components/editor/plugins/toolbar/block-insert/insert-table"
 import { ClearFormattingToolbarPlugin } from "@/components/editor/plugins/toolbar/clear-formatting-toolbar-plugin"
 import { CodeLanguageToolbarPlugin } from "@/components/editor/plugins/toolbar/code-language-toolbar-plugin"
-import { ElementFormatToolbarPlugin } from "@/components/editor/plugins/toolbar/element-format-toolbar-plugin"
 import { FontBackgroundToolbarPlugin } from "@/components/editor/plugins/toolbar/font-background-toolbar-plugin"
 import { FontColorToolbarPlugin } from "@/components/editor/plugins/toolbar/font-color-toolbar-plugin"
 import { FontFamilyToolbarPlugin } from "@/components/editor/plugins/toolbar/font-family-toolbar-plugin"
 import { FontFormatToolbarPlugin } from "@/components/editor/plugins/toolbar/font-format-toolbar-plugin"
 import { FontSizeToolbarPlugin } from "@/components/editor/plugins/toolbar/font-size-toolbar-plugin"
-import { HistoryToolbarPlugin } from "@/components/editor/plugins/toolbar/history-toolbar-plugin"
 import { LinkToolbarPlugin } from "@/components/editor/plugins/toolbar/link-toolbar-plugin"
 import { SubSuperToolbarPlugin } from "@/components/editor/plugins/toolbar/subsuper-toolbar-plugin"
 import { ToolbarPlugin } from "@/components/editor/plugins/toolbar/toolbar-plugin"
@@ -119,6 +116,7 @@ import { TABLE } from "@/components/editor/transformers/markdown-table-transform
 import { TWEET } from "@/components/editor/transformers/markdown-tweet-transformer"
 import { Separator } from "@/components/ui/separator"
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
+import { cn } from "@/lib/utils"
 
 export type EditorPluginProps = {
   maxLength?: number
@@ -133,12 +131,18 @@ export type EditorPluginProps = {
     collapsibleContainer?: boolean
     pageBreak?: boolean
     horizontalRule?: boolean
+    formatting?: boolean
+  }
+  className?: {
+    contentEditable?: string
+    root?: string
   }
 }
 
 export function Plugins({
   maxLength = 500,
   placeholder = "Write something...",
+  className,
   ...props
 }: EditorPluginProps) {
   const [floatingAnchorElem, setFloatingAnchorElem] =
@@ -150,13 +154,15 @@ export function Plugins({
     }
   }
 
+  console.log(props)
+
   return (
     <div className="relative">
       <ToolbarPlugin>
         {({ blockType }) => (
           <ScrollArea>
             <div className="vertical-align-middle sticky top-0 z-10 flex gap-2 border-b p-1">
-              <HistoryToolbarPlugin />
+              {/* <HistoryToolbarPlugin /> */}
               <Separator orientation="vertical" className="h-8" />
               <BlockFormatDropDown>
                 <FormatParagraph />
@@ -173,21 +179,25 @@ export function Plugins({
                 <>
                   <FontFamilyToolbarPlugin />
                   <FontSizeToolbarPlugin />
-                  <Separator orientation="vertical" className="h-8" />
-                  <FontFormatToolbarPlugin format="bold" />
-                  <FontFormatToolbarPlugin format="italic" />
-                  <FontFormatToolbarPlugin format="underline" />
-                  <FontFormatToolbarPlugin format="strikethrough" />
-                  <Separator orientation="vertical" className="h-8" />
-                  <SubSuperToolbarPlugin />
-                  <LinkToolbarPlugin />
-                  <Separator orientation="vertical" className="h-8" />
-                  <ClearFormattingToolbarPlugin />
+                  {
+                    props.plugins?.formatting && (
+                      <>
+                        <Separator orientation="vertical" className="h-8" />
+                        <FontFormatToolbarPlugin format="bold" />
+                        <FontFormatToolbarPlugin format="italic" />
+                        <FontFormatToolbarPlugin format="underline" />
+                        <FontFormatToolbarPlugin format="strikethrough" />
+                        <Separator orientation="vertical" className="h-8" />
+                        <SubSuperToolbarPlugin />
+                        <LinkToolbarPlugin />
+                        <Separator orientation="vertical" className="h-8" />
+                        <ClearFormattingToolbarPlugin />
+                      </>
+                    )
+                  }
                   <Separator orientation="vertical" className="h-8" />
                   <FontColorToolbarPlugin />
                   <FontBackgroundToolbarPlugin />
-                  <Separator orientation="vertical" className="h-8" />
-                  <ElementFormatToolbarPlugin />
                   <Separator orientation="vertical" className="h-8" />
                   {
                     !!props.plugins && (
@@ -219,7 +229,10 @@ export function Plugins({
               <div className="" ref={onRef}>
                 <ContentEditable
                   placeholder={placeholder}
-                  className="ContentEditable__root relative block h-[830px] min-h-72 max-h-full overflow-auto px-8 py-4 focus:outline-none"
+                  className={cn(
+                    "ContentEditable__root relative block overflow-auto px-8 py-4 focus:outline-none",
+                    className?.contentEditable
+                  )}
                 />
               </div>
             </div>
@@ -322,7 +335,7 @@ export function Plugins({
       </div>
       <ActionsPlugin>
         <div className="clear-both flex items-center justify-between gap-2 overflow-auto border-t p-1">
-          <div className="flex flex-1 justify-start">
+          <div className="flex flex-1 justify-start pl-2">
             <div className="flex items-center">
               <span className="text-xs text-muted-foreground">Max:</span>
               <MaxLengthPlugin maxLength={maxLength} />
@@ -350,12 +363,11 @@ export function Plugins({
                 ...TEXT_MATCH_TRANSFORMERS,
               ]}
             />
-            <EditModeTogglePlugin />
+            {/* <EditModeTogglePlugin /> */}
             <>
               <ClearEditorActionPlugin />
               <ClearEditorPlugin />
             </>
-            <TreeViewPlugin />
           </div>
         </div>
       </ActionsPlugin>

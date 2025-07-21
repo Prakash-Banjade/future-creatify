@@ -26,6 +26,7 @@ import AlignmentSelect from "./common/alignment-select";
 import { TMediaSchema } from "@/schemas/media.schema";
 import { ELinkType } from "../../../../../types/global.types";
 import { cn } from "@/lib/utils";
+import { Editor } from "@/components/editor/blocks/editor-x/editor";
 
 export default function HeroTabContent() {
     const form = useFormContext<TPageDto>();
@@ -119,11 +120,17 @@ export default function HeroTabContent() {
                                                                     <FormItem>
                                                                         <FormLabel>Headline <span className='text-destructive'>*</span></FormLabel>
                                                                         <FormControl>
-                                                                            <Input
+                                                                            {/* <Input
                                                                                 className='py-5'
                                                                                 placeholder="Eg. Leading Startup In Nepal"
                                                                                 required
                                                                                 {...field}
+                                                                            /> */}
+                                                                            <Editor
+                                                                                placeholder="Eg. Leading Startup In Nepal"
+                                                                                className={{
+                                                                                    contentEditable: "min-h-40"
+                                                                                }}
                                                                             />
                                                                         </FormControl>
                                                                         <FormMessage />

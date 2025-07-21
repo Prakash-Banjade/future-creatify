@@ -46,6 +46,8 @@ export function Editor({
   onChange,
   ...editorPluginProps
 }: EditorProps) {
+  console.log(editorPluginProps.className)
+  
   return (
     <div className="bg-background overflow-hidden rounded-lg border shadow">
       <LexicalComposer
