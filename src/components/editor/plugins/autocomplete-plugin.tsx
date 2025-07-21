@@ -36,10 +36,7 @@ type SearchPromise = {
   promise: Promise<null | string>
 }
 
-export const uuid = Math.random()
-  .toString(36)
-  .replace(/[^a-z]+/g, "")
-  .substr(0, 5)
+import { uuid } from "../utils/uuid";
 
 // TODO lookup should be custom
 function $search(selection: null | BaseSelection): [boolean, string] {

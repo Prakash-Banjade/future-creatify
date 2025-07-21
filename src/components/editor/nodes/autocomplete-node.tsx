@@ -9,7 +9,7 @@ import type {
   Spread,
 } from "lexical"
 import { DecoratorNode } from "lexical"
-import { uuid } from "../plugins/autocomplete-plugin"
+import { uuid } from "../utils/uuid"
 import { useSharedAutocompleteContext } from "../context/shared-autocomplete-context"
 
 declare global {
