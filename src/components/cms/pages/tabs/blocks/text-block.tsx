@@ -93,18 +93,23 @@ export default function TextBlock({ sectionIdx, blockIdx }: BlockComponentProps)
                                             key={f.id}
                                             control={form.control}
                                             name={`${ctaFieldName}.${idx}`}
-                                            render={() => (
-                                                <FormItem>
-                                                    <FormControl>
-                                                        <CtaAccordion
-                                                            idx={idx}
-                                                            name={`${ctaFieldName}.${idx}`}
-                                                            onRemove={() => remove(idx)}
-                                                        />
-                                                    </FormControl>
-                                                    <FormMessage />
-                                                </FormItem>
-                                            )}
+                                            render={() => {
+                                                const isFieldError = Array.isArray(form.formState.errors.sections) && !!form.formState.errors.sections[sectionIdx]?.blocks?.items?.[blockIdx]?.cta?.[idx];
+
+                                                return (
+                                                    <FormItem>
+                                                        <FormControl>
+                                                            <CtaAccordion
+                                                                idx={idx}
+                                                                name={`${ctaFieldName}.${idx}`}
+                                                                onRemove={() => remove(idx)}
+                                                                isFieldError={isFieldError}
+                                                            />
+                                                        </FormControl>
+                                                        <FormMessage />
+                                                    </FormItem>
+                                                )
+                                            }}
                                         />
                                     )
                                 })

@@ -24,15 +24,15 @@ type Props = {
 const tabs = [
     {
         label: "Hero",
-        value: "hero",
+        value: "heroSections",
     },
     {
         label: "Content",
-        value: "content",
+        value: "sections",
     },
     {
         label: "SEO",
-        value: "seo",
+        value: "metadata",
     }
 ]
 
@@ -122,7 +122,7 @@ export default function PageForm({ page }: Props) {
                                 />
                             </div>
 
-                            <Tabs defaultValue="hero" className='mt-8 w-full'>
+                            <Tabs defaultValue={tabs[0].value} className='mt-8 w-full'>
                                 <TabsList className="@6xl:pl-24 @3xl:pl-16 pl-8 py-0 space-x-2 w-full bg-transparent border-b rounded-none h-auto justify-start">
                                     {
                                         tabs.map(t => (
@@ -131,7 +131,8 @@ export default function PageForm({ page }: Props) {
                                                 value={t.value}
                                                 className={cn(
                                                     "relative !bg-transparent max-w-fit border-0 rounded-none px-3 py-4",
-                                                    "data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:after:absolute data-[state=active]:after:bottom-0 data-[state=active]:after:left-0 data-[state=active]:after:right-0 data-[state=active]:after:h-0.5 data-[state=active]:after:bg-primary"
+                                                    "data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:after:absolute data-[state=active]:after:bottom-0 data-[state=active]:after:left-0 data-[state=active]:after:right-0 data-[state=active]:after:h-0.5 data-[state=active]:after:bg-primary",
+                                                    form.formState.errors?.[t.value as keyof TPageDto] && "!text-destructive data-[state=active]:after:bg-destructive"
                                                 )}
                                             >
                                                 {t.label}
@@ -140,13 +141,13 @@ export default function PageForm({ page }: Props) {
                                     }
                                 </TabsList>
                                 <section className='@6xl:pl-24 @3xl:pl-16 pl-8 pt-4 @6xl:pr-16 pr-10 pb-20'>
-                                    <TabsContent value="hero">
+                                    <TabsContent value={tabs[0].value}>
                                         <HeroTabContent />
                                     </TabsContent>
-                                    <TabsContent value="content">
+                                    <TabsContent value={tabs[1].value}>
                                         <ContentTabContent />
                                     </TabsContent>
-                                    <TabsContent value="seo">
+                                    <TabsContent value={tabs[2].value}>
                                         <SeoTabContent />
                                     </TabsContent>
                                 </section>

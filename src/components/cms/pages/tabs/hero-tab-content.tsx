@@ -25,6 +25,7 @@ import { EHeroLayoutTypes } from "../../../../../types/page.types";
 import AlignmentSelect from "./common/alignment-select";
 import { TMediaSchema } from "@/schemas/media.schema";
 import { ELinkType } from "../../../../../types/global.types";
+import { cn } from "@/lib/utils";
 
 export default function HeroTabContent() {
     const form = useFormContext<TPageDto>();
@@ -46,12 +47,16 @@ export default function HeroTabContent() {
                                 name={`heroSections.${idx}`}
                                 render={({ field }) => {
                                     const layout = field.value.layout;
+                                    const fieldError = Array.isArray(form.formState.errors.heroSections) && form.formState.errors.heroSections[idx];
 
                                     return (
                                         <FormItem>
                                             <FormControl>
                                                 <Accordion type="multiple">
-                                                    <AccordionItem value={f.id} className="bg-secondary/50 border !border-b-1 rounded-md overflow-hidden">
+                                                    <AccordionItem value={f.id} className={cn(
+                                                        "bg-secondary/50 border !border-b-1 rounded-md overflow-hidden",
+                                                        fieldError && "bg-destructive/10 border-destructive"
+                                                    )}>
                                                         <section className="relative flex items-center gap-2 px-2">
                                                             <button type="button" className="hover:cursor-grab">
                                                                 <GripVertical className="text-muted-foreground" size={16} />
@@ -252,18 +257,23 @@ function CtaField({ heroIdx }: { heroIdx: number }) {
                                         key={f.id}
                                         control={form.control}
                                         name={`heroSections.${heroIdx}.cta.${idx}`}
-                                        render={() => (
-                                            <FormItem>
-                                                <FormControl>
-                                                    <CtaAccordion
-                                                        idx={idx}
-                                                        name={`heroSections.${heroIdx}.cta.${idx}`}
-                                                        onRemove={() => remove(idx)}
-                                                    />
-                                                </FormControl>
-                                                <FormMessage />
-                                            </FormItem>
-                                        )}
+                                        render={() => {
+                                            const isFieldError = Array.isArray(form.formState.errors.heroSections) && !!form.formState.errors.heroSections[heroIdx]?.cta[idx];
+
+                                            return (
+                                                <FormItem>
+                                                    <FormControl>
+                                                        <CtaAccordion
+                                                            idx={idx}
+                                                            name={`heroSections.${heroIdx}.cta.${idx}`}
+                                                            onRemove={() => remove(idx)}
+                                                            isFieldError={isFieldError}
+                                                        />
+                                                    </FormControl>
+                                                    <FormMessage />
+                                                </FormItem>
+                                            )
+                                        }}
                                     />
                                 )
                             })
