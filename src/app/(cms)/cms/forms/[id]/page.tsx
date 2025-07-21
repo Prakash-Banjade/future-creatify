@@ -15,6 +15,13 @@ export default async function EditFormPage({ params }: Props) {
     if (!form) return <div>Form not found</div>;
 
     return (
-        <FormForm defaultValues={form} />
+        <FormForm
+            defaultValues={form}
+            meta={{
+                id: form.id,
+                createdAt: form.createdAt,
+                updatedAt: form.updatedAt
+            }}
+        />
     )
 }

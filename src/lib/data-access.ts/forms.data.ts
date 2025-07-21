@@ -51,7 +51,9 @@ export const getFormById = cache(async (id: string) => {
             title: forms.title,
             fields: forms.fields,
             slug: forms.slug,
-            submitBtnLabel: forms.submitBtnLabel
+            submitBtnLabel: forms.submitBtnLabel,
+            createdAt: forms.createdAt,
+            updatedAt: forms.updatedAt
         }).from(forms).where(eq(forms.id, id)).limit(1);
 
         return form;

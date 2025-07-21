@@ -81,7 +81,7 @@ export default function SiteSettingForm({ defaultValues }: Props) {
 
                                 return (
                                     <FormItem>
-                                        <FormLabel>Header Logo <span className='text-destructive'>*</span></FormLabel>
+                                        <FormLabel>Header Logo</FormLabel>
                                         <FormControl>
                                             {
                                                 value ? (

@@ -2,7 +2,7 @@ import { DataTable } from '@/components/data-table/data-table';
 import { pagesColumns } from './pages.columns';
 import { getPages } from '@/lib/data-access.ts/pages.data';
 import { PagesPageProps } from '@/app/(cms)/cms/pages/page';
-import { DataTablePagination } from '@/components/data-table/data-table-patination';
+import { DataTablePagination } from '@/components/data-table/data-table-pagination';
 import SearchInput from '@/components/search/search-input';
 
 export default async function PagesList(props: PagesPageProps) {

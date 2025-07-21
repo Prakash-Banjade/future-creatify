@@ -37,10 +37,18 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 
 type Props = {
-    defaultValues?: Partial<TFormDto> & { id: string }
+    defaultValues: Partial<TFormDto>,
+    meta: {
+        id: string;
+        createdAt: Date;
+        updatedAt: Date;
+    }
+} | {
+    defaultValues?: undefined,
+    meta?: undefined
 }
 
-export default function FormForm({ defaultValues }: Props) {
+export default function FormForm({ defaultValues, meta }: Props) {
     const [isPending, startTransition] = useTransition();
     const router = useRouter();
 
@@ -56,8 +64,8 @@ export default function FormForm({ defaultValues }: Props) {
     function onSubmit(values: TFormDto) {
         startTransition(async () => {
             try {
-                if (!!defaultValues) {
-                    await updateForm(defaultValues.id, values);
+                if (!!meta) {
+                    await updateForm(meta.id, values);
                     toast.success("Updated successfully");
                 } else {
                     await createForm(values);
@@ -76,6 +84,7 @@ export default function FormForm({ defaultValues }: Props) {
         name: "title",
     });
 
+
     return (
         <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)}>
@@ -85,7 +94,22 @@ export default function FormForm({ defaultValues }: Props) {
                     </header>
                     <section className="border-y sticky z-[1] backdrop-blur-3xl top-0">
                         <section className="container flex items-center justify-between py-3">
-                            <h4>Creating new Form</h4>
+                            {
+                                meta ? (
+                                    <section className="text-sm flex gap-6">
+                                        <p>
+                                            <span className="text-muted-foreground">Last Modified:&nbsp;</span>
+                                            <time className="font-medium">{meta.updatedAt.toLocaleString()}</time>
+                                        </p>
+                                        <p>
+                                            <span className="text-muted-foreground">Created:&nbsp;</span>
+                                            <time className="font-medium">{meta.createdAt.toLocaleString()}</time>
+                                        </p>
+                                    </section>
+                                ) : (
+                                    <span className="text-sm text-muted-foreground">Creating new Form</span>
+                                )
+                            }
                             <LoadingButton
                                 type="submit"
                                 size={'lg'}
