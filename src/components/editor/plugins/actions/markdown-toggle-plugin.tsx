@@ -10,6 +10,7 @@ import { $createTextNode, $getRoot } from "lexical"
 import { FileTextIcon } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
 
 export function MarkdownTogglePlugin({
   shouldPreserveNewLinesInMarkdown,
@@ -48,15 +49,19 @@ export function MarkdownTogglePlugin({
   }, [editor, shouldPreserveNewLinesInMarkdown])
 
   return (
-    <Button
-      variant={"ghost"}
-      onClick={handleMarkdownToggle}
-      title="Convert From Markdown"
-      aria-label="Convert from markdown"
-      size={"sm"}
-      className="p-2"
-    >
-      <FileTextIcon className="size-4" />
-    </Button>
+    <Tooltip>
+      <TooltipTrigger asChild>
+        <Button
+          variant={"ghost"}
+          onClick={handleMarkdownToggle}
+          aria-label="Convert from markdown"
+          size={"sm"}
+          className="p-2"
+        >
+          <FileTextIcon className="size-4" />
+        </Button>
+      </TooltipTrigger>
+      <TooltipContent>Convert From Markdown</TooltipContent>
+    </Tooltip>
   )
 }

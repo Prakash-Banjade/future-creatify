@@ -9,7 +9,7 @@ import { ComponentPickerOption } from "../../plugins/picker/component-picker-opt
 export function EmbedsPickerPlugin({
   embed,
 }: {
-  embed: "figma" | "tweet" | "youtube-video"
+  embed: "tweet" | "youtube-video"
 }) {
   const embedConfig = EmbedConfigs.find(
     (config) => config.type === embed

@@ -18,7 +18,6 @@ import { AutocompleteNode } from "../../nodes/autocomplete-node"
 import { CollapsibleContainerNode } from "../../nodes/collapsible-container-node"
 import { CollapsibleContentNode } from "../../nodes/collapsible-content-node"
 import { CollapsibleTitleNode } from "../../nodes/collapsible-title-node"
-import { FigmaNode } from "../../nodes/embeds/figma-node"
 import { TweetNode } from "../../nodes/embeds/tweet-node"
 import { YouTubeNode } from "../../nodes/embeds/youtube-node"
 import { EmojiNode } from "../../nodes/emoji-node"
@@ -63,7 +62,6 @@ export const nodes: ReadonlyArray<Klass<LexicalNode> | LexicalNodeReplacement> =
     CollapsibleContentNode,
     CollapsibleTitleNode,
     AutoLinkNode,
-    FigmaNode,
     TweetNode,
     YouTubeNode,
     AutocompleteNode,

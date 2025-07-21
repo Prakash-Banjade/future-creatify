@@ -26,10 +26,8 @@ import { CharacterLimitPlugin } from "@/components/editor/plugins/actions/charac
 import { ClearEditorActionPlugin } from "@/components/editor/plugins/actions/clear-editor-plugin"
 import { CounterCharacterPlugin } from "@/components/editor/plugins/actions/counter-character-plugin"
 import { EditModeTogglePlugin } from "@/components/editor/plugins/actions/edit-mode-toggle-plugin"
-import { ImportExportPlugin } from "@/components/editor/plugins/actions/import-export-plugin"
 import { MarkdownTogglePlugin } from "@/components/editor/plugins/actions/markdown-toggle-plugin"
 import { MaxLengthPlugin } from "@/components/editor/plugins/actions/max-length-plugin"
-import { ShareContentPlugin } from "@/components/editor/plugins/actions/share-content-plugin"
 import { SpeechToTextPlugin } from "@/components/editor/plugins/actions/speech-to-text-plugin"
 import { TreeViewPlugin } from "@/components/editor/plugins/actions/tree-view-plugin"
 import { AutoLinkPlugin } from "@/components/editor/plugins/auto-link-plugin"
@@ -42,7 +40,6 @@ import { ContextMenuPlugin } from "@/components/editor/plugins/context-menu-plug
 import { DragDropPastePlugin } from "@/components/editor/plugins/drag-drop-paste-plugin"
 import { DraggableBlockPlugin } from "@/components/editor/plugins/draggable-block-plugin"
 import { AutoEmbedPlugin } from "@/components/editor/plugins/embeds/auto-embed-plugin"
-import { FigmaPlugin } from "@/components/editor/plugins/embeds/figma-plugin"
 import { TwitterPlugin } from "@/components/editor/plugins/embeds/twitter-plugin"
 import { YouTubePlugin } from "@/components/editor/plugins/embeds/youtube-plugin"
 import { EmojiPickerPlugin } from "@/components/editor/plugins/emoji-picker-plugin"
@@ -121,11 +118,29 @@ import { IMAGE } from "@/components/editor/transformers/markdown-image-transform
 import { TABLE } from "@/components/editor/transformers/markdown-table-transformer"
 import { TWEET } from "@/components/editor/transformers/markdown-tweet-transformer"
 import { Separator } from "@/components/ui/separator"
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
 
-const placeholder = "Press / for commands..."
-const maxLength = 1000
+export type EditorPluginProps = {
+  maxLength?: number
+  placeholder?: string
+  plugins?: {
+    image?: boolean
+    inlineImage?: boolean
+    table?: boolean
+    poll?: boolean
+    embeds?: boolean
+    columnsLayout?: boolean
+    collapsibleContainer?: boolean
+    pageBreak?: boolean
+    horizontalRule?: boolean
+  }
+}
 
-export function Plugins({ }) {
+export function Plugins({
+  maxLength = 500,
+  placeholder = "Write something...",
+  ...props
+}: EditorPluginProps) {
   const [floatingAnchorElem, setFloatingAnchorElem] =
     useState<HTMLDivElement | null>(null)
 
@@ -139,54 +154,61 @@ export function Plugins({ }) {
     <div className="relative">
       <ToolbarPlugin>
         {({ blockType }) => (
-          <div className="vertical-align-middle sticky top-0 z-10 flex gap-2 overflow-auto border-b p-1">
-            <HistoryToolbarPlugin />
-            <Separator orientation="vertical" className="h-8" />
-            <BlockFormatDropDown>
-              <FormatParagraph />
-              <FormatHeading levels={["h1", "h2", "h3"]} />
-              <FormatNumberedList />
-              <FormatBulletedList />
-              <FormatCheckList />
-              <FormatCodeBlock />
-              <FormatQuote />
-            </BlockFormatDropDown>
-            {blockType === "code" ? (
-              <CodeLanguageToolbarPlugin />
-            ) : (
-              <>
-                <FontFamilyToolbarPlugin />
-                <FontSizeToolbarPlugin />
-                <Separator orientation="vertical" className="h-8" />
-                <FontFormatToolbarPlugin format="bold" />
-                <FontFormatToolbarPlugin format="italic" />
-                <FontFormatToolbarPlugin format="underline" />
-                <FontFormatToolbarPlugin format="strikethrough" />
-                <Separator orientation="vertical" className="h-8" />
-                <SubSuperToolbarPlugin />
-                <LinkToolbarPlugin />
-                <Separator orientation="vertical" className="h-8" />
-                <ClearFormattingToolbarPlugin />
-                <Separator orientation="vertical" className="h-8" />
-                <FontColorToolbarPlugin />
-                <FontBackgroundToolbarPlugin />
-                <Separator orientation="vertical" className="h-8" />
-                <ElementFormatToolbarPlugin />
-                <Separator orientation="vertical" className="h-8" />
-                <BlockInsertPlugin>
-                  <InsertHorizontalRule />
-                  <InsertPageBreak />
-                  <InsertImage />
-                  <InsertInlineImage />
-                  <InsertCollapsibleContainer />
-                  <InsertTable />
-                  <InsertPoll />
-                  <InsertColumnsLayout />
-                  <InsertEmbeds />
-                </BlockInsertPlugin>
-              </>
-            )}
-          </div>
+          <ScrollArea>
+            <div className="vertical-align-middle sticky top-0 z-10 flex gap-2 border-b p-1">
+              <HistoryToolbarPlugin />
+              <Separator orientation="vertical" className="h-8" />
+              <BlockFormatDropDown>
+                <FormatParagraph />
+                <FormatHeading levels={["h1", "h2", "h3"]} />
+                <FormatNumberedList />
+                <FormatBulletedList />
+                <FormatCheckList />
+                <FormatCodeBlock />
+                <FormatQuote />
+              </BlockFormatDropDown>
+              {blockType === "code" ? (
+                <CodeLanguageToolbarPlugin />
+              ) : (
+                <>
+                  <FontFamilyToolbarPlugin />
+                  <FontSizeToolbarPlugin />
+                  <Separator orientation="vertical" className="h-8" />
+                  <FontFormatToolbarPlugin format="bold" />
+                  <FontFormatToolbarPlugin format="italic" />
+                  <FontFormatToolbarPlugin format="underline" />
+                  <FontFormatToolbarPlugin format="strikethrough" />
+                  <Separator orientation="vertical" className="h-8" />
+                  <SubSuperToolbarPlugin />
+                  <LinkToolbarPlugin />
+                  <Separator orientation="vertical" className="h-8" />
+                  <ClearFormattingToolbarPlugin />
+                  <Separator orientation="vertical" className="h-8" />
+                  <FontColorToolbarPlugin />
+                  <FontBackgroundToolbarPlugin />
+                  <Separator orientation="vertical" className="h-8" />
+                  <ElementFormatToolbarPlugin />
+                  <Separator orientation="vertical" className="h-8" />
+                  {
+                    !!props.plugins && (
+                      <BlockInsertPlugin>
+                        {props.plugins?.horizontalRule && <InsertHorizontalRule />}
+                        {props.plugins?.pageBreak && <InsertPageBreak />}
+                        {props.plugins?.image && <InsertImage />}
+                        {props.plugins?.inlineImage && <InsertInlineImage />}
+                        {props.plugins?.collapsibleContainer && <InsertCollapsibleContainer />}
+                        {props.plugins?.table && <InsertTable />}
+                        {props.plugins?.poll && <InsertPoll />}
+                        {props.plugins?.columnsLayout && <InsertColumnsLayout />}
+                        {props.plugins?.embeds && <InsertEmbeds />}
+                      </BlockInsertPlugin>
+                    )
+                  }
+                </>
+              )}
+            </div>
+            <ScrollBar orientation="horizontal" className="h-1" />
+          </ScrollArea>
         )}
       </ToolbarPlugin>
       <div className="relative">
@@ -233,7 +255,6 @@ export function Plugins({ }) {
         <CollapsiblePlugin />
 
         <AutoEmbedPlugin />
-        <FigmaPlugin />
         <TwitterPlugin />
         <YouTubePlugin />
 
@@ -276,7 +297,6 @@ export function Plugins({ }) {
             DividerPickerPlugin(),
             PageBreakPickerPlugin(),
             PollPickerPlugin(),
-            EmbedsPickerPlugin({ embed: "figma" }),
             EmbedsPickerPlugin({ embed: "tweet" }),
             EmbedsPickerPlugin({ embed: "youtube-video" }),
             EquationPickerPlugin(),
@@ -303,7 +323,10 @@ export function Plugins({ }) {
       <ActionsPlugin>
         <div className="clear-both flex items-center justify-between gap-2 overflow-auto border-t p-1">
           <div className="flex flex-1 justify-start">
-            <MaxLengthPlugin maxLength={maxLength} />
+            <div className="flex items-center">
+              <span className="text-xs text-muted-foreground">Max:</span>
+              <MaxLengthPlugin maxLength={maxLength} />
+            </div>
             <CharacterLimitPlugin maxLength={maxLength} charset="UTF-16" />
           </div>
           <div>
@@ -311,8 +334,6 @@ export function Plugins({ }) {
           </div>
           <div className="flex flex-1 justify-end">
             <SpeechToTextPlugin />
-            <ShareContentPlugin />
-            <ImportExportPlugin />
             <MarkdownTogglePlugin
               shouldPreserveNewLinesInMarkdown={true}
               transformers={[
