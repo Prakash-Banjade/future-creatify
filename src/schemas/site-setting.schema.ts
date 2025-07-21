@@ -2,8 +2,8 @@ import { z } from "zod";
 import { mediaSchema } from "./media.schema";
 
 export const siteSettingSchema = z.object({
-    headerLogo: mediaSchema.nullish(),
-    footerLogo: mediaSchema.nullish(),
+    logoLight: mediaSchema.nullish(),
+    logoDark: mediaSchema.nullish(),
     emails: z.array(z.string().email()).max(3, { message: "You can add up to 3 emails" }),
     phones: z.array(z.string().min(10, { message: "Invalid phone number" }).max(15, { message: "Invalid phone number" })).max(3, { message: "You can add up to 3 phone numbers" }),
     address: z.string().min(1, { message: "Address is required" }),

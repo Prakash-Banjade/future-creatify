@@ -145,7 +145,6 @@ export default function HeroTabContent() {
                                                                         <FormLabel>Sub Headline</FormLabel>
                                                                         <FormControl>
                                                                             <Input
-                                                                                className='py-5'
                                                                                 placeholder="Eg. Empowering Innovation and Growth in Nepal's Thriving Entrepreneurial Landscape"
                                                                                 {...field}
                                                                             />

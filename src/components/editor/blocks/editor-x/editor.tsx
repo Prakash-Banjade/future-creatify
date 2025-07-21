@@ -49,7 +49,7 @@ export function Editor({
   console.log(editorPluginProps.className)
   
   return (
-    <div className="bg-background overflow-hidden rounded-lg border shadow">
+    <div className="bg-background overflow-hidden">
       <LexicalComposer
         initialConfig={{
           ...editorConfig,

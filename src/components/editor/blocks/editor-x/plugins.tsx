@@ -154,14 +154,12 @@ export function Plugins({
     }
   }
 
-  console.log(props)
-
   return (
     <div className="relative">
       <ToolbarPlugin>
         {({ blockType }) => (
           <ScrollArea>
-            <div className="vertical-align-middle sticky top-0 z-10 flex gap-2 border-b p-1">
+            <div className="vertical-align-middle sticky top-0 z-10 flex gap-2 border rounded-md p-1">
               {/* <HistoryToolbarPlugin /> */}
               <Separator orientation="vertical" className="h-8" />
               <BlockFormatDropDown>
@@ -225,7 +223,7 @@ export function Plugins({
         <AutoFocusPlugin />
         <RichTextPlugin
           contentEditable={
-            <div className="">
+            <div className="mt-3 border-l">
               <div className="" ref={onRef}>
                 <ContentEditable
                   placeholder={placeholder}
@@ -333,7 +331,7 @@ export function Plugins({
 
         <ListMaxIndentLevelPlugin />
       </div>
-      <ActionsPlugin>
+      {/* <ActionsPlugin>
         <div className="clear-both flex items-center justify-between gap-2 overflow-auto border-t p-1">
           <div className="flex flex-1 justify-start pl-2">
             <div className="flex items-center">
@@ -345,32 +343,8 @@ export function Plugins({
           <div>
             <CounterCharacterPlugin charset="UTF-16" />
           </div>
-          <div className="flex flex-1 justify-end">
-            <SpeechToTextPlugin />
-            <MarkdownTogglePlugin
-              shouldPreserveNewLinesInMarkdown={true}
-              transformers={[
-                TABLE,
-                HR,
-                IMAGE,
-                EMOJI,
-                EQUATION,
-                TWEET,
-                CHECK_LIST,
-                ...ELEMENT_TRANSFORMERS,
-                ...MULTILINE_ELEMENT_TRANSFORMERS,
-                ...TEXT_FORMAT_TRANSFORMERS,
-                ...TEXT_MATCH_TRANSFORMERS,
-              ]}
-            />
-            {/* <EditModeTogglePlugin /> */}
-            <>
-              <ClearEditorActionPlugin />
-              <ClearEditorPlugin />
-            </>
-          </div>
         </div>
-      </ActionsPlugin>
+      </ActionsPlugin> */}
     </div>
   )
 }

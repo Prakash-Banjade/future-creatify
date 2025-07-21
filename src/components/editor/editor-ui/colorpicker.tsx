@@ -32,6 +32,8 @@ export default function ColorPicker({
     <Popover modal={true}>
       <PopoverTrigger asChild disabled={disabled}>
         <Button
+          type="button"
+          aria-label={label}
           size={"icon"}
           className="!h-8 !w-8"
           variant={"outline"}
