@@ -66,6 +66,8 @@ export const CardSchema = z.object({
             return true;
         }, "Invalid URL"),
     image: mediaSchema.nullish(),
+    borderLess: z.boolean(),
+    newTab: z.boolean(),
 });
 
 // ---- CardsBlockDto ----
@@ -76,8 +78,6 @@ export const CardsBlockSchema = BaseBlockSchema.extend({
     cards: z
         .array(CardSchema)
         .min(1, { message: "At least one card is required" }),
-    borderLess: z.boolean(),
-    newTab: z.boolean(),
 });
 
 // ---- RefItemBlockDto ----

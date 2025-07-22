@@ -45,7 +45,7 @@ export default function CardsBlock({ sectionIdx, blockIdx }: BlockComponentProps
                                     // reset only when layout is changed to Horizontal or Vertical from any other layout
                                     if (!maxColsFieldDisabled) {
                                         if ([ECardsBlockLayout.Horizontal, ECardsBlockLayout.Vertical].includes(val)) {
-                                            form.setValue(`${blockName}.maxColumns`, 0)
+                                            form.setValue(`${blockName}.maxColumns`, 1);
                                         }
                                     }
                                     field.onChange(val);
@@ -92,50 +92,6 @@ export default function CardsBlock({ sectionIdx, blockIdx }: BlockComponentProps
                         </FormItem>
                     )}
                 />
-
-                <section className="flex gap-6">
-                    <FormField
-                        control={form.control}
-                        name={`${blockName}.borderLess`}
-                        render={({ field }) => {
-                            return (
-                                <FormItem className="flex flex-row items-center gap-2">
-                                    <FormControl>
-                                        <Checkbox
-                                            checked={field.value}
-                                            onCheckedChange={(checked) => field.onChange(checked)}
-                                        />
-                                    </FormControl>
-                                    <FormLabel className="text-sm font-normal">
-                                        Borderless
-                                    </FormLabel>
-                                    <FormMessage />
-                                </FormItem>
-                            )
-                        }}
-                    />
-
-                    <FormField
-                        control={form.control}
-                        name={`${blockName}.newTab`}
-                        render={({ field }) => {
-                            return (
-                                <FormItem className="flex flex-row items-center gap-2">
-                                    <FormControl>
-                                        <Checkbox
-                                            checked={field.value}
-                                            onCheckedChange={(checked) => field.onChange(checked)}
-                                        />
-                                    </FormControl>
-                                    <FormLabel className="text-sm font-normal">
-                                        Open in new tab
-                                    </FormLabel>
-                                    <FormMessage />
-                                </FormItem>
-                            )
-                        }}
-                    />
-                </section>
             </section>
 
             {/* Cards */}
@@ -194,6 +150,8 @@ export default function CardsBlock({ sectionIdx, blockIdx }: BlockComponentProps
                                                 type: ELinkType.Internal
                                             },
                                             image: undefined,
+                                            borderLess: false,
+                                            newTab: false
                                         })
                                     }}
                                 >

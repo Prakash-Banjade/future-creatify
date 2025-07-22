@@ -19,7 +19,7 @@ export default async function PageEditPage({ params }: { params: Promise<Props["
 
     if (!foundPage) {
         return (
-            <div>Blog not found</div>
+            <div>Page not found</div>
         )
     }
 

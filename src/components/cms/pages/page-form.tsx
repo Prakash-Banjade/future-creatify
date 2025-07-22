@@ -112,6 +112,7 @@ export default function PageForm({ page }: Props) {
                                             <FormControl>
                                                 <Input
                                                     placeholder="Eg. About us"
+                                                    className='py-5'
                                                     required
                                                     {...field}
                                                 />

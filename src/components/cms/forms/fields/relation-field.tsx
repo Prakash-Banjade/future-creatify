@@ -21,6 +21,7 @@ export default function RelationField({ idx }: FormFieldComponentProps) {
                             <FormLabel>Name <span className='text-muted-foreground font-normal'>(no whitespace, no special characters)</span> <span className='text-destructive'>*</span></FormLabel>
                             <FormControl>
                                 <Input
+                                    className="py-5"
                                     required
                                     minLength={3}
                                     maxLength={50}
@@ -40,6 +41,7 @@ export default function RelationField({ idx }: FormFieldComponentProps) {
                             <FormLabel>Label</FormLabel>
                             <FormControl>
                                 <Input
+                                    className="py-5"
                                     maxLength={50}
                                     {...field}
                                 />
@@ -57,6 +59,7 @@ export default function RelationField({ idx }: FormFieldComponentProps) {
                             <FormLabel>Placeholder</FormLabel>
                             <FormControl>
                                 <Input
+                                    className="py-5"
                                     maxLength={50}
                                     {...field}
                                 />
@@ -74,6 +77,7 @@ export default function RelationField({ idx }: FormFieldComponentProps) {
                             <FormLabel>Default Value</FormLabel>
                             <FormControl>
                                 <Input
+                                    className="py-5"
                                     maxLength={50}
                                     {...field}
                                     value={field.value as string | number | undefined}
@@ -116,7 +120,9 @@ export default function RelationField({ idx }: FormFieldComponentProps) {
                         <FormItem>
                             <FormLabel>Filter</FormLabel>
                             <FormControl>
-                                <Input {...field} />
+                                <Input
+                                    className="py-5"
+                                    {...field} />
                             </FormControl>
                             <FormMessage />
                         </FormItem>

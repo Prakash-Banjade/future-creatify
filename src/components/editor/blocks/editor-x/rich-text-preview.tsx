@@ -1,19 +1,6 @@
-import {
-    InitialConfigType,
-    LexicalComposer,
-} from "@lexical/react/LexicalComposer"
-import { editorTheme } from "../../themes/editor-theme"
 import { SerializedEditorState } from "lexical"
-
-const editorConfig: InitialConfigType = {
-    namespace: "Editor Preview",
-    theme: editorTheme,
-    nodes: [],
-    editable: false,
-    onError: (error: Error) => {
-        console.error(error)
-    },
-}
+import { lexicalJsonToHtml } from "../../utils/lexical-json-to-html"
+import DOMPurify from 'dompurify';
 
 type Props = {
     className?: string
@@ -21,14 +8,9 @@ type Props = {
 }
 
 export function RichTextPreview({ className, value }: Props) {
+    const html = lexicalJsonToHtml(JSON.stringify(value));
+
     return (
-        <div className={className}>
-            <LexicalComposer
-                initialConfig={{
-                    ...editorConfig,
-                    editorState: JSON.stringify(value)
-                }}
-            />
-        </div>
+        <div className={className} dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(html) }} />
     )
 }

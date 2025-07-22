@@ -20,6 +20,7 @@ export default function BaseField({ idx }: FormFieldComponentProps) {
                             <FormLabel>Name <span className='text-muted-foreground font-normal'>(no whitespace, no special characters)</span> <span className='text-destructive'>*</span></FormLabel>
                             <FormControl>
                                 <Input
+                                    className="py-5"
                                     required
                                     minLength={3}
                                     maxLength={50}
@@ -39,6 +40,7 @@ export default function BaseField({ idx }: FormFieldComponentProps) {
                             <FormLabel>Label</FormLabel>
                             <FormControl>
                                 <Input
+                                    className="py-5"
                                     maxLength={50}
                                     {...field}
                                 />
@@ -56,6 +58,7 @@ export default function BaseField({ idx }: FormFieldComponentProps) {
                             <FormLabel>Placeholder</FormLabel>
                             <FormControl>
                                 <Input
+                                    className="py-5"
                                     maxLength={50}
                                     {...field}
                                 />
@@ -73,6 +76,7 @@ export default function BaseField({ idx }: FormFieldComponentProps) {
                             <FormLabel>Default Value</FormLabel>
                             <FormControl>
                                 <Input
+                                    className="py-5"
                                     maxLength={50}
                                     {...field}
                                     value={(field.value || "") as string | number | undefined}
@@ -102,6 +106,7 @@ export default function BaseField({ idx }: FormFieldComponentProps) {
                                                     <FormLabel>Min Length</FormLabel>
                                                     <FormControl>
                                                         <Input
+                                                            className="py-5"
                                                             type='number'
                                                             pattern={NUMBER_REGEX_STRING}
                                                             min={0}
@@ -120,6 +125,7 @@ export default function BaseField({ idx }: FormFieldComponentProps) {
                                                     <FormLabel>Max Length</FormLabel>
                                                     <FormControl>
                                                         <Input
+                                                            className="py-5"
                                                             type='number'
                                                             pattern={NUMBER_REGEX_STRING}
                                                             min={0}
@@ -138,6 +144,7 @@ export default function BaseField({ idx }: FormFieldComponentProps) {
                                                     <FormLabel>Pattern <span className='text-muted-foreground font-normal'>(a valid regular expression)</span></FormLabel>
                                                     <FormControl>
                                                         <Input
+                                                            className="py-5"
                                                             type='string'
                                                             {...field}
                                                         />

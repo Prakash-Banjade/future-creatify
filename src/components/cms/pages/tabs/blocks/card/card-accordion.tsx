@@ -175,43 +175,89 @@ export default function CardAccordion({ idx, name, onRemove, isFieldError }: Pro
                     {
                         !!form.watch(`${name}.link`) && (
                             <>
-                                <FormField
-                                    control={form.control}
-                                    name={`${name}.link.type`}
-                                    render={({ field }) => (
-                                        <FormItem>
-                                            <FormLabel>Type</FormLabel>
-                                            <FormControl>
-                                                <RadioGroup
-                                                    onValueChange={val => {
-                                                        form.setValue(`${name}.link.url`, "");
-                                                        field.onChange(val);
-                                                    }}
-                                                    defaultValue={field.value}
-                                                    className="flex"
-                                                >
-                                                    <FormItem className="flex items-center gap-3">
+                                <section className="grid grid-cols-2 gap-6">
+                                    <FormField
+                                        control={form.control}
+                                        name={`${name}.link.type`}
+                                        render={({ field }) => (
+                                            <FormItem>
+                                                <FormLabel>Type</FormLabel>
+                                                <FormControl>
+                                                    <RadioGroup
+                                                        onValueChange={val => {
+                                                            form.setValue(`${name}.link.url`, "");
+                                                            field.onChange(val);
+                                                        }}
+                                                        defaultValue={field.value}
+                                                        className="flex"
+                                                    >
+                                                        <FormItem className="flex items-center gap-3">
+                                                            <FormControl>
+                                                                <RadioGroupItem value={ELinkType.Internal} />
+                                                            </FormControl>
+                                                            <FormLabel className="font-normal">
+                                                                Internal Link
+                                                            </FormLabel>
+                                                        </FormItem>
+                                                        <FormItem className="flex items-center gap-3">
+                                                            <FormControl>
+                                                                <RadioGroupItem value={ELinkType.External} />
+                                                            </FormControl>
+                                                            <FormLabel className="font-normal">
+                                                                Custom URL
+                                                            </FormLabel>
+                                                        </FormItem>
+                                                    </RadioGroup>
+                                                </FormControl>
+                                                <FormMessage />
+                                            </FormItem>
+                                        )}
+                                    />
+
+                                    <section className="flex gap-6">
+                                        <FormField
+                                            control={form.control}
+                                            name={`${name}.link.borderLess`}
+                                            render={({ field }) => {
+                                                return (
+                                                    <FormItem className="flex flex-row items-center gap-2">
                                                         <FormControl>
-                                                            <RadioGroupItem value={ELinkType.Internal} />
+                                                            <Checkbox
+                                                                checked={field.value}
+                                                                onCheckedChange={(checked) => field.onChange(checked)}
+                                                            />
                                                         </FormControl>
-                                                        <FormLabel className="font-normal">
-                                                            Internal Link
+                                                        <FormLabel className="text-sm font-normal">
+                                                            Borderless
                                                         </FormLabel>
+                                                        <FormMessage />
                                                     </FormItem>
-                                                    <FormItem className="flex items-center gap-3">
+                                                )
+                                            }}
+                                        />
+
+                                        <FormField
+                                            control={form.control}
+                                            name={`${name}.link.newTab`}
+                                            render={({ field }) => {
+                                                return (
+                                                    <FormItem className="flex flex-row items-center gap-2">
                                                         <FormControl>
-                                                            <RadioGroupItem value={ELinkType.External} />
+                                                            <Checkbox
+                                                                checked={field.value}
+                                                                onCheckedChange={(checked) => field.onChange(checked)}
+                                                            />
                                                         </FormControl>
-                                                        <FormLabel className="font-normal">
-                                                            Custom URL
+                                                        <FormLabel className="text-sm font-normal">
+                                                            Open in new tab
                                                         </FormLabel>
+                                                        <FormMessage />
                                                     </FormItem>
-                                                </RadioGroup>
-                                            </FormControl>
-                                            <FormMessage />
-                                        </FormItem>
-                                    )}
-                                />
+                                                )
+                                            }}
+                                        />
+                                    </section>
+                                </section>
 
                                 <FormField
                                     control={form.control}

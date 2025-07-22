@@ -5,7 +5,7 @@ import {
   LexicalComposer,
 } from "@lexical/react/LexicalComposer"
 import { OnChangePlugin } from "@lexical/react/LexicalOnChangePlugin"
-import { SerializedEditorState } from "lexical"
+import { EditorState, SerializedEditorState } from "lexical"
 
 import { FloatingLinkContext } from "../../context/floating-link-context"
 import { SharedAutocompleteContext } from "../../context/shared-autocomplete-context"
@@ -24,36 +24,29 @@ const editorConfig: InitialConfigType = {
   },
 }
 
-export const initialValue = {
-  root: {
-    children: [],
-    direction: "ltr",
-    format: "",
-    indent: 0,
-    type: "root",
-    version: 1,
-  },
-} as unknown as SerializedEditorState
-
-
 type EditorProps = {
-  value?: SerializedEditorState
-  onChange?: (editorSerializedState: SerializedEditorState) => void
+  editorState?: EditorState
+  editorSerializedState?: SerializedEditorState
+  onChange?: (editorState: EditorState) => void
+  onSerializedChange?: (editorSerializedState: SerializedEditorState) => void
 } & EditorPluginProps
 
 export function Editor({
-  value,
+  editorState,
+  editorSerializedState,
   onChange,
+  onSerializedChange,
   ...editorPluginProps
 }: EditorProps) {
-  console.log(editorPluginProps.className)
-  
   return (
     <div className="bg-background overflow-hidden">
       <LexicalComposer
         initialConfig={{
           ...editorConfig,
-          ...(value ? { editorState: JSON.stringify(value || initialValue) } : {}),
+          ...(editorState ? { editorState } : {}),
+          ...(editorSerializedState
+            ? { editorState: JSON.stringify(editorSerializedState) }
+            : {}),
         }}
       >
         <TooltipProvider>
@@ -64,7 +57,8 @@ export function Editor({
               <OnChangePlugin
                 ignoreSelectionChange={true}
                 onChange={(editorState) => {
-                  onChange?.(editorState.toJSON())
+                  onChange?.(editorState)
+                  onSerializedChange?.(editorState.toJSON())
                 }}
               />
             </FloatingLinkContext>
