@@ -15,7 +15,6 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
-import { Input } from "@/components/ui/input";
 import CtaAccordion from "./common/cta-accordion";
 import { Button } from "@/components/ui/button";
 import { ECtaVariant } from "../../../../../types/blocks.types";

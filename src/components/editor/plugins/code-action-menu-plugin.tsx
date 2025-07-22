@@ -124,7 +124,6 @@ function CodeActionMenuContainer({
     )
   }, [editor])
 
-  const normalizedLang = normalizeCodeLang(lang)
   const codeFriendlyName = getLanguageFriendlyName(lang)
 
   return (

@@ -18,9 +18,7 @@ import { invariant } from "../shared/invariant"
 
 type SerializedCollapsibleTitleNode = SerializedElementNode
 
-export function $convertSummaryElement(
-  domNode: HTMLElement
-): DOMConversionOutput | null {
+export function $convertSummaryElement(): DOMConversionOutput | null {
   const node = $createCollapsibleTitleNode()
   return {
     node,
@@ -54,13 +52,13 @@ export class CollapsibleTitleNode extends ElementNode {
     return dom
   }
 
-  updateDOM(prevNode: CollapsibleTitleNode, dom: HTMLElement): boolean {
+  updateDOM(): boolean {
     return false
   }
 
   static importDOM(): DOMConversionMap | null {
     return {
-      summary: (domNode: HTMLElement) => {
+      summary: () => {
         return {
           conversion: $convertSummaryElement,
           priority: 1,
@@ -69,9 +67,7 @@ export class CollapsibleTitleNode extends ElementNode {
     }
   }
 
-  static importJSON(
-    serializedNode: SerializedCollapsibleTitleNode
-  ): CollapsibleTitleNode {
+  static importJSON(): CollapsibleTitleNode {
     return $createCollapsibleTitleNode()
   }
 
@@ -83,7 +79,7 @@ export class CollapsibleTitleNode extends ElementNode {
     }
   }
 
-  collapseAtStart(_selection: RangeSelection): boolean {
+  collapseAtStart(): boolean {
     this.getParentOrThrow().insertBefore(this)
     return true
   }

@@ -66,14 +66,6 @@ export function InsertInlineImageDialog({
 
   const isDisabled = src === ""
 
-  const handleShowCaptionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setShowCaption(e.target.checked)
-  }
-
-  const handlePositionChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setPosition(e.target.value as Position)
-  }
-
   const loadImage = (files: FileList | null) => {
     const reader = new FileReader()
     reader.onload = function () {

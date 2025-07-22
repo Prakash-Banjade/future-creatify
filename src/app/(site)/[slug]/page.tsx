@@ -44,7 +44,7 @@ export default async function Page({ params: paramsPromise }: Props) {
 }
 
 async function fetchPage(slug: string) {
-    const res = await serverFetch(`/pages/${slug}`);
+    const res = await serverFetch(`/pages/${slug}`, { next: { revalidate: 3600 } });
 
     if (!res.ok) notFound();
 

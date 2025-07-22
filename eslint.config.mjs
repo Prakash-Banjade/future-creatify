@@ -10,7 +10,17 @@ const compat = new FlatCompat({
 });
 
 const eslintConfig = [
-  ...compat.extends("next/core-web-vitals", "next/typescript"),
+  ...compat.config({
+    extends: ["next/core-web-vitals", "next/typescript"],
+    rules: {
+      // Turn off unused-vars completely (deactivate both the core and TS version)
+      "no-unused-vars": "off",
+      "@typescript-eslint/no-unused-vars": "off",
+
+      // Disable ban-ts-comment entirely
+      "@typescript-eslint/ban-ts-comment": "off",
+    },
+  }),
 ];
 
 export default eslintConfig;

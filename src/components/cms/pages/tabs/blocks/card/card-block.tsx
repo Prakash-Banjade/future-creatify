@@ -7,9 +7,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { NUMBER_REGEX_STRING } from "@/CONSTANTS";
 import { BlockComponentProps } from "../blocks";
 import { ECardsBlockLayout } from "../../../../../../../types/blocks.types";
-import { Checkbox } from "@/components/ui/checkbox";
 import CardAccordion from "./card-accordion";
-import { ELinkType } from "../../../../../../../types/global.types";
 import { useMemo } from "react";
 import { TPageDto } from "@/schemas/page.schema";
 

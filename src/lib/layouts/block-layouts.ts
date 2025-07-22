@@ -35,8 +35,6 @@ export const blockLayouts: {
                 layout: ECardsBlockLayout.Grid,
                 cards: [],
                 maxColumns: 3,
-                borderLess: false,
-                newTab: false
             },
             alt: "Cards",
             image: jumboCenter,
