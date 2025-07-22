@@ -145,10 +145,7 @@ export default function CardsBlock({ sectionIdx, blockIdx }: BlockComponentProps
                                             title: "",
                                             subtitle: "",
                                             description: "",
-                                            link: {
-                                                url: "",
-                                                type: ELinkType.Internal
-                                            },
+                                            link: undefined,
                                             image: undefined,
                                             borderLess: false,
                                             newTab: false

@@ -9,30 +9,7 @@ import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
 
-export const navLinks = [
-    {
-        label: 'Home',
-        href: '/',
-    },
-    {
-        label: 'About',
-        href: '/about',
-    },
-    {
-        label: 'Blogs',
-        href: '/blogs',
-    },
-    {
-        label: 'Our Team',
-        href: '/teams',
-    },
-    {
-        label: 'Events',
-        href: '/events',
-    },
-]
-
-export default function Header() {
+export default function Header({ navLinks }: { navLinks: { label: string, href: string }[] }) {
     const pathname = usePathname();
     const [scrolled, setScrolled] = useState(false);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -58,7 +35,7 @@ export default function Header() {
         <header
             className={`sticky top-0 left-0 w-full z-50 transition-all duration-300 ${scrolled
                 ? 'bg-white shadow-md py-2'
-                : 'bg-transparent py-4 md:py-6'
+                : 'bg-transparent py-4 md:py-4'
                 }`}
         >
             <div className="container mx-auto flex items-center justify-between">
@@ -74,7 +51,17 @@ export default function Header() {
 
                 {/* Desktop Navigation */}
                 <nav className="hidden md:flex items-center space-x-8">
-                    <NavLinks />
+                    {
+                        navLinks.map((link) => (
+                            <Link
+                                key={link.label}
+                                href={link.href}
+                                className={cn("hover:text-primary w-fit", pathname === link.href && "text-primary underline underline-offset-3 decoration-primary")}
+                            >
+                                {link.label}
+                            </Link>
+                        ))
+                    }
                     <Button asChild className='p-6'>
                         <Link href="/#contact" className="!text-base btn btn-primary">
                             Contact Us
@@ -125,17 +112,3 @@ export default function Header() {
         </header>
     );
 };
-
-export function NavLinks() {
-    const pathname = usePathname();
-
-    return navLinks.map((link) => (
-        <Link
-            key={link.label}
-            href={link.href}
-            className={cn("hover:text-primary w-fit", pathname === link.href && "text-primary underline underline-offset-3 decoration-primary")}
-        >
-            {link.label}
-        </Link>
-    ))
-}

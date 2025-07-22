@@ -1,3 +1,5 @@
+"use client";
+
 import * as React from "react"
 import { JSX, useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { useCollaborationContext } from "@lexical/react/LexicalCollaborationContext"

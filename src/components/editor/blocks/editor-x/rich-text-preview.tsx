@@ -1,16 +1,14 @@
-import { SerializedEditorState } from "lexical"
-import { lexicalJsonToHtml } from "../../utils/lexical-json-to-html"
-import DOMPurify from 'dompurify';
+"use client";
+
+import { cn } from "@/lib/utils";
 
 type Props = {
     className?: string
-    value: SerializedEditorState
+    html: string
 }
 
-export function RichTextPreview({ className, value }: Props) {
-    const html = lexicalJsonToHtml(JSON.stringify(value));
-
+export function RichTextPreview({ className, html }: Props) {
     return (
-        <div className={className} dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(html) }} />
+        <div className={cn("", className)} dangerouslySetInnerHTML={{ __html: html }} />
     )
 }

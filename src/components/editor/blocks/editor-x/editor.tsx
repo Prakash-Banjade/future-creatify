@@ -6,6 +6,7 @@ import {
 } from "@lexical/react/LexicalComposer"
 import { OnChangePlugin } from "@lexical/react/LexicalOnChangePlugin"
 import { EditorState, SerializedEditorState } from "lexical"
+import { $generateHtmlFromNodes } from '@lexical/html';
 
 import { FloatingLinkContext } from "../../context/floating-link-context"
 import { SharedAutocompleteContext } from "../../context/shared-autocomplete-context"
@@ -28,7 +29,7 @@ type EditorProps = {
   editorState?: EditorState
   editorSerializedState?: SerializedEditorState
   onChange?: (editorState: EditorState) => void
-  onSerializedChange?: (editorSerializedState: SerializedEditorState) => void
+  onSerializedChange?: (value: { json: SerializedEditorState, html: string }) => void
 } & EditorPluginProps
 
 export function Editor({
@@ -56,9 +57,13 @@ export function Editor({
 
               <OnChangePlugin
                 ignoreSelectionChange={true}
-                onChange={(editorState) => {
-                  onChange?.(editorState)
-                  onSerializedChange?.(editorState.toJSON())
+                onChange={(editorState, editor) => {
+                  editorState.read(() => {
+                    const json = editorState.toJSON();
+                    const html = $generateHtmlFromNodes(editor, null);
+                    onChange?.(editorState)
+                    onSerializedChange?.({ json, html })
+                  });
                 }}
               />
             </FloatingLinkContext>

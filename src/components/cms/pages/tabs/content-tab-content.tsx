@@ -1,4 +1,4 @@
-import { TPageDto } from "@/schemas/page.schema";
+import { TPageDto, TPageSection } from "@/schemas/page.schema";
 import { useFieldArray, useFormContext } from "react-hook-form"
 import {
     Accordion,
@@ -21,14 +21,16 @@ import { Textarea } from "@/components/ui/textarea";
 import BlockField from "./block-field";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { cn } from "@/lib/utils";
+import { Checkbox } from "@/components/ui/checkbox";
 
-const sectionDefaultValue = {
+const sectionDefaultValue: TPageSection = {
     headline: "",
     subheadline: "",
     blocks: {
-        direction: "horizontal" as "horizontal" | "vertical",
+        direction: "horizontal",
         items: []
-    }
+    },
+    container: false,
 }
 
 export default function ContentTabContent() {
@@ -41,7 +43,7 @@ export default function ContentTabContent() {
 
     return (
         <section className="space-y-2">
-            <p className="text-sm">Sections <span className="text-destructive">*</span></p>
+            <p className="text-sm font-medium">Sections <span className="text-destructive">*</span></p>
             {
                 form.formState.errors.sections && <p className="text-destructive text-sm">{form.formState.errors.sections?.message || form.formState.errors.sections?.root?.message}</p>
             }
@@ -164,6 +166,27 @@ export default function ContentTabContent() {
                                                                     />
                                                                 )
                                                             }
+
+                                                            <FormField
+                                                                control={form.control}
+                                                                name={`sections.${idx}.container`}
+                                                                render={({ field }) => {
+                                                                    return (
+                                                                        <FormItem className="flex flex-row items-center gap-2">
+                                                                            <FormControl>
+                                                                                <Checkbox
+                                                                                    checked={field.value}
+                                                                                    onCheckedChange={(checked) => field.onChange(checked)}
+                                                                                />
+                                                                            </FormControl>
+                                                                            <FormLabel className="text-sm font-normal">
+                                                                                Is Container?
+                                                                            </FormLabel>
+                                                                            <FormMessage />
+                                                                        </FormItem>
+                                                                    )
+                                                                }}
+                                                            />
 
                                                         </AccordionContent>
                                                     </AccordionItem>

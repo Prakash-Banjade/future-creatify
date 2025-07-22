@@ -88,7 +88,6 @@ export default function HeroTabContent() {
                                                                             onSelect={layout => {
                                                                                 insert(idx + 1, {
                                                                                     headline: richTextDefaultValues,
-                                                                                    subheadline: "",
                                                                                     image: undefined,
                                                                                     cta: [],
                                                                                     layout
@@ -120,21 +119,12 @@ export default function HeroTabContent() {
                                                                 render={({ field }) => {
                                                                     return (
                                                                         <FormItem>
-                                                                            <FormLabel>Headline <span className='text-destructive'>*</span></FormLabel>
                                                                             <FormControl>
-                                                                                {/* <Input
-                                                                                className='py-5'
-                                                                                placeholder="Eg. Leading Startup In Nepal"
-                                                                                required
-                                                                                {...field}
-                                                                            /> */}
                                                                                 <Editor
                                                                                     placeholder="Eg. Leading Startup In Nepal"
-                                                                                    className={{
-                                                                                        contentEditable: "min-h-40"
-                                                                                    }}
-                                                                                    editorSerializedState={field.value}
+                                                                                    editorSerializedState={field.value.json}
                                                                                     onSerializedChange={field.onChange}
+                                                                                    plugins={{}}
                                                                                 />
                                                                             </FormControl>
                                                                             <FormMessage />
@@ -142,7 +132,7 @@ export default function HeroTabContent() {
                                                                     )
                                                                 }}
                                                             />
-                                                            <FormField
+                                                            {/* <FormField
                                                                 control={form.control}
                                                                 name={`heroSections.${idx}.subheadline`}
                                                                 render={({ field }) => (
@@ -158,7 +148,7 @@ export default function HeroTabContent() {
                                                                         <FormMessage />
                                                                     </FormItem>
                                                                 )}
-                                                            />
+                                                            /> */}
                                                             <CtaField heroIdx={idx} />
 
                                                             <FormField
@@ -225,7 +215,6 @@ export default function HeroTabContent() {
                 onSelect={layout => {
                     append({
                         headline: richTextDefaultValues,
-                        subheadline: "",
                         image: undefined,
                         cta: [],
                         layout
@@ -305,7 +294,7 @@ function CtaField({ heroIdx }: { heroIdx: number }) {
 
                                         append({
                                             type: ELinkType.Internal,
-                                            variant: ECtaVariant.Primary,
+                                            variant: ECtaVariant.Default,
                                             text: "",
                                             link: "",
                                             arrow: false,

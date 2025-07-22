@@ -117,6 +117,7 @@ import { TWEET } from "@/components/editor/transformers/markdown-tweet-transform
 import { Separator } from "@/components/ui/separator"
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
 import { cn } from "@/lib/utils"
+import { ElementFormatToolbarPlugin } from "../../plugins/toolbar/element-format-toolbar-plugin"
 
 export type EditorPluginProps = {
   maxLength?: number
@@ -197,6 +198,8 @@ export function Plugins({
                   <FontColorToolbarPlugin />
                   <FontBackgroundToolbarPlugin />
                   <Separator orientation="vertical" className="h-8" />
+                  <ElementFormatToolbarPlugin />
+                  <Separator orientation="vertical" className="h-8" />
                   {
                     !!props.plugins && (
                       <BlockInsertPlugin>
@@ -228,7 +231,7 @@ export function Plugins({
                 <ContentEditable
                   placeholder={placeholder}
                   className={cn(
-                    "ContentEditable__root relative block overflow-auto px-8 py-4 focus:outline-none",
+                    "ContentEditable__root relative block overflow-auto px-8 py-4 min-h-24 focus:outline-none",
                     className?.contentEditable
                   )}
                 />

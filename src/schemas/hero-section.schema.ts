@@ -31,6 +31,8 @@ export const CTADtoSchema = z.object({
     }
 });
 
+export type CTADto = z.infer<typeof CTADtoSchema>;
+
 // ——— Hero Layouts ———
 const BaseHeroLayoutSchema = z.object({
     type: z.nativeEnum(EHeroLayoutTypes),
@@ -54,18 +56,10 @@ export const HeroLayoutSchema = z.discriminatedUnion("type", [
 // ——— HeroSectionDto ———
 export const HeroSectionDtoSchema = z.object({
     headline: richTextSchema,
-
-    subheadline: z
-        .string()
-        .trim()
-        .max(200, { message: "Subheadline must be between 10 and 200 characters" }),
-
     image: mediaSchema.nullish(),
-
     cta: z
         .array(CTADtoSchema)
         .max(2, { message: "CTA must be less than 2" }),
-
     layout: HeroLayoutSchema,
 });
 
@@ -73,7 +67,6 @@ export type THeroSectionDto = z.infer<typeof HeroSectionDtoSchema>;
 
 export const heroSectionDtoDefaultValues: THeroSectionDto = {
     headline: richTextDefaultValues,
-    subheadline: "",
     image: undefined,
     cta: [],
     layout: {

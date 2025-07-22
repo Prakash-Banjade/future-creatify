@@ -31,6 +31,8 @@ export const TextBlockSchema = BaseBlockSchema.extend({
     align: z.nativeEnum(EAlignment),
 });
 
+export type TextBlockDto = z.infer<typeof TextBlockSchema>;
+
 // ---- ImageBlockDto ----
 export const ImageBlockSchema = BaseBlockSchema.extend({
     type: z.literal(EBlock.Image),
@@ -79,6 +81,8 @@ export const CardsBlockSchema = BaseBlockSchema.extend({
         .array(CardSchema)
         .min(1, { message: "At least one card is required" }),
 });
+
+export type CardsBlockDto = z.infer<typeof CardsBlockSchema>;
 
 // ---- RefItemBlockDto ----
 export const RefItemBlockSchema = BaseBlockSchema.extend({
@@ -132,6 +136,7 @@ export const PageSectionSchema = z
             .max(300, { message: "Subheadline must be between 10 and 300 characters" })
             .optional(),
         blocks: PageBlocksSchema.optional(),
+        container: z.boolean()
     })
     .strict();
 

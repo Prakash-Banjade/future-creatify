@@ -1,3 +1,5 @@
+"use client";
+
 import * as React from "react"
 import { JSX, useCallback, useEffect, useRef, useState } from "react"
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext"

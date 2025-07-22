@@ -156,7 +156,7 @@ export default function CardAccordion({ idx, name, onRemove, isFieldError }: Pro
 
                     <div className="flex items-center gap-3">
                         <Checkbox
-                            id="enable-link"
+                            id={`${name}-enable-link`}
                             checked={!!form.watch(`${name}.link`)}
                             onCheckedChange={val => {
                                 if (val) {
@@ -169,7 +169,7 @@ export default function CardAccordion({ idx, name, onRemove, isFieldError }: Pro
                                 }
                             }}
                         />
-                        <Label htmlFor="enable-link">Enable link?</Label>
+                        <Label htmlFor={`${name}-enable-link`}>Enable link?</Label>
                     </div>
 
                     {

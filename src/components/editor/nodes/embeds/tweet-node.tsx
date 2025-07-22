@@ -1,3 +1,5 @@
+"use client";
+
 import * as React from "react"
 import { JSX, useCallback, useEffect, useRef, useState } from "react"
 import { BlockWithAlignableContents } from "@lexical/react/LexicalBlockWithAlignableContents"

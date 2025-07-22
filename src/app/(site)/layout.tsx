@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "../globals.css";
-import Header from "@/components/site/header";
 import Footer from "@/components/site/footer";
 import { Toaster } from "sonner";
+import Navbar from "@/components/site/navbar";
 
 const inter = Inter({
     variable: "--font-inter",
@@ -28,7 +28,7 @@ export default function SiteLayout({ children }: Props) {
             >
 
                 <div className="flex flex-col min-h-screen">
-                    <Header />
+                    <Navbar />
                     <main className="flex-grow">
                         {children}
                     </main>
