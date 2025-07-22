@@ -73,7 +73,7 @@ export default function PageForm({ page }: Props) {
             <form onSubmit={form.handleSubmit(onSubmit)} className='@container h-full'>
                 <section className="h-full flex flex-col space-y-6">
                     <h2 className="@6xl:px-24 @3xl:px-16 px-8 text-3xl font-medium capitalize">{name || "Untitled"}</h2>
-                    <section className="sticky top-0 z-[1] backdrop-blur-3xl border-y mb-0">
+                    <section className="sticky top-0 z-[50] backdrop-blur-3xl border-y mb-0">
                         <section className="@6xl:px-24 @3xl:px-16 px-8 py-3 flex items-center justify-between flex-wrap gap-6">
                             <section className="text-sm flex gap-6">
                                 <p>
@@ -112,6 +112,7 @@ export default function PageForm({ page }: Props) {
                                             <FormControl>
                                                 <Input
                                                     placeholder="Eg. About us"
+                                                    className='py-5'
                                                     required
                                                     {...field}
                                                 />

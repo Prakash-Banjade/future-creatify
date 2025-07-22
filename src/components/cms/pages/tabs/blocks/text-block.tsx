@@ -131,7 +131,7 @@ export default function TextBlock({ sectionIdx, blockIdx }: BlockComponentProps)
 
                                                 append({
                                                     type: ELinkType.Internal,
-                                                    variant: ECtaVariant.Primary,
+                                                    variant: ECtaVariant.Default,
                                                     text: "",
                                                     link: "",
                                                     arrow: false,

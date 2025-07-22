@@ -75,7 +75,7 @@ export default function SiteSettingForm({ defaultValues }: Props) {
                     <section className="container space-y-6">
                         <FormField
                             control={form.control}
-                            name="headerLogo"
+                            name="logoLight"
                             render={({ field }) => {
                                 const value = field.value;
 
@@ -106,7 +106,7 @@ export default function SiteSettingForm({ defaultValues }: Props) {
                         />
                         <FormField
                             control={form.control}
-                            name="footerLogo"
+                            name="logoDark"
                             render={({ field }) => {
                                 const value = field.value;
 

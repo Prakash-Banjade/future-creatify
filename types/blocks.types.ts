@@ -16,7 +16,7 @@ export type TextBlock = {
 }
 
 export enum ECtaVariant {
-    Primary = 'primary',
+    Default = 'default',
     Secondary = 'secondary',
     Outline = 'outline',
     Ghost = 'ghost',

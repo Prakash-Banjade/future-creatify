@@ -3,6 +3,7 @@ import { ECtaVariant } from "../../types/blocks.types";
 import { EHeroLayoutTypes } from "../../types/page.types";
 import { EAlignment, EAlignmentExcludeCenter, ELinkType } from "../../types/global.types";
 import { mediaSchema } from "./media.schema";
+import { richTextDefaultValues, richTextSchema } from "./rich-text.schema";
 
 // ——— CTA ———
 export const CTADtoSchema = z.object({
@@ -30,6 +31,8 @@ export const CTADtoSchema = z.object({
     }
 });
 
+export type CTADto = z.infer<typeof CTADtoSchema>;
+
 // ——— Hero Layouts ———
 const BaseHeroLayoutSchema = z.object({
     type: z.nativeEnum(EHeroLayoutTypes),
@@ -52,31 +55,18 @@ export const HeroLayoutSchema = z.discriminatedUnion("type", [
 
 // ——— HeroSectionDto ———
 export const HeroSectionDtoSchema = z.object({
-    headline: z
-        .string()
-        .trim()
-        .min(3, { message: "Headline must be between 3 and 50 characters" })
-        .max(50, { message: "Headline must be between 3 and 50 characters" }),
-
-    subheadline: z
-        .string()
-        .trim()
-        .max(200, { message: "Subheadline must be between 10 and 200 characters" }),
-
+    headline: richTextSchema,
     image: mediaSchema.nullish(),
-
     cta: z
         .array(CTADtoSchema)
         .max(2, { message: "CTA must be less than 2" }),
-
     layout: HeroLayoutSchema,
 });
 
 export type THeroSectionDto = z.infer<typeof HeroSectionDtoSchema>;
 
 export const heroSectionDtoDefaultValues: THeroSectionDto = {
-    headline: "Untitled",
-    subheadline: "",
+    headline: richTextDefaultValues,
     image: undefined,
     cta: [],
     layout: {

@@ -101,7 +101,7 @@ export function InternalLinkField({
                             role="combobox"
                             aria-expanded={open}
                             disabled={isLoading}
-                            className="py-5 w-full justify-between overflow-hidden disabled:!cursor-not-allowed disabled:pointer-events-auto"
+                            className="w-full justify-between overflow-hidden disabled:!cursor-not-allowed disabled:pointer-events-auto"
                         >
                             <span className='truncate font-normal'>{selectedValue?.label ?? 'Select a value...'}</span>
                             <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />

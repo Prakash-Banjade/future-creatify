@@ -27,6 +27,7 @@ export default function RadioField({ idx }: FormFieldComponentProps) {
                             <FormLabel>Name <span className='text-muted-foreground font-normal'>(no whitespace, no special characters)</span> <span className='text-destructive'>*</span></FormLabel>
                             <FormControl>
                                 <Input
+                                    className="py-5"
                                     required
                                     minLength={3}
                                     maxLength={50}
@@ -46,6 +47,7 @@ export default function RadioField({ idx }: FormFieldComponentProps) {
                             <FormLabel>Label</FormLabel>
                             <FormControl>
                                 <Input
+                                    className="py-5"
                                     maxLength={50}
                                     {...field}
                                 />
@@ -63,6 +65,7 @@ export default function RadioField({ idx }: FormFieldComponentProps) {
                             <FormLabel>Placeholder</FormLabel>
                             <FormControl>
                                 <Input
+                                    className="py-5"
                                     maxLength={50}
                                     {...field}
                                 />
@@ -80,6 +83,7 @@ export default function RadioField({ idx }: FormFieldComponentProps) {
                             <FormLabel>Default Value</FormLabel>
                             <FormControl>
                                 <Input
+                                    className="py-5"
                                     maxLength={50}
                                     {...field}
                                     value={field.value as string | number | undefined}
@@ -151,6 +155,7 @@ function OptionsField({ idx }: FormFieldComponentProps) {
                                                     <FormItem className='grow'>
                                                         <FormControl>
                                                             <Input
+                                                                className="py-5"
                                                                 placeholder='Label'
                                                                 required
                                                                 {...field}
@@ -167,6 +172,7 @@ function OptionsField({ idx }: FormFieldComponentProps) {
                                                     <FormItem className='grow'>
                                                         <FormControl>
                                                             <Input
+                                                                className="py-5"
                                                                 placeholder='Value'
                                                                 required
                                                                 {...field}

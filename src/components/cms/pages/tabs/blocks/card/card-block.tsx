@@ -7,9 +7,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { NUMBER_REGEX_STRING } from "@/CONSTANTS";
 import { BlockComponentProps } from "../blocks";
 import { ECardsBlockLayout } from "../../../../../../../types/blocks.types";
-import { Checkbox } from "@/components/ui/checkbox";
 import CardAccordion from "./card-accordion";
-import { ELinkType } from "../../../../../../../types/global.types";
 import { useMemo } from "react";
 import { TPageDto } from "@/schemas/page.schema";
 
@@ -45,7 +43,7 @@ export default function CardsBlock({ sectionIdx, blockIdx }: BlockComponentProps
                                     // reset only when layout is changed to Horizontal or Vertical from any other layout
                                     if (!maxColsFieldDisabled) {
                                         if ([ECardsBlockLayout.Horizontal, ECardsBlockLayout.Vertical].includes(val)) {
-                                            form.setValue(`${blockName}.maxColumns`, 0)
+                                            form.setValue(`${blockName}.maxColumns`, 1);
                                         }
                                     }
                                     field.onChange(val);
@@ -92,50 +90,6 @@ export default function CardsBlock({ sectionIdx, blockIdx }: BlockComponentProps
                         </FormItem>
                     )}
                 />
-
-                <section className="flex gap-6">
-                    <FormField
-                        control={form.control}
-                        name={`${blockName}.borderLess`}
-                        render={({ field }) => {
-                            return (
-                                <FormItem className="flex flex-row items-center gap-2">
-                                    <FormControl>
-                                        <Checkbox
-                                            checked={field.value}
-                                            onCheckedChange={(checked) => field.onChange(checked)}
-                                        />
-                                    </FormControl>
-                                    <FormLabel className="text-sm font-normal">
-                                        Borderless
-                                    </FormLabel>
-                                    <FormMessage />
-                                </FormItem>
-                            )
-                        }}
-                    />
-
-                    <FormField
-                        control={form.control}
-                        name={`${blockName}.newTab`}
-                        render={({ field }) => {
-                            return (
-                                <FormItem className="flex flex-row items-center gap-2">
-                                    <FormControl>
-                                        <Checkbox
-                                            checked={field.value}
-                                            onCheckedChange={(checked) => field.onChange(checked)}
-                                        />
-                                    </FormControl>
-                                    <FormLabel className="text-sm font-normal">
-                                        Open in new tab
-                                    </FormLabel>
-                                    <FormMessage />
-                                </FormItem>
-                            )
-                        }}
-                    />
-                </section>
             </section>
 
             {/* Cards */}
@@ -189,11 +143,10 @@ export default function CardsBlock({ sectionIdx, blockIdx }: BlockComponentProps
                                             title: "",
                                             subtitle: "",
                                             description: "",
-                                            link: {
-                                                url: "",
-                                                type: ELinkType.Internal
-                                            },
+                                            link: undefined,
                                             image: undefined,
+                                            borderLess: false,
+                                            newTab: false
                                         })
                                     }}
                                 >

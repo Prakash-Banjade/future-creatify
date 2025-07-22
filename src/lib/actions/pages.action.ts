@@ -50,7 +50,7 @@ export async function updatePage(id: string, values: TPageDto) {
 
     await db.update(pages).set({ ...data, slug }).where(eq(pages.id, id));
 
-    revalidatePath(`/cms/pages`);
+    revalidatePath(slug === "home" ? "/" : `/${slug}`);
 
     return { success: true };
 }

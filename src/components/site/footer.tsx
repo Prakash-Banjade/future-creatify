@@ -7,7 +7,6 @@ import {
     MapPin,
     Phone
 } from 'lucide-react';
-import { NavLinks } from './header';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Input } from '../ui/input';
@@ -55,7 +54,6 @@ export default function Footer() {
                     <div>
                         <h4 className="text-xl font-bold mb-4">Quick Links</h4>
                         <ul className="flex flex-col space-y-2">
-                            <NavLinks />
                         </ul>
                     </div>
 

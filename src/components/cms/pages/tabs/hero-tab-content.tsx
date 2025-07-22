@@ -15,7 +15,6 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
-import { Input } from "@/components/ui/input";
 import CtaAccordion from "./common/cta-accordion";
 import { Button } from "@/components/ui/button";
 import { ECtaVariant } from "../../../../../types/blocks.types";
@@ -26,6 +25,8 @@ import AlignmentSelect from "./common/alignment-select";
 import { TMediaSchema } from "@/schemas/media.schema";
 import { ELinkType } from "../../../../../types/global.types";
 import { cn } from "@/lib/utils";
+import { Editor } from "@/components/editor/blocks/editor-x/editor";
+import { richTextDefaultValues } from "@/schemas/rich-text.schema";
 
 export default function HeroTabContent() {
     const form = useFormContext<TPageDto>();
@@ -85,8 +86,7 @@ export default function HeroTabContent() {
                                                                             length={fields.length}
                                                                             onSelect={layout => {
                                                                                 insert(idx + 1, {
-                                                                                    headline: "Untitled",
-                                                                                    subheadline: "",
+                                                                                    headline: richTextDefaultValues,
                                                                                     image: undefined,
                                                                                     cta: [],
                                                                                     layout
@@ -115,22 +115,23 @@ export default function HeroTabContent() {
                                                             <FormField
                                                                 control={form.control}
                                                                 name={`heroSections.${idx}.headline`}
-                                                                render={({ field }) => (
-                                                                    <FormItem>
-                                                                        <FormLabel>Headline <span className='text-destructive'>*</span></FormLabel>
-                                                                        <FormControl>
-                                                                            <Input
-                                                                                className='py-5'
-                                                                                placeholder="Eg. Leading Startup In Nepal"
-                                                                                required
-                                                                                {...field}
-                                                                            />
-                                                                        </FormControl>
-                                                                        <FormMessage />
-                                                                    </FormItem>
-                                                                )}
+                                                                render={({ field }) => {
+                                                                    return (
+                                                                        <FormItem>
+                                                                            <FormControl>
+                                                                                <Editor
+                                                                                    placeholder="Eg. Leading Startup In Nepal"
+                                                                                    editorSerializedState={field.value.json}
+                                                                                    onSerializedChange={field.onChange}
+                                                                                    plugins={{}}
+                                                                                />
+                                                                            </FormControl>
+                                                                            <FormMessage />
+                                                                        </FormItem>
+                                                                    )
+                                                                }}
                                                             />
-                                                            <FormField
+                                                            {/* <FormField
                                                                 control={form.control}
                                                                 name={`heroSections.${idx}.subheadline`}
                                                                 render={({ field }) => (
@@ -138,15 +139,15 @@ export default function HeroTabContent() {
                                                                         <FormLabel>Sub Headline</FormLabel>
                                                                         <FormControl>
                                                                             <Input
-                                                                                className='py-5'
                                                                                 placeholder="Eg. Empowering Innovation and Growth in Nepal's Thriving Entrepreneurial Landscape"
+                                                                                className="py-5"
                                                                                 {...field}
                                                                             />
                                                                         </FormControl>
                                                                         <FormMessage />
                                                                     </FormItem>
                                                                 )}
-                                                            />
+                                                            /> */}
                                                             <CtaField heroIdx={idx} />
 
                                                             <FormField
@@ -212,8 +213,7 @@ export default function HeroTabContent() {
                 length={fields.length}
                 onSelect={layout => {
                     append({
-                        headline: "Untitled",
-                        subheadline: "",
+                        headline: richTextDefaultValues,
                         image: undefined,
                         cta: [],
                         layout
@@ -293,7 +293,7 @@ function CtaField({ heroIdx }: { heroIdx: number }) {
 
                                         append({
                                             type: ELinkType.Internal,
-                                            variant: ECtaVariant.Primary,
+                                            variant: ECtaVariant.Default,
                                             text: "",
                                             link: "",
                                             arrow: false,
