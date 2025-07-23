@@ -108,6 +108,7 @@ import { Separator } from "@/components/ui/separator"
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
 import { cn } from "@/lib/utils"
 import { ElementFormatToolbarPlugin } from "../../plugins/toolbar/element-format-toolbar-plugin"
+import { LineHeightToolbarPlugin } from "../../plugins/toolbar/line-height-toolbar-plugin"
 
 export type EditorPluginProps = {
   placeholder?: string
@@ -187,6 +188,8 @@ export function Plugins({
                   <FontBackgroundToolbarPlugin />
                   <Separator orientation="vertical" className="h-8" />
                   <ElementFormatToolbarPlugin />
+                  <Separator orientation="vertical" className="h-8" />
+                  <LineHeightToolbarPlugin />
                   <Separator orientation="vertical" className="h-8" />
                   {
                     !!props.plugins && (
@@ -279,7 +282,7 @@ export function Plugins({
           ]}
         />
         <TabFocusPlugin />
-        <AutocompletePlugin />
+        {/* <AutocompletePlugin /> */}
         <AutoLinkPlugin />
         <LinkPlugin />
 

@@ -9,6 +9,6 @@ type Props = {
 
 export function RichTextPreview({ className, html }: Props) {
     return (
-        <div className={cn("", className)} dangerouslySetInnerHTML={{ __html: html }} />
+        <div className={cn("rich_text", className)} dangerouslySetInnerHTML={{ __html: html }} />
     )
 }

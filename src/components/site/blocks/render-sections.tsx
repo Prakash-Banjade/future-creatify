@@ -4,6 +4,7 @@ import { EBlock } from "../../../../types/blocks.types"
 import RenderTextBlock from "./text"
 import RenderCardsBlock from "./card"
 import RenderImageBlock from "./image"
+import RenderRefItems from "./ref"
 
 type Props = {
   sections: TPageDto["sections"]
@@ -22,32 +23,40 @@ export default function RenderSections({ sections }: Props) {
             <section
               key={idx}
               className={cn(
-                "py-12",
+                "py-20 odd:bg-secondary even:py-32",
                 s.container && "container mx-auto",
               )}
               style={{
                 "--cols": s.blocks?.items.length
               } as React.CSSProperties}
             >
-              <div className="mb-8 flex items-center justify-center flex-col gap-3">
-                <h2 className="text-4xl font-medium text-center">{s.headline}</h2>
-                <p className="text-muted-foreground text-center max-w-6xl">{s.subheadline}</p>
-              </div>
-
               <section
-                className={cn(blocksLayoutClassName)}
+                className={cn(
+                  !s.container && "container mx-auto"
+                )}
               >
-                {
-                  s.blocks?.items?.map((b, idx) => {
-                    return b.type === EBlock.Text
-                      ? <RenderTextBlock key={idx} {...b} />
-                      : b.type === EBlock.Cards
-                        ? <RenderCardsBlock key={idx} {...b} />
-                        : b.type === EBlock.Image
-                          ? <RenderImageBlock key={idx} {...b} />
-                          : null
-                  })
-                }
+                <div className="mb-8 flex items-center justify-center flex-col gap-3">
+                  <h2 className="text-4xl font-medium text-center">{s.headline}</h2>
+                  <p className="text-muted-foreground text-center max-w-6xl">{s.subheadline}</p>
+                </div>
+
+                <section
+                  className={cn(blocksLayoutClassName)}
+                >
+                  {
+                    s.blocks?.items?.map((b, idx) => {
+                      return b.type === EBlock.Text
+                        ? <RenderTextBlock key={idx} {...b} />
+                        : b.type === EBlock.Cards
+                          ? <RenderCardsBlock key={idx} {...b} />
+                          : b.type === EBlock.Image
+                            ? <RenderImageBlock key={idx} {...b} />
+                            : b.type === EBlock.RefItem
+                              ? <RenderRefItems key={idx} {...b} />
+                              : null
+                    })
+                  }
+                </section>
               </section>
             </section>
           )

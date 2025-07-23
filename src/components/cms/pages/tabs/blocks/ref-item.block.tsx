@@ -21,7 +21,7 @@ export default function RefItemBlock({ blockIdx, sectionIdx }: BlockComponentPro
         <section className="space-y-6">
             <FormField
                 control={form.control}
-                name={`${blockName}.ref`}
+                name={`${blockName}.refRelation`}
                 render={({ field }) => (
                     <FormItem>
                         <FormLabel>Reference <span className="text-destructive">*</span></FormLabel>
@@ -128,7 +128,7 @@ export default function RefItemBlock({ blockIdx, sectionIdx }: BlockComponentPro
                                 <FormLabel>Choose Specefic Ones</FormLabel>
                                 <FormControl>
                                     <InfiniteMultiSelect
-                                        endpoint={`${form.watch(`${blockName}.ref`)}/options`}
+                                        endpoint={`${form.watch(`${blockName}.refRelation`)}/options`}
                                         onSelectionChange={val => {
                                             console.log(val)
                                             field.onChange(val)

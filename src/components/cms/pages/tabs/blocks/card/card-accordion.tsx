@@ -81,7 +81,7 @@ export default function CardAccordion({ idx, name, onRemove, isFieldError }: Pro
                                         className="py-5"
                                         required
                                         minLength={3}
-                                        maxLength={50}
+                                        maxLength={100}
                                         {...field}
                                     />
                                 </FormControl>
@@ -98,8 +98,8 @@ export default function CardAccordion({ idx, name, onRemove, isFieldError }: Pro
                                 <FormLabel>Subtitle</FormLabel>
                                 <FormControl>
                                     <Textarea
-                                        maxLength={50}
                                         className="field-sizing-content overflow-y-hidden resize-none w-full focus-visible:outline-0"
+                                        maxLength={300}
                                         {...field}
                                     />
                                 </FormControl>

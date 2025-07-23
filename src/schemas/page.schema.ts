@@ -45,11 +45,11 @@ export const CardSchema = z.object({
         .string({ required_error: "Title is required" })
         .trim()
         .min(3, { message: "Title must be between 3 and 50 characters" })
-        .max(50, { message: "Title must be between 3 and 50 characters" }),
+        .max(100, { message: "Title must be between 3 and 100 characters" }),
     subtitle: z
         .string()
         .trim()
-        .max(50, { message: "Title must be between 3 and 50 characters" })
+        .max(300, { message: "Max 300 characters" })
         .optional(),
     description: richTextSchema,
     link: z
@@ -94,7 +94,7 @@ export type CardsBlockDto = z.infer<typeof CardsBlockSchema>;
 // ---- RefItemBlockDto ----
 export const RefItemBlockSchema = BaseBlockSchema.extend({
     type: z.literal(EBlock.RefItem),
-    ref: z.nativeEnum(ERefRelation),
+    refRelation: z.nativeEnum(ERefRelation),
     limit: z.coerce.number().int().min(1),
     order: z.nativeEnum(EOrder),
     selected: z.array(z.object({ // manually choosen items by the user
@@ -102,6 +102,8 @@ export const RefItemBlockSchema = BaseBlockSchema.extend({
         label: z.string().min(1, { message: "Label is required" }),
     })).optional(),
 });
+
+export type RefItemBlockDto = z.infer<typeof RefItemBlockSchema>;
 
 // ---- FormBlockDto ----
 export const FormBlockSchema = BaseBlockSchema.extend({
@@ -133,6 +135,7 @@ export const PageBlocksSchema = z.object({
 // ---- PageSectionDto ----
 export const PageSectionSchema = z
     .object({
+        title: z.string().max(50, { message: "Title must be between 3 and 50 characters" }).optional(),
         headline: z
             .string()
             .trim()

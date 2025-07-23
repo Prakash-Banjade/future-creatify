@@ -7,7 +7,6 @@ import {
     AccordionTrigger,
 } from "@/components/ui/accordion"
 import { ChevronDown, ChevronUp, Copy, GripVertical, MoreHorizontal, Plus, X } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -24,6 +23,7 @@ import { cn } from "@/lib/utils";
 import { Checkbox } from "@/components/ui/checkbox";
 
 const sectionDefaultValue: TPageSection = {
+    title: "",
     headline: "",
     subheadline: "",
     blocks: {
@@ -56,7 +56,6 @@ export default function ContentTabContent() {
                                 control={form.control}
                                 name={`sections.${idx}`}
                                 render={({ field }) => {
-                                    const headline = form.watch(`sections.${idx}.headline`)?.trim();
                                     const fieldError = Array.isArray(form.formState.errors.sections) && !!form.formState.errors.sections[idx];
 
                                     return (
@@ -72,9 +71,34 @@ export default function ContentTabContent() {
                                                                 <GripVertical className="text-muted-foreground" size={16} />
                                                             </button>
                                                             <AccordionTrigger className="text-sm hover:no-underline py-3">
-                                                                <section className="space-x-3">
+                                                                <section className="flex items-center gap-3">
                                                                     <span className="font-light">{(idx + 1).toString().padStart(2, "0")}</span>
-                                                                    {!!headline?.length && <Badge className="max-w-[50ch] truncate">{headline}</Badge>}
+                                                                    <FormField
+                                                                        control={form.control}
+                                                                        name={`sections.${idx}.title`}
+                                                                        render={({ field }) => (
+                                                                            <FormItem>
+                                                                                <FormControl>
+                                                                                    <input
+                                                                                        maxLength={50}
+                                                                                        onClick={(e) => e.stopPropagation()}
+                                                                                        className="focus:outline-0 text-sm field-sizing-content"
+                                                                                        placeholder="Untitled"
+                                                                                        // prevent spacebar from toggling the accordion
+                                                                                        onKeyDown={(e) => e.key === ' ' && e.stopPropagation()}
+                                                                                        onKeyUp={(e) => {
+                                                                                            if (e.key === ' ') {
+                                                                                                e.stopPropagation();
+                                                                                                e.preventDefault();
+                                                                                            }
+                                                                                        }}
+                                                                                        {...field}
+                                                                                    />
+                                                                                </FormControl>
+                                                                                <FormMessage />
+                                                                            </FormItem>
+                                                                        )}
+                                                                    />
                                                                 </section>
                                                             </AccordionTrigger>
                                                             <section className="absolute right-10">

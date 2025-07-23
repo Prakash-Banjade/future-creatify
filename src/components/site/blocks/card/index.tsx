@@ -1,7 +1,6 @@
 import { cn } from '@/lib/utils'
 import { CardsBlockDto } from '@/schemas/page.schema'
-import { ECardsBlockLayout } from '../../../../../types/blocks.types'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import Link from 'next/link'
 import { ELinkType } from '../../../../../types/global.types'
 import CloudinaryImage from '@/components/ui/cloudinary-image'
@@ -41,7 +40,7 @@ export default function RenderCardsBlock({
                         <Card
                             key={index}
                             className={cn(
-                                "overflow-hidden",
+                                "overflow-hidden gap-4",
                                 card.borderLess && "border-0"
                             )}
                         >
@@ -56,7 +55,7 @@ export default function RenderCardsBlock({
                             }
                             <CardHeader>
                                 {card.title && (
-                                    <CardTitle className='sm:text-xl'>
+                                    <CardTitle className='sm:text-xl leading-snug'>
                                         {
                                             card.link?.url
                                                 ? (
@@ -68,15 +67,15 @@ export default function RenderCardsBlock({
                                         }
                                     </CardTitle>
                                 )}
-                                <CardDescription>{card.subtitle}</CardDescription>
                             </CardHeader>
-                            {
-                                !isEmptyHTML(card.description.html) && (
-                                    <CardContent>
+                            <CardContent>
+                                <p className='text-muted-foreground'>{card.subtitle}</p>
+                                {
+                                    !isEmptyHTML(card.description.html) && (
                                         <RichTextPreview html={card.description.html} />
-                                    </CardContent>
-                                )
-                            }
+                                    )
+                                }
+                            </CardContent>
                         </Card>
                     )
                 })
