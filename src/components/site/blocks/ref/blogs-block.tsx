@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import CloudinaryImage from "@/components/ui/cloudinary-image";
+import BlogCard from "../../blogs/blog-card";
 
 
 export default async function BlogsBlock({
@@ -25,45 +26,7 @@ export default async function BlogsBlock({
             {
                 blogs.map(b => {
                     return (
-                        <Card
-                            key={b.slug}
-                            className="overflow-hidden pt-0"
-                        >
-                            {
-                                b.coverImage && (
-                                    <CloudinaryImage
-                                        src={b.coverImage}
-                                        alt={b.title}
-                                        width={500}
-                                        height={400}
-                                        className="w-full max-h-72 object-cover"
-                                    />
-                                )
-                            }
-                            <CardHeader>
-                                <CardTitle className="text-2xl">
-                                    <Link href={`/blogs/${b.slug}`} className="hover:underline">
-                                        {b.title}
-                                    </Link>
-                                </CardTitle>
-                            </CardHeader>
-                            <CardContent>
-                                <p className="text-sm text-muted-foreground line-clamp-5">{b.summary}</p>
-                            </CardContent>
-                            <CardFooter>
-                                <Button
-                                    variant={'outline'}
-                                    asChild
-                                >
-                                    <Link
-                                        href={`/blogs/${b.slug}`}
-                                    >
-                                        Read More
-                                        <ArrowRight />
-                                    </Link>
-                                </Button>
-                            </CardFooter>
-                        </Card>
+                       <BlogCard key={b.slug} blog={b} />
                     )
                 })
             }

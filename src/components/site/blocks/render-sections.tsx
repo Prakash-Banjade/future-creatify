@@ -12,18 +12,18 @@ type Props = {
 
 export default function RenderSections({ sections }: Props) {
   return (
-    <>
+    <section>
       {
         sections.map((s, idx) => {
           const blocksLayoutClassName = s.blocks?.direction === "horizontal"
-            ? "grid grid-cols-[repeat(var(--cols),_minmax(0,1fr))] gap-6"
+            ? "grid grid-cols-1 md:grid-cols-[repeat(var(--cols),_minmax(0,1fr))] gap-6"
             : "space-y-4"
 
           return (
             <section
               key={idx}
               className={cn(
-                "py-20 odd:bg-secondary even:py-32",
+                "py-20 even:bg-secondary odd:py-32 first:!py-20",
                 s.container && "container mx-auto",
               )}
               style={{
@@ -62,6 +62,6 @@ export default function RenderSections({ sections }: Props) {
           )
         })
       }
-    </>
+    </section>
   )
 }

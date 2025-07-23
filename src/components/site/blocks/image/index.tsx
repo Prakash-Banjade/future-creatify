@@ -13,7 +13,7 @@ export default function RenderImageBlock({
             {images.map((image, idx) => (
                 <CloudinaryImage
                     key={idx}
-                    className="rounded-md w-full h-full object-cover"
+                    className="rounded-md w-full h-auto object-cover"
                     src={image.secure_url}
                     {...image}
                 />
