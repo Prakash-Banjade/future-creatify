@@ -70,11 +70,20 @@ export const CardSchema = z.object({
 
 export const MAX_CARD_BLOCK_CARDS = 4;
 
+const maxColsSchema = z.coerce.number().int()
+    .min(1, { message: "At least 1 column is required" })
+    .max(MAX_CARD_BLOCK_CARDS, { message: `Max ${MAX_CARD_BLOCK_CARDS} columns allowed` });
+
 // ---- CardsBlockDto ----
 export const CardsBlockSchema = BaseBlockSchema.extend({
     type: z.literal(EBlock.Cards),
     layout: z.nativeEnum(ECardsBlockLayout),
-    maxColumns: z.coerce.number().int().min(1, { message: "Min 1 column required" }).max(MAX_CARD_BLOCK_CARDS, { message: `Max ${MAX_CARD_BLOCK_CARDS} columns allowed` }),
+    columns: z.object({
+        sm: maxColsSchema.optional(),
+        md: maxColsSchema.optional(),
+        lg: maxColsSchema.optional(),
+        xl: maxColsSchema.optional(),
+    }),
     cards: z
         .array(CardSchema)
         .min(1, { message: "At least one card is required" }),

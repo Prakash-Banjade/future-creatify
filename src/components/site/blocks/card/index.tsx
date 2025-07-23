@@ -10,25 +10,22 @@ import isEmptyHTML from '@/lib/utilities/isEmptyHTML'
 
 export default function RenderCardsBlock({
     cards,
-    layout,
-    maxColumns,
+    columns,
 }: CardsBlockDto) {
-    // TODO: also implement for Masonry layout
-    const layoutClassName = layout === ECardsBlockLayout.Horizontal
-        ? "flex flex-row gap-6"
-        : layout === ECardsBlockLayout.Vertical
-            ? "flex flex-col gap-6"
-            : layout === ECardsBlockLayout.Grid
-                ? "grid grid-cols-[repeat(var(--cols),_minmax(0,1fr))] gap-6"
-                : ""
-
     return (
         <section
             className={cn(
-                layoutClassName
+                "grid grid-cols-1 gap-6",
+                "sm:grid-cols-[repeat(var(--cols-sm),_minmax(0,1fr))]",
+                "md:grid-cols-[repeat(var(--cols-md),_minmax(0,1fr))]",
+                "lg:grid-cols-[repeat(var(--cols-lg),_minmax(0,1fr))]",
+                "xl:grid-cols-[repeat(var(--cols-xl),_minmax(0,1fr))]",
             )}
             style={{
-                "--cols": maxColumns
+                "--cols-sm": columns.sm,
+                "--cols-md": columns.md,
+                "--cols-lg": columns.lg,
+                "--cols-xl": columns.xl
             } as React.CSSProperties}
         >
             {

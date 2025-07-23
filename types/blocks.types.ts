@@ -49,10 +49,8 @@ export type Card = {
 }
 
 export enum ECardsBlockLayout {
-    Horizontal = 'horizontal',
-    Vertical = 'vertical',
+    Grid = 'grid',
     Masonry = 'masonry',
-    Grid = 'grid'
 }
 
 export type CardsBlock = {

@@ -100,9 +100,9 @@ export default function PageForm({ page }: Props) {
                         </section>
                     </section>
 
-                    <section className='grow grid grid-cols-3'>
+                    <section className='grow @6xl:grid grid-cols-3'>
                         <section className='col-span-2 border-r py-8'>
-                            <div className='@6xl:ml-24 @3xl:ml-16 ml-8 @6xl:pr-16 pr-10'>
+                            <div className='@6xl:ml-24 @3xl:ml-16 ml-8 @3xl:pr-16 pr-8'>
                                 <FormField
                                     control={form.control}
                                     name="name"
@@ -141,7 +141,7 @@ export default function PageForm({ page }: Props) {
                                         ))
                                     }
                                 </TabsList>
-                                <section className='@6xl:pl-24 @3xl:pl-16 pl-8 pt-4 @6xl:pr-16 pr-10 pb-20'>
+                                <section className='@6xl:pl-24 @3xl:pl-16 pl-8 pt-4 @3xl:pr-16 pr-8 @6xl:pb-20'>
                                     <TabsContent value={tabs[0].value}>
                                         <HeroTabContent />
                                     </TabsContent>
@@ -155,7 +155,7 @@ export default function PageForm({ page }: Props) {
                             </Tabs>
                         </section>
 
-                        <section className='@6xl:mr-24 @3xl:mr-16 mr-8 @6xl:pl-16 pl-10 py-8'>
+                        <section className='@6xl:mr-24 @3xl:mr-16 mr-8 @3xl:pl-16 pl-8 py-8'>
                             <div className='space-y-2'>
                                 <Label>Slug</Label>
                                 <Input

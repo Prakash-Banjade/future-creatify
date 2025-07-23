@@ -1,16 +1,15 @@
-import { useFieldArray, useFormContext, useWatch } from "react-hook-form"
+import { useFieldArray, useFormContext } from "react-hook-form"
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { NUMBER_REGEX_STRING } from "@/CONSTANTS";
 import { BlockComponentProps } from "../blocks";
 import { ECardsBlockLayout } from "../../../../../../../types/blocks.types";
 import CardAccordion from "./card-accordion";
-import { useMemo } from "react";
 import { MAX_CARD_BLOCK_CARDS, TPageDto } from "@/schemas/page.schema";
 import { richTextDefaultValues } from "@/schemas/rich-text.schema";
+import { Input } from "@/components/ui/input";
+import { NUMBER_REGEX_STRING } from "@/CONSTANTS";
 
 export default function CardsBlock({ sectionIdx, blockIdx }: BlockComponentProps) {
     const form = useFormContext<TPageDto>();
@@ -23,76 +22,125 @@ export default function CardsBlock({ sectionIdx, blockIdx }: BlockComponentProps
         name: cardFieldName,
     });
 
-    const layout = useWatch({
-        control: form.control,
-        name: `${blockName}.layout`
-    });
-
-    const maxColsFieldDisabled = useMemo(() => [ECardsBlockLayout.Horizontal, ECardsBlockLayout.Vertical].includes(layout), [layout]);
-
     return (
         <section className="space-y-6">
-            <section className="grid grid-cols-2 gap-6">
-                <FormField
-                    control={form.control}
-                    name={`${blockName}.layout`}
-                    render={({ field }) => (
-                        <FormItem>
-                            <FormLabel>Layout <span className="text-destructive">*</span></FormLabel>
-                            <Select
-                                onValueChange={(val: ECardsBlockLayout) => {
-                                    // reset only when layout is changed to Horizontal or Vertical from any other layout
-                                    if (!maxColsFieldDisabled) {
-                                        if ([ECardsBlockLayout.Horizontal, ECardsBlockLayout.Vertical].includes(val)) {
-                                            form.setValue(`${blockName}.maxColumns`, 1);
-                                        }
-                                    }
-                                    field.onChange(val);
-                                }}
-                                defaultValue={field.value}
-                                required
-                            >
-                                <FormControl>
-                                    <SelectTrigger className="w-full py-5">
-                                        <SelectValue placeholder={"Select an option"} />
-                                    </SelectTrigger>
-                                </FormControl>
-                                <SelectContent>
-                                    {
-                                        Object.entries(ECardsBlockLayout).map(([key, value]) => (
-                                            <SelectItem key={key} value={value}>{key}</SelectItem>
-                                        ))
-                                    }
-                                </SelectContent>
-                            </Select>
-                            <FormMessage />
-                        </FormItem>
-                    )}
-                />
-
-                <FormField
-                    control={form.control}
-                    name={`${blockName}.maxColumns`}
-                    render={({ field }) => (
-                        <FormItem>
-                            <FormLabel>Max Columns {!maxColsFieldDisabled && (<span className='text-destructive'>*</span>)}</FormLabel>
+            <FormField
+                control={form.control}
+                name={`${blockName}.layout`}
+                render={({ field }) => (
+                    <FormItem>
+                        <FormLabel>Layout <span className="text-destructive">*</span></FormLabel>
+                        <Select
+                            onValueChange={field.onChange}
+                            defaultValue={field.value}
+                            required
+                        >
                             <FormControl>
-                                <Input
-                                    type="number"
-                                    className='py-5'
-                                    required
-                                    pattern={NUMBER_REGEX_STRING}
-                                    disabled={maxColsFieldDisabled} // not needed for horizontal and vertical layout
-                                    min={1}
-                                    max={MAX_CARD_BLOCK_CARDS}
-                                    {...field}
-                                />
+                                <SelectTrigger className="w-full py-5">
+                                    <SelectValue placeholder={"Select an option"} />
+                                </SelectTrigger>
                             </FormControl>
-                            <FormMessage />
-                        </FormItem>
-                    )}
-                />
-            </section>
+                            <SelectContent>
+                                {
+                                    Object.entries(ECardsBlockLayout).map(([key, value]) => (
+                                        <SelectItem key={key} value={value}>{key}</SelectItem>
+                                    ))
+                                }
+                            </SelectContent>
+                        </Select>
+                        <FormMessage />
+                    </FormItem>
+                )}
+            />
+
+            <FormField
+                control={form.control}
+                name={`${blockName}.columns`}
+                render={() => (
+                    <FormItem>
+                        <FormLabel>Columns</FormLabel>
+                        <section className="grid grid-cols-4 gap-2">
+                            <FormField
+                                control={form.control}
+                                name={`${blockName}.columns.sm`}
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Small</FormLabel>
+                                        <FormControl>
+                                            <Input
+                                                className="py-5"
+                                                type="number"
+                                                pattern={NUMBER_REGEX_STRING}
+                                                max={MAX_CARD_BLOCK_CARDS}
+                                                {...field}
+                                            />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                            <FormField
+                                control={form.control}
+                                name={`${blockName}.columns.md`}
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Medium</FormLabel>
+                                        <FormControl>
+                                            <Input
+                                                className="py-5"
+                                                type="number"
+                                                pattern={NUMBER_REGEX_STRING}
+                                                max={MAX_CARD_BLOCK_CARDS}
+                                                {...field}
+                                            />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                            <FormField
+                                control={form.control}
+                                name={`${blockName}.columns.lg`}
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Large</FormLabel>
+                                        <FormControl>
+                                            <Input
+                                                className="py-5"
+                                                type="number"
+                                                pattern={NUMBER_REGEX_STRING}
+                                                max={MAX_CARD_BLOCK_CARDS}
+                                                {...field}
+                                            />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                            <FormField
+                                control={form.control}
+                                name={`${blockName}.columns.xl`}
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Extra Large</FormLabel>
+                                        <FormControl>
+                                            <Input
+                                                className="py-5"
+                                                type="number"
+                                                pattern={NUMBER_REGEX_STRING}
+                                                max={MAX_CARD_BLOCK_CARDS}
+                                                {...field}
+                                            />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                        </section>
+                        <FormMessage />
+                    </FormItem>
+                )}
+            />
 
             {/* Cards */}
             <section className="space-y-2">
