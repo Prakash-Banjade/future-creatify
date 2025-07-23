@@ -19,7 +19,7 @@ export default function RenderCardsBlock({
         : layout === ECardsBlockLayout.Vertical
             ? "flex flex-col gap-6"
             : layout === ECardsBlockLayout.Grid
-                ? `grid grid-cols-${maxColumns} gap-6`
+                ? "grid grid-cols-[repeat(var(--cols),_minmax(0,1fr))] gap-6"
                 : ""
 
     return (
@@ -27,6 +27,9 @@ export default function RenderCardsBlock({
             className={cn(
                 layoutClassName
             )}
+            style={{
+                "--cols": maxColumns
+            } as React.CSSProperties}
         >
             {
                 cards.map((card, index) => {

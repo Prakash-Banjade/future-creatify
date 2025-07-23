@@ -37,6 +37,8 @@ export const ImageBlockSchema = BaseBlockSchema.extend({
     images: z.array(mediaSchema).min(1, { message: "At least one image is required" }),
 });
 
+export type ImageBlockDto = z.infer<typeof ImageBlockSchema>;
+
 // ---- CardDto ----
 export const CardSchema = z.object({
     title: z
@@ -66,11 +68,13 @@ export const CardSchema = z.object({
     newTab: z.boolean(),
 });
 
+export const MAX_CARD_BLOCK_CARDS = 4;
+
 // ---- CardsBlockDto ----
 export const CardsBlockSchema = BaseBlockSchema.extend({
     type: z.literal(EBlock.Cards),
     layout: z.nativeEnum(ECardsBlockLayout),
-    maxColumns: z.coerce.number().int().min(1),
+    maxColumns: z.coerce.number().int().min(1, { message: "Min 1 column required" }).max(MAX_CARD_BLOCK_CARDS, { message: `Max ${MAX_CARD_BLOCK_CARDS} columns allowed` }),
     cards: z
         .array(CardSchema)
         .min(1, { message: "At least one card is required" }),

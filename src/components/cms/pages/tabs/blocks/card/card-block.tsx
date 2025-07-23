@@ -9,7 +9,7 @@ import { BlockComponentProps } from "../blocks";
 import { ECardsBlockLayout } from "../../../../../../../types/blocks.types";
 import CardAccordion from "./card-accordion";
 import { useMemo } from "react";
-import { TPageDto } from "@/schemas/page.schema";
+import { MAX_CARD_BLOCK_CARDS, TPageDto } from "@/schemas/page.schema";
 import { richTextDefaultValues } from "@/schemas/rich-text.schema";
 
 export default function CardsBlock({ sectionIdx, blockIdx }: BlockComponentProps) {
@@ -84,6 +84,7 @@ export default function CardsBlock({ sectionIdx, blockIdx }: BlockComponentProps
                                     pattern={NUMBER_REGEX_STRING}
                                     disabled={maxColsFieldDisabled} // not needed for horizontal and vertical layout
                                     min={1}
+                                    max={MAX_CARD_BLOCK_CARDS}
                                     {...field}
                                 />
                             </FormControl>

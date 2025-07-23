@@ -3,6 +3,7 @@ import { TPageDto } from "@/schemas/page.schema"
 import { EBlock } from "../../../../types/blocks.types"
 import RenderTextBlock from "./text"
 import RenderCardsBlock from "./card"
+import RenderImageBlock from "./image"
 
 type Props = {
   sections: TPageDto["sections"]
@@ -14,14 +15,20 @@ export default function RenderSections({ sections }: Props) {
       {
         sections.map((s, idx) => {
           const blocksLayoutClassName = s.blocks?.direction === "horizontal"
-            ? `grid grid-cols-${s.blocks?.items?.length} gap-4`
+            ? "grid grid-cols-[repeat(var(--cols),_minmax(0,1fr))] gap-6"
             : "space-y-4"
 
           return (
-            <section key={idx} className={cn(
-              "py-12",
-              s.container && "container mx-auto",
-            )}>
+            <section
+              key={idx}
+              className={cn(
+                "py-12",
+                s.container && "container mx-auto",
+              )}
+              style={{
+                "--cols": s.blocks?.items.length
+              } as React.CSSProperties}
+            >
               <div className="mb-8 flex items-center justify-center flex-col gap-3">
                 <h2 className="text-4xl font-medium text-center">{s.headline}</h2>
                 <p className="text-muted-foreground text-center max-w-6xl">{s.subheadline}</p>
@@ -36,7 +43,9 @@ export default function RenderSections({ sections }: Props) {
                       ? <RenderTextBlock key={idx} {...b} />
                       : b.type === EBlock.Cards
                         ? <RenderCardsBlock key={idx} {...b} />
-                        : null
+                        : b.type === EBlock.Image
+                          ? <RenderImageBlock key={idx} {...b} />
+                          : null
                   })
                 }
               </section>
