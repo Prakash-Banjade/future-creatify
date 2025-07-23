@@ -1,7 +1,7 @@
 "use server";
 
 import { redirect } from "next/navigation";
-import getSession from "./getSession";
+import getSession from "../getSession";
 
 export default async function checkAuth(role?: 'admin' | 'user') {
     const session = await getSession();

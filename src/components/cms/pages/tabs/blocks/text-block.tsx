@@ -5,11 +5,11 @@ import { Button } from "@/components/ui/button";
 import { ECtaVariant } from "../../../../../../types/blocks.types";
 import { Plus } from "lucide-react";
 import CtaAccordion from "../common/cta-accordion";
-import { Textarea } from "@/components/ui/textarea";
 import { BlockComponentProps } from "./blocks";
 import AlignmentSelect from "../common/alignment-select";
 import { ELinkType } from "../../../../../../types/global.types";
 import { TPageDto } from "@/schemas/page.schema";
+import { Editor } from "@/components/editor/blocks/editor-x/editor";
 
 export default function TextBlock({ sectionIdx, blockIdx }: BlockComponentProps) {
     const form = useFormContext<TPageDto>();
@@ -65,12 +65,11 @@ export default function TextBlock({ sectionIdx, blockIdx }: BlockComponentProps)
                 name={`${blockName}.body`}
                 render={({ field }) => (
                     <FormItem>
-                        <FormLabel>Body</FormLabel>
                         <FormControl>
-                            <Textarea
-                                className="field-sizing-content overflow-y-hidden resize-none w-full focus-visible:outline-0"
-                                maxLength={1000}
-                                {...field}
+                            <Editor
+                                placeholder="Write something..."
+                                editorSerializedState={field.value.json}
+                                onSerializedChange={field.onChange}
                             />
                         </FormControl>
                         <FormMessage />

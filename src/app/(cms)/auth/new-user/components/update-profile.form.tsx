@@ -5,7 +5,7 @@ import { Input } from '@/components/ui/input'
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
-import { updateProfileAction } from '@/lib/updateProfile.action'
+import { updateProfile } from '@/lib/actions/profile.action'
 import { useRouter } from 'next/navigation'
 import { CldImage, CldUploadWidget } from 'next-cloudinary'
 import { Camera, User, X } from 'lucide-react'
@@ -26,7 +26,7 @@ export const UpdateProfileForm = ({ defaultValues }: { defaultValues?: UpdatePro
 
     async function onSubmit(values: UpdateProfileFormSchemaType) {
         try {
-            await updateProfileAction(values);
+            await updateProfile(values);
 
             router.push('/profile');
             router.refresh();

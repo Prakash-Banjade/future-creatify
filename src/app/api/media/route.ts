@@ -1,6 +1,6 @@
 import { db } from "@/db";
 import { media } from "@/db/schema/media";
-import checkAuth from "@/lib/check-auth";
+import checkAuth from "@/lib/utilities/check-auth";
 import { getPaginationQueryParams, paginatedResponse } from "@/lib/db-utils";
 import { and, desc, eq, ilike, SQL } from "drizzle-orm";
 import { NextRequest } from "next/server";

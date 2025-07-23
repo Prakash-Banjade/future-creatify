@@ -40,7 +40,7 @@ export function Editor({
   ...editorPluginProps
 }: EditorProps) {
   return (
-    <div className="bg-background overflow-hidden">
+    <div className="rich_text bg-background overflow-hidden">
       <LexicalComposer
         initialConfig={{
           ...editorConfig,

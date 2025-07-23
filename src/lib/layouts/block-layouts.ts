@@ -3,6 +3,7 @@ import jumboCenter from "@/assets/layouts/hero-layout/jumbotron-center.svg"
 import { EBlock, ECardsBlockLayout } from "../../../types/blocks.types"
 import { EAlignment, EOrder, ERefRelation } from "../../../types/global.types"
 import { StaticImageData } from "next/image"
+import { richTextDefaultValues } from "@/schemas/rich-text.schema"
 
 export const blockLayouts: {
     block: TBlock,
@@ -14,7 +15,7 @@ export const blockLayouts: {
                 type: EBlock.Text,
                 headline: "",
                 subheadline: "",
-                body: "",
+                body: richTextDefaultValues,
                 cta: [],
                 align: EAlignment.Left,
             },
@@ -34,7 +35,12 @@ export const blockLayouts: {
                 type: EBlock.Cards,
                 layout: ECardsBlockLayout.Grid,
                 cards: [],
-                maxColumns: 3,
+                columns: {
+                    sm: 1,
+                    md: 2,
+                    lg: 3,
+                    xl: 4
+                }
             },
             alt: "Cards",
             image: jumboCenter,
@@ -42,7 +48,7 @@ export const blockLayouts: {
         {
             block: {
                 type: EBlock.RefItem,
-                ref: ERefRelation.Blogs,
+                refRelation: ERefRelation.Blogs,
                 limit: 3,
                 order: EOrder.Desc,
                 selected: undefined

@@ -2,7 +2,7 @@ import { FormsPageProps } from "@/app/(cms)/cms/forms/page";
 import { db } from "@/db";
 import { forms, formSubmissions } from "@/db/schema/form";
 import { and, desc, eq, ilike, SQL } from "drizzle-orm";
-import checkAuth from "../check-auth";
+import checkAuth from "../utilities/check-auth";
 import { getPaginationQueryParams, paginatedResponse } from "../db-utils";
 import { cache } from "react";
 import { TDataSearchParams } from "../../../types/global.types";

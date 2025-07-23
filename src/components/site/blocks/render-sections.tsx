@@ -3,6 +3,8 @@ import { TPageDto } from "@/schemas/page.schema"
 import { EBlock } from "../../../../types/blocks.types"
 import RenderTextBlock from "./text"
 import RenderCardsBlock from "./card"
+import RenderImageBlock from "./image"
+import RenderRefItems from "./ref"
 
 type Props = {
   sections: TPageDto["sections"]
@@ -10,40 +12,56 @@ type Props = {
 
 export default function RenderSections({ sections }: Props) {
   return (
-    <>
+    <section>
       {
         sections.map((s, idx) => {
           const blocksLayoutClassName = s.blocks?.direction === "horizontal"
-            ? `grid grid-cols-${s.blocks?.items?.length} gap-4`
+            ? "grid grid-cols-1 md:grid-cols-[repeat(var(--cols),_minmax(0,1fr))] gap-6"
             : "space-y-4"
 
           return (
-            <section key={idx} className={cn(
-              "py-12",
-              s.container && "container mx-auto",
-            )}>
-              <div className="mb-8 flex items-center justify-center flex-col gap-3">
-                <h2 className="text-4xl font-medium text-center">{s.headline}</h2>
-                <p className="text-muted-foreground text-center max-w-6xl">{s.subheadline}</p>
-              </div>
-
+            <section
+              key={idx}
+              className={cn(
+                "py-20 even:bg-secondary odd:py-32 first:!py-20",
+                s.container && "container mx-auto",
+              )}
+              style={{
+                "--cols": s.blocks?.items.length
+              } as React.CSSProperties}
+            >
               <section
-                className={cn(blocksLayoutClassName)}
+                className={cn(
+                  !s.container && "container mx-auto"
+                )}
               >
-                {
-                  s.blocks?.items?.map((b, idx) => {
-                    return b.type === EBlock.Text
-                      ? <RenderTextBlock key={idx} {...b} />
-                      : b.type === EBlock.Cards
-                        ? <RenderCardsBlock key={idx} {...b} />
-                        : null
-                  })
-                }
+                <div className="mb-8 flex items-center justify-center flex-col gap-3">
+                  <h2 className="text-4xl font-medium text-center">{s.headline}</h2>
+                  <p className="text-muted-foreground text-center max-w-6xl">{s.subheadline}</p>
+                </div>
+
+                <section
+                  className={cn(blocksLayoutClassName)}
+                >
+                  {
+                    s.blocks?.items?.map((b, idx) => {
+                      return b.type === EBlock.Text
+                        ? <RenderTextBlock key={idx} {...b} />
+                        : b.type === EBlock.Cards
+                          ? <RenderCardsBlock key={idx} {...b} />
+                          : b.type === EBlock.Image
+                            ? <RenderImageBlock key={idx} {...b} />
+                            : b.type === EBlock.RefItem
+                              ? <RenderRefItems key={idx} {...b} />
+                              : null
+                    })
+                  }
+                </section>
               </section>
             </section>
           )
         })
       }
-    </>
+    </section>
   )
 }

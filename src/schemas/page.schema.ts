@@ -3,6 +3,7 @@ import { EBlock, ECardsBlockLayout } from "../../types/blocks.types";
 import { EAlignment, ELinkType, EOrder, ERefRelation } from "../../types/global.types";
 import { CTADtoSchema, HeroSectionDtoSchema } from "./hero-section.schema";
 import { mediaSchema } from "./media.schema";
+import { richTextSchema } from "./rich-text.schema";
 
 // ---- BaseBlock ----
 export const BaseBlockSchema = z.object({
@@ -21,10 +22,7 @@ export const TextBlockSchema = BaseBlockSchema.extend({
         .string()
         .trim()
         .max(300, { message: "Subheadline must be between 3 and 300 characters" }),
-    body: z
-        .string()
-        .trim()
-        .max(1000, { message: "Body must be less than 1000 characters" }),
+    body: richTextSchema,
     cta: z
         .array(CTADtoSchema)
         .max(2, { message: "CTA must be less than 2" }),
@@ -39,23 +37,21 @@ export const ImageBlockSchema = BaseBlockSchema.extend({
     images: z.array(mediaSchema).min(1, { message: "At least one image is required" }),
 });
 
+export type ImageBlockDto = z.infer<typeof ImageBlockSchema>;
+
 // ---- CardDto ----
 export const CardSchema = z.object({
     title: z
         .string({ required_error: "Title is required" })
         .trim()
         .min(3, { message: "Title must be between 3 and 50 characters" })
-        .max(50, { message: "Title must be between 3 and 50 characters" }),
+        .max(100, { message: "Title must be between 3 and 100 characters" }),
     subtitle: z
         .string()
         .trim()
-        .max(50, { message: "Title must be between 3 and 50 characters" })
+        .max(300, { message: "Max 300 characters" })
         .optional(),
-    description: z
-        .string()
-        .trim()
-        .max(300, { message: "Description must be between 3 and 300 characters" })
-        .optional(),
+    description: richTextSchema,
     link: z
         .object({
             url: z.string(),
@@ -72,11 +68,22 @@ export const CardSchema = z.object({
     newTab: z.boolean(),
 });
 
+export const MAX_CARD_BLOCK_CARDS = 4;
+
+const maxColsSchema = z.coerce.number().int()
+    .min(1, { message: "At least 1 column is required" })
+    .max(MAX_CARD_BLOCK_CARDS, { message: `Max ${MAX_CARD_BLOCK_CARDS} columns allowed` });
+
 // ---- CardsBlockDto ----
 export const CardsBlockSchema = BaseBlockSchema.extend({
     type: z.literal(EBlock.Cards),
     layout: z.nativeEnum(ECardsBlockLayout),
-    maxColumns: z.coerce.number().int().min(1),
+    columns: z.object({
+        sm: maxColsSchema.optional(),
+        md: maxColsSchema.optional(),
+        lg: maxColsSchema.optional(),
+        xl: maxColsSchema.optional(),
+    }),
     cards: z
         .array(CardSchema)
         .min(1, { message: "At least one card is required" }),
@@ -87,7 +94,7 @@ export type CardsBlockDto = z.infer<typeof CardsBlockSchema>;
 // ---- RefItemBlockDto ----
 export const RefItemBlockSchema = BaseBlockSchema.extend({
     type: z.literal(EBlock.RefItem),
-    ref: z.nativeEnum(ERefRelation),
+    refRelation: z.nativeEnum(ERefRelation),
     limit: z.coerce.number().int().min(1),
     order: z.nativeEnum(EOrder),
     selected: z.array(z.object({ // manually choosen items by the user
@@ -96,6 +103,8 @@ export const RefItemBlockSchema = BaseBlockSchema.extend({
     })).optional(),
 });
 
+export type RefItemBlockDto = z.infer<typeof RefItemBlockSchema>;
+
 // ---- FormBlockDto ----
 export const FormBlockSchema = BaseBlockSchema.extend({
     type: z.literal(EBlock.Form),
@@ -103,7 +112,7 @@ export const FormBlockSchema = BaseBlockSchema.extend({
         id: z.string({ required_error: "Form id is required" }).uuid({ message: "Please select a form" }),
         title: z.string().min(1, { message: "Title is required" }),
     }),
-    introContent: z.string().max(500, { message: "Intro content must be at most 500 characters long" }).optional(),
+    introContent: richTextSchema.optional(),
 });
 
 // ---- Discriminated union of all blocks ----
@@ -126,6 +135,7 @@ export const PageBlocksSchema = z.object({
 // ---- PageSectionDto ----
 export const PageSectionSchema = z
     .object({
+        title: z.string().max(50, { message: "Title must be between 3 and 50 characters" }).optional(),
         headline: z
             .string()
             .trim()
@@ -153,6 +163,7 @@ export const MetadataDtoSchema = z.object({
         .trim()
         .max(300, { message: "Description must be between 3 and 300 characters" }),
     keywords: z.array(z.string().max(50, "Keyword must be at most 50 characters").trim()).max(10, "You can add up to 10 keywords only"),
+    ogImage: mediaSchema.nullish(),
 });
 
 export type TMetadataDto = z.infer<typeof MetadataDtoSchema>;

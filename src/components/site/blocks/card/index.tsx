@@ -1,30 +1,31 @@
 import { cn } from '@/lib/utils'
 import { CardsBlockDto } from '@/schemas/page.schema'
-import { ECardsBlockLayout } from '../../../../../types/blocks.types'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import Link from 'next/link'
 import { ELinkType } from '../../../../../types/global.types'
 import CloudinaryImage from '@/components/ui/cloudinary-image'
+import { RichTextPreview } from '@/components/editor/blocks/editor-x/rich-text-preview'
+import isEmptyHTML from '@/lib/utilities/isEmptyHTML'
 
 export default function RenderCardsBlock({
     cards,
-    layout,
-    maxColumns,
+    columns,
 }: CardsBlockDto) {
-    // TODO: also implement for Masonry layout
-    const layoutClassName = layout === ECardsBlockLayout.Horizontal
-        ? "flex flex-row gap-6"
-        : layout === ECardsBlockLayout.Vertical
-            ? "flex flex-col gap-6"
-            : layout === ECardsBlockLayout.Grid
-                ? `grid grid-cols-${maxColumns} gap-6`
-                : ""
-
     return (
         <section
             className={cn(
-                layoutClassName
+                "grid grid-cols-1 gap-6",
+                "sm:grid-cols-[repeat(var(--cols-sm),_minmax(0,1fr))]",
+                "md:grid-cols-[repeat(var(--cols-md),_minmax(0,1fr))]",
+                "lg:grid-cols-[repeat(var(--cols-lg),_minmax(0,1fr))]",
+                "xl:grid-cols-[repeat(var(--cols-xl),_minmax(0,1fr))]",
             )}
+            style={{
+                "--cols-sm": columns.sm,
+                "--cols-md": columns.md,
+                "--cols-lg": columns.lg,
+                "--cols-xl": columns.xl
+            } as React.CSSProperties}
         >
             {
                 cards.map((card, index) => {
@@ -39,7 +40,7 @@ export default function RenderCardsBlock({
                         <Card
                             key={index}
                             className={cn(
-                                "overflow-hidden",
+                                "overflow-hidden gap-4",
                                 card.borderLess && "border-0"
                             )}
                         >
@@ -54,7 +55,7 @@ export default function RenderCardsBlock({
                             }
                             <CardHeader>
                                 {card.title && (
-                                    <CardTitle className='sm:text-xl'>
+                                    <CardTitle className='sm:text-xl leading-snug'>
                                         {
                                             card.link?.url
                                                 ? (
@@ -66,16 +67,15 @@ export default function RenderCardsBlock({
                                         }
                                     </CardTitle>
                                 )}
-                                <CardDescription>{card.subtitle}</CardDescription>
                             </CardHeader>
-                            {
-                                card.description && (
-                                    <CardContent>
-                                        {/* TODO: implement RichText */}
-                                        {card.description}
-                                    </CardContent>
-                                )
-                            }
+                            <CardContent>
+                                <p className='text-muted-foreground'>{card.subtitle}</p>
+                                {
+                                    !isEmptyHTML(card.description.html) && (
+                                        <RichTextPreview html={card.description.html} />
+                                    )
+                                }
+                            </CardContent>
                         </Card>
                     )
                 })

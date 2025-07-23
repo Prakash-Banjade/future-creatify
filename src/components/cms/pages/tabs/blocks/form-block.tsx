@@ -1,11 +1,12 @@
 import { useFormContext } from "react-hook-form"
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
-import { Textarea } from "@/components/ui/textarea";
 import { BlockComponentProps } from "./blocks";
 import { InfiniteSelect } from "@/components/forms/infinite-select";
 import { TPageDto } from "@/schemas/page.schema";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@radix-ui/react-label";
+import { richTextDefaultValues } from "@/schemas/rich-text.schema";
+import { Editor } from "@/components/editor/blocks/editor-x/editor";
 
 export default function FormBlock({ blockIdx, sectionIdx }: BlockComponentProps) {
     const form = useFormContext<TPageDto>();
@@ -42,17 +43,17 @@ export default function FormBlock({ blockIdx, sectionIdx }: BlockComponentProps)
 
             <div className="flex items-center gap-3">
                 <Checkbox
-                    id="intro"
+                    id={blockName + '-intro'}
                     checked={form.watch(`${blockName}.introContent`) !== undefined}
                     onCheckedChange={val => {
                         if (val) {
-                            form.setValue(`${blockName}.introContent`, "");
+                            form.setValue(`${blockName}.introContent`, richTextDefaultValues);
                         } else {
                             form.setValue(`${blockName}.introContent`, undefined);
                         }
                     }}
                 />
-                <Label htmlFor="intro">Enable Intro Content?</Label>
+                <Label htmlFor={blockName + '-intro'}>Enable Intro Content?</Label>
             </div>
 
             {
@@ -64,9 +65,10 @@ export default function FormBlock({ blockIdx, sectionIdx }: BlockComponentProps)
                             <FormItem>
                                 <FormLabel>Intro Content</FormLabel>
                                 <FormControl>
-                                    <Textarea
-                                        className="field-sizing-content overflow-y-hidden resize-none w-full focus-visible:outline-0"
-                                        {...field}
+                                    <Editor
+                                        placeholder="Intro content..."
+                                        editorSerializedState={field.value?.json || richTextDefaultValues}
+                                        onSerializedChange={field.onChange}
                                     />
                                 </FormControl>
                                 <FormMessage />

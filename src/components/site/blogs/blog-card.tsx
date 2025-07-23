@@ -16,7 +16,7 @@ type Props = {
 export default async function BlogCard({ blog, imgHeight = 500 }: Props) {
     return (
         <article className="@container">
-            <div className='card'>
+            <div className='card bg-white shadow-sm rounded-b-xl'>
                 <div className="flex flex-col @2xl:flex-row">
                     <div className='@2xl:rounded-l-xl @2xl:rounded-tr-none rounded-t-xl overflow-hidden'>
                         {
@@ -28,7 +28,7 @@ export default async function BlogCard({ blog, imgHeight = 500 }: Props) {
                                     sizes="500px"
                                     alt="Blog Cover Image"
                                     crop='auto'
-                                    className='w-full h-full object-cover'
+                                    className='w-full h-72 object-cover'
                                 />
                             )
                         }
@@ -40,7 +40,7 @@ export default async function BlogCard({ blog, imgHeight = 500 }: Props) {
                         </Badge>
 
                         <Link href={`/blogs/${blog.slug}`} className='hover:underline decoration-primary decoration-2'>
-                            <h3 className="text-xl font-bold mb-3 w-fit">{blog.title}</h3>
+                            <h3 className="text-2xl font-semibold mb-3 w-fit">{blog.title}</h3>
                         </Link>
 
                         <section className='text-sm text-slate-500 mb-3 space-y-2'>

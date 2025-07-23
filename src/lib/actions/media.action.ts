@@ -1,7 +1,7 @@
 "use server";
 
 import { mediaSchema, TMediaSchema } from "@/schemas/media.schema";
-import checkAuth from "../check-auth";
+import checkAuth from "../utilities/check-auth";
 import { throwZodErrorMsg } from "../utils";
 import { db } from "@/db";
 import { media } from "@/db/schema/media";
