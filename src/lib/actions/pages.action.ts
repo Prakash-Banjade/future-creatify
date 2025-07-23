@@ -1,7 +1,7 @@
 "use server";
 
 import { db } from "@/db";
-import checkAuth from "../check-auth";
+import checkAuth from "../utilities/check-auth";
 import { pages } from "@/db/schema/page";
 import { and, eq, not } from "drizzle-orm";
 import { revalidatePath } from "next/cache";

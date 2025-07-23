@@ -4,7 +4,7 @@ import { db } from "@/db";
 import { blogs } from "@/db/schema/blog";
 import { blogSchema, blogSchemaType } from "@/schemas/blog.schema";
 import { eq } from "drizzle-orm";
-import checkAuth from "../check-auth";
+import checkAuth from "../utilities/check-auth";
 import { revalidatePath } from "next/cache";
 import { generateSlug, throwZodErrorMsg } from "../utils";
 
@@ -42,9 +42,12 @@ export async function updateBlog(id: string, values: Partial<blogSchemaType>, co
         slug = generateSlug(data.title);
     }
 
-    await db.update(blogs).set({ ...data, slug }).where(eq(blogs.id, id));
+    const [updated] = await db.update(blogs).set({ ...data, slug })
+        .where(eq(blogs.id, id))
+        .returning({ slug: blogs.slug });
 
     revalidatePath(`/cms/blogs`);
+    revalidatePath(`/blogs/${updated.slug}`);
 }
 
 export async function deleteBlog(id: string) {
@@ -53,6 +56,7 @@ export async function deleteBlog(id: string) {
     await db.delete(blogs).where(eq(blogs.id, id));
 
     revalidatePath(`/cms/blogs`);
+    revalidatePath(`/blogs`);
 }
 
 export async function publishBlog({ id }: { id: string }) {
@@ -65,6 +69,7 @@ export async function publishBlog({ id }: { id: string }) {
         .where(eq(blogs.id, id));
 
     revalidatePath(`/cms/blogs/${id}`);
+    revalidatePath(`/blogs`)
 }
 
 export async function unpublishBlog(id: string) {
@@ -73,4 +78,5 @@ export async function unpublishBlog(id: string) {
     await db.update(blogs).set({ publishedAt: null }).where(eq(blogs.id, id));
 
     revalidatePath(`/cms/blogs/${id}`);
+    revalidatePath(`/blogs`)
 }

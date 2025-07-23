@@ -2,6 +2,8 @@ import { cn } from "@/lib/utils";
 import { TextBlockDto } from "@/schemas/page.schema";
 import { EAlignment } from "../../../../../types/global.types";
 import CMSLink from "@/components/ui/cms-link";
+import { RichTextPreview } from "@/components/editor/blocks/editor-x/rich-text-preview";
+import isEmptyHTML from "@/lib/utilities/isEmptyHTML";
 
 export default function RenderTextBlock({
     align,
@@ -34,10 +36,13 @@ export default function RenderTextBlock({
             >
                 {subheadline}
             </p>
-            {/* TODO: RichTextPreview for body */}
-            <section>
-                {body}
-            </section>
+            {
+                !isEmptyHTML(body.html) && (
+                    <section>
+                        <RichTextPreview html={body.html} />
+                    </section>
+                )
+            }
             {
                 Array.isArray(cta) && cta.length > 0 && (
                     <ul className="flex md:justify-center gap-4">

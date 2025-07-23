@@ -5,6 +5,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import Link from 'next/link'
 import { ELinkType } from '../../../../../types/global.types'
 import CloudinaryImage from '@/components/ui/cloudinary-image'
+import { RichTextPreview } from '@/components/editor/blocks/editor-x/rich-text-preview'
+import isEmptyHTML from '@/lib/utilities/isEmptyHTML'
 
 export default function RenderCardsBlock({
     cards,
@@ -69,10 +71,9 @@ export default function RenderCardsBlock({
                                 <CardDescription>{card.subtitle}</CardDescription>
                             </CardHeader>
                             {
-                                card.description && (
+                                !isEmptyHTML(card.description.html) && (
                                     <CardContent>
-                                        {/* TODO: implement RichText */}
-                                        {card.description}
+                                        <RichTextPreview html={card.description.html} />
                                     </CardContent>
                                 )
                             }

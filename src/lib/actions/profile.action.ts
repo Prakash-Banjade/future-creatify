@@ -1,12 +1,12 @@
 "use server"
 
 import { db } from "@/db";
-import getSession from "./getSession";
+import getSession from "../getSession";
 import { users } from "@/db/schema/auth";
 import { eq } from "drizzle-orm";
 import { updateProfileFormSchema, UpdateProfileFormSchemaType } from "@/schemas/updateProfile-form.schema";
 
-export async function updateProfileAction(values: UpdateProfileFormSchemaType, newUser: boolean = false) {
+export async function updateProfile(values: UpdateProfileFormSchemaType, newUser: boolean = false) {
     const session = await getSession();
 
     const { success, error } = updateProfileFormSchema.safeParse(values);

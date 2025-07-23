@@ -3,6 +3,7 @@ import { useFormContext } from "react-hook-form";
 import { FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { MediaInput, MediaItem } from "@/components/forms/media-field";
 
 export default function SeoTabContent() {
     const form = useFormContext<TPageDto>();
@@ -81,6 +82,32 @@ export default function SeoTabContent() {
                         <FormDescription>
                             Comma(,) separated values that describe the page and are relevant.
                         </FormDescription>
+                        <FormMessage />
+                    </FormItem>
+                )}
+            />
+            <FormField
+                control={form.control}
+                name={`metadata.ogImage`}
+                render={({ field }) => (
+                    <FormItem>
+                        <FormLabel>Open Graph Image</FormLabel>
+                        <FormControl>
+                            {
+                                field.value ? (
+                                    <MediaItem
+                                        media={field.value}
+                                        onRemove={() => {
+                                            field.onChange(null)
+                                        }}
+                                    />
+                                ) : (
+                                    <MediaInput onChange={(value) => {
+                                        field.onChange(value)
+                                    }} />
+                                )
+                            }
+                        </FormControl>
                         <FormMessage />
                     </FormItem>
                 )}

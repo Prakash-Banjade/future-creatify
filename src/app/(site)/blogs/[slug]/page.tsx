@@ -13,6 +13,7 @@ import { Suspense } from 'react';
 import { TBlog } from '../../../../../types/blog.types';
 import { db } from '@/db';
 import { blogs } from '@/db/schema/blog';
+import { serverFetch } from '@/lib/data-access.ts/server-fetch';
 
 type Props = {
     params: {
@@ -23,7 +24,9 @@ type Props = {
 export async function generateMetadata(props: { params: Promise<Props["params"]> }): Promise<Metadata> {
     const { slug } = await props.params;
 
-    const res = await fetch(`${API_URL}/blogs/${slug}`);
+    const res = await serverFetch(`/blogs/${slug}`, {
+        next: { revalidate: parseInt(process.env.DATA_REVALIDATE_SEC!) },
+    });
 
     if (!res.ok) {
         return {
@@ -52,7 +55,6 @@ export default async function SingleBlogPage(props: { params: Promise<Props["par
     const { slug } = await props.params;
 
     const res = await fetch(`${API_URL}/blogs/${slug}`, {
-        cache: 'force-cache',
         next: { revalidate: parseInt(process.env.DATA_REVALIDATE_SEC!) },
     });
 

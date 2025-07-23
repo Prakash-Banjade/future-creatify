@@ -14,7 +14,7 @@ export default function JumboTron({ hero }: RenderHeroProps) {
   return (
     <section
       className={cn(
-        "h-[80vh] max-h-[600px] flex flex-col items-center mb-12",
+        "h-[80vh] max-h-[600px] xl:p-20 lg:p-16 p-10 flex flex-col items-center mb-12",
         alignment === EAlignment.Left
           ? "justify-start"
           : alignment === EAlignment.Center

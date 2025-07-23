@@ -123,7 +123,6 @@ export default function HeroTabContent() {
                                                                                     placeholder="Eg. Leading Startup In Nepal"
                                                                                     editorSerializedState={field.value.json}
                                                                                     onSerializedChange={field.onChange}
-                                                                                    plugins={{}}
                                                                                 />
                                                                             </FormControl>
                                                                             <FormMessage />

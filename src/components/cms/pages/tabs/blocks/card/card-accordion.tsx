@@ -23,6 +23,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
+import { Editor } from "@/components/editor/blocks/editor-x/editor";
 
 type Props = {
     idx: number
@@ -112,12 +113,11 @@ export default function CardAccordion({ idx, name, onRemove, isFieldError }: Pro
                         name={`${name}.description`}
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel>Description</FormLabel>
                                 <FormControl>
-                                    <Textarea
-                                        maxLength={300}
-                                        className="field-sizing-content overflow-y-hidden resize-none w-full focus-visible:outline-0"
-                                        {...field}
+                                    <Editor
+                                        placeholder="Card content goes here..."
+                                        editorSerializedState={field.value.json}
+                                        onSerializedChange={field.onChange}
                                     />
                                 </FormControl>
                                 <FormMessage />

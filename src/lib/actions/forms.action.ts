@@ -1,13 +1,13 @@
 "use server";
 
 import { db } from "@/db";
-import checkAuth from "../check-auth";
+import checkAuth from "../utilities/check-auth";
 import { revalidatePath } from "next/cache";
 import { forms, formSubmissions } from "@/db/schema/form";
 import { eq, ilike } from "drizzle-orm";
 import { FormDtoSchema, TFormDto } from "@/schemas/forms.schema";
 import { generateSlug, throwZodErrorMsg } from "../utils";
-import { buildFormValidator, formatZodErrors } from "../zod-schema-builder";
+import { buildFormValidator, formatZodErrors } from "../utilities/zod-schema-builder";
 
 export async function createForm(values: TFormDto) {
     await checkAuth('admin');

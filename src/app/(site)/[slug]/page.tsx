@@ -6,6 +6,7 @@ import { TPage } from "../../../../types/page.types";
 import { Metadata } from "next";
 import RenderHero from "@/components/site/heros/render-hero";
 import RenderSections from "@/components/site/blocks/render-sections";
+import { SITE_TITLE } from "@/CONSTANTS";
 
 export async function generateStaticParams() {
     const allPages = await db.select({ slug: pages.slug }).from(pages);
@@ -16,12 +17,26 @@ export async function generateStaticParams() {
 
 export const generateMetadata = async ({ params: paramsPromise }: Props): Promise<Metadata> => {
     const { slug = "home" } = await paramsPromise;
-    const page = await fetchPage(slug);
+    const { metadata: { title, description, keywords, ogImage } } = await fetchPage(slug);
 
     return {
-        title: page.metadata?.title,
-        description: page.metadata?.description,
-        keywords: page.metadata?.keywords
+        title,
+        description: description,
+        keywords: Array.isArray(keywords) ? keywords : [],
+        openGraph: {
+            type: "website",
+            title: title
+                ? title + ` | ${SITE_TITLE}`
+                : SITE_TITLE,
+            description,
+            images: ogImage?.secure_url
+                ? [
+                    {
+                        url: ogImage.secure_url,
+                    },
+                ] : undefined,
+            url: slug === "home" ? "/" : `/${slug}`,
+        },
     }
 }
 
@@ -44,7 +59,9 @@ export default async function Page({ params: paramsPromise }: Props) {
 }
 
 async function fetchPage(slug: string) {
-    const res = await serverFetch(`/pages/${slug}`, { next: { revalidate: 3600 } });
+    const res = await serverFetch(`/pages/${slug}`, {
+        next: { revalidate: parseInt(process.env.DATA_REVALIDATE_SEC!) },
+    });
 
     if (!res.ok) notFound();
 

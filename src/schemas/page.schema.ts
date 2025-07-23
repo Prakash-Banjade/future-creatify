@@ -3,6 +3,7 @@ import { EBlock, ECardsBlockLayout } from "../../types/blocks.types";
 import { EAlignment, ELinkType, EOrder, ERefRelation } from "../../types/global.types";
 import { CTADtoSchema, HeroSectionDtoSchema } from "./hero-section.schema";
 import { mediaSchema } from "./media.schema";
+import { richTextSchema } from "./rich-text.schema";
 
 // ---- BaseBlock ----
 export const BaseBlockSchema = z.object({
@@ -21,10 +22,7 @@ export const TextBlockSchema = BaseBlockSchema.extend({
         .string()
         .trim()
         .max(300, { message: "Subheadline must be between 3 and 300 characters" }),
-    body: z
-        .string()
-        .trim()
-        .max(1000, { message: "Body must be less than 1000 characters" }),
+    body: richTextSchema,
     cta: z
         .array(CTADtoSchema)
         .max(2, { message: "CTA must be less than 2" }),
@@ -51,11 +49,7 @@ export const CardSchema = z.object({
         .trim()
         .max(50, { message: "Title must be between 3 and 50 characters" })
         .optional(),
-    description: z
-        .string()
-        .trim()
-        .max(300, { message: "Description must be between 3 and 300 characters" })
-        .optional(),
+    description: richTextSchema,
     link: z
         .object({
             url: z.string(),
@@ -103,7 +97,7 @@ export const FormBlockSchema = BaseBlockSchema.extend({
         id: z.string({ required_error: "Form id is required" }).uuid({ message: "Please select a form" }),
         title: z.string().min(1, { message: "Title is required" }),
     }),
-    introContent: z.string().max(500, { message: "Intro content must be at most 500 characters long" }).optional(),
+    introContent: richTextSchema.optional(),
 });
 
 // ---- Discriminated union of all blocks ----
@@ -153,6 +147,7 @@ export const MetadataDtoSchema = z.object({
         .trim()
         .max(300, { message: "Description must be between 3 and 300 characters" }),
     keywords: z.array(z.string().max(50, "Keyword must be at most 50 characters").trim()).max(10, "You can add up to 10 keywords only"),
+    ogImage: mediaSchema.nullish(),
 });
 
 export type TMetadataDto = z.infer<typeof MetadataDtoSchema>;

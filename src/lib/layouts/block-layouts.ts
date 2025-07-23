@@ -3,6 +3,7 @@ import jumboCenter from "@/assets/layouts/hero-layout/jumbotron-center.svg"
 import { EBlock, ECardsBlockLayout } from "../../../types/blocks.types"
 import { EAlignment, EOrder, ERefRelation } from "../../../types/global.types"
 import { StaticImageData } from "next/image"
+import { richTextDefaultValues } from "@/schemas/rich-text.schema"
 
 export const blockLayouts: {
     block: TBlock,
@@ -14,7 +15,7 @@ export const blockLayouts: {
                 type: EBlock.Text,
                 headline: "",
                 subheadline: "",
-                body: "",
+                body: richTextDefaultValues,
                 cta: [],
                 align: EAlignment.Left,
             },

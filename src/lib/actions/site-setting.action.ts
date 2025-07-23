@@ -1,7 +1,7 @@
 "use server";
 
 import { siteSettingSchema, TSiteSettingSchema } from "@/schemas/site-setting.schema";
-import checkAuth from "../check-auth";
+import checkAuth from "../utilities/check-auth";
 import { throwZodErrorMsg } from "../utils";
 import { db } from "@/db";
 import { siteSetting } from "@/db/schema/site-setting";

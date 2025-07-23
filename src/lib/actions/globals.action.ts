@@ -1,7 +1,7 @@
 "use server";
 
 import { footerSchema, headerSchema, TFooterDto, THeaderDto } from "@/schemas/globals.schema";
-import checkAuth from "../check-auth";
+import checkAuth from "../utilities/check-auth";
 import { throwZodErrorMsg } from "../utils";
 import { db } from "@/db";
 import { footer, header } from "@/db/schema/globals";

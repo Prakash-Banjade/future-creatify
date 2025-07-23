@@ -10,6 +10,7 @@ import { ECardsBlockLayout } from "../../../../../../../types/blocks.types";
 import CardAccordion from "./card-accordion";
 import { useMemo } from "react";
 import { TPageDto } from "@/schemas/page.schema";
+import { richTextDefaultValues } from "@/schemas/rich-text.schema";
 
 export default function CardsBlock({ sectionIdx, blockIdx }: BlockComponentProps) {
     const form = useFormContext<TPageDto>();
@@ -142,7 +143,7 @@ export default function CardsBlock({ sectionIdx, blockIdx }: BlockComponentProps
                                         append({
                                             title: "",
                                             subtitle: "",
-                                            description: "",
+                                            description: richTextDefaultValues,
                                             link: undefined,
                                             image: undefined,
                                             borderLess: false,

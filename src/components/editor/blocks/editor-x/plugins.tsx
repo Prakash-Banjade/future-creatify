@@ -98,7 +98,6 @@ import { FontSizeToolbarPlugin } from "@/components/editor/plugins/toolbar/font-
 import { LinkToolbarPlugin } from "@/components/editor/plugins/toolbar/link-toolbar-plugin"
 import { SubSuperToolbarPlugin } from "@/components/editor/plugins/toolbar/subsuper-toolbar-plugin"
 import { ToolbarPlugin } from "@/components/editor/plugins/toolbar/toolbar-plugin"
-import { TypingPerfPlugin } from "@/components/editor/plugins/typing-pref-plugin"
 import { EMOJI } from "@/components/editor/transformers/markdown-emoji-transformer"
 import { EQUATION } from "@/components/editor/transformers/markdown-equation-transformer"
 import { HR } from "@/components/editor/transformers/markdown-hr-transformer"
@@ -279,7 +278,6 @@ export function Plugins({
             ...TEXT_MATCH_TRANSFORMERS,
           ]}
         />
-        <TypingPerfPlugin />
         <TabFocusPlugin />
         <AutocompletePlugin />
         <AutoLinkPlugin />
