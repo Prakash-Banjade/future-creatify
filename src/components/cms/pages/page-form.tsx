@@ -53,7 +53,7 @@ export default function PageForm({ page }: Props) {
             } catch (e) {
                 showServerError(e);
             }
-        })
+        });
     }
 
     const name = useWatch({

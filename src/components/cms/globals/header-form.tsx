@@ -13,10 +13,9 @@ import LoadingButton from "@/components/forms/loading-button";
 import { useTransition } from "react";
 import { showServerError } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { headerSchema, MAX_NAV_LINKS, THeaderDto } from "@/schemas/globals.schema";
+import { ENavLinkType, headerSchema, MAX_NAV_LINKS, THeaderDto } from "@/schemas/globals.schema";
 import { useFieldArray, useForm, useFormContext } from "react-hook-form";
 import NavLinkFormField from "./navlinks-form-field";
-import { ELinkType } from "../../../../types/global.types";
 import { Plus } from "lucide-react";
 import { updateHeader } from "@/lib/actions/globals.action";
 import { toast } from "sonner";
@@ -104,6 +103,7 @@ function NavLinksField() {
                                         name={`navLinks.${idx}`}
                                         render={() => {
                                             const isFieldError = Array.isArray(form.formState.errors.navLinks) && !!form.formState.errors.navLinks[idx]
+                                            const navLinkType = form.watch(`navLinks.${idx}.type`);
 
                                             return (
                                                 <FormItem>
@@ -113,6 +113,7 @@ function NavLinksField() {
                                                             name={`navLinks.${idx}`}
                                                             onRemove={() => remove(idx)}
                                                             isFieldError={isFieldError}
+                                                            navLinkType={navLinkType}
                                                         />
                                                     </FormControl>
                                                     <FormMessage />
@@ -137,7 +138,7 @@ function NavLinksField() {
                                         if (fields.length >= MAX_NAV_LINKS) return;
 
                                         append({
-                                            type: ELinkType.Internal,
+                                            type: ENavLinkType.Internal,
                                             text: "",
                                             newTab: false,
                                             subLinks: [],

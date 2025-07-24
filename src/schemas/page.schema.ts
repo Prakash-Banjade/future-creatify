@@ -171,7 +171,7 @@ export type TMetadataDto = z.infer<typeof MetadataDtoSchema>;
 // ---- PageDtoSchema ----
 export const PageDtoSchema = z.object({
     name: z.string().min(3, { message: "Name must be at least 3 characters long" }).max(50, { message: "Name must be at most 50 characters long" }),
-    sections: z.array(PageSectionSchema).min(1, { message: "At least one section is required" }).max(20, { message: "Max 20 sections allowed" }),
+    sections: z.array(PageSectionSchema).max(20, { message: "Max 20 sections allowed" }),
     metadata: MetadataDtoSchema,
     heroSections: z
         .array(HeroSectionDtoSchema)

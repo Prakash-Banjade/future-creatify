@@ -12,7 +12,7 @@ import {
     DropdownMenuItem,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
+import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Input } from "@/components/ui/input";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import {
@@ -23,10 +23,9 @@ import {
     SelectValue,
 } from "@/components/ui/select"
 import { Checkbox } from "@/components/ui/checkbox";
-import { ELinkType } from "../../../../types/global.types";
 import { InternalLinkField } from "../pages/tabs/common/internal-link-field";
 import { ECtaVariant } from "../../../../types/blocks.types";
-import { MAX_NAV_SUB_LINKS } from "@/schemas/globals.schema";
+import { ENavLinkType, MAX_NAV_SUB_LINKS } from "@/schemas/globals.schema";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
@@ -36,9 +35,10 @@ type Props = {
     onRemove?: () => void,
     isSubLink?: boolean
     isFieldError?: boolean
+    navLinkType?: ENavLinkType
 }
 
-export default function NavLinkFormField({ idx, name, onRemove, isSubLink = false, isFieldError }: Props) {
+export default function NavLinkFormField({ idx, name, onRemove, isSubLink = false, isFieldError, navLinkType }: Props) {
     const form = useFormContext();
 
     const { fields, append, remove } = useFieldArray({
@@ -57,7 +57,7 @@ export default function NavLinkFormField({ idx, name, onRemove, isSubLink = fals
                         <GripVertical className="text-muted-foreground" size={16} />
                     </button>
                     <AccordionTrigger className="text-sm hover:no-underline py-3">
-                        <span>Link {idx + 1}</span>
+                        <span>{isSubLink ? "Sub Link" : "Link"} {idx + 1}</span>
                     </AccordionTrigger>
                     <section className="absolute right-10">
                         <DropdownMenu>
@@ -86,7 +86,7 @@ export default function NavLinkFormField({ idx, name, onRemove, isSubLink = fals
                             control={form.control}
                             name={`${name}.type`}
                             render={({ field }) => (
-                                <FormItem>
+                                <FormItem className={cn(navLinkType === ENavLinkType.DropDown && "col-span-2")}>
                                     <FormLabel>Type</FormLabel>
                                     <FormControl>
                                         <RadioGroup
@@ -99,7 +99,7 @@ export default function NavLinkFormField({ idx, name, onRemove, isSubLink = fals
                                         >
                                             <FormItem className="flex items-center gap-3">
                                                 <FormControl>
-                                                    <RadioGroupItem value={ELinkType.Internal} />
+                                                    <RadioGroupItem value={ENavLinkType.Internal} />
                                                 </FormControl>
                                                 <FormLabel className="font-normal">
                                                     Internal Link
@@ -107,12 +107,24 @@ export default function NavLinkFormField({ idx, name, onRemove, isSubLink = fals
                                             </FormItem>
                                             <FormItem className="flex items-center gap-3">
                                                 <FormControl>
-                                                    <RadioGroupItem value={ELinkType.External} />
+                                                    <RadioGroupItem value={ENavLinkType.External} />
                                                 </FormControl>
                                                 <FormLabel className="font-normal">
                                                     Custom URL
                                                 </FormLabel>
                                             </FormItem>
+                                            {
+                                                !isSubLink && (
+                                                    <FormItem className="flex items-center gap-3">
+                                                        <FormControl>
+                                                            <RadioGroupItem value={ENavLinkType.DropDown} />
+                                                        </FormControl>
+                                                        <FormLabel className="font-normal">
+                                                            Drop Down
+                                                        </FormLabel>
+                                                    </FormItem>
+                                                )
+                                            }
                                         </RadioGroup>
                                     </FormControl>
                                     <FormMessage />
@@ -120,54 +132,57 @@ export default function NavLinkFormField({ idx, name, onRemove, isSubLink = fals
                             )}
                         />
 
-                        <section className="flex gap-10 items-end">
-                            <FormField
-                                control={form.control}
-                                name={`${name}.newTab`}
-                                render={({ field }) => {
-                                    return (
-                                        <FormItem className="flex flex-row items-center gap-2">
-                                            <FormControl>
-                                                <Checkbox
-                                                    checked={field.value}
-                                                    onCheckedChange={(checked) => field.onChange(checked)}
-                                                />
-                                            </FormControl>
-                                            <FormLabel className="text-sm font-normal">
-                                                Open in new tab
-                                            </FormLabel>
-                                            <FormMessage />
-                                        </FormItem>
-                                    )
-                                }}
-                            />
-                        </section>
-
-                        <FormField
-                            control={form.control}
-                            name={`${name}.url`}
-                            render={({ field }) => {
-                                return form.watch(`${name}.type`) === ELinkType.External ? (
-                                    <FormItem>
-                                        <FormLabel>Custom URL <span className='text-destructive'>*</span></FormLabel>
-                                        <FormControl>
-                                            <Input
-                                                type="url"
-                                                placeholder="Eg. https://example.com"
-                                                required
-                                                {...field}
-                                            />
-                                        </FormControl>
-                                        <FormMessage />
-                                    </FormItem>
-                                ) : (
-                                    <InternalLinkField
-                                        onChange={field.onChange}
-                                        name={`${name}.url`}
+                        {
+                            navLinkType !== ENavLinkType.DropDown && (
+                                <>
+                                    <FormField
+                                        control={form.control}
+                                        name={`${name}.newTab`}
+                                        render={({ field }) => {
+                                            return (
+                                                <FormItem className="flex flex-row items-center gap-2 self-end">
+                                                    <FormControl>
+                                                        <Checkbox
+                                                            checked={field.value}
+                                                            onCheckedChange={(checked) => field.onChange(checked)}
+                                                        />
+                                                    </FormControl>
+                                                    <FormLabel className="text-sm font-normal">
+                                                        Open in new tab
+                                                    </FormLabel>
+                                                    <FormMessage />
+                                                </FormItem>
+                                            )
+                                        }}
                                     />
-                                )
-                            }}
-                        />
+                                    <FormField
+                                        control={form.control}
+                                        name={`${name}.url`}
+                                        render={({ field }) => {
+                                            return navLinkType === ENavLinkType.External ? (
+                                                <FormItem>
+                                                    <FormLabel>Custom URL <span className='text-destructive'>*</span></FormLabel>
+                                                    <FormControl>
+                                                        <Input
+                                                            type="url"
+                                                            placeholder="Eg. https://example.com"
+                                                            required
+                                                            {...field}
+                                                        />
+                                                    </FormControl>
+                                                    <FormMessage />
+                                                </FormItem>
+                                            ) : (
+                                                <InternalLinkField
+                                                    onChange={field.onChange}
+                                                    name={`${name}.url`}
+                                                />
+                                            )
+                                        }}
+                                    />
+                                </>
+                            )
+                        }
 
                         <FormField
                             control={form.control}
@@ -186,38 +201,35 @@ export default function NavLinkFormField({ idx, name, onRemove, isSubLink = fals
                                 </FormItem>
                             )}
                         />
+
+                        <FormField
+                            control={form.control}
+                            name={`${name}.variant`}
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Appearance</FormLabel>
+                                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                                        <FormControl>
+                                            <SelectTrigger className="w-full">
+                                                <SelectValue placeholder="Select an option" />
+                                            </SelectTrigger>
+                                        </FormControl>
+                                        <SelectContent>
+                                            {
+                                                Object.entries(ECtaVariant).map(([key, value]) => (
+                                                    <SelectItem key={key} value={value}>{key}</SelectItem>
+                                                ))
+                                            }
+                                        </SelectContent>
+                                    </Select>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
                     </section>
 
-                    <FormField
-                        control={form.control}
-                        name={`${name}.variant`}
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>Appearance</FormLabel>
-                                <Select onValueChange={field.onChange} defaultValue={field.value}>
-                                    <FormControl>
-                                        <SelectTrigger className="w-full">
-                                            <SelectValue placeholder="Select an option" />
-                                        </SelectTrigger>
-                                    </FormControl>
-                                    <SelectContent>
-                                        {
-                                            Object.entries(ECtaVariant).map(([key, value]) => (
-                                                <SelectItem key={key} value={value}>{key}</SelectItem>
-                                            ))
-                                        }
-                                    </SelectContent>
-                                </Select>
-                                <FormDescription>
-                                    Choose how the link should be rendered.
-                                </FormDescription>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-
                     {
-                        !isSubLink && (
+                        !isSubLink && navLinkType === ENavLinkType.DropDown && (
                             <FormField
                                 control={form.control}
                                 name={`navLinks.${idx}.subLinks`}
@@ -268,12 +280,13 @@ export default function NavLinkFormField({ idx, name, onRemove, isSubLink = fals
                                                                 if (fields.length >= MAX_NAV_SUB_LINKS) return;
 
                                                                 append({
-                                                                    type: ELinkType.Internal,
+                                                                    type: ENavLinkType.Internal,
                                                                     text: "",
                                                                     newTab: false,
                                                                     subLinks: [],
                                                                     url: "",
                                                                     icon: "",
+                                                                    variant: ECtaVariant.Link
                                                                 })
                                                             }}
                                                         >
