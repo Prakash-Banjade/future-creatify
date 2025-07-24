@@ -16,8 +16,8 @@ export function useInternalLinks(queryString: string = "") {
         queryKey: ['pages', 'options', queryString],
         queryString,
         options: {
-            staleTime: 1000 * 60 * 5, // 5 minutes
-            gcTime: 1000 * 60 * 5, // 5 minutes
+            staleTime: 1000 * 60, // 1 min
+            gcTime: 1000 * 60, // 1 min
         }
     });
 
@@ -26,8 +26,8 @@ export function useInternalLinks(queryString: string = "") {
         queryKey: ['blogs', 'options', queryString],
         queryString,
         options: {
-            staleTime: 1000 * 60 * 5, // 5 minutes
-            gcTime: 1000 * 60 * 5, // 5 minutes
+            staleTime: 1000 * 60, // 1 min
+            gcTime: 1000 * 60, // 1 min
         }
     });
 
@@ -95,7 +95,11 @@ export function InternalLinkField({
 
             <FormControl>
                 <Popover open={open} onOpenChange={setOpen}>
-                    <PopoverTrigger asChild className="hover:bg-secondary/20" disabled={isLoading}>
+                    <PopoverTrigger
+                        asChild
+                        className={cn(isLoading && "hover:bg-secondary/20 cursor-not-allowed")}
+                        disabled={isLoading}
+                    >
                         <Button
                             variant="outline"
                             role="combobox"

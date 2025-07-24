@@ -43,7 +43,7 @@ export default function ContentTabContent() {
 
     return (
         <section className="space-y-2">
-            <p className="text-sm font-medium">Sections <span className="text-destructive">*</span></p>
+            <p className="text-sm font-medium">Sections</p>
             {
                 form.formState.errors.sections && <p className="text-destructive text-sm">{form.formState.errors.sections?.message || form.formState.errors.sections?.root?.message}</p>
             }
