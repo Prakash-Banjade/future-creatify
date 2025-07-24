@@ -21,6 +21,7 @@ export async function getPages(searchParams?: TDataSearchParams): Promise<TPages
                 name: pages.name,
                 slug: pages.slug,
                 createdAt: pages.createdAt,
+                updatedAt: pages.updatedAt
             })
             .from(pages)
             .where(and(...filters));

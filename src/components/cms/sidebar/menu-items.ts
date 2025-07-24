@@ -1,15 +1,10 @@
-import { File, Footprints, Heading, LayoutDashboard, NotebookText, Settings, StretchHorizontal } from "lucide-react";
+import { File, Footprints, Heading, NotebookText, Settings, StretchHorizontal } from "lucide-react";
 import { TGroupMenuItem } from "./sidebar";
 
 export const cmsSidebarMenuItems: TGroupMenuItem[] = [
     {
         groupLabel: "Main",
         menuItems: [
-            {
-                title: "Dashboard",
-                url: "/cms/dashboard",
-                icon: LayoutDashboard,
-            },
             {
                 title: "Pages",
                 url: "/cms/pages",

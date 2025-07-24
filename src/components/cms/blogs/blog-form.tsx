@@ -43,6 +43,7 @@ export default function BlogForm({ defaultValues }: Props) {
                 await updateBlog(defaultValues.id, {
                     ...values,
                     title: values.title?.length ? values.title : (defaultValues.title || "Untitled"),
+                    length: form.getValues('length'),
                 });
             } catch (e) {
                 if (e instanceof Error) {

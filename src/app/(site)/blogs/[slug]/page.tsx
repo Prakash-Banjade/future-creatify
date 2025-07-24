@@ -14,15 +14,16 @@ import { TBlog } from '../../../../../types/blog.types';
 import { db } from '@/db';
 import { blogs } from '@/db/schema/blog';
 import { serverFetch } from '@/lib/data-access.ts/server-fetch';
+import BlogHero from '@/components/site/blogs/blog-hero';
 
 type Props = {
-    params: {
+    params: Promise<{
         slug: string;
-    }
+    }>
 }
 
-export async function generateMetadata(props: { params: Promise<Props["params"]> }): Promise<Metadata> {
-    const { slug } = await props.params;
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+    const { slug } = await params;
 
     const res = await serverFetch(`/blogs/${slug}`, {
         next: { revalidate: parseInt(process.env.DATA_REVALIDATE_SEC!) },
@@ -51,8 +52,8 @@ export async function generateMetadata(props: { params: Promise<Props["params"]>
     };
 }
 
-export default async function SingleBlogPage(props: { params: Promise<Props["params"]> }) {
-    const { slug } = await props.params;
+export default async function SingleBlogPage({ params }: Props) {
+    const { slug } = await params;
 
     const res = await fetch(`${API_URL}/blogs/${slug}`, {
         next: { revalidate: parseInt(process.env.DATA_REVALIDATE_SEC!) },
@@ -91,58 +92,14 @@ export default async function SingleBlogPage(props: { params: Promise<Props["par
 
     return (
         <>
-            <section className="pt-32 pb-8 md:pt-40 md:pb-12 bg-cream">
-                <div className="container">
-                    <Link href="/blogs" className="inline-flex items-center text-primary font-medium mb-6 hover:underline">
-                        <ArrowLeft size={16} className="mr-2" /> Back to Blogs
-                    </Link>
-                    <div className="flex items-center gap-4 text-sm text-slate-500 mb-4">
-                        <div className="flex items-center">
-                            <Calendar size={14} className="mr-1" />
-                            {
-                                blog.publishedAt && (
-                                    <span>{format(new Date(blog.publishedAt), 'EEE MMM dd, yyyy')}</span>
-                                )
-                            }
-                        </div>
-                        <div className="flex items-center">
-                            <User size={14} className="mr-1" />
-                            <span>Annonymous</span>
-                        </div>
-                        <div className="flex items-center">
-                            <Tag size={14} className="mr-1" />
-                            <span>General</span>
-                        </div>
-
-                        <div className="flex items-center">
-                            <FileSpreadsheet size={14} className="mr-1" />
-                            <span>{getReadingTimeInMinutes(blog.length)} Minutes Read</span>
-                        </div>
-                    </div>
-
-                    <h1 className="text-3xl md:text-5xl font-bold leading-tight mb-8 text-shadow-lg">
-                        {blog.title}
-                    </h1>
-                </div>
-            </section>
+            <BlogHero {...blog} />
 
             {/* Blog Content */}
             <section className="py-8 md:py-12 bg-white">
                 <div className="container">
                     <div className="max-w-4xl mx-auto">
                         <div className="mb-10">
-                            {
-                                blog.coverImage && (
-                                    <CloudinaryImage
-                                        width={900}
-                                        height={400}
-                                        src={blog.coverImage}
-                                        sizes="900px"
-                                        alt="Blog Cover Image"
-                                        className='rounded-lg'
-                                    />
-                                )
-                            }
+
                         </div>
 
                         <div className="prose prose-lg max-w-none">

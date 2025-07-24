@@ -1,8 +1,10 @@
+"use server";
+
 import { db } from "./index";
 import { footer, header } from "./schema/globals";
 import { siteSetting } from "./schema/site-setting";
 
-async function seed() {
+export async function seed() {
     await db.insert(header).values({
         navLinks: []
     });
@@ -24,5 +26,3 @@ async function seed() {
 
     console.log("✅ Database seeded")
 }
-
-seed();

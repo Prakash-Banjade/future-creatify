@@ -23,7 +23,7 @@ export default function JumboTron({ hero }: RenderHeroProps) {
       )}
       style={{
         background: hero.image?.secure_url
-          ? `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${hero.image.secure_url}) no-repeat center center / cover`
+          ? `linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(${hero.image.secure_url}) no-repeat center center / cover`
           : undefined
       }}
     >

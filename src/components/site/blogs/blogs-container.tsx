@@ -12,7 +12,6 @@ export default async function BlogsContainer(props: { searchParams: Promise<Blog
         headers: {
             'Content-Type': 'application/json',
         },
-        cache: 'force-cache',
         next: { revalidate: parseInt(process.env.DATA_REVALIDATE_SEC!) },
     });
 

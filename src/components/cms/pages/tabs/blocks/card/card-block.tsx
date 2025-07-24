@@ -160,7 +160,7 @@ export default function CardsBlock({ sectionIdx, blockIdx }: BlockComponentProps
                                                 control={form.control}
                                                 name={`${cardFieldName}.${idx}`}
                                                 render={() => {
-                                                    const isFieldError = Array.isArray(form.formState.errors.sections) && !!form.formState.errors.sections[sectionIdx].blocks.items[blockIdx].cards?.[idx];
+                                                    const isFieldError = Array.isArray(form.formState.errors.sections) && !!form.formState.errors.sections[sectionIdx]?.blocks.items[blockIdx].cards?.[idx];
 
                                                     return (
                                                         <FormItem>
