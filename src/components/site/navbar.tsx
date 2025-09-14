@@ -3,6 +3,7 @@ import { header } from "@/db/schema/globals"
 import { cache } from "react"
 import Header from "./header";
 import { ELinkType } from "../../../types/global.types";
+import { ENavLinkType } from "@/schemas/globals.schema";
 
 const getHeader = cache(async () => {
     const [existing] = await db.select({
@@ -18,7 +19,7 @@ export default async function Navbar() {
     if (!header) return null;
 
     const navLinks = header.navLinks.map(n => {
-        const href = n.type === ELinkType.External
+        const href = n.type === ENavLinkType.External
             ? n.url
             : n.url === "home"
                 ? "/"

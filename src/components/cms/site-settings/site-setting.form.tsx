@@ -81,7 +81,7 @@ export default function SiteSettingForm({ defaultValues }: Props) {
 
                                 return (
                                     <FormItem>
-                                        <FormLabel>Header Logo</FormLabel>
+                                        <FormLabel>Logo Light</FormLabel>
                                         <FormControl>
                                             {
                                                 value ? (
@@ -96,7 +96,6 @@ export default function SiteSettingForm({ defaultValues }: Props) {
                                                         field.onChange(value)
                                                     }} />
                                                 )
-
                                             }
                                         </FormControl>
                                         <FormMessage />
@@ -112,7 +111,7 @@ export default function SiteSettingForm({ defaultValues }: Props) {
 
                                 return (
                                     <FormItem>
-                                        <FormLabel>Footer Logo</FormLabel>
+                                        <FormLabel>Logo Dark</FormLabel>
                                         <FormControl>
                                             {
                                                 value ? (

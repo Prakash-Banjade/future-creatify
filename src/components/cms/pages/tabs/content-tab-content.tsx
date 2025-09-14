@@ -43,7 +43,7 @@ export default function ContentTabContent() {
 
     return (
         <section className="space-y-2">
-            <p className="text-sm font-medium">Sections <span className="text-destructive">*</span></p>
+            <p className="text-sm font-medium">Sections</p>
             {
                 form.formState.errors.sections && <p className="text-destructive text-sm">{form.formState.errors.sections?.message || form.formState.errors.sections?.root?.message}</p>
             }
@@ -84,6 +84,7 @@ export default function ContentTabContent() {
                                                                                         onClick={(e) => e.stopPropagation()}
                                                                                         className="focus:outline-0 text-sm field-sizing-content"
                                                                                         placeholder="Untitled"
+                                                                                        autoComplete="off"
                                                                                         // prevent spacebar from toggling the accordion
                                                                                         onKeyDown={(e) => e.key === ' ' && e.stopPropagation()}
                                                                                         onKeyUp={(e) => {
@@ -166,7 +167,7 @@ export default function ContentTabContent() {
                                                             <BlockField sectionIdx={idx} />
 
                                                             {
-                                                                !!field.value.blocks?.items?.length && (
+                                                                !!field.value?.blocks?.items?.length && (
                                                                     <FormField
                                                                         control={form.control}
                                                                         name={`sections.${idx}.blocks.direction`}

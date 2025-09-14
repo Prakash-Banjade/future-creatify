@@ -38,6 +38,14 @@ export const pagesColumns: ColumnDef<TPagesResponse["data"][0]>[] = [
         }
     },
     {
+        accessorKey: "updatedAt",
+        header: "Last Updated At",
+        cell: ({ row }) => {
+            const updatedAt = row.original.updatedAt;
+            return updatedAt ? new Date(updatedAt).toLocaleString() : <span>-</span>;
+        }
+    },
+    {
         accessorKey: "createdAt",
         header: "Created At",
         cell: ({ row }) => {

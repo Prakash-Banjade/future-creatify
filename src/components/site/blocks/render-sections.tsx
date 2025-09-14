@@ -23,7 +23,7 @@ export default function RenderSections({ sections }: Props) {
             <section
               key={idx}
               className={cn(
-                "py-20 even:bg-secondary odd:py-32 first:!py-20",
+                "py-20 even:bg-cream odd:py-32 first:!pt-20",
                 s.container && "container mx-auto",
               )}
               style={{

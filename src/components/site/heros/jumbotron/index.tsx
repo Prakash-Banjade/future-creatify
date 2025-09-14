@@ -14,7 +14,7 @@ export default function JumboTron({ hero }: RenderHeroProps) {
   return (
     <section
       className={cn(
-        "h-[80vh] max-h-[600px] xl:p-20 lg:p-16 p-10 flex flex-col items-center mb-12",
+        "h-[80vh] max-h-[600px] bg-cream xl:p-20 lg:p-16 p-10 flex flex-col items-center mb-12",
         alignment === EAlignment.Left
           ? "justify-start"
           : alignment === EAlignment.Center
@@ -23,7 +23,7 @@ export default function JumboTron({ hero }: RenderHeroProps) {
       )}
       style={{
         background: hero.image?.secure_url
-          ? `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${hero.image.secure_url}) no-repeat center center / cover`
+          ? `linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(${hero.image.secure_url}) no-repeat center center / cover`
           : undefined
       }}
     >

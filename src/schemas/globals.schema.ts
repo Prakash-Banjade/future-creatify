@@ -1,29 +1,33 @@
 import { z } from 'zod';
-import { ELinkType } from '../../types/global.types';
 import { ECtaVariant } from '../../types/blocks.types';
 
 export const MAX_NAV_LINKS = 10;
 export const MAX_NAV_SUB_LINKS = 20;
 
+export enum ENavLinkType {
+    Internal = 'internal',
+    External = 'external',
+    DropDown = 'dropdown',
+}
+
 const linkSchema = z.object({
     text: z
         .string()
-        .min(3, { message: 'Name must be between 3 and 20 characters' })
-        .max(20, { message: 'Name must be between 3 and 20 characters' })
+        .min(3, { message: 'Name must be between 3 and 50 characters' })
+        .max(50, { message: 'Name must be between 3 and 50 characters' })
         .transform((val) => val.trim()),
 
     url: z
         .string()
-        .min(3, { message: 'URL must be between 3 and 200 characters' })
-        .max(200, { message: 'URL must be between 3 and 200 characters' })
+        .max(200, { message: 'URL must be less than 200 characters' })
         .transform((val) => val.trim()),
 
-    type: z.nativeEnum(ELinkType),
+    type: z.nativeEnum(ENavLinkType),
 
     variant: z.nativeEnum(ECtaVariant),
 
     newTab: z.boolean(),
-})
+});
 
 export const navLinkSchema = z.object({
     ...linkSchema.shape,
@@ -33,7 +37,7 @@ export const navLinkSchema = z.object({
 
 }).refine((data) => {
     // If external link, validate URL format
-    if (data.type === ELinkType.External) {
+    if (data.type === ENavLinkType.External) {
         return z.string().url().safeParse(data.url).success;
     }
     return true;

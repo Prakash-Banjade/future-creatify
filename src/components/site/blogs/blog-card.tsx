@@ -28,7 +28,7 @@ export default async function BlogCard({ blog, imgHeight = 500 }: Props) {
                                     sizes="500px"
                                     alt="Blog Cover Image"
                                     crop='auto'
-                                    className='w-full h-72 object-cover'
+                                    className='w-full h-full object-cover'
                                 />
                             )
                         }

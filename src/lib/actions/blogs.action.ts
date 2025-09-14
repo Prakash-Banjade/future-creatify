@@ -38,8 +38,13 @@ export async function updateBlog(id: string, values: Partial<blogSchemaType>, co
 
     let slug = existing[0].slug;
 
-    if (data.title && (data.title !== existing[0].title || !slug)) {
-        slug = generateSlug(data.title);
+    if (data.title) {
+        const newSlug = generateSlug(data.title, data.title.toLowerCase() === "untitled");
+        if (newSlug !== existing[0].slug) slug = newSlug;
+
+        // check if duplicate slug
+        const [existingSlug] = await db.select({ id: blogs.id }).from(blogs).where(eq(blogs.slug, slug)).limit(1);
+        if (existingSlug && existingSlug.id !== id) throw new Error("Blog with same name already exists. Please choose a different name.");
     }
 
     const [updated] = await db.update(blogs).set({ ...data, slug })
