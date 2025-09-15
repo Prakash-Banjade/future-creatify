@@ -131,6 +131,23 @@ export default function ContentTabContent() {
                                                         <AccordionContent className="px-3 py-5 bg-background space-y-6">
                                                             <FormField
                                                                 control={form.control}
+                                                                name={`sections.${idx}.tagline`}
+                                                                render={({ field }) => (
+                                                                    <FormItem>
+                                                                        <FormLabel>Tagline</FormLabel>
+                                                                        <FormControl>
+                                                                            <Input
+                                                                                className='py-5'
+                                                                                maxLength={50}
+                                                                                {...field}
+                                                                            />
+                                                                        </FormControl>
+                                                                        <FormMessage />
+                                                                    </FormItem>
+                                                                )}
+                                                            />
+                                                            <FormField
+                                                                control={form.control}
                                                                 name={`sections.${idx}.headline`}
                                                                 render={({ field }) => (
                                                                     <FormItem>

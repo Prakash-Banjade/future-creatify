@@ -19,6 +19,7 @@ const linkSchema = z.object({
 
     url: z
         .string()
+        .min(1, { message: "Required" })
         .max(200, { message: 'URL must be less than 200 characters' })
         .transform((val) => val.trim()),
 

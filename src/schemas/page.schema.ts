@@ -135,6 +135,7 @@ export const PageBlocksSchema = z.object({
 // ---- PageSectionDto ----
 export const PageSectionSchema = z
     .object({
+        tagline: z.string().max(50, { message: "Tagline must be between 3 and 50 characters" }).optional(),
         title: z.string().max(50, { message: "Title must be between 3 and 50 characters" }).optional(),
         headline: z
             .string()

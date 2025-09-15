@@ -8,8 +8,9 @@ import { Button } from '../ui/button';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
+import { RefinedSiteNavLinks } from './navbar';
 
-export default function Header({ navLinks }: { navLinks: { label: string, href: string }[] }) {
+export default function Header({ navLinks }: { navLinks: RefinedSiteNavLinks[] }) {
     const pathname = usePathname();
     const [scrolled, setScrolled] = useState(false);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -57,6 +58,7 @@ export default function Header({ navLinks }: { navLinks: { label: string, href: 
                                 key={link.label}
                                 href={link.href}
                                 className={cn("hover:text-primary w-fit", pathname === link.href && "text-primary underline underline-offset-3 decoration-primary")}
+                                target={link.newTab ? '_blank' : '_self'}
                             >
                                 {link.label}
                             </Link>
