@@ -2,8 +2,8 @@ import { db } from "@/db"
 import { header } from "@/db/schema/globals"
 import { cache } from "react"
 import Header from "./header";
-import { ELinkType } from "../../../types/global.types";
 import { ENavLinkType } from "@/schemas/globals.schema";
+import { ECtaVariant } from "../../../types/blocks.types";
 
 const getHeader = cache(async () => {
     const [existing] = await db.select({
@@ -13,12 +13,26 @@ const getHeader = cache(async () => {
     return existing;
 });
 
+export interface RefinedSiteNavLinks {
+    label: string;
+    href: string;
+    type: ENavLinkType;
+    subLinks: {
+        type: ENavLinkType;
+        text: string;
+        variant: ECtaVariant;
+        newTab: boolean;
+        url: string;
+    }[];
+    newTab: boolean;
+}
+
 export default async function Navbar() {
     const header = await getHeader();
 
     if (!header) return null;
 
-    const navLinks = header.navLinks.map(n => {
+    const navLinks: RefinedSiteNavLinks[] = header.navLinks.map(n => {
         const href = n.type === ENavLinkType.External
             ? n.url
             : n.url === "home"
@@ -29,7 +43,10 @@ export default async function Navbar() {
 
         return {
             label: n.text,
-            href
+            href,
+            type: n.type,
+            subLinks: n.subLinks,
+            newTab: n.newTab,
         }
     });
 

@@ -7,6 +7,7 @@ import * as mediaSchema from "./schema/media"
 import * as formSchema from "./schema/form"
 import * as globalsSchema from "./schema/globals"
 import * as siteSettingSchema from "./schema/site-setting"
+import * as credibilityAndSupport from "./schema/credibility-and-support"
 
 const connectionString = process.env.AUTH_DRIZZLE_URL!;
 const pool = postgres(connectionString, { max: 1 })
@@ -19,6 +20,7 @@ export const db = drizzle(pool, {
         ...mediaSchema,
         ...formSchema,
         ...globalsSchema,
-        ...siteSettingSchema
+        ...siteSettingSchema,
+        ...credibilityAndSupport
     }
 });

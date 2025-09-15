@@ -13,7 +13,7 @@ import LoadingButton from "@/components/forms/loading-button";
 import { useTransition } from "react";
 import { showServerError } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { ENavLinkType, footerSchema, MAX_NAV_LINKS, TFooterDto } from "@/schemas/globals.schema";
+import { ENavLinkType, footerSchema, MAX_NAV_LINKS, navLinkDefaultValue, TFooterDto } from "@/schemas/globals.schema";
 import { useFieldArray, useForm, useFormContext } from "react-hook-form";
 import NavLinkFormField from "./navlinks-form-field";
 import { Plus } from "lucide-react";
@@ -100,7 +100,7 @@ export default function FooterForm({ defaultValues }: Props) {
 function NavLinksField() {
     const form = useFormContext<TFooterDto>();
 
-    const { fields, append, remove } = useFieldArray({
+    const { fields, append, remove, swap, insert } = useFieldArray({
         control: form.control,
         name: `navLinks`,
     });
@@ -120,7 +120,7 @@ function NavLinksField() {
                                         key={f.id}
                                         control={form.control}
                                         name={`navLinks.${idx}`}
-                                        render={() => {
+                                        render={({ field }) => {
                                             const isFieldError = Array.isArray(form.formState.errors.navLinks) && !!form.formState.errors.navLinks[idx]
                                             const navLinkType = form.watch(`navLinks.${idx}.type`);
 
@@ -130,9 +130,15 @@ function NavLinksField() {
                                                         <NavLinkFormField
                                                             idx={idx}
                                                             name={`navLinks.${idx}`}
-                                                            onRemove={() => remove(idx)}
                                                             isFieldError={isFieldError}
                                                             navLinkType={navLinkType}
+                                                            accordionActions={{
+                                                                onMoveUp: () => swap(idx, idx - 1),
+                                                                onMoveDown: () => swap(idx, idx + 1),
+                                                                onRemove: () => remove(idx),
+                                                                onDuplicate: () => insert(idx + 1, field.value),
+                                                                onAddBelow: () => insert(idx + 1, navLinkDefaultValue),
+                                                            }}
                                                         />
                                                     </FormControl>
                                                     <FormMessage />
