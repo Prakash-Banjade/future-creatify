@@ -13,13 +13,12 @@ import LoadingButton from "@/components/forms/loading-button";
 import { useTransition } from "react";
 import { showServerError } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { ENavLinkType, headerSchema, MAX_NAV_LINKS, THeaderDto } from "@/schemas/globals.schema";
+import { headerSchema, MAX_NAV_LINKS, navLinkDefaultValue, THeaderDto } from "@/schemas/globals.schema";
 import { useFieldArray, useForm, useFormContext } from "react-hook-form";
 import NavLinkFormField from "./navlinks-form-field";
 import { Plus } from "lucide-react";
 import { updateHeader } from "@/lib/actions/globals.action";
 import { toast } from "sonner";
-import { ECtaVariant } from "../../../../types/blocks.types";
 
 type Props = {
     defaultValues: Partial<THeaderDto> & { id: string }
@@ -81,7 +80,7 @@ export default function HeaderForm({ defaultValues }: Props) {
 function NavLinksField() {
     const form = useFormContext<THeaderDto>();
 
-    const { fields, append, remove } = useFieldArray({
+    const { fields, append, remove, swap, insert } = useFieldArray({
         control: form.control,
         name: `navLinks`,
     });
@@ -101,7 +100,7 @@ function NavLinksField() {
                                         key={f.id}
                                         control={form.control}
                                         name={`navLinks.${idx}`}
-                                        render={() => {
+                                        render={({ field }) => {
                                             const isFieldError = Array.isArray(form.formState.errors.navLinks) && !!form.formState.errors.navLinks[idx]
                                             const navLinkType = form.watch(`navLinks.${idx}.type`);
 
@@ -111,9 +110,15 @@ function NavLinksField() {
                                                         <NavLinkFormField
                                                             idx={idx}
                                                             name={`navLinks.${idx}`}
-                                                            onRemove={() => remove(idx)}
                                                             isFieldError={isFieldError}
                                                             navLinkType={navLinkType}
+                                                            accordionActions={{
+                                                                onMoveUp: () => swap(idx, idx - 1),
+                                                                onMoveDown: () => swap(idx, idx + 1),
+                                                                onRemove: () => remove(idx),
+                                                                onDuplicate: () => insert(idx + 1, field.value),
+                                                                onAddBelow: () => insert(idx + 1, navLinkDefaultValue),
+                                                            }}
                                                         />
                                                     </FormControl>
                                                     <FormMessage />
@@ -136,15 +141,7 @@ function NavLinksField() {
                                     disabled={fields.length >= MAX_NAV_LINKS}
                                     onClick={() => {
                                         if (fields.length >= MAX_NAV_LINKS) return;
-
-                                        append({
-                                            type: ENavLinkType.Internal,
-                                            text: "",
-                                            newTab: false,
-                                            subLinks: [],
-                                            url: "",
-                                            variant: ECtaVariant.Link,
-                                        })
+                                        append(navLinkDefaultValue)
                                     }}
                                 >
                                     <Plus size={16} /> Add Link

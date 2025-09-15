@@ -1,4 +1,4 @@
-import { File, Footprints, Heading, NotebookText, Settings, StretchHorizontal } from "lucide-react";
+import { File, Footprints, Handshake, Heading, MessageCircleQuestion, NotebookText, Settings, StretchHorizontal } from "lucide-react";
 import { TGroupMenuItem } from "./sidebar";
 
 export const cmsSidebarMenuItems: TGroupMenuItem[] = [
@@ -19,6 +19,11 @@ export const cmsSidebarMenuItems: TGroupMenuItem[] = [
                 title: "Forms",
                 url: "/cms/forms",
                 icon: StretchHorizontal,
+            },
+            {
+                title: "Credibility & Support",
+                url: "/cms/credibility-and-support",
+                icon: Handshake,
             },
         ],
     },

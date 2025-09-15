@@ -44,11 +44,22 @@ export const navLinkSchema = z.object({
     return true;
 }, { message: 'Invalid URL for external link', path: ['url'] });
 
+export type TNavLinkDto = z.infer<typeof navLinkSchema>;
+
 export const navLinksSchema = z
     .array(navLinkSchema, { invalid_type_error: 'Nav links must be an array' })
     .max(MAX_NAV_LINKS, { message: `Nav links must be less than ${MAX_NAV_LINKS}` });
 
 export type TNavLinksDto = z.infer<typeof navLinksSchema>;
+
+export const navLinkDefaultValue: TNavLinkDto = {
+    type: ENavLinkType.Internal,
+    text: "",
+    newTab: false,
+    subLinks: [],
+    url: "",
+    variant: ECtaVariant.Link,
+}
 
 export const headerSchema = z.object({
     navLinks: navLinksSchema,

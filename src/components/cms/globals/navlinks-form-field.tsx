@@ -25,23 +25,30 @@ import {
 import { Checkbox } from "@/components/ui/checkbox";
 import { InternalLinkField } from "../pages/tabs/common/internal-link-field";
 import { ECtaVariant } from "../../../../types/blocks.types";
-import { ENavLinkType, MAX_NAV_SUB_LINKS } from "@/schemas/globals.schema";
+import { ENavLinkType, MAX_NAV_SUB_LINKS, navLinkDefaultValue } from "@/schemas/globals.schema";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 type Props = {
     idx: number
     name: string
-    onRemove?: () => void,
     isSubLink?: boolean
     isFieldError?: boolean
-    navLinkType?: ENavLinkType
+    navLinkType?: ENavLinkType,
+    accordionActions?: {
+        onMoveUp?: () => void
+        onMoveDown?: () => void
+        onRemove?: () => void,
+        onDuplicate?: () => void
+        onAddBelow?: () => void
+    }
 }
 
-export default function NavLinkFormField({ idx, name, onRemove, isSubLink = false, isFieldError, navLinkType }: Props) {
+export default function NavLinkFormField({ idx, name, accordionActions, isSubLink = false, isFieldError, navLinkType }: Props) {
     const form = useFormContext();
 
-    const { fields, append, remove } = useFieldArray({
+    // this fieldArray is for subLinks, for fieldArray of navLinks look the parent of this component
+    const { fields, append, remove, insert, swap } = useFieldArray({
         name: `${name}.subLinks`,
         control: form.control,
     });
@@ -66,14 +73,19 @@ export default function NavLinkFormField({ idx, name, onRemove, isSubLink = fals
                             </DropdownMenuTrigger>
                             <DropdownMenuContent side="top">
                                 {
-                                    idx !== 0 && <DropdownMenuItem><ChevronUp /> Move Up</DropdownMenuItem>
+                                    idx !== 0 && <DropdownMenuItem onClick={accordionActions?.onMoveUp}>
+                                        <ChevronUp /> Move Up
+                                    </DropdownMenuItem>
                                 }
-                                <DropdownMenuItem><ChevronDown /> Move Down</DropdownMenuItem>
-                                <DropdownMenuItem><Plus /> Add Below</DropdownMenuItem>
-                                <DropdownMenuItem><Copy /> Duplicate</DropdownMenuItem>
-                                <DropdownMenuItem
-                                    onClick={onRemove}
-                                >
+                                <DropdownMenuItem onClick={accordionActions?.onMoveDown}>
+                                    <ChevronDown /> Move Down
+                                </DropdownMenuItem>
+                                <DropdownMenuItem onClick={accordionActions?.onAddBelow}>
+                                    <Plus /> Add Below
+                                </DropdownMenuItem>
+                                <DropdownMenuItem onClick={accordionActions?.onDuplicate}><Copy /> Duplicate
+                                </DropdownMenuItem>
+                                <DropdownMenuItem onClick={accordionActions?.onRemove}>
                                     <X /> Remove
                                 </DropdownMenuItem>
                             </DropdownMenuContent>
@@ -244,7 +256,7 @@ export default function NavLinkFormField({ idx, name, onRemove, isSubLink = fals
                                                             key={f.id}
                                                             control={form.control}
                                                             name={`${name}.subLinks.${subIdx}`}
-                                                            render={() => {
+                                                            render={({ field }) => {
                                                                 const isFieldError = Array.isArray(form.formState.errors.navLinks) && !!form.formState.errors.navLinks[idx]?.subLinks?.[subIdx];
 
                                                                 return (
@@ -253,7 +265,13 @@ export default function NavLinkFormField({ idx, name, onRemove, isSubLink = fals
                                                                             <NavLinkFormField
                                                                                 idx={subIdx}
                                                                                 name={`${name}.subLinks.${subIdx}`}
-                                                                                onRemove={() => remove(subIdx)}
+                                                                                accordionActions={{
+                                                                                    onMoveUp: () => swap(idx, idx - 1),
+                                                                                    onMoveDown: () => swap(idx, idx + 1),
+                                                                                    onRemove: () => remove(idx),
+                                                                                    onDuplicate: () => insert(idx + 1, field.value),
+                                                                                    onAddBelow: () => insert(idx + 1, navLinkDefaultValue),
+                                                                                }}
                                                                                 isSubLink
                                                                                 isFieldError={isFieldError}
                                                                             />

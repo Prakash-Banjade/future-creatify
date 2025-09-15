@@ -1,6 +1,7 @@
 "use server";
 
 import { db } from "./index";
+import { credibilityAndSupportTable } from "./schema/credibility-and-support";
 import { footer, header } from "./schema/globals";
 import { siteSetting } from "./schema/site-setting";
 
@@ -22,6 +23,15 @@ export async function seed() {
         emails: [],
         phones: [],
         socialLinks: [],
+    });
+
+    await db.insert(credibilityAndSupportTable).values({
+        faqCategories: [],
+        faqs: [],
+        partners: [],
+        testimonials: [],
+        certifications: [],
+        alumni: [],
     })
 
     console.log("✅ Database seeded")
