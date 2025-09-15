@@ -5,6 +5,7 @@ import RenderTextBlock from "./text";
 import RenderCardsBlock from "./card";
 import RenderImageBlock from "./image";
 import RenderRefItems from "./ref";
+import RenderFormBlock from "./form";
 
 type Props = {
   sections: TPageDto["sections"];
@@ -17,14 +18,14 @@ export default function RenderSections({ sections }: Props) {
       {sections.map((s, idx) => {
         const blocksLayoutClassName =
           s.blocks?.direction === "horizontal"
-            ? "grid grid-cols-1 md:grid-cols-[repeat(var(--cols),_minmax(0,1fr))] gap-6"
+            ? "grid grid-cols-1 md:grid-cols-[repeat(var(--cols),_minmax(0,1fr))] gap-6 "
             : "space-y-4";
 
-        return (
+        return (  
           <section
             key={idx}
             className={cn(
-              "py-20 even:bg-cream odd:py-32 first:!pt-20",
+              "py-20 even:bg-cream first:!pt-20",
               s.container && "container mx-auto"
             )}
             style={
@@ -34,14 +35,6 @@ export default function RenderSections({ sections }: Props) {
             }
           >
             <section className={cn(!s.container && "container mx-auto")}>
-              {/* <div className="mb-8 flex items-center justify-center tracking-tighter flex-col gap-3 space-y-4">
-                <h2 className="text-4xl font-medium text-center">
-                  {s.headline}
-                </h2>
-                <p className="text-muted-foreground text-center text-sm max-w-4xl  text-balance">
-                  {s.subheadline}
-                </p>
-              </div> */}
               <div className="text-center max-w-3xl mx-auto mb-16">
                 <h2 className="text-3xl md:text-4xl font-bold mt-2 mb-6">
                 {s.headline}
@@ -60,9 +53,11 @@ export default function RenderSections({ sections }: Props) {
                     <RenderImageBlock key={idx} {...b} />
                   ) : b.type === EBlock.RefItem ? (
                     <RenderRefItems key={idx} {...b} />
-                  ) : null;
+                  ) : b.type === EBlock.Form ? (
+                    <RenderFormBlock key={idx} {...b} />
+                    ) : null;
                 })}
-              </section>
+              </section>  
             </section>
           </section>
         );

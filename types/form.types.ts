@@ -24,3 +24,5 @@ export type TFormSubmissionsResponse = PaginatedResponse<{
     createdAt: Date;
     updatedAt: Date;
 }>
+
+export type TFetchForm = Pick<TForm, "id" | "fields">;

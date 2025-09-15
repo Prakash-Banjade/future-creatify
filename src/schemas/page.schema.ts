@@ -115,6 +115,8 @@ export const FormBlockSchema = BaseBlockSchema.extend({
     introContent: richTextSchema.optional(),
 });
 
+export type FormBlockDto = z.infer<typeof FormBlockSchema>;
+
 // ---- Discriminated union of all blocks ----
 export const BlockSchema = z.discriminatedUnion("type", [
     TextBlockSchema,
