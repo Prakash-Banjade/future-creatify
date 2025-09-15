@@ -6,36 +6,32 @@ import { Toaster } from "sonner";
 import Navbar from "@/components/site/navbar";
 
 const inter = Inter({
-    variable: "--font-inter",
-    subsets: ["latin"],
+  variable: "--font-inter",
+  subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
-    title: {
-        default: "Site Builder",
-        template: "%s | Site Builder",
-    },
+  title: {
+    default: "Site Builder",
+    template: "%s | Site Builder",
+  },
 };
 type Props = {
-    children: React.ReactNode
-}
+  children: React.ReactNode;
+};
 
 export default function SiteLayout({ children }: Props) {
-    return (
-        <html lang="en">
-            <body
-                className={`${inter.variable} antialiased`}
-            >
+  return (
+    <html lang="en">
 
-                <div className="flex flex-col min-h-screen">
-                    <Navbar />
-                    <main className="flex-grow">
-                        {children}
-                    </main>
-                    <Footer />
-                    <Toaster richColors />
-                </div>
-            </body>
-        </html>
-    )
+      <body className={`${inter.variable} antialiased`}>
+        <div className="flex flex-col min-h-screen">
+          <Navbar />
+          <main className="flex-grow">{children}</main>
+          <Footer />
+          <Toaster richColors />
+        </div>
+      </body>
+    </html>
+  );
 }

@@ -17,6 +17,7 @@ export const generateMetadata = async (): Promise<Metadata> => {
 
 export default async function Page() {
   const page = await fetchPage(slug);
+  console.log(page);
 
   return (
     <div>
