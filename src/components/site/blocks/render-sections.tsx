@@ -5,6 +5,8 @@ import RenderTextBlock from "./text"
 import RenderCardsBlock from "./card"
 import RenderImageBlock from "./image"
 import RenderRefItems from "./ref"
+import { EAlignment } from "../../../../types/global.types"
+import { Badge } from "@/components/ui/badge"
 
 type Props = {
   sections: TPageDto["sections"]
@@ -35,9 +37,51 @@ export default function RenderSections({ sections }: Props) {
                   !s.container && "container mx-auto"
                 )}
               >
-                <div className="mb-8 flex items-center justify-center flex-col gap-3">
-                  <h2 className="text-4xl font-medium text-center">{s.headline}</h2>
-                  <p className="text-muted-foreground text-center max-w-6xl">{s.subheadline}</p>
+                <div className={cn(
+                  "mb-8 flex flex-col gap-3",
+                  s.headlineAlignment === EAlignment.Left
+                    ? "justify-start items-start"
+                    : s.headlineAlignment === EAlignment.Center
+                      ? "justify-center items-center"
+                      : "justify-end items-end"
+                )}>
+                  {
+                    !!s.tagline && (
+                      <Badge variant={'outline'}>{s.tagline}</Badge>
+                    )
+                  }
+                  {
+                    !!s.headline && (
+                      <h2
+                        className={cn(
+                          "text-4xl font-medium",
+                          s.headlineAlignment === EAlignment.Left
+                            ? "text-left"
+                            : s.headlineAlignment === EAlignment.Center
+                              ? "text-center"
+                              : "text-right"
+                        )}
+                      >
+                        {s.headline}
+                      </h2>
+                    )
+                  }
+                  {
+                    !!s.subheadline && (
+                      <p
+                        className={cn(
+                          "text-muted-foreground max-w-6xl",
+                          s.headlineAlignment === EAlignment.Left
+                            ? "text-left"
+                            : s.headlineAlignment === EAlignment.Center
+                              ? "text-center"
+                              : "text-right"
+                        )}
+                      >
+                        {s.subheadline}
+                      </p>
+                    )
+                  }
                 </div>
 
                 <section

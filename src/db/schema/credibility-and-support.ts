@@ -6,7 +6,7 @@ export const credibilityAndSupportTable = pgTable(
     {
         id: text("id").primaryKey().$defaultFn(() => crypto.randomUUID()),
 
-        faqCategories: jsonb("faq_categories").$type<string[]>().notNull().default([]),
+        faqCategories: jsonb("faq_categories").$type<TCredibilityAndSupport["faqCategories"]>().notNull().default([]),
         faqs: jsonb("faqs").$type<TCredibilityAndSupport["faqs"]>().notNull().default([]),
         partners: jsonb("partners").$type<TCredibilityAndSupport["partners"]>().notNull().default([]),
         testimonials: jsonb("testimonials").$type<TCredibilityAndSupport["testimonials"]>().notNull().default([]),

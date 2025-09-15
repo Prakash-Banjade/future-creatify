@@ -1,13 +1,18 @@
 import { z } from "zod";
 import { mediaSchema } from "./media.schema";
+import { richTextDefaultValues, richTextSchema } from "./rich-text.schema";
 
 export const credibilityAndSupportSchema = z.object({
-    faqCategories: z.array(z.string().min(1, { message: "Category is required" })),
+    faqCategories: z.array(
+        z.object({
+            name: z.string().min(1, { message: "Category is required" })
+        })
+    ),
     faqs: z.array(
         z.object({
             question: z.string().min(1, { message: "Question is required" }),
-            answer: z.string().min(1, { message: "Answer is required" }),
-            categoryId: z.string().min(1, { message: "Category is required" }),
+            answer: richTextSchema,
+            category: z.string().min(1, { message: "Category is required" }),
         })
     ),
     partners: z.array(
@@ -46,10 +51,16 @@ export const credibilityAndSupportSchema = z.object({
 export type TCredibilityAndSupport = z.infer<typeof credibilityAndSupportSchema>;
 
 export const credibilityAndSupportDefaultValue: TCredibilityAndSupport = {
-    faqCategories: [],
+    faqCategories: [{ name: "General" }],
     faqs: [],
     partners: [],
     testimonials: [],
     certifications: [],
     alumni: [],
+};
+
+export const faqDefaultValue: TCredibilityAndSupport["faqs"][0] = {
+    question: "",
+    answer: richTextDefaultValues,
+    category: "",
 };

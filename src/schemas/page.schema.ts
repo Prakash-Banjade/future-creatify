@@ -146,6 +146,7 @@ export const PageSectionSchema = z
             .trim()
             .max(300, { message: "Subheadline must be between 10 and 300 characters" })
             .optional(),
+        headlineAlignment: z.nativeEnum(EAlignment),
         blocks: PageBlocksSchema.optional(),
         container: z.boolean()
     })

@@ -21,11 +21,14 @@ import BlockField from "./block-field";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { cn } from "@/lib/utils";
 import { Checkbox } from "@/components/ui/checkbox";
+import { EAlignment } from "../../../../../types/global.types";
 
 const sectionDefaultValue: TPageSection = {
+    tagline: "",
     title: "",
     headline: "",
     subheadline: "",
+    headlineAlignment: EAlignment.Center,
     blocks: {
         direction: "horizontal",
         items: []
@@ -176,6 +179,29 @@ export default function ContentTabContent() {
                                                                                 {...field}
                                                                             />
                                                                         </FormControl>
+                                                                        <FormMessage />
+                                                                    </FormItem>
+                                                                )}
+                                                            />
+
+                                                            <FormField
+                                                                control={form.control}
+                                                                name={`sections.${idx}.headlineAlignment`}
+                                                                render={({ field }) => (
+                                                                    <FormItem>
+                                                                        <FormLabel>Headline Alignment</FormLabel>
+                                                                        <Select onValueChange={field.onChange} defaultValue={field.value} required>
+                                                                            <FormControl>
+                                                                                <SelectTrigger className="w-full py-5">
+                                                                                    <SelectValue placeholder={"Select an option"} />
+                                                                                </SelectTrigger>
+                                                                            </FormControl>
+                                                                            <SelectContent>
+                                                                                <SelectItem value={EAlignment.Left}>Left</SelectItem>
+                                                                                <SelectItem value={EAlignment.Center}>Center</SelectItem>
+                                                                                <SelectItem value={EAlignment.Right}>Right</SelectItem>
+                                                                            </SelectContent>
+                                                                        </Select>
                                                                         <FormMessage />
                                                                     </FormItem>
                                                                 )}
