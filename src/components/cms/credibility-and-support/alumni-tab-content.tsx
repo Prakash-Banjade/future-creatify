@@ -116,11 +116,12 @@ export default function AlumniTabContent() {
                                                                                 name={`alumni.${idx}.name`}
                                                                                 render={({ field }) => (
                                                                                     <FormItem>
-                                                                                        <FormLabel>Name</FormLabel>
+                                                                                        <FormLabel>Name <span className="text-destructive">*</span></FormLabel>
                                                                                         <FormControl>
                                                                                             <Input
                                                                                                 className='py-5'
                                                                                                 maxLength={50}
+                                                                                                required
                                                                                                 {...field}
                                                                                             />
                                                                                         </FormControl>
@@ -136,7 +137,7 @@ export default function AlumniTabContent() {
                                                                                         <FormItem>
                                                                                             <FormControl>
                                                                                                 <Editor
-                                                                                                    placeholder="Alumni story here"
+                                                                                                    placeholder="Alumni story here..."
                                                                                                     editorSerializedState={field.value.json}
                                                                                                     onSerializedChange={field.onChange}
                                                                                                 />
