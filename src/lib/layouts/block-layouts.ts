@@ -53,7 +53,7 @@ export const blockLayouts: {
                 order: EOrder.Desc,
                 selected: undefined
             },
-            alt: "RefItem",
+            alt: "Referenced Items",
             image: jumboCenter
         },
         {
@@ -66,5 +66,40 @@ export const blockLayouts: {
             },
             alt: "Form",
             image: jumboCenter
-        }
+        },
+        {
+            block: {
+                type: EBlock.Faq,
+            },
+            alt: "FAQs",
+            image: jumboCenter,
+        },
+        {
+            block: {
+                type: EBlock.Testimonial,
+            },
+            alt: "Testimonials",
+            image: jumboCenter,
+        },
+        {
+            block: {
+                type: EBlock.Alumni,
+            },
+            alt: "Alumni",
+            image: jumboCenter,
+        },
+        {
+            block: {
+                type: EBlock.Partner,
+            },
+            alt: "Partners",
+            image: jumboCenter,
+        },
+        {
+            block: {
+                type: EBlock.Certification,
+            },
+            alt: "Certifications",
+            image: jumboCenter,
+        },
     ]

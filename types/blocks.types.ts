@@ -3,7 +3,12 @@ export enum EBlock {
     Image = 'image',
     Cards = 'cards',
     RefItem = 'refItem',
-    Form = 'form'
+    Form = 'form',
+    Faq = 'faq',
+    Certification = 'certification',
+    Alumni = 'alumni',
+    Testimonial = 'testimonial',
+    Partner = 'partner',
 }
 
 export type TextBlock = {
