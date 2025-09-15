@@ -17,6 +17,7 @@ import {
   ENavLinkType,
   headerSchema,
   MAX_NAV_LINKS,
+  navLinkDefaultValue,
   THeaderDto,
 } from "@/schemas/globals.schema";
 import { useFieldArray, useForm, useFormContext } from "react-hook-form";
@@ -24,7 +25,6 @@ import NavLinkFormField from "./navlinks-form-field";
 import { Plus } from "lucide-react";
 import { updateHeader } from "@/lib/actions/globals.action";
 import { toast } from "sonner";
-import { ECtaVariant } from "../../../../types/blocks.types";
 
 type Props = {
   defaultValues: Partial<THeaderDto> & { id: string };
@@ -89,78 +89,79 @@ export default function HeaderForm({ defaultValues }: Props) {
 function NavLinksField() {
   const form = useFormContext<THeaderDto>();
 
-  const { fields, append, remove } = useFieldArray({
-    control: form.control,
-    name: `navLinks`,
-  });
+ 
+    const { fields, append, remove, swap, insert } = useFieldArray({
+        control: form.control,
+        name: `navLinks`,
+    });
 
-  return (
-    <FormField
-      control={form.control}
-      name={`navLinks`}
-      render={() => (
-        <FormItem>
-          <FormLabel>Navigation Links</FormLabel>
-          <section className="space-y-2">
-            {fields.map((f, idx) => {
-              return (
-                <FormField
-                  key={f.id}
-                  control={form.control}
-                  name={`navLinks.${idx}`}
-                  render={() => {
-                    const isFieldError =
-                      Array.isArray(form.formState.errors.navLinks) &&
-                      !!form.formState.errors.navLinks[idx];
-                    const navLinkType = form.watch(`navLinks.${idx}.type`);
+    return (
+        <FormField
+            control={form.control}
+            name={`navLinks`}
+            render={() => (
+                <FormItem>
+                    <FormLabel>Navigation Links</FormLabel>
+                    <section className="space-y-2">
+                        {
+                            fields.map((f, idx) => {
+                                return (
+                                    <FormField
+                                        key={f.id}
+                                        control={form.control}
+                                        name={`navLinks.${idx}`}
+                                        render={({ field }) => {
+                                            const isFieldError = Array.isArray(form.formState.errors.navLinks) && !!form.formState.errors.navLinks[idx]
+                                            const navLinkType = form.watch(`navLinks.${idx}.type`);
 
-                    return (
-                      <FormItem>
-                        <FormControl>
-                          <NavLinkFormField
-                            idx={idx}
-                            name={`navLinks.${idx}`}
-                            onRemove={() => remove(idx)}
-                            isFieldError={isFieldError}
-                            navLinkType={navLinkType}
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    );
-                  }}
-                />
-              );
-            })}
-          </section>
-          {fields.length < MAX_NAV_LINKS && (
-            <FormControl>
-              <Button
-                type="button"
-                variant={"outline"}
-                size={"sm"}
-                className="font-normal text-xs w-fit"
-                disabled={fields.length >= MAX_NAV_LINKS}
-                onClick={() => {
-                  if (fields.length >= MAX_NAV_LINKS) return;
-
-                  append({
-                    type: ENavLinkType.Internal,
-                    text: "",
-                    newTab: false,
-                    subLinks: [],
-                    url: "",
-                    variant: ECtaVariant.Link,
-                  });
-                }}
-              >
-                <Plus size={16} /> Add Link
-              </Button>
-            </FormControl>
-          )}
-          <FormMessage />
-        </FormItem>
-      )}
-    />
-  );
+                                            return (
+                                                <FormItem>
+                                                    <FormControl>
+                                                        <NavLinkFormField
+                                                            idx={idx}
+                                                            name={`navLinks.${idx}`}
+                                                            isFieldError={isFieldError}
+                                                            navLinkType={navLinkType}
+                                                            accordionActions={{
+                                                                onMoveUp: () => swap(idx, idx - 1),
+                                                                onMoveDown: () => swap(idx, idx + 1),
+                                                                onRemove: () => remove(idx),
+                                                                onDuplicate: () => insert(idx + 1, field.value),
+                                                                onAddBelow: () => insert(idx + 1, navLinkDefaultValue),
+                                                            }}
+                                                        />
+                                                    </FormControl>
+                                                    <FormMessage />
+                                                </FormItem>
+                                            )
+                                        }}
+                                    />
+                                )
+                            })
+                        }
+                    </section>
+                    {
+                        fields.length < MAX_NAV_LINKS && (
+                            <FormControl>
+                                <Button
+                                    type="button"
+                                    variant={"outline"}
+                                    size={"sm"}
+                                    className="font-normal text-xs w-fit"
+                                    disabled={fields.length >= MAX_NAV_LINKS}
+                                    onClick={() => {
+                                        if (fields.length >= MAX_NAV_LINKS) return;
+                                        append(navLinkDefaultValue)
+                                    }}
+                                >
+                                    <Plus size={16} /> Add Link
+                                </Button>
+                            </FormControl>
+                        )
+                    }
+                    <FormMessage />
+                </FormItem>
+            )}
+        />
+    )
 }

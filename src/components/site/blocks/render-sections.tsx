@@ -6,6 +6,8 @@ import RenderCardsBlock from "./card";
 import RenderImageBlock from "./image";
 import RenderRefItems from "./ref";
 import RenderFormBlock from "./form";
+import { EAlignment } from "../../../../types/global.types";
+import { Badge } from "@/components/ui/badge";
 
 type Props = {
   sections: TPageDto["sections"];
@@ -35,14 +37,52 @@ export default function RenderSections({ sections }: Props) {
             }
           >
             <section className={cn(!s.container && "container mx-auto")}>
-              <div className="text-center max-w-3xl mx-auto mb-16">
-                <h2 className="text-3xl md:text-4xl font-bold mt-2 mb-6">
-                {s.headline}
-                </h2>
-                <p className="text-slate-600">
-                 {s.subheadline}
-                </p>
-              </div>
+              <div className={cn(
+                  "mb-8 flex flex-col gap-3",
+                  s.headlineAlignment === EAlignment.Left
+                    ? "justify-start items-start"
+                    : s.headlineAlignment === EAlignment.Center
+                      ? "justify-center items-center"
+                      : "justify-end items-end"
+                )}>
+                  {
+                    !!s.tagline && (
+                      <Badge variant={'outline'}>{s.tagline}</Badge>
+                    )
+                  }
+                  {
+                    !!s.headline && (
+                      <h2
+                        className={cn(
+                          "text-4xl font-medium",
+                          s.headlineAlignment === EAlignment.Left
+                            ? "text-left"
+                            : s.headlineAlignment === EAlignment.Center
+                              ? "text-center"
+                              : "text-right"
+                        )}
+                      >
+                        {s.headline}
+                      </h2>
+                    )
+                  }
+                  {
+                    !!s.subheadline && (
+                      <p
+                        className={cn(
+                          "text-muted-foreground max-w-6xl",
+                          s.headlineAlignment === EAlignment.Left
+                            ? "text-left"
+                            : s.headlineAlignment === EAlignment.Center
+                              ? "text-center"
+                              : "text-right"
+                        )}
+                      >
+                        {s.subheadline}
+                      </p>
+                    )
+                  }
+                </div>
               <section className={cn(blocksLayoutClassName)}>
                 {s.blocks?.items?.map((b, idx) => {
                   return b.type === EBlock.Text ? (

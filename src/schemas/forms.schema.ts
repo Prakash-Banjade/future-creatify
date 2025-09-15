@@ -80,7 +80,10 @@ export const TextFieldSchema = BaseField.extend({
 });
 export const EmailFieldSchema = BaseField.extend({
     type: z.literal(FormFieldType.Email),
-    defaultValue: z.string().email({ message: "Invalid email format" }).optional(),
+    defaultValue: z.string().optional().refine((val) => {
+        if (typeof val === "string" && val.length > 0) return z.string().email().safeParse(val).success;
+        return true;
+    }),
 });
 export const TelFieldSchema = BaseField.extend({
     type: z.literal(FormFieldType.Tel),
@@ -113,8 +116,8 @@ export const FileFieldSchema = BaseField.extend({
 export const SelectFieldSchema = BaseField.extend({
     type: z.literal(FormFieldType.Select),
     options: z
-    .array(FormFieldOptionSchema)
-    .min(1, { message: "At least one option is required" }),
+        .array(FormFieldOptionSchema)
+        .min(1, { message: "At least one option is required" }),
     multiple: z.boolean().optional(),
     defaultValue: z.string().optional(),
 });
