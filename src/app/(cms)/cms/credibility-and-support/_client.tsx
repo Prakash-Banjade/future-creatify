@@ -15,6 +15,9 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { useCustomSearchParams } from '@/hooks/useCustomSearchParams';
 import { useRouter } from 'next/navigation';
 import { updateCredibilityAndSupport } from '@/lib/actions/credibility-and-support.action';
+import TestimonialsTabContent from '@/components/cms/credibility-and-support/testimonials-tab-content';
+import CertificationsTabContent from '@/components/cms/credibility-and-support/cretifications-tab-content';
+import AlumniTabContent from '@/components/cms/credibility-and-support/alumni-tab-content';
 
 type Props = {
     defaultTab: string;
@@ -139,13 +142,13 @@ export default function CredibilityAndSupportForm({ credibilityAndSupport: cas, 
                                     <PartnersTabContent />
                                 </TabsContent>
                                 <TabsContent value={credibilityAndSupportTabs[2].value}>
-                                    <PartnersTabContent />
+                                    <TestimonialsTabContent />
                                 </TabsContent>
                                 <TabsContent value={credibilityAndSupportTabs[3].value}>
-                                    <PartnersTabContent />
+                                    <CertificationsTabContent />
                                 </TabsContent>
                                 <TabsContent value={credibilityAndSupportTabs[4].value}>
-                                    <PartnersTabContent />
+                                    <AlumniTabContent />
                                 </TabsContent>
                             </section>
                         </Tabs>

@@ -24,7 +24,7 @@ export default function FaqsTabContent() {
 
     return (
         <div className="@container h-full">
-            <div className="grid @5xl:grid-cols-3 grid-cols-1 @5xl:gap-x-8 gap-y-8 h-full">
+            <div className="@5xl:grid @5xl:grid-cols-3 h-full">
                 <section className="@5xl:col-span-2 py-4 @5xl:pr-8">
                     <FaqsForm />
                 </section>
