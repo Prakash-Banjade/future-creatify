@@ -8,16 +8,10 @@ export async function GET(request: NextRequest) {
     const footerData = await db.select().from(footer).limit(1);
 
     if (!footerData) {
-      return NextResponse.json({
-        navLinks: [],
-        footerText: "",
-      } satisfies TFooterDto);
+      return null;
     }
 
-    // Validate footer data against schema
-    const parsedFooter = footerSchema.parse(footerData);
-
-    return NextResponse.json(parsedFooter);
+    return NextResponse.json(footerData);
   } catch (error) {
     console.error("Footer fetch error:", error);
     return NextResponse.json(
