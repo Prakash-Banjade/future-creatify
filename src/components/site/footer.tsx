@@ -15,8 +15,8 @@ import { serverFetch } from "@/lib/data-access.ts/server-fetch";
 
 export default async function Footer() {
   const currentYear = new Date().getFullYear();
-  const footerText = await serverFetch(`/footer`);
-  console.log('footerText', footerText);
+  const footer = await serverFetch(`/footer`);
+  console.log('footer', footer);
   return (
     <footer className="bg-[#fcfcfc] pt-16 pb-8">
       <div className="container mx-auto">
