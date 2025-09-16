@@ -25,10 +25,11 @@ import NavLinkFormField from "./navlinks-form-field";
 import { Plus } from "lucide-react";
 import { updateHeader } from "@/lib/actions/globals.action";
 import { toast } from "sonner";
+import { THeaderSelect } from "@/db/schema/globals";
 
 type Props = {
-  defaultValues: Partial<THeaderDto> & { id: string };
-};
+    defaultValues: THeaderSelect;
+}
 
 export default function HeaderForm({ defaultValues }: Props) {
   const [isPending, startTransition] = useTransition();
@@ -54,28 +55,32 @@ export default function HeaderForm({ defaultValues }: Props) {
 
   console.log(form.formState.errors);
 
-  return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)}>
-        <section className="space-y-6 pb-40">
-          <header className="container">
-            <h3 className="text-3xl font-bold capitalize max-w-[50ch] break-words">
-              Header
-            </h3>
-          </header>
-          <section className="border-y sticky z-[1] backdrop-blur-3xl top-0">
-            <section className="container flex justify-end py-3">
-              <LoadingButton
-                type="submit"
-                size={"lg"}
-                isLoading={isPending}
-                disabled={isPending}
-                loadingText="Saving..."
-              >
-                Save
-              </LoadingButton>
-            </section>
-          </section>
+    return (
+        <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)}>
+                <section className="space-y-6 pb-40">
+                    <header className="container">
+                        <h3 className="text-3xl font-bold capitalize max-w-[50ch] break-words">Header</h3>
+                    </header>
+                    <section className="border-y sticky z-[1] backdrop-blur-3xl top-0">
+                        <section className="container flex justify-between items-center py-3">
+                            <section className="text-sm">
+                                <p>
+                                    <span className="text-muted-foreground">Last Modified:&nbsp;</span>
+                                    <time className="font-medium">{defaultValues.updatedAt.toLocaleString()}</time>
+                                </p>
+                            </section>
+                            <LoadingButton
+                                type="submit"
+                                size={'lg'}
+                                isLoading={isPending}
+                                disabled={isPending}
+                                loadingText="Saving..."
+                            >
+                                Save
+                            </LoadingButton>
+                        </section>
+                    </section>
 
           <section className="container space-y-6">
             <NavLinksField />

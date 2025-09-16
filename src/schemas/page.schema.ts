@@ -115,7 +115,30 @@ export const FormBlockSchema = BaseBlockSchema.extend({
     introContent: richTextSchema.optional(),
 });
 
-export type FormBlockDto = z.infer<typeof FormBlockSchema>;
+// --- FaqBlockDto ---
+export const FaqBlockSchema = BaseBlockSchema.extend({
+    type: z.literal(EBlock.Faq),
+});
+
+// --- AlumniBlockDto ---
+export const AlumniBlockSchema = BaseBlockSchema.extend({
+    type: z.literal(EBlock.Alumni),
+});
+
+// --- TestimonialBlockDto ---
+export const TestimonialBlockSchema = BaseBlockSchema.extend({
+    type: z.literal(EBlock.Testimonial),
+});
+
+// --- PartnerBlockDto ---
+export const PartnerBlockSchema = BaseBlockSchema.extend({
+    type: z.literal(EBlock.Partner),
+});
+
+// --- CertificationBlockDto ---
+export const CertificationBlockSchema = BaseBlockSchema.extend({
+    type: z.literal(EBlock.Certification),
+});
 
 // ---- Discriminated union of all blocks ----
 export const BlockSchema = z.discriminatedUnion("type", [
@@ -124,6 +147,11 @@ export const BlockSchema = z.discriminatedUnion("type", [
     CardsBlockSchema,
     RefItemBlockSchema,
     FormBlockSchema,
+    FaqBlockSchema,
+    AlumniBlockSchema,
+    TestimonialBlockSchema,
+    PartnerBlockSchema,
+    CertificationBlockSchema
 ]);
 
 export type TBlock = z.infer<typeof BlockSchema>;

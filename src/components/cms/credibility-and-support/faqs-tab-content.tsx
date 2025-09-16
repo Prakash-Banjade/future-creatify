@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { useFieldArray, useFormContext, useWatch } from "react-hook-form"
 import {
     Accordion,
@@ -48,6 +49,12 @@ function FaqsForm() {
         control: form.control,
         name: "faqCategories",
     });
+
+    const nonDuplicateCategories = useMemo(() => {
+        return categories.filter((cat, idx) => {
+            return categories.findIndex(c => !!c.name && c.name.toLowerCase() === cat.name.toLowerCase()) === idx
+        })
+    }, [categories]);
 
     return (
         <FormField
@@ -134,11 +141,12 @@ function FaqsForm() {
                                                                         name={`faqs.${idx}.question`}
                                                                         render={({ field }) => (
                                                                             <FormItem>
-                                                                                <FormLabel>Question</FormLabel>
+                                                                                <FormLabel>Question <span className="text-destructive">*</span></FormLabel>
                                                                                 <FormControl>
                                                                                     <Input
                                                                                         className='py-5'
                                                                                         maxLength={50}
+                                                                                        required
                                                                                         {...field}
                                                                                     />
                                                                                 </FormControl>
@@ -169,7 +177,7 @@ function FaqsForm() {
                                                                         name={`faqs.${idx}.category`}
                                                                         render={({ field }) => (
                                                                             <FormItem>
-                                                                                <FormLabel>Category</FormLabel>
+                                                                                <FormLabel>Category <span className="text-destructive">*</span></FormLabel>
                                                                                 <Select onValueChange={field.onChange} defaultValue={field.value} required>
                                                                                     <FormControl>
                                                                                         <SelectTrigger className="w-full py-5">
@@ -178,7 +186,7 @@ function FaqsForm() {
                                                                                     </FormControl>
                                                                                     <SelectContent>
                                                                                         {
-                                                                                            categories.filter(category => !!category.name).map((value, ind) => (
+                                                                                            nonDuplicateCategories.map((value, ind) => (
                                                                                                 <SelectItem key={ind} value={value.name}>{value.name}</SelectItem>
                                                                                             ))
                                                                                         }
@@ -228,79 +236,77 @@ function CategoriesForm() {
     });
 
     return (
-        <div>
-            <FormField
-                control={form.control}
-                name={`faqCategories`}
-                render={() => (
-                    <FormItem>
-                        <FormLabel>Categories</FormLabel>
+        <FormField
+            control={form.control}
+            name={`faqCategories`}
+            render={() => (
+                <FormItem>
+                    <FormLabel>Categories</FormLabel>
 
-                        <section className="space-y-2">
-                            {
-                                fields.map((f, idx) => {
-                                    return (
-                                        <FormField
-                                            key={f.id}
-                                            control={form.control}
-                                            name={`faqCategories.${idx}`}
-                                            render={() => {
-                                                return (
-                                                    <FormItem className="flex gap-2">
-                                                        <FormControl>
-                                                            <FormField
-                                                                control={form.control}
-                                                                name={`faqCategories.${idx}.name`}
-                                                                render={({ field }) => {
-                                                                    return (
-                                                                        <FormItem className="flex-1">
-                                                                            <FormControl>
-                                                                                <Input
-                                                                                    {...field}
-                                                                                />
-                                                                            </FormControl>
-                                                                            <FormMessage />
-                                                                        </FormItem>
-                                                                    )
-                                                                }}
-                                                            />
-                                                        </FormControl>
-                                                        <Button
-                                                            type="button"
-                                                            variant={"destructive"}
-                                                            size={"icon"}
-                                                            disabled={fields.length === 1}
-                                                            onClick={() => {
-                                                                if (fields.length === 1) return;
-                                                                remove(idx);
+                    <section className="space-y-2">
+                        {
+                            fields.map((f, idx) => {
+                                return (
+                                    <FormField
+                                        key={f.id}
+                                        control={form.control}
+                                        name={`faqCategories.${idx}`}
+                                        render={() => {
+                                            return (
+                                                <FormItem className="flex gap-2">
+                                                    <FormControl>
+                                                        <FormField
+                                                            control={form.control}
+                                                            name={`faqCategories.${idx}.name`}
+                                                            render={({ field }) => {
+                                                                return (
+                                                                    <FormItem className="flex-1">
+                                                                        <FormControl>
+                                                                            <Input
+                                                                                {...field}
+                                                                            />
+                                                                        </FormControl>
+                                                                        <FormMessage />
+                                                                    </FormItem>
+                                                                )
                                                             }}
-                                                        >
-                                                            <Trash size={16} />
-                                                        </Button>
-                                                    </FormItem>
-                                                )
-                                            }}
-                                        />
-                                    )
-                                })
-                            }
-                        </section>
+                                                        />
+                                                    </FormControl>
+                                                    <Button
+                                                        type="button"
+                                                        variant={"destructive"}
+                                                        size={"icon"}
+                                                        disabled={fields.length === 1}
+                                                        onClick={() => {
+                                                            if (fields.length === 1) return;
+                                                            remove(idx);
+                                                        }}
+                                                    >
+                                                        <Trash size={16} />
+                                                    </Button>
+                                                </FormItem>
+                                            )
+                                        }}
+                                    />
+                                )
+                            })
+                        }
+                    </section>
 
-                        <FormControl>
-                            <Button
-                                type="button"
-                                variant={"outline"}
-                                size={"sm"}
-                                className="font-normal text-xs w-fit"
-                                onClick={() => append({ name: "" })}
-                            >
-                                <Plus size={16} /> Add Category
-                            </Button>
-                        </FormControl>
-                        <FormMessage />
-                    </FormItem>
-                )}
-            />
-        </div>
+                    <FormControl>
+                        <Button
+                            type="button"
+                            variant={"outline"}
+                            size={"sm"}
+                            className="font-normal text-xs w-fit"
+                            onClick={() => append({ name: "" })}
+                        >
+                            <Plus size={16} /> Add Category
+                        </Button>
+                    </FormControl>
+                    <FormMessage />
+                </FormItem>
+            )}
+        />
     )
 }

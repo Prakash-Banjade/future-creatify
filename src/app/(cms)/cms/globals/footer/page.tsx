@@ -3,7 +3,7 @@ import { db } from '@/db';
 import { footer } from '@/db/schema/globals';
 
 export default async function GlobalFooter() {
-    const [existing] = await db.select({ id: footer.id, navLinks: footer.navLinks, footerText: footer.footerText }).from(footer).limit(1);
+    const [existing] = await db.select().from(footer).limit(1);
 
     if (!existing) return (
         <div>

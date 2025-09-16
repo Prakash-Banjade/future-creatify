@@ -58,6 +58,15 @@ export default function CredibilityAndSupportForm({ credibilityAndSupport: cas, 
     });
 
     function onSubmit(data: TCredibilityAndSupport) {
+        const hasDuplicateCategories = data.faqCategories.some((category, index) => data.faqCategories.findIndex(cat => cat.name.toLowerCase() === category.name.toLowerCase()) !== index);
+        if (hasDuplicateCategories) {
+            form.setError("faqCategories", {
+                message: "Category names must be unique",
+                type: "manual",
+            });
+            return;
+        }
+        
         startTransition(async () => {
             try {
                 await updateCredibilityAndSupport(cas.id, data);
@@ -78,21 +87,17 @@ export default function CredibilityAndSupportForm({ credibilityAndSupport: cas, 
             <form onSubmit={form.handleSubmit(onSubmit)} className='@container h-full'>
                 <section className="h-full flex flex-col space-y-6">
                     <header className='@6xl:px-24 @3xl:px-16 px-8 space-y-2'>
-                        <h2 className=" text-3xl font-medium capitalize">Credibility and Support</h2>
+                        <h3 className="text-3xl font-bold capitalize max-w-[50ch] break-words">Credibility and Support</h3>
                         <p className='font-normal text-muted-foreground text-sm'>
                             Reassure your audience with trust signals, affiliations, and helpful resources.
                         </p>
                     </header>
                     <section className="@6xl:px-24 @3xl:px-16 px-8 sticky top-0 z-[50] backdrop-blur-3xl border-y mb-0">
                         <section className="py-3 flex items-center justify-between flex-wrap gap-6">
-                            <section className="text-sm flex gap-6">
+                            <section className="text-sm">
                                 <p>
                                     <span className="text-muted-foreground">Last Modified:&nbsp;</span>
                                     <time className="font-medium">{cas.updatedAt.toLocaleString()}</time>
-                                </p>
-                                <p>
-                                    <span className="text-muted-foreground">Created:&nbsp;</span>
-                                    <time className="font-medium">{cas.createdAt.toLocaleString()}</time>
                                 </p>
                             </section>
                             <section>

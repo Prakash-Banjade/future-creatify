@@ -19,6 +19,7 @@ import { cn } from "@/lib/utils";
 import { testimonialDefaultvalue, TCredibilityAndSupport } from "@/schemas/credibility-and-support.schema";
 import { TMediaSchema } from "@/schemas/media.schema";
 import { MediaInput, MediaItem } from "@/components/forms/media-field";
+import { NUMBER_REGEX_STRING } from "@/CONSTANTS";
 
 export default function TestimonialsTabContent() {
     const form = useFormContext<TCredibilityAndSupport>();
@@ -115,11 +116,35 @@ export default function TestimonialsTabContent() {
                                                                                 name={`testimonials.${idx}.name`}
                                                                                 render={({ field }) => (
                                                                                     <FormItem>
-                                                                                        <FormLabel>Name</FormLabel>
+                                                                                        <FormLabel>Name <span className="text-destructive">*</span></FormLabel>
                                                                                         <FormControl>
                                                                                             <Input
                                                                                                 className='py-5'
                                                                                                 maxLength={50}
+                                                                                                required
+                                                                                                {...field}
+                                                                                            />
+                                                                                        </FormControl>
+                                                                                        <FormMessage />
+                                                                                    </FormItem>
+                                                                                )}
+                                                                            />
+                                                                            <FormField
+                                                                                control={form.control}
+                                                                                name={`testimonials.${idx}.rating`}
+                                                                                render={({ field }) => (
+                                                                                    <FormItem>
+                                                                                        <FormLabel>Rating (1-5) <span className="text-destructive">*</span></FormLabel>
+                                                                                        <FormControl>
+                                                                                            <Input
+                                                                                                type="number"
+                                                                                                pattern={NUMBER_REGEX_STRING}
+                                                                                                step={0.5}
+                                                                                                min={1}
+                                                                                                max={5}
+                                                                                                className='py-5'
+                                                                                                maxLength={50}
+                                                                                                required
                                                                                                 {...field}
                                                                                             />
                                                                                         </FormControl>
@@ -133,11 +158,12 @@ export default function TestimonialsTabContent() {
                                                                                 render={({ field }) => {
                                                                                     return (
                                                                                         <FormItem>
-                                                                                            <FormLabel>Quote</FormLabel>
+                                                                                            <FormLabel>Quote <span className="text-destructive">*</span></FormLabel>
                                                                                             <FormControl>
                                                                                                 <Input
                                                                                                     className='py-5'
                                                                                                     maxLength={50}
+                                                                                                    required
                                                                                                     {...field}
                                                                                                 />
                                                                                             </FormControl>
@@ -170,7 +196,7 @@ export default function TestimonialsTabContent() {
 
                                                                                     return (
                                                                                         <FormItem>
-                                                                                            <FormLabel>Image <span className='text-destructive'>*</span></FormLabel>
+                                                                                            <FormLabel>Image</FormLabel>
                                                                                             <FormControl>
                                                                                                 {
                                                                                                     value ? (

@@ -1,9 +1,14 @@
 export enum EBlock {
-  Text = "text",
-  Image = "image",
-  Cards = "cards",
-  RefItem = "refItem",
-  Form = "form",
+    Text = 'text',
+    Image = 'image',
+    Cards = 'cards',
+    RefItem = 'refItem',
+    Form = 'form',
+    Faq = 'faq',
+    Certification = 'certification',
+    Alumni = 'alumni',
+    Testimonial = 'testimonial',
+    Partner = 'partner',
 }
 
 export type TextBlock = {

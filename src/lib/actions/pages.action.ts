@@ -20,6 +20,7 @@ export async function createNewPage() {
             description: "",
             keywords: [],
         },
+        sections: [],
         heroSections: [
             heroSectionDtoDefaultValues
         ]

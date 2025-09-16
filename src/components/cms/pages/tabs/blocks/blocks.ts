@@ -5,6 +5,7 @@ import ImageBlock from "./image-block";
 import CardsBlock from "./card/card-block";
 import RefItemBlock from "./ref-item.block";
 import FormBlock from "./form-block";
+import FaqBlock from "./faq-block";
 
 export type BlockComponentProps = {
     sectionIdx: number
@@ -17,4 +18,9 @@ export const blocks: Partial<Record<EBlock, FC<BlockComponentProps>>> = {
     [EBlock.Cards]: CardsBlock,
     [EBlock.RefItem]: RefItemBlock,
     [EBlock.Form]: FormBlock,
+    [EBlock.Faq]: FaqBlock,
+    [EBlock.Testimonial]: FaqBlock,
+    [EBlock.Alumni]: FaqBlock,
+    [EBlock.Partner]: FaqBlock,
+    [EBlock.Certification]: FaqBlock,
 }

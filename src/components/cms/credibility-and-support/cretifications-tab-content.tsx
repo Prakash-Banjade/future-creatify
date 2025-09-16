@@ -115,7 +115,7 @@ export default function CertificationsTabContent() {
                                                                                 name={`certifications.${idx}.name`}
                                                                                 render={({ field }) => (
                                                                                     <FormItem>
-                                                                                        <FormLabel>Name</FormLabel>
+                                                                                        <FormLabel>Name <span className="text-destructive">*</span></FormLabel>
                                                                                         <FormControl>
                                                                                             <Input
                                                                                                 className='py-5'
@@ -151,7 +151,7 @@ export default function CertificationsTabContent() {
 
                                                                                     return (
                                                                                         <FormItem>
-                                                                                            <FormLabel>Image <span className='text-destructive'>*</span></FormLabel>
+                                                                                            <FormLabel>Image</FormLabel>
                                                                                             <FormControl>
                                                                                                 {
                                                                                                     value ? (

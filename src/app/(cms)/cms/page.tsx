@@ -21,6 +21,7 @@ export default function CMSPage() {
           <Button
             type="button"
             variant={'link'}
+            disabled={isPending}
             className='mt-2 text-blue-500 p-0'
             onClick={() => startTransition(async () => {
               try {
