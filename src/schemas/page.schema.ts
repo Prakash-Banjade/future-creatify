@@ -115,6 +115,7 @@ export const FormBlockSchema = BaseBlockSchema.extend({
     introContent: richTextSchema.optional(),
 });
 
+export type FormBlockDto = z.infer<typeof FormBlockSchema>;
 // --- FaqBlockDto ---
 export const FaqBlockSchema = BaseBlockSchema.extend({
     type: z.literal(EBlock.Faq),

@@ -12,11 +12,16 @@ import Image from "next/image";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { serverFetch } from "@/lib/data-access.ts/server-fetch";
+import { TFooterDto } from "@/schemas/globals.schema";
+
+
+
 
 export default async function Footer() {
   const currentYear = new Date().getFullYear();
-  const footer = await serverFetch(`/footer`);
-  console.log('footer', footer);
+  const response = await serverFetch(`/footer`);
+  const footerData = response.ok ? await response.json() as TFooterDto : null;
+  console.log('footerData', footerData);
   return (
     <footer className="bg-[#fcfcfc] pt-16 pb-8">
       <div className="container mx-auto">
@@ -33,8 +38,7 @@ export default async function Footer() {
               />
             </Link>
             <p className="mb-4 text-sm text-muted-foreground">
-              Empowering educators by training, facilitating, and designing
-              innovative programs through project-based integrated pedagogy.
+              {footerData?.footerText || ""}
             </p>
             <div className="flex space-x-4">
               <a href="#" aria-label="Facebook" className="hover:text-primary">
@@ -55,7 +59,13 @@ export default async function Footer() {
           {/* Quick Links */}
           <div>
             <h4 className="text-xl font-bold mb-4">Quick Links</h4>
-            <ul className="flex flex-col space-y-2"></ul>
+            {
+              footerData?.navLinks?.map((link) => (
+                <Link key={link.text} href={link.url} className="block">
+                  {link.text}
+                </Link>
+              ))
+            }
           </div>
 
           {/* Contact Info */}
