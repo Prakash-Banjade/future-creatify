@@ -3,7 +3,7 @@ import { db } from '@/db'
 import { header } from '@/db/schema/globals'
 
 export default async function GlobalHeader() {
-    const [existing] = await db.select({ id: header.id, navLinks: header.navLinks }).from(header).limit(1);
+    const [existing] = await db.select().from(header).limit(1);
 
     if (!existing) return (
         <div>

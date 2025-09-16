@@ -23,3 +23,6 @@ export const footer = pgTable(
         updatedAt: timestamp("updated_at").notNull().defaultNow().$onUpdate(() => new Date()),
     }
 );
+
+export type THeaderSelect = typeof header.$inferSelect;
+export type TFooterSelect = typeof footer.$inferSelect;

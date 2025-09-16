@@ -87,7 +87,7 @@ export default function CredibilityAndSupportForm({ credibilityAndSupport: cas, 
             <form onSubmit={form.handleSubmit(onSubmit)} className='@container h-full'>
                 <section className="h-full flex flex-col space-y-6">
                     <header className='@6xl:px-24 @3xl:px-16 px-8 space-y-2'>
-                        <h2 className=" text-3xl font-medium capitalize">Credibility and Support</h2>
+                        <h3 className="text-3xl font-bold capitalize max-w-[50ch] break-words">Credibility and Support</h3>
                         <p className='font-normal text-muted-foreground text-sm'>
                             Reassure your audience with trust signals, affiliations, and helpful resources.
                         </p>

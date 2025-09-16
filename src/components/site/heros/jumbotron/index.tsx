@@ -13,32 +13,36 @@ export default function JumboTron({ hero }: RenderHeroProps) {
 
   return (
     <section
-      className={cn(
-        "h-[80vh] max-h-[600px] bg-cream xl:p-20 lg:p-16 p-10 flex flex-col items-center mb-12",
-        alignment === EAlignment.Left
-          ? "justify-start"
-          : alignment === EAlignment.Center
-            ? "justify-center"
-            : "justify-end"
-      )}
+      className="h-[80vh] max-h-[600px] bg-cream"
       style={{
         background: hero.image?.secure_url
           ? `linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(${hero.image.secure_url}) no-repeat center center / cover`
           : undefined
       }}
     >
-      <RichTextPreview className="mb-6" html={hero.headline.html} />
-      {
-        Array.isArray(hero.cta) && hero.cta.length > 0 && (
-          <ul className="flex md:justify-center gap-4">
-            {hero.cta.map((cta, index) => (
-              <li key={index}>
-                <CMSLink size={'lg'} {...cta} />
-              </li>
-            ))}
-          </ul>
-        )
-      }
+      <section
+        className={cn(
+          "h-full container mx-auto flex flex-col justify-center mb-12",
+          alignment === EAlignment.Left
+            ? "items-start"
+            : alignment === EAlignment.Center
+              ? "items-center"
+              : "items-end"
+        )}
+      >
+        <RichTextPreview className="mb-6" html={hero.headline.html} />
+        {
+          Array.isArray(hero.cta) && hero.cta.length > 0 && (
+            <ul className="flex md:justify-center gap-4">
+              {hero.cta.map((cta, index) => (
+                <li key={index}>
+                  <CMSLink size={'lg'} {...cta} />
+                </li>
+              ))}
+            </ul>
+          )
+        }
+      </section>
     </section>
   )
 }
