@@ -25,7 +25,6 @@ export async function GET(req: Request, { params }: { params: Promise<{ id: stri
 
 
 export async function fetchForm(id: string) {
-  console.log(id);
   const res = await serverFetch(`/forms/${id}`, {
     next: { revalidate: parseInt(process.env.DATA_REVALIDATE_SEC!) },
   });

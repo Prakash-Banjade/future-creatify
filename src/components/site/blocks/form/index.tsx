@@ -16,12 +16,29 @@ import {
 import isEmptyHTML from "@/lib/utilities/isEmptyHTML";
 import { cn } from "@/lib/utils";
 import { FormBlockDto } from "@/schemas/page.schema";
+import { createFormSubmission } from "@/lib/actions/forms.action";
 
 export default async function RenderFormBlock({
   form: { id },
   introContent,
 }: FormBlockDto) {
   const form = await fetchForm(id);
+
+  async function handleFormSubmission(formData: FormData) {
+    "use server";
+    const data: Record<string, unknown> = {};
+    // Convert FormData to object
+    for (const [key, value] of formData.entries()) {
+      data[key] = value;
+    }
+    try {
+      await createFormSubmission(id, data);
+      // You can add redirect or success handling here
+    } catch (error) {
+      console.error("Form submission error:", error);
+      throw error;
+    }
+  }
 
   return (
     <Card className="w-full">
@@ -33,7 +50,7 @@ export default async function RenderFormBlock({
         )}
       </CardHeader>
       <CardContent>
-        <form className="space-y-6">
+        <form action={handleFormSubmission} className="space-y-6">
           {form?.fields?.map((field, idx) => (
             <div key={idx} className="space-y-2">
               <Label className="mb-2">
