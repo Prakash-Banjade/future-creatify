@@ -5,6 +5,7 @@ import { Button, LoadingButton } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import TagsInput from "@/components/ui/tags-input";
+import { TSiteSettingSelect } from "@/db/schema/site-setting";
 import { updateSiteSetting } from "@/lib/actions/site-setting.action";
 import { showServerError } from "@/lib/utils";
 import { siteSettingSchema, TSiteSettingSchema } from "@/schemas/site-setting.schema";
@@ -15,7 +16,7 @@ import { useFieldArray, useForm } from "react-hook-form";
 import { toast } from "sonner";
 
 type Props = {
-    defaultValues: Partial<TSiteSettingSchema> & { id: string }
+    defaultValues: TSiteSettingSelect
 }
 
 export default function SiteSettingForm({ defaultValues }: Props) {
@@ -59,7 +60,13 @@ export default function SiteSettingForm({ defaultValues }: Props) {
                         <h3 className="text-3xl font-bold capitalize max-w-[50ch] break-words">Site Settings</h3>
                     </header>
                     <section className="border-y sticky z-[1] backdrop-blur-3xl top-0">
-                        <section className="container flex justify-end py-3">
+                        <section className="container flex justify-between items-center py-3">
+                            <section className="text-sm">
+                                <p>
+                                    <span className="text-muted-foreground">Last Modified:&nbsp;</span>
+                                    <time className="font-medium">{defaultValues.updatedAt.toLocaleString()}</time>
+                                </p>
+                            </section>
                             <LoadingButton
                                 type="submit"
                                 size={'lg'}
@@ -158,6 +165,7 @@ export default function SiteSettingForm({ defaultValues }: Props) {
                                         <Input
                                             placeholder="Eg. 123 Main St, City, Country"
                                             {...field}
+                                            className="min-h-10"
                                         />
                                     </FormControl>
                                     <FormMessage />
@@ -173,7 +181,7 @@ export default function SiteSettingForm({ defaultValues }: Props) {
                                     <FormControl>
                                         <Input
                                             type="url"
-                                            className="input"
+                                            className="min-h-10"
                                             placeholder="Eg. https://maps.app.goo.gl....."
                                             {...field}
                                         />

@@ -15,7 +15,7 @@ export async function createBlog(values: blogSchemaType) {
 
     if (!success) throwZodErrorMsg(error);
 
-    const inserted = await db.insert(blogs).values({ ...data, slug: generateSlug(data.title) }).returning({ id: blogs.id });
+    const inserted = await db.insert(blogs).values({ ...data, content: {}, slug: generateSlug(data.title) }).returning({ id: blogs.id });
 
     if (inserted.length === 0) throw new Error("Failed to create blog");
 

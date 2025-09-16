@@ -21,9 +21,10 @@ import { Textarea } from "@/components/ui/textarea";
 import { updateFooter } from "@/lib/actions/globals.action";
 import { toast } from "sonner";
 import { ECtaVariant } from "../../../../types/blocks.types";
+import { TFooterSelect } from "@/db/schema/globals";
 
 type Props = {
-    defaultValues: Partial<TFooterDto> & { id: string }
+    defaultValues: TFooterSelect;
 }
 
 export default function FooterForm({ defaultValues }: Props) {
@@ -57,7 +58,13 @@ export default function FooterForm({ defaultValues }: Props) {
                         <h3 className="text-3xl font-bold capitalize max-w-[50ch] break-words">Footer</h3>
                     </header>
                     <section className="border-y sticky z-[1] backdrop-blur-3xl top-0">
-                        <section className="container flex justify-end py-3">
+                        <section className="container flex justify-between items-center py-3">
+                            <section className="text-sm">
+                                <p>
+                                    <span className="text-muted-foreground">Last Modified:&nbsp;</span>
+                                    <time className="font-medium">{defaultValues.updatedAt.toLocaleString()}</time>
+                                </p>
+                            </section>
                             <LoadingButton
                                 type="submit"
                                 size={'lg'}

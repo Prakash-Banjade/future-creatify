@@ -115,11 +115,12 @@ export default function PartnersTabContent() {
                                                                                 name={`partners.${idx}.name`}
                                                                                 render={({ field }) => (
                                                                                     <FormItem>
-                                                                                        <FormLabel>Name</FormLabel>
+                                                                                        <FormLabel>Name <span className="text-destructive">*</span></FormLabel>
                                                                                         <FormControl>
                                                                                             <Input
                                                                                                 className='py-5'
                                                                                                 maxLength={50}
+                                                                                                required
                                                                                                 {...field}
                                                                                             />
                                                                                         </FormControl>
@@ -171,7 +172,7 @@ export default function PartnersTabContent() {
 
                                                                                     return (
                                                                                         <FormItem>
-                                                                                            <FormLabel>Image <span className='text-destructive'>*</span></FormLabel>
+                                                                                            <FormLabel>Image</FormLabel>
                                                                                             <FormControl>
                                                                                                 {
                                                                                                     value ? (

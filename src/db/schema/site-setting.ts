@@ -20,3 +20,4 @@ export const siteSetting = pgTable(
     },
 );
 
+export type TSiteSettingSelect = typeof siteSetting.$inferSelect;

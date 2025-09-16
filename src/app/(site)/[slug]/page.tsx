@@ -21,7 +21,7 @@ export const generateMetadata = async ({ params: paramsPromise }: Props): Promis
 
     return {
         title,
-        description: description,
+        description,
         keywords: Array.isArray(keywords) ? keywords : [],
         openGraph: {
             type: "website",
