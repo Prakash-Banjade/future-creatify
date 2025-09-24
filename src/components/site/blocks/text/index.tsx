@@ -12,6 +12,7 @@ export default function RenderTextBlock({
     headline,
     subheadline,
 }: TextBlockDto) {
+    console.log("text-block",align,body)
     const textAlignClassName = align === EAlignment.Center
         ? "text-center"
         : align === EAlignment.Right
@@ -21,15 +22,16 @@ export default function RenderTextBlock({
     return (
         <section>
             <div className={cn(
-                "flex flex-col gap-3 mb-8",
+                "flex flex-col gap-2",
                 align === EAlignment.Center
-                    ? "items-center justify-center"
+                    ? "items-center justify-center text-center"
                     : align === EAlignment.Right && "items-end"
             )}>
                 <h2
                     className={cn(
-                        "text-4xl font-medium",
-                        textAlignClassName
+                        "text-base text-primary font-semibold tracking-widest",
+                        align === EAlignment.Center ? "" :
+                        "w-full text-left"
                     )}
                 >
                     {headline}

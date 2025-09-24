@@ -3,9 +3,9 @@ import { EHeroLayoutTypes } from "../../../../../types/page.types";
 import { RenderHeroProps } from "../render-hero";
 import { RichTextPreview } from "@/components/editor/blocks/editor-x/rich-text-preview";
 import Image from "next/image";
-import { ArrowRight } from "lucide-react";
 import CMSLink from "@/components/ui/cms-link";
 export default function SplitHero({ hero }: RenderHeroProps) {
+  console.log("split hero",hero)
   const layoutType = hero.layout.type;
   if (layoutType !== EHeroLayoutTypes.Split_Hero) return null;
 

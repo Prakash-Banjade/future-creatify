@@ -2,7 +2,7 @@
 
 import { FormDtoSchema, TFormDto } from "@/schemas/forms.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useFieldArray, useForm, useFormContext, useWatch } from "react-hook-form";
+import { FieldArrayWithId, useFieldArray, UseFieldArrayInsert, UseFieldArrayRemove, UseFieldArraySwap, useForm, useFormContext, useWatch } from "react-hook-form";
 import {
     Form,
     FormControl,
@@ -35,6 +35,9 @@ import { cn, showServerError } from "@/lib/utils";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
+import { CSS } from "@dnd-kit/utilities"
+import { useSortable } from "@dnd-kit/sortable";
+import FieldArraySortableContext from "@/components/dnd/field-array-sortable-context";
 
 type Props = {
     defaultValues: Partial<TFormDto>,
@@ -168,7 +171,7 @@ export default function FormForm({ defaultValues, meta }: Props) {
 function Fields() {
     const form = useFormContext<TFormDto>();
 
-    const { fields, append, remove, insert, swap } = useFieldArray({
+    const { fields, append, remove, insert, swap, move } = useFieldArray({
         control: form.control,
         name: "fields",
     });
@@ -181,95 +184,25 @@ function Fields() {
                 <FormItem>
                     <FormLabel>Fields <span className="text-destructive">*</span></FormLabel>
 
-                    <section className="space-y-2">
-                        {
-                            fields.map((f, idx) => {
-                                return (
-                                    <FormField
-                                        key={f.id}
-                                        control={form.control}
-                                        name={`fields.${idx}`}
-                                        render={({ field }) => {
-                                            const fieldType = field.value.type;
-                                            const FormFieldComponent = formFields[fieldType];
-                                            const fieldError = Array.isArray(form.formState.errors.fields) && form.formState.errors.fields[idx];
-
-                                            return (
-                                                <FormItem>
-                                                    <FormControl>
-                                                        <Accordion type="multiple">
-                                                            <AccordionItem value={f.id} className={cn(
-                                                                "bg-secondary/50 border !border-b-1 rounded-md overflow-hidden",
-                                                                fieldError && "bg-destructive/10 border-destructive"
-                                                            )}>
-                                                                <section className="relative flex items-center gap-2 px-2">
-                                                                    <button type="button" className="hover:cursor-grab">
-                                                                        <GripVertical className="text-muted-foreground" size={16} />
-                                                                    </button>
-                                                                    <AccordionTrigger className="text-sm hover:no-underline py-2.5">
-                                                                        <section className="space-x-3">
-                                                                            <span className="font-light">{(idx + 1).toString().padStart(2, "0")}</span>
-                                                                            <Badge className="capitalize">{fieldType}</Badge>
-                                                                        </section>
-                                                                    </AccordionTrigger>
-                                                                    <section className="absolute right-10">
-                                                                        <DropdownMenu>
-                                                                            <DropdownMenuTrigger className="p-2">
-                                                                                <MoreHorizontal size={16} />
-                                                                            </DropdownMenuTrigger>
-                                                                            <DropdownMenuContent side="top">
-                                                                                {
-                                                                                    idx !== 0 && <DropdownMenuItem onClick={() => swap(idx, idx - 1)}>
-                                                                                        <ChevronUp /> Move Up
-                                                                                    </DropdownMenuItem>
-                                                                                }
-                                                                                <DropdownMenuItem onClick={() => swap(idx, idx + 1)}>
-                                                                                    <ChevronDown /> Move Down
-                                                                                </DropdownMenuItem>
-                                                                                <AddFormFieldDialog
-                                                                                    onSelect={(field) => {
-                                                                                        insert(idx + 1, field);
-                                                                                    }}
-                                                                                >
-                                                                                    <Button
-                                                                                        variant={"ghost"}
-                                                                                        className="w-full justify-start !px-2 !py-1.5 hover:!bg-accent font-normal"
-                                                                                    >
-                                                                                        <span className="text-muted-foreground"><Plus /></span>
-                                                                                        Add Below
-                                                                                    </Button>
-                                                                                </AddFormFieldDialog>
-                                                                                <DropdownMenuItem onClick={() => insert(idx + 1, field.value)}>
-                                                                                    <Copy /> Duplicate
-                                                                                </DropdownMenuItem>
-                                                                                <DropdownMenuItem onClick={() => remove(idx)}>
-                                                                                    <X /> Remove
-                                                                                </DropdownMenuItem>
-                                                                            </DropdownMenuContent>
-                                                                        </DropdownMenu>
-                                                                    </section>
-                                                                </section>
-                                                                <AccordionContent className="px-3 py-5 bg-background">
-                                                                    {
-                                                                        FormFieldComponent && <FormFieldComponent
-                                                                            idx={idx}
-                                                                        />
-                                                                    }
-                                                                </AccordionContent>
-                                                            </AccordionItem>
-                                                        </Accordion>
-                                                    </FormControl>
-                                                    <FormMessage />
-                                                </FormItem>
-                                            )
-                                        }}
-                                    />
-
-
-                                )
-                            })
-                        }
-                    </section>
+                    <FieldArraySortableContext
+                        fields={fields}
+                        move={move}
+                    >
+                        <section className="space-y-2">
+                            {
+                                fields.map((f, idx) => {
+                                    return (
+                                        <SortableField
+                                            key={f.id}
+                                            f={f}
+                                            idx={idx}
+                                            actions={{ swap, remove, insert }}
+                                        />
+                                    )
+                                })
+                            }
+                        </section>
+                    </FieldArraySortableContext>
 
                     <FormControl>
                         <section>
@@ -293,5 +226,116 @@ function Fields() {
                 </FormItem>
             )}
         />
+    )
+}
+
+function SortableField({
+    f,
+    idx,
+    actions: { swap, insert, remove }
+}: {
+    f: FieldArrayWithId<TFormDto, "fields", "id">,
+    idx: number,
+    actions: {
+        swap: UseFieldArraySwap
+        remove: UseFieldArrayRemove
+        insert: UseFieldArrayInsert<TFormDto, "fields">
+    }
+}) {
+    const form = useFormContext<TFormDto>();
+    const { attributes, listeners, isDragging, setNodeRef, transform, transition } = useSortable({ id: f.id })
+
+    const style = {
+        transform: CSS.Transform.toString(transform),
+        transition,
+    }
+
+    return (
+        <section ref={setNodeRef} style={style} className={`${isDragging ? "opacity-50" : ""}`}>
+            <FormField
+                key={f.id}
+                control={form.control}
+                name={`fields.${idx}`}
+                render={({ field }) => {
+                    const fieldType = field.value.type;
+                    const FormFieldComponent = formFields[fieldType];
+                    const fieldError = Array.isArray(form.formState.errors.fields) && form.formState.errors.fields[idx];
+
+                    return (
+                        <FormItem>
+                            <FormControl>
+                                <Accordion type="multiple">
+                                    <AccordionItem value={f.id} className={cn(
+                                        "bg-secondary/50 border !border-b-1 rounded-md overflow-hidden",
+                                        fieldError && "bg-destructive/10 border-destructive"
+                                    )}>
+                                        <section className="relative flex items-center gap-2 px-2">
+                                            <button
+                                                type="button"
+                                                className="cursor-grab active:cursor-grabbing "
+                                                {...attributes}
+                                                {...listeners}
+                                            >
+                                                <GripVertical className="text-muted-foreground" size={16} />
+                                            </button>
+                                            <AccordionTrigger className="text-sm hover:no-underline py-2.5">
+                                                <section className="space-x-3">
+                                                    <span className="font-light">{(idx + 1).toString().padStart(2, "0")}</span>
+                                                    <Badge className="capitalize">{fieldType}</Badge>
+                                                </section>
+                                            </AccordionTrigger>
+                                            <section className="absolute right-10">
+                                                <DropdownMenu>
+                                                    <DropdownMenuTrigger className="p-2">
+                                                        <MoreHorizontal size={16} />
+                                                    </DropdownMenuTrigger>
+                                                    <DropdownMenuContent side="top">
+                                                        {
+                                                            idx !== 0 && <DropdownMenuItem onClick={() => swap(idx, idx - 1)}>
+                                                                <ChevronUp /> Move Up
+                                                            </DropdownMenuItem>
+                                                        }
+                                                        <DropdownMenuItem onClick={() => swap(idx, idx + 1)}>
+                                                            <ChevronDown /> Move Down
+                                                        </DropdownMenuItem>
+                                                        <AddFormFieldDialog
+                                                            onSelect={(field) => {
+                                                                insert(idx + 1, field);
+                                                            }}
+                                                        >
+                                                            <Button
+                                                                variant={"ghost"}
+                                                                className="w-full justify-start !px-2 !py-1.5 hover:!bg-accent font-normal"
+                                                            >
+                                                                <span className="text-muted-foreground"><Plus /></span>
+                                                                Add Below
+                                                            </Button>
+                                                        </AddFormFieldDialog>
+                                                        <DropdownMenuItem onClick={() => insert(idx + 1, field.value)}>
+                                                            <Copy /> Duplicate
+                                                        </DropdownMenuItem>
+                                                        <DropdownMenuItem onClick={() => remove(idx)}>
+                                                            <X /> Remove
+                                                        </DropdownMenuItem>
+                                                    </DropdownMenuContent>
+                                                </DropdownMenu>
+                                            </section>
+                                        </section>
+                                        <AccordionContent className="px-3 py-5 bg-background">
+                                            {
+                                                FormFieldComponent && <FormFieldComponent
+                                                    idx={idx}
+                                                />
+                                            }
+                                        </AccordionContent>
+                                    </AccordionItem>
+                                </Accordion>
+                            </FormControl>
+                            <FormMessage />
+                        </FormItem>
+                    )
+                }}
+            />
+        </section>
     )
 }

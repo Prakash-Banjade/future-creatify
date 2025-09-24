@@ -2,8 +2,10 @@ import { db } from "@/db"
 import { header } from "@/db/schema/globals"
 import { cache } from "react"
 import Header from "./header";
-import { ENavLinkType } from "@/schemas/globals.schema";
+import { ENavLinkType, TFooterDto } from "@/schemas/globals.schema";
 import { ECtaVariant } from "../../../types/blocks.types";
+import { serverFetch } from "@/lib/data-access.ts/server-fetch";
+import { TSiteSettingSchema } from "@/schemas/site-setting.schema";
 
 const getHeader = cache(async () => {
     const [existing] = await db.select({
@@ -29,7 +31,8 @@ export interface RefinedSiteNavLinks {
 
 export default async function Navbar() {
     const header = await getHeader();
-
+    const siteResponse = await serverFetch(`/site-settings`);
+    const siteData = siteResponse.ok ? await siteResponse.json() as TSiteSettingSchema : null ;
     if (!header) return null;
 
     const navLinks: RefinedSiteNavLinks[] = header.navLinks.map(n => {
@@ -51,6 +54,6 @@ export default async function Navbar() {
     });
 
     return (
-        <Header navLinks={navLinks} />
+        <Header navLinks={navLinks} siteData={siteData}  />
     )
 }

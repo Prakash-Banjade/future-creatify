@@ -1,4 +1,4 @@
-import { useFieldArray, useFormContext } from "react-hook-form"
+import { FieldArrayWithId, useFieldArray, useFormContext } from "react-hook-form"
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
@@ -10,6 +10,9 @@ import { MAX_CARD_BLOCK_CARDS, TPageDto } from "@/schemas/page.schema";
 import { richTextDefaultValues } from "@/schemas/rich-text.schema";
 import { Input } from "@/components/ui/input";
 import { NUMBER_REGEX_STRING } from "@/CONSTANTS";
+import FieldArraySortableContext from "@/components/dnd/field-array-sortable-context";
+import { useSortable } from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities"
 
 export default function CardsBlock({ sectionIdx, blockIdx }: BlockComponentProps) {
     const form = useFormContext<TPageDto>();
@@ -17,7 +20,7 @@ export default function CardsBlock({ sectionIdx, blockIdx }: BlockComponentProps
     const blockName = `sections.${sectionIdx}.blocks.items.${blockIdx}` as const;
     const cardFieldName = `${blockName}.cards` as const;
 
-    const { fields, append, remove } = useFieldArray({
+    const { fields, append, remove, move } = useFieldArray({
         control: form.control,
         name: cardFieldName,
     });
@@ -143,71 +146,77 @@ export default function CardsBlock({ sectionIdx, blockIdx }: BlockComponentProps
             />
 
             {/* Cards */}
-            <section className="space-y-2">
-                <FormField
-                    control={form.control}
-                    name={`${blockName}.cards`}
-                    render={() => (
-                        <FormItem>
-                            <FormLabel>Cards <span className='text-destructive'>*</span></FormLabel>
+            <FieldArraySortableContext
+                fields={fields}
+                move={move}
+            >
+                <section className="space-y-2">
+                    <FormField
+                        control={form.control}
+                        name={`${blockName}.cards`}
+                        render={() => (
+                            <FormItem>
+                                <FormLabel>Cards <span className='text-destructive'>*</span></FormLabel>
 
-                            <section className="space-y-2">
-                                {
-                                    fields.map((f, idx) => {
-                                        return (
-                                            <FormField
-                                                key={f.id}
-                                                control={form.control}
-                                                name={`${cardFieldName}.${idx}`}
-                                                render={() => {
-                                                    const isFieldError = Array.isArray(form.formState.errors.sections) && !!form.formState.errors.sections[sectionIdx]?.blocks.items[blockIdx].cards?.[idx];
+                                <section className="space-y-2" style={{ marginBottom: "0" }}>
+                                    {
+                                        fields.map((f, idx) => {
+                                            return (
+                                                <FormField
+                                                    key={f.id}
+                                                    control={form.control}
+                                                    name={`${cardFieldName}.${idx}`}
+                                                    render={() => {
+                                                        const isFieldError = Array.isArray(form.formState.errors.sections) && !!form.formState.errors.sections[sectionIdx]?.blocks.items[blockIdx].cards?.[idx];
 
-                                                    return (
-                                                        <FormItem>
-                                                            <FormControl>
-                                                                <CardAccordion
-                                                                    idx={idx}
-                                                                    name={`${cardFieldName}.${idx}`}
-                                                                    onRemove={() => remove(idx)}
-                                                                    isFieldError={isFieldError}
-                                                                />
-                                                            </FormControl>
-                                                            <FormMessage />
-                                                        </FormItem>
-                                                    )
-                                                }}
-                                            />
-                                        )
-                                    })
-                                }
-                            </section>
-
-                            <FormControl>
-                                <Button
-                                    type="button"
-                                    variant={"outline"}
-                                    size={"sm"}
-                                    className="font-normal text-xs w-fit"
-                                    onClick={() => {
-                                        append({
-                                            title: "",
-                                            subtitle: "",
-                                            description: richTextDefaultValues,
-                                            link: undefined,
-                                            image: undefined,
-                                            borderLess: false,
-                                            newTab: false
+                                                        return (
+                                                            <FormItem>
+                                                                <FormControl>
+                                                                    <CardAccordion
+                                                                        idx={idx}
+                                                                        name={`${cardFieldName}.${idx}`}
+                                                                        onRemove={() => remove(idx)}
+                                                                        isFieldError={isFieldError}
+                                                                        fieldId={f.id}
+                                                                    />
+                                                                </FormControl>
+                                                                <FormMessage />
+                                                            </FormItem>
+                                                        )
+                                                    }}
+                                                />
+                                            )
                                         })
-                                    }}
-                                >
-                                    <Plus size={16} /> Add Card
-                                </Button>
-                            </FormControl>
-                            <FormMessage />
-                        </FormItem>
-                    )}
-                />
-            </section>
+                                    }
+                                </section>
+
+                                <FormControl>
+                                    <Button
+                                        type="button"
+                                        variant={"outline"}
+                                        size={"sm"}
+                                        className="font-normal text-xs w-fit"
+                                        onClick={() => {
+                                            append({
+                                                title: "",
+                                                subtitle: "",
+                                                description: richTextDefaultValues,
+                                                link: undefined,
+                                                image: undefined,
+                                                borderLess: false,
+                                                newTab: false
+                                            })
+                                        }}
+                                    >
+                                        <Plus size={16} /> Add Card
+                                    </Button>
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+                </section>
+            </FieldArraySortableContext>
         </section>
     )
 }

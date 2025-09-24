@@ -48,7 +48,7 @@ export default function RenderCardsBlock({
                                 card.image?.secure_url && (
                                     <CloudinaryImage
                                         src={card.image.secure_url}
-                                        className='w-full object-cover'
+                                        className='w-full h-64 object-cover'
                                         {...card.image}
                                     />
                                 )

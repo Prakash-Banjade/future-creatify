@@ -29,7 +29,7 @@ export default async function BlogsPage({ searchParams }: { searchParams: Promis
 
             {/* Blogs Section */}
             <section>
-                <div className="container">
+                <div className="container py-24">
                     {/* Search and Filter */}
                     <Suspense fallback={<Skeleton className="h-12" />}>
                         <BlogsSearchFilters_Public />

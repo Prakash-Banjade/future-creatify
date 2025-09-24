@@ -8,6 +8,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover"
+import { EDITOR_COLORS } from "./colors-config"
 
 type Props = {
   disabled?: boolean
@@ -55,6 +56,22 @@ export default function ColorPicker({
           }}
           value={color}
         />
+        <section className="flex p-1 gap-1 flex-wrap">
+          {
+            EDITOR_COLORS.map(({ name, value }) => (
+              <button
+                type="button"
+                title={name}
+                className="size-7 rounded-md border shadow-sm"
+                style={{ backgroundColor: value }}
+                onClick={(e) => {
+                  e.stopPropagation()
+                  onChange?.(value, false)
+                }}
+              />
+            ))
+          }
+        </section>
       </PopoverContent>
     </Popover>
   )

@@ -9,12 +9,12 @@ import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
 import { RefinedSiteNavLinks } from './navbar';
+import { TSiteSettingSchema } from '@/schemas/site-setting.schema';
 
-export default function Header({ navLinks }: { navLinks: RefinedSiteNavLinks[] }) {
+export default function Header({ navLinks, siteData }: { navLinks: RefinedSiteNavLinks[]; siteData : TSiteSettingSchema | null }) {
     const pathname = usePathname();
     const [scrolled, setScrolled] = useState(false);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
     useEffect(() => {
         const handleScroll = () => {
             setScrolled(window.scrollY > 50);
@@ -28,13 +28,13 @@ export default function Header({ navLinks }: { navLinks: RefinedSiteNavLinks[] }
         window.scrollTo(0, 0);
     }, [pathname]);
 
-    const toggleMobileMenu = () => {
+    const toggleMobileMenu = () => {    
         setMobileMenuOpen(!mobileMenuOpen);
     };
 
     return (
         <header
-            className={`sticky top-0 left-0 w-full z-50 transition-all duration-300 ${scrolled
+            className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${scrolled
                 ? 'bg-white shadow-md py-2'
                 : 'bg-transparent py-4 md:py-4'
                 }`}
@@ -44,7 +44,7 @@ export default function Header({ navLinks }: { navLinks: RefinedSiteNavLinks[] }
                     <Image
                         width={64}
                         height={64}
-                        src={`/logo.png`}
+                        src={siteData?.logoLight?.secure_url || `/logo.png`}
                         alt="Site Builder Logo"
                         className="h-16 w-auto"
                     />

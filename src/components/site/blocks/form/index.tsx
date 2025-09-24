@@ -153,6 +153,7 @@ export default async function RenderFormBlock({
               )}
               {field.type === "textarea" && (
                 <Textarea
+                className={cn("max-h-24 overflow-y-auto resize-none field-sizing-content whitespace-pre-wrap break-words")}
                   placeholder={field.placeholder}
                   rows={4}
                   defaultValue={field.defaultValue}

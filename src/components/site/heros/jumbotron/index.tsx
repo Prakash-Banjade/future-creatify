@@ -6,6 +6,7 @@ import { RichTextPreview } from "@/components/editor/blocks/editor-x/rich-text-p
 import CMSLink from "@/components/ui/cms-link";
 
 export default function JumboTron({ hero }: RenderHeroProps) {
+  console.log("jumbotron hero",hero)
   const layoutType = hero.layout.type;
   if (layoutType !== EHeroLayoutTypes.Jumbotron) return null;
 
