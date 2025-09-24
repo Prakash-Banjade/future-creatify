@@ -5,13 +5,17 @@ import { TPage } from "../../../../../../types/page.types";
 import PageForm from "@/components/cms/pages/page-form";
 
 type Props = {
-    params: {
+    params: Promise<{
         id: string
-    }
+    }>,
+    searchParams: Promise<{
+        tab?: string
+    }>
 }
 
-export default async function PageEditPage({ params }: { params: Promise<Props["params"]> }) {
+export default async function PageEditPage({ params, searchParams }: Props) {
     const { id } = await params;
+    const { tab } = await searchParams;
 
     const foundPage: TPage | undefined = await db.query.pages.findFirst({
         where: eq(pages.id, id),
@@ -24,6 +28,9 @@ export default async function PageEditPage({ params }: { params: Promise<Props["
     }
 
     return (
-        <PageForm page={foundPage} />
+        <PageForm
+            page={foundPage}
+            defaultTab={tab}
+        />
     )
 }

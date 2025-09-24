@@ -1,12 +1,10 @@
 import { db } from "@/db";
 import { pages } from "@/db/schema/page";
-import { serverFetch } from "@/lib/data-access.ts/server-fetch";
-import { notFound } from "next/navigation";
-import { TPage } from "../../../../types/page.types";
 import { Metadata } from "next";
 import RenderHero from "@/components/site/heros/render-hero";
 import RenderSections from "@/components/site/blocks/render-sections";
 import { SITE_TITLE } from "@/CONSTANTS";
+import { fetchPage } from "@/lib/utilities/fetchPage";
 
 export async function generateStaticParams() {
     const allPages = await db.select({ slug: pages.slug }).from(pages);
@@ -56,18 +54,4 @@ export default async function Page({ params: paramsPromise }: Props) {
             <RenderSections sections={page.sections} />
         </div>
     );
-}
-
-async function fetchPage(slug: string) {
-    const res = await serverFetch(`/pages/${slug}`, {
-        next: { revalidate: parseInt(process.env.DATA_REVALIDATE_SEC!) },
-    });
-
-    if (!res.ok) notFound();
-
-    const page: TPage = await res.json();
-
-    if (!page) notFound();
-
-    return page;
 }

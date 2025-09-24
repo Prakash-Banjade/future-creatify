@@ -14,7 +14,7 @@ import { useTransition } from "react";
 import { showServerError } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { ENavLinkType, footerSchema, MAX_NAV_LINKS, navLinkDefaultValue, TFooterDto } from "@/schemas/globals.schema";
-import { useFieldArray, useForm, useFormContext } from "react-hook-form";
+import { FieldArrayWithId, useFieldArray, UseFieldArrayInsert, UseFieldArrayRemove, UseFieldArraySwap, useForm, useFormContext } from "react-hook-form";
 import NavLinkFormField from "./navlinks-form-field";
 import { Plus } from "lucide-react";
 import { Textarea } from "@/components/ui/textarea";
@@ -22,6 +22,9 @@ import { updateFooter } from "@/lib/actions/globals.action";
 import { toast } from "sonner";
 import { ECtaVariant } from "../../../../types/blocks.types";
 import { TFooterSelect } from "@/db/schema/globals";
+import { useSortable } from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities"
+import FieldArraySortableContext from "@/components/dnd/field-array-sortable-context";
 
 type Props = {
     defaultValues: TFooterSelect;
@@ -107,7 +110,7 @@ export default function FooterForm({ defaultValues }: Props) {
 function NavLinksField() {
     const form = useFormContext<TFooterDto>();
 
-    const { fields, append, remove, swap, insert } = useFieldArray({
+    const { fields, append, remove, swap, insert, move } = useFieldArray({
         control: form.control,
         name: `navLinks`,
     });
@@ -119,44 +122,25 @@ function NavLinksField() {
             render={() => (
                 <FormItem>
                     <FormLabel>Navigation Links</FormLabel>
-                    <section className="space-y-2">
-                        {
-                            fields.map((f, idx) => {
-                                return (
-                                    <FormField
-                                        key={f.id}
-                                        control={form.control}
-                                        name={`navLinks.${idx}`}
-                                        render={({ field }) => {
-                                            const isFieldError = Array.isArray(form.formState.errors.navLinks) && !!form.formState.errors.navLinks[idx]
-                                            const navLinkType = form.watch(`navLinks.${idx}.type`);
-
-                                            return (
-                                                <FormItem>
-                                                    <FormControl>
-                                                        <NavLinkFormField
-                                                            idx={idx}
-                                                            name={`navLinks.${idx}`}
-                                                            isFieldError={isFieldError}
-                                                            navLinkType={navLinkType}
-                                                            accordionActions={{
-                                                                onMoveUp: () => swap(idx, idx - 1),
-                                                                onMoveDown: () => swap(idx, idx + 1),
-                                                                onRemove: () => remove(idx),
-                                                                onDuplicate: () => insert(idx + 1, field.value),
-                                                                onAddBelow: () => insert(idx + 1, navLinkDefaultValue),
-                                                            }}
-                                                        />
-                                                    </FormControl>
-                                                    <FormMessage />
-                                                </FormItem>
-                                            )
-                                        }}
-                                    />
-                                )
-                            })
-                        }
-                    </section>
+                    <FieldArraySortableContext
+                        fields={fields}
+                        move={move}
+                    >
+                        <section className="space-y-2">
+                            {
+                                fields.map((f, idx) => {
+                                    return (
+                                        <SortableField
+                                            key={f.id}
+                                            f={f}
+                                            idx={idx}
+                                            actions={{ swap, remove, insert }}
+                                        />
+                                    )
+                                })
+                            }
+                        </section>
+                    </FieldArraySortableContext>
                     {
                         fields.length < MAX_NAV_LINKS && (
                             <FormControl>
@@ -188,5 +172,64 @@ function NavLinksField() {
                 </FormItem>
             )}
         />
+    )
+}
+
+function SortableField({
+    f,
+    idx,
+    actions: { swap, insert, remove }
+}: {
+    f: FieldArrayWithId<TFooterDto, "navLinks", "id">,
+    idx: number,
+    actions: {
+        swap: UseFieldArraySwap
+        remove: UseFieldArrayRemove
+        insert: UseFieldArrayInsert<TFooterDto, "navLinks">
+    }
+}) {
+    const form = useFormContext<TFooterDto>();
+    const { attributes, listeners, isDragging, setNodeRef, transform, transition } = useSortable({ id: f.id })
+
+    const style = {
+        transform: CSS.Transform.toString(transform),
+        transition,
+    }
+
+    return (
+        <section ref={setNodeRef} style={style} className={`${isDragging ? "opacity-50" : ""}`}>
+            <FormField
+                key={f.id}
+                control={form.control}
+                name={`navLinks.${idx}`}
+                render={({ field }) => {
+                    const isFieldError = Array.isArray(form.formState.errors.navLinks) && !!form.formState.errors.navLinks[idx]
+                    const navLinkType = form.watch(`navLinks.${idx}.type`);
+
+                    return (
+                        <FormItem>
+                            <FormControl>
+                                <NavLinkFormField
+                                    idx={idx}
+                                    name={`navLinks.${idx}`}
+                                    isFieldError={isFieldError}
+                                    navLinkType={navLinkType}
+                                    accordionActions={{
+                                        onMoveUp: () => swap(idx, idx - 1),
+                                        onMoveDown: () => swap(idx, idx + 1),
+                                        onRemove: () => remove(idx),
+                                        onDuplicate: () => insert(idx + 1, field.value),
+                                        onAddBelow: () => insert(idx + 1, navLinkDefaultValue),
+                                    }}
+                                    draggableAttributes={attributes}
+                                    listeners={listeners}
+                                />
+                            </FormControl>
+                            <FormMessage />
+                        </FormItem>
+                    )
+                }}
+            />
+        </section>
     )
 }

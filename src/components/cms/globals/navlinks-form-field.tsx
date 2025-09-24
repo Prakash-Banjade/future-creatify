@@ -1,4 +1,4 @@
-import { useFieldArray, useFormContext } from "react-hook-form"
+import { FieldArrayWithId, useFieldArray, UseFieldArrayInsert, UseFieldArrayRemove, UseFieldArraySwap, useFormContext, useWatch } from "react-hook-form"
 import {
     Accordion,
     AccordionContent,
@@ -28,6 +28,11 @@ import { ECtaVariant } from "../../../../types/blocks.types";
 import { ENavLinkType, MAX_NAV_SUB_LINKS, navLinkDefaultValue } from "@/schemas/globals.schema";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { DraggableAttributes } from "@dnd-kit/core";
+import { SyntheticListenerMap } from "@dnd-kit/core/dist/hooks/utilities";
+import FieldArraySortableContext from "@/components/dnd/field-array-sortable-context";
+import { useSortable } from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities"
 
 type Props = {
     idx: number
@@ -42,15 +47,31 @@ type Props = {
         onDuplicate?: () => void
         onAddBelow?: () => void
     }
+    draggableAttributes: DraggableAttributes
+    listeners?: SyntheticListenerMap
 }
 
-export default function NavLinkFormField({ idx, name, accordionActions, isSubLink = false, isFieldError, navLinkType }: Props) {
+export default function NavLinkFormField({
+    idx,
+    name,
+    accordionActions,
+    isSubLink = false,
+    isFieldError,
+    navLinkType,
+    draggableAttributes,
+    listeners
+}: Props) {
     const form = useFormContext();
 
     // this fieldArray is for subLinks, for fieldArray of navLinks look the parent of this component
-    const { fields, append, remove, insert, swap } = useFieldArray({
+    const { fields, append, remove, insert, swap, move } = useFieldArray({
         name: `${name}.subLinks`,
         control: form.control,
+    });
+
+    const label = useWatch({
+        control: form.control,
+        name: `${name}.text`
     });
 
     return (
@@ -60,11 +81,20 @@ export default function NavLinkFormField({ idx, name, accordionActions, isSubLin
                 isFieldError && "bg-destructive/10 border-destructive"
             )}>
                 <section className="relative flex items-center gap-2 px-2">
-                    <button type="button" className="hover:cursor-grab">
+                    <button
+                        type="button"
+                        className="cursor-grab active:cursor-grabbing "
+                        {...draggableAttributes}
+                        {...listeners}
+                    >
                         <GripVertical className="text-muted-foreground" size={16} />
                     </button>
                     <AccordionTrigger className="text-sm hover:no-underline py-3">
-                        <span>{isSubLink ? "Sub Link" : "Link"} {idx + 1}</span>
+                        <span>
+                            <span className="font-normal text-muted-foreground">{(idx + 1).toString().padStart(2, "0")}</span>
+                            &nbsp;&nbsp;
+                            {label}
+                        </span>
                     </AccordionTrigger>
                     <section className="absolute right-10">
                         <DropdownMenu>
@@ -249,42 +279,25 @@ export default function NavLinkFormField({ idx, name, accordionActions, isSubLin
                                     <FormItem>
                                         <FormLabel>Sub Nav Links</FormLabel>
                                         <section className="space-y-2">
-                                            <section className="space-y-2">
-                                                {
-                                                    fields.map((f, subIdx) => (
-                                                        <FormField
-                                                            key={f.id}
-                                                            control={form.control}
-                                                            name={`${name}.subLinks.${subIdx}`}
-                                                            render={({ field }) => {
-                                                                const isFieldError = Array.isArray(form.formState.errors.navLinks) && !!form.formState.errors.navLinks[idx]?.subLinks?.[subIdx];
-
-                                                                return (
-                                                                    <FormItem>
-                                                                        <FormControl>
-                                                                            <NavLinkFormField
-                                                                                idx={subIdx}
-                                                                                name={`${name}.subLinks.${subIdx}`}
-                                                                                accordionActions={{
-                                                                                    onMoveUp: () => swap(idx, idx - 1),
-                                                                                    onMoveDown: () => swap(idx, idx + 1),
-                                                                                    onRemove: () => remove(idx),
-                                                                                    onDuplicate: () => insert(idx + 1, field.value),
-                                                                                    onAddBelow: () => insert(idx + 1, navLinkDefaultValue),
-                                                                                }}
-                                                                                isSubLink
-                                                                                isFieldError={isFieldError}
-                                                                            />
-                                                                        </FormControl>
-                                                                        <FormMessage />
-                                                                    </FormItem>
-                                                                )
-                                                            }}
-                                                        />
-                                                    ))
-                                                }
-                                            </section>
-
+                                            <FieldArraySortableContext
+                                                fields={fields}
+                                                move={move}
+                                            >
+                                                <section className="space-y-2">
+                                                    {
+                                                        fields.map((f, subIdx) => (
+                                                            <SubLinkSortableField
+                                                                key={f.id}
+                                                                f={f}
+                                                                idx={subIdx}
+                                                                name={name}
+                                                                subIdx={subIdx}
+                                                                actions={{ swap, remove, insert }}
+                                                            />
+                                                        ))
+                                                    }
+                                                </section>
+                                            </FieldArraySortableContext>
                                             {
                                                 fields.length < MAX_NAV_SUB_LINKS && (
                                                     <FormControl>
@@ -322,5 +335,67 @@ export default function NavLinkFormField({ idx, name, accordionActions, isSubLin
                 </AccordionContent>
             </AccordionItem>
         </Accordion>
+    )
+}
+
+function SubLinkSortableField({
+    f,
+    idx,
+    name,
+    subIdx,
+    actions: { swap, insert, remove }
+}: {
+    f: FieldArrayWithId,
+    idx: number,
+    subIdx: number,
+    name: string
+    actions: {
+        swap: UseFieldArraySwap
+        remove: UseFieldArrayRemove
+        insert: UseFieldArrayInsert<any>
+    }
+}) {
+    const form = useFormContext();
+    const { attributes, listeners, isDragging, setNodeRef, transform, transition } = useSortable({ id: f.id })
+
+    const style = {
+        transform: CSS.Transform.toString(transform),
+        transition,
+    }
+
+    return (
+        <section ref={setNodeRef} style={style} className={`${isDragging ? "opacity-50" : ""}`}>
+            <FormField
+                key={f.id}
+                control={form.control}
+                name={`${name}.subLinks.${subIdx}`}
+                render={({ field }) => {
+                    const isFieldError = Array.isArray(form.formState.errors.navLinks) && !!form.formState.errors.navLinks[idx]?.subLinks?.[subIdx];
+
+                    return (
+                        <FormItem>
+                            <FormControl>
+                                <NavLinkFormField
+                                    idx={subIdx}
+                                    name={`${name}.subLinks.${subIdx}`}
+                                    accordionActions={{
+                                        onMoveUp: () => swap(idx, idx - 1),
+                                        onMoveDown: () => swap(idx, idx + 1),
+                                        onRemove: () => remove(idx),
+                                        onDuplicate: () => insert(idx + 1, field.value),
+                                        onAddBelow: () => insert(idx + 1, navLinkDefaultValue),
+                                    }}
+                                    isSubLink
+                                    isFieldError={isFieldError}
+                                    draggableAttributes={attributes}
+                                    listeners={listeners}
+                                />
+                            </FormControl>
+                            <FormMessage />
+                        </FormItem>
+                    )
+                }}
+            />
+        </section>
     )
 }
