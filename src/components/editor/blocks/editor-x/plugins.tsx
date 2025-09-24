@@ -21,7 +21,6 @@ import { TablePlugin } from "@lexical/react/LexicalTablePlugin"
 
 import { ContentEditable } from "@/components/editor/editor-ui/content-editable"
 import { AutoLinkPlugin } from "@/components/editor/plugins/auto-link-plugin"
-import { AutocompletePlugin } from "@/components/editor/plugins/autocomplete-plugin"
 import { CodeActionMenuPlugin } from "@/components/editor/plugins/code-action-menu-plugin"
 import { CodeHighlightPlugin } from "@/components/editor/plugins/code-highlight-plugin"
 import { CollapsiblePlugin } from "@/components/editor/plugins/collapsible-plugin"

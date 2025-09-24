@@ -16,28 +16,31 @@ import SeoTabContent from './tabs/seo-tab-content';
 import { useMemo, useTransition } from 'react';
 import { toast } from 'sonner';
 import { updatePage } from '@/lib/actions/pages.action';
+import { useCustomSearchParams } from '@/hooks/useCustomSearchParams';
 
 type Props = {
-    page: TPage
+    page: TPage,
+    defaultTab?: string;
 }
 
 const tabs = [
     {
         label: "Hero",
-        value: "heroSections",
+        value: "hero",
     },
     {
         label: "Content",
-        value: "sections",
+        value: "content",
     },
     {
         label: "SEO",
-        value: "metadata",
+        value: "seo",
     }
 ]
 
-export default function PageForm({ page }: Props) {
+export default function PageForm({ page, defaultTab }: Props) {
     const [isPending, startTransition] = useTransition();
+    const { setSearchParams } = useCustomSearchParams();
 
     const form = useForm<TPageDto>({
         resolver: zodResolver(PageDtoSchema),
@@ -67,6 +70,10 @@ export default function PageForm({ page }: Props) {
         const nonEmptyName = name || "Untitled"
         return generateSlug(nonEmptyName, nonEmptyName === "Untitled")
     }, [name, page]);
+
+    const selectedTab = useMemo(() => {
+        return tabs.find(tab => tab.value === defaultTab)?.value || tabs[0].value;
+    }, [defaultTab]);
 
     return (
         <Form {...form}>
@@ -123,7 +130,11 @@ export default function PageForm({ page }: Props) {
                                 />
                             </div>
 
-                            <Tabs defaultValue={tabs[0].value} className='mt-8 w-full'>
+                            <Tabs
+                                defaultValue={selectedTab}
+                                className='mt-8 w-full'
+                                onValueChange={tab => setSearchParams("tab", tab)}
+                            >
                                 <TabsList className="@6xl:pl-24 @3xl:pl-16 pl-8 py-0 space-x-2 w-full bg-transparent border-b rounded-none h-auto justify-start">
                                     {
                                         tabs.map(t => (
