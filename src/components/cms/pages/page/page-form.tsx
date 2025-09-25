@@ -1,6 +1,6 @@
 "use client";
 
-import { TPage } from '../../../../types/page.types'
+import { TPage } from '../../../../../types/page.types'
 import { LoadingButton } from '@/components/ui/button'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { PageDtoSchema, TPageDto } from "@/schemas/page.schema"
@@ -10,9 +10,9 @@ import { Input } from "@/components/ui/input"
 import { Label } from '@/components/ui/label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { cn, generateSlug, showServerError } from '@/lib/utils';
-import HeroTabContent from './tabs/hero-tab-content';
-import ContentTabContent from './tabs/content-tab-content';
-import SeoTabContent from './tabs/seo-tab-content';
+import HeroTabContent from '../tabs/hero-tab-content';
+import ContentTabContent from '../tabs/content-tab-content';
+import SeoTabContent from '../tabs/seo-tab-content';
 import { useMemo, useTransition } from 'react';
 import { toast } from 'sonner';
 import { updatePage } from '@/lib/actions/pages.action';

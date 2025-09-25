@@ -1,6 +1,6 @@
 import ContainerLayout from "@/components/cms/container-layout"
-import NewPageButton from "@/components/cms/pages/new-page-btn"
-import PagesList from "@/components/cms/pages/pages-list"
+import NewPageButton from "@/components/cms/pages/page/new-page-btn"
+import PagesList from "@/components/cms/pages/page/pages-list"
 import { Suspense } from "react"
 import { TDataSearchParams } from "../../../../../types/global.types"
 

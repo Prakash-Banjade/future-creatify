@@ -1,0 +1,41 @@
+import { db } from "@/db";
+import { and, desc, ilike, SQL } from "drizzle-orm";
+import { getPaginationQueryParams, paginatedResponse } from "../db-utils";
+import { TDataSearchParams } from "../../../types/global.types";
+import { TeamResponse } from "../../../types/team.type";
+import { teamTable } from "@/db/schema/team";
+
+export async function getTeams(searchParams?: TDataSearchParams): Promise<TeamResponse | null> {
+    const urlSearchParams = new URLSearchParams(searchParams);
+
+    const { page, pageSize } = getPaginationQueryParams(urlSearchParams);
+    const q = urlSearchParams.get("q");
+
+    const filters: SQL[] = [];
+    if (q) filters.push(ilike(teamTable.name, `%${q}%`));
+
+    try {
+        const query = db
+            .select({
+                id: teamTable.id,
+                name: teamTable.name,
+                role: teamTable.role,
+                updatedAt: teamTable.updatedAt,
+                image: teamTable.image,
+            })
+            .from(teamTable)
+            .where(and(...filters));
+
+        const foundTeams = await paginatedResponse({
+            orderByColumn: desc(teamTable.createdAt),
+            qb: query.$dynamic(),
+            page,
+            pageSize
+        });
+
+        return foundTeams;
+    } catch (e) {
+        console.error(e);
+        return null;
+    }
+}
