@@ -162,7 +162,6 @@ export default function TestimonialsTabContent() {
                                                                                             <FormControl>
                                                                                                 <Input
                                                                                                     className='py-5'
-                                                                                                    maxLength={50}
                                                                                                     required
                                                                                                     {...field}
                                                                                                 />
@@ -181,6 +180,22 @@ export default function TestimonialsTabContent() {
                                                                                         <FormControl>
                                                                                             <Input
                                                                                                 type="url"
+                                                                                                className='py-5'
+                                                                                                {...field}
+                                                                                            />
+                                                                                        </FormControl>
+                                                                                    </FormItem>
+                                                                                )}
+                                                                            />
+                                                                            <FormField
+                                                                                control={form.control}
+                                                                                name={`testimonials.${idx}.role`}
+                                                                                render={({ field }) => (
+                                                                                    <FormItem>
+                                                                                        <FormLabel>Role</FormLabel>
+                                                                                        <FormControl>
+                                                                                            <Input
+                                                                                                type="text"
                                                                                                 className='py-5'
                                                                                                 {...field}
                                                                                             />

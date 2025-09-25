@@ -36,6 +36,7 @@ export const credibilityAndSupportSchema = z.object({
             }),
             quote: z.string().min(1, { message: "Quote is required" }),
             rating: z.coerce.number().min(1, { message: "Min rating is 1" }).max(5, { message: "Max rating is 5" }),
+            role: z.string().optional(),
         })
     ),
     certifications: z.array(

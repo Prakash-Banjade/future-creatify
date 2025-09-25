@@ -4,8 +4,9 @@ import { RenderHeroProps } from "../render-hero";
 import { RichTextPreview } from "@/components/editor/blocks/editor-x/rich-text-preview";
 import Image from "next/image";
 import CMSLink from "@/components/ui/cms-link";
+import CloudinaryImage from "@/components/ui/cloudinary-image";
 export default function SplitHero({ hero }: RenderHeroProps) {
-  console.log("split hero",hero)
+  console.log("split hero", hero);
   const layoutType = hero.layout.type;
   if (layoutType !== EHeroLayoutTypes.Split_Hero) return null;
 
@@ -14,31 +15,29 @@ export default function SplitHero({ hero }: RenderHeroProps) {
 
   return (
     <section
-      className={cn(
-        "bg-cream xl:p-20 lg:p-16 p-6 sm:p-8 mb-12 flex justify-center"
-      )}
+      className={cn("bg-cream  lg:p-14 p-6 sm:p-8 mb-12 flex justify-center")}
       style={{ minHeight: "80vh", maxHeight: 800 }}
     >
       <div
         className={cn(
-          "w-full max-w-7xl flex flex-col md:flex-row items-center gap-8 md:gap-10",
+          "mx-auto container flex flex-col py-12 md:flex-row items-center gap-8 md:gap-10",
           imagePosition === "left" ? "md:flex-row" : "md:flex-row-reverse"
         )}
       >
         {imageUrl && (
-          <div className="flex justify-center items-center w-full md:flex-1 mb-6 md:mb-0">
-            <Image
-              width={500}
-              height={600}
+          <div className="flex p-24 justify-center items-center w-full md:flex-1 mb-6 md:mb-0">
+            <CloudinaryImage
+              className="w-full rounded-2xl h-auto object-cover"
               src={imageUrl}
-              alt={hero.image?.alt || ""}
-              className="w-full h-auto max-w-[320px] sm:max-w-[400px] rounded-xl object-cover"
-              style={{ maxHeight: 400 }}
+              width={500}
+              height={500}
+              alt={hero.image?.alt || "Image"}
             />
           </div>
         )}
-        <div className="w-full md:flex-1">
-          <RichTextPreview className="mb-6" html={hero.headline.html} />
+
+        <div className="w-full space-y-12 md:flex-1">
+          <RichTextPreview className="mb-8" html={hero.headline.html} />
           {Array.isArray(hero.cta) && hero.cta.length > 0 && (
             <ul className="flex gap-4">
               {hero.cta.map((cta, index) => (

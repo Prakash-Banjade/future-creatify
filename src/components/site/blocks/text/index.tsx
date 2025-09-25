@@ -22,28 +22,28 @@ export default function RenderTextBlock({
     return (
         <section>
             <div className={cn(
-                "flex flex-col gap-2",
+                "flex flex-col gap-2 mb-12",
                 align === EAlignment.Center
                     ? "items-center justify-center text-center"
                     : align === EAlignment.Right && "items-end"
             )}>
                 <h2
                     className={cn(
-                        "text-base text-primary font-semibold tracking-widest",
+                        "text-4xl  font-bold",
                         align === EAlignment.Center ? "" :
                         "w-full text-left"
                     )}
                 >
                     {headline}
                 </h2>
-                <p
+               {subheadline && <p
                     className={cn(
                         "text-muted-foreground max-w-6xl",
                         textAlignClassName
                     )}
                 >
                     {subheadline}
-                </p>
+                </p>}
             </div>
             {
                 !isEmptyHTML(body.html) && (

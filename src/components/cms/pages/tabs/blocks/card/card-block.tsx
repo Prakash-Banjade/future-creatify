@@ -12,7 +12,6 @@ import { Input } from "@/components/ui/input";
 import { NUMBER_REGEX_STRING } from "@/CONSTANTS";
 import FieldArraySortableContext from "@/components/dnd/field-array-sortable-context";
 import { useSortable } from "@dnd-kit/sortable";
-import { CSS } from "@dnd-kit/utilities"
 
 export default function CardsBlock({ sectionIdx, blockIdx }: BlockComponentProps) {
     const form = useFormContext<TPageDto>();
