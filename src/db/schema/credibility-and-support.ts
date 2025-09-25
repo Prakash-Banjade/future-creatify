@@ -6,12 +6,12 @@ export const credibilityAndSupportTable = pgTable(
     {
         id: text("id").primaryKey().$defaultFn(() => crypto.randomUUID()),
 
-        faqCategories: jsonb("faq_categories").$type<TCredibilityAndSupport["faqCategories"]>().notNull().default([]),
-        faqs: jsonb("faqs").$type<TCredibilityAndSupport["faqs"]>().notNull().default([]),
-        partners: jsonb("partners").$type<TCredibilityAndSupport["partners"]>().notNull().default([]),
-        testimonials: jsonb("testimonials").$type<TCredibilityAndSupport["testimonials"]>().notNull().default([]),
-        certifications: jsonb("certifications").$type<TCredibilityAndSupport["certifications"]>().notNull().default([]),
-        alumni: jsonb("alumni").$type<TCredibilityAndSupport["alumni"]>().notNull().default([]),
+        faqCategories: jsonb("faq_categories").$type<TCredibilityAndSupport["faqCategories"]>().notNull(),
+        faqs: jsonb("faqs").$type<TCredibilityAndSupport["faqs"]>().notNull(),
+        partners: jsonb("partners").$type<TCredibilityAndSupport["partners"]>().notNull(),
+        testimonials: jsonb("testimonials").$type<TCredibilityAndSupport["testimonials"]>().notNull(),
+        certifications: jsonb("certifications").$type<TCredibilityAndSupport["certifications"]>().notNull(),
+        alumni: jsonb("alumni").$type<TCredibilityAndSupport["alumni"]>().notNull(),
 
         createdAt: timestamp("created_at").notNull().defaultNow(),
         updatedAt: timestamp("updated_at").notNull().defaultNow().$onUpdate(() => new Date()),

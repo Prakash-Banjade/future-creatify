@@ -31,7 +31,17 @@ export function useInternalLinks(queryString: string = "") {
         }
     });
 
-    const isLoading = isPagesLoading || isBlogsLoading;
+    const { data: teams, isLoading: isTeamsLoading } = useFetchData<TPaginatedOptions>({
+        endpoint: '/teams/options',
+        queryKey: ['teams', 'options', queryString],
+        queryString,
+        options: {
+            staleTime: 1000 * 60, // 1 min
+            gcTime: 1000 * 60, // 1 min
+        }
+    });
+
+    const isLoading = isPagesLoading || isBlogsLoading || isTeamsLoading;
 
     return {
         data: [
@@ -42,6 +52,10 @@ export function useInternalLinks(queryString: string = "") {
             {
                 label: 'blogs',
                 options: blogs,
+            },
+            {
+                label: 'teams',
+                options: teams,
             },
         ],
         isLoading

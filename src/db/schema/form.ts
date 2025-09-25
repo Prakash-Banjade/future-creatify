@@ -8,7 +8,7 @@ export const forms = pgTable(
         id: text("id").primaryKey().$defaultFn(() => crypto.randomUUID()),
         title: text("title").notNull(),
         slug: text("slug").notNull(),
-        fields: jsonb("fields").$type<TFormFieldDef[]>().notNull().default([]),
+        fields: jsonb("fields").$type<TFormFieldDef[]>().notNull(),
         submitBtnLabel: text("submit_btn_label").notNull().default("Submit"),
 
         createdAt: timestamp("created_at").notNull().defaultNow(),

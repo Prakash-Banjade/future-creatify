@@ -1,4 +1,4 @@
-import { File, Footprints, Handshake, Heading, MessageCircleQuestion, NotebookText, Settings, StretchHorizontal } from "lucide-react";
+import { File, Footprints, Handshake, Heading, NotebookText, Settings, StretchHorizontal, Users } from "lucide-react";
 import { TGroupMenuItem } from "./sidebar";
 
 export const cmsSidebarMenuItems: TGroupMenuItem[] = [
@@ -14,6 +14,11 @@ export const cmsSidebarMenuItems: TGroupMenuItem[] = [
                 title: "Blogs",
                 url: "/cms/blogs",
                 icon: NotebookText,
+            },
+            {
+                title: "Teams",
+                url: "/cms/teams",
+                icon: Users,
             },
             {
                 title: "Forms",
