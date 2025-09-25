@@ -35,6 +35,7 @@ export const credibilityAndSupportSchema = z.object({
                 return z.string().url().safeParse(val).success;
             }),
             quote: z.string().min(1, { message: "Quote is required" }),
+            role: z.string(),
             rating: z.coerce.number().min(1, { message: "Min rating is 1" }).max(5, { message: "Max rating is 5" }),
         })
     ),
@@ -89,6 +90,7 @@ export const testimonialDefaultvalue: TCredibilityAndSupport["testimonials"][0] 
     name: "",
     image: null,
     link: "",
+    role: "",
     quote: "",
     rating: 5,
 }

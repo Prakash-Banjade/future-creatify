@@ -14,7 +14,7 @@ export const siteSetting = pgTable(
         phones: text("phones").array().$type<string[]>().notNull().default([]),
         address: text("address").notNull().default(""),
         mapLink: text("map_link").notNull().default(""),
-        socialLinks: jsonb("social_links").array().$type<TSiteSettingSchema["socialLinks"]>().notNull().default([]),
+        socialLinks: jsonb("social_links").array().$type<TSiteSettingSchema["socialLinks"]>().notNull(),
 
         createdAt: timestamp("created_at").notNull().defaultNow(),
         updatedAt: timestamp("updated_at").notNull().defaultNow().$onUpdate(() => new Date()),

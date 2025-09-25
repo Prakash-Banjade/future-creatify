@@ -28,19 +28,17 @@ export default async function BlogsPage({ searchParams }: { searchParams: Promis
             <RenderHero hero={page.heroSections[0]} />
 
             {/* Blogs Section */}
-            <section>
-                <div className="container">
-                    {/* Search and Filter */}
-                    <Suspense fallback={<Skeleton className="h-12" />}>
-                        <BlogsSearchFilters_Public />
-                    </Suspense>
+            <section className='container py-12'>
+                {/* Search and Filter */}
+                <Suspense fallback={<Skeleton className="h-12" />}>
+                    <BlogsSearchFilters_Public />
+                </Suspense>
 
-                    {/* Blog Posts Stack */}
-                    <div className="space-y-8">
-                        <Suspense fallback={Array.from({ length: 3 }, (_, index) => <BlogCardSkeleton key={index} />)}>
-                            <BlogsContainer searchParams={searchParams} />
-                        </Suspense>
-                    </div>
+                {/* Blog Posts Stack */}
+                <div className="space-y-8">
+                    <Suspense fallback={Array.from({ length: 3 }, (_, index) => <BlogCardSkeleton key={index} />)}>
+                        <BlogsContainer searchParams={searchParams} />
+                    </Suspense>
                 </div>
             </section>
         </>

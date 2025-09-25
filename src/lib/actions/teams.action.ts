@@ -1,9 +1,12 @@
+"use server";
+
 import { teamSchema, TTeamDto } from "@/schemas/team.schema";
 import checkAuth from "../utilities/check-auth";
 import { throwZodErrorMsg } from "../utils";
 import { db } from "@/db";
 import { teamTable } from "@/db/schema/team";
 import { eq } from "drizzle-orm";
+import { revalidatePath } from "next/cache";
 
 export const createTeam = async (values: TTeamDto) => {
     await checkAuth('admin');
@@ -13,6 +16,7 @@ export const createTeam = async (values: TTeamDto) => {
     if (!success) throwZodErrorMsg(error);
 
     await db.insert(teamTable).values(data);
+    revalidatePath(`/cms/teams`);
 };
 
 export const updateTeam = async (id: string, values: TTeamDto) => {
@@ -31,4 +35,5 @@ export const updateTeam = async (id: string, values: TTeamDto) => {
 export const deleteTeam = async (id: string) => {
     await checkAuth('admin');
     await db.delete(teamTable).where(eq(teamTable.id, id));
+    revalidatePath(`/cms/teams`);
 };

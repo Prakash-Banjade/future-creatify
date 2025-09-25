@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { ColumnDef } from "@tanstack/react-table"
 import { MoreHorizontal, SquarePen, Trash } from "lucide-react"

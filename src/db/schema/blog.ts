@@ -9,7 +9,7 @@ export const blogs = pgTable(
             .primaryKey()
             .$defaultFn(() => crypto.randomUUID()),
         title: text("title").default("Untitled").notNull(),
-        content: jsonb("content").default({}).$type<YooptaContentValue>().notNull(),
+        content: jsonb("content").$type<YooptaContentValue>().notNull(),
         summary: text("summary").default("").notNull(),
         slug: text("slug").unique().notNull(),
         coverImage: text("coverImage"),

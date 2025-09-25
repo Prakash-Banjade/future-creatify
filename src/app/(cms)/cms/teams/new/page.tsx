@@ -1,9 +1,6 @@
-import TeamForm from "./_client"
+import TeamForm from "@/components/cms/pages/teams/team-form"
 
-type Props = {}
-
-export default function NewTeamPage({ }: Props) {
-
+export default function NewTeamPage() {
     return (
         <TeamForm />
     )

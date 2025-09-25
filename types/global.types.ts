@@ -47,6 +47,7 @@ export type TDataSearchParams = {
 export enum ERefRelation {
     Pages = "pages",
     Blogs = "blogs",
+    Teams = "teams"
 }
 
 export enum EOrder {

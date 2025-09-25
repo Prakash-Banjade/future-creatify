@@ -11,6 +11,7 @@ import { showServerError } from "@/lib/utils";
 import { teamDefaultValue, teamSchema, TTeamDto } from "@/schemas/team.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Plus, Trash } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useTransition } from "react";
 import { useFieldArray, useForm, useWatch } from "react-hook-form";
 import { toast } from "sonner";
@@ -21,6 +22,7 @@ type Props = {
 
 export default function TeamForm({ defaultValues }: Props) {
     const [isPending, startTransition] = useTransition();
+    const router = useRouter();
 
     const form = useForm<TTeamDto>({
         resolver: zodResolver(teamSchema),
@@ -32,6 +34,7 @@ export default function TeamForm({ defaultValues }: Props) {
             try {
                 await createTeam(values);
                 toast.success("Team Saved");
+                router.push("/cms/teams");
             } catch (e) {
                 showServerError(e);
                 console.log(e);

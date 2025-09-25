@@ -4,6 +4,7 @@ import { TDataSearchParams } from "../../../../../types/global.types"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { Plus } from "lucide-react"
+import TeamsList from "@/components/cms/pages/teams/teams-list"
 
 export type TeamsPageProps = {
     searchParams: Promise<TDataSearchParams>
@@ -24,7 +25,7 @@ export default async function TeamsPage(props: TeamsPageProps) {
             }
         >
             <Suspense fallback={<div>Loading...</div>}>
-            
+                <TeamsList {...props} />
             </Suspense>
         </ContainerLayout>
     )
