@@ -2,7 +2,6 @@
 
 import React, { useEffect, useState } from 'react';
 import { Menu, X } from 'lucide-react';
-import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { Button } from '../ui/button';
 import Image from 'next/image';
@@ -83,11 +82,7 @@ export default function Header({ navLinks, siteData }: { navLinks: RefinedSiteNa
 
             {/* Mobile Navigation */}
             {mobileMenuOpen && (
-                <motion.div
-                    initial={{ opacity: 0, height: 0 }}
-                    animate={{ opacity: 1, height: 'auto' }}
-                    exit={{ opacity: 0, height: 0 }}
-                    transition={{ duration: 0.3 }}
+                <div
                     className="md:hidden bg-white"
                 >
                     <div className="container mx-auto py-4 flex flex-col space-y-4">
@@ -109,7 +104,7 @@ export default function Header({ navLinks, siteData }: { navLinks: RefinedSiteNa
                             Contact Us
                         </Link>
                     </div>
-                </motion.div>
+                </div>
             )}
         </header>
     );

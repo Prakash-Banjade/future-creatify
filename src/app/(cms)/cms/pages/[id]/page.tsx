@@ -2,7 +2,7 @@ import { db } from "@/db";
 import { pages } from "@/db/schema/page";
 import { eq } from "drizzle-orm";
 import { TPage } from "../../../../../../types/page.types";
-import PageForm from "@/components/cms/pages/page-form";
+import PageForm from "@/components/cms/pages/page/page-form";
 
 type Props = {
     params: Promise<{

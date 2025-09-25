@@ -1,4 +1,5 @@
 import { TMediaSchema } from "@/schemas/media.schema";
+import { TSiteSettingSchema } from "@/schemas/site-setting.schema";
 import { jsonb, pgTable, text, timestamp } from "drizzle-orm/pg-core";
 
 export const siteSetting = pgTable(
@@ -13,7 +14,7 @@ export const siteSetting = pgTable(
         phones: text("phones").array().$type<string[]>().notNull().default([]),
         address: text("address").notNull().default(""),
         mapLink: text("map_link").notNull().default(""),
-        socialLinks: jsonb("social_links").array().$type<{ link: string }[]>().notNull().default([]),
+        socialLinks: jsonb("social_links").array().$type<TSiteSettingSchema["socialLinks"]>().notNull(),
 
         createdAt: timestamp("created_at").notNull().defaultNow(),
         updatedAt: timestamp("updated_at").notNull().defaultNow().$onUpdate(() => new Date()),

@@ -131,6 +131,22 @@ export default function TestimonialsTabContent() {
                                                                             />
                                                                             <FormField
                                                                                 control={form.control}
+                                                                                name={`testimonials.${idx}.role`}
+                                                                                render={({ field }) => (
+                                                                                    <FormItem>
+                                                                                        <FormLabel>Role</FormLabel>
+                                                                                        <FormControl>
+                                                                                            <Input
+                                                                                                className='py-5'
+                                                                                                {...field}
+                                                                                            />
+                                                                                        </FormControl>
+                                                                                        <FormMessage />
+                                                                                    </FormItem>
+                                                                                )}
+                                                                            />
+                                                                            <FormField
+                                                                                control={form.control}
                                                                                 name={`testimonials.${idx}.rating`}
                                                                                 render={({ field }) => (
                                                                                     <FormItem>

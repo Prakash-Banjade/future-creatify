@@ -9,11 +9,11 @@ export const pages = pgTable(
         name: varchar("name", { length: 255 }).notNull(),
         slug: varchar("slug", { length: 255 }).notNull(),
 
-        sections: jsonb("sections").$type<TPageSection[]>().notNull().default([]),
+        sections: jsonb("sections").$type<TPageSection[]>().notNull(),
 
         metadata: jsonb("metadata").$type<TMetadataDto>().notNull(),
 
-        heroSections: jsonb("heroSections").$type<THeroSectionDto[]>().notNull().default([]),
+        heroSections: jsonb("heroSections").$type<THeroSectionDto[]>().notNull(),
 
         createdAt: timestamp("created_at").notNull().defaultNow(),
         updatedAt: timestamp("updated_at").notNull().defaultNow().$onUpdate(() => new Date()),

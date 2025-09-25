@@ -10,7 +10,7 @@ importers:
     dependencies:
       '@auth/drizzle-adapter':
         specifier: ^1.9.1
-        version: 1.10.0
+        version: 1.9.1
       '@dnd-kit/core':
         specifier: ^6.3.1
         version: 6.3.1(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
@@ -22,7 +22,7 @@ importers:
         version: 3.2.2(react@19.1.1)
       '@hookform/resolvers':
         specifier: ^5.0.1
-        version: 5.2.2(react-hook-form@7.63.0(react@19.1.1))
+        version: 5.0.1(react-hook-form@7.56.4(react@19.1.0))
       '@lexical/code':
         specifier: ^0.33.1
         version: 0.33.1
@@ -70,25 +70,25 @@ importers:
         version: 0.33.1
       '@radix-ui/react-accordion':
         specifier: ^1.2.11
-        version: 1.2.12(@types/react-dom@19.1.9(@types/react@19.1.13))(@types/react@19.1.13)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+        version: 1.2.11(@types/react-dom@19.1.5(@types/react@19.1.4))(@types/react@19.1.4)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@radix-ui/react-alert-dialog':
         specifier: ^1.1.14
-        version: 1.1.15(@types/react-dom@19.1.9(@types/react@19.1.13))(@types/react@19.1.13)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+        version: 1.1.14(@types/react-dom@19.1.5(@types/react@19.1.4))(@types/react@19.1.4)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@radix-ui/react-avatar':
         specifier: ^1.1.10
         version: 1.1.10(@types/react-dom@19.1.9(@types/react@19.1.13))(@types/react@19.1.13)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
       '@radix-ui/react-checkbox':
         specifier: ^1.3.2
-        version: 1.3.3(@types/react-dom@19.1.9(@types/react@19.1.13))(@types/react@19.1.13)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+        version: 1.3.2(@types/react-dom@19.1.5(@types/react@19.1.4))(@types/react@19.1.4)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@radix-ui/react-collapsible':
         specifier: ^1.1.11
-        version: 1.1.12(@types/react-dom@19.1.9(@types/react@19.1.13))(@types/react@19.1.13)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+        version: 1.1.11(@types/react-dom@19.1.5(@types/react@19.1.4))(@types/react@19.1.4)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@radix-ui/react-dialog':
         specifier: ^1.1.14
-        version: 1.1.15(@types/react-dom@19.1.9(@types/react@19.1.13))(@types/react@19.1.13)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+        version: 1.1.14(@types/react-dom@19.1.5(@types/react@19.1.4))(@types/react@19.1.4)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@radix-ui/react-dropdown-menu':
         specifier: ^2.1.15
-        version: 2.1.16(@types/react-dom@19.1.9(@types/react@19.1.13))(@types/react@19.1.13)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+        version: 2.1.15(@types/react-dom@19.1.5(@types/react@19.1.4))(@types/react@19.1.4)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@radix-ui/react-icons':
         specifier: ^1.3.2
         version: 1.3.2(react@19.1.1)
@@ -97,16 +97,16 @@ importers:
         version: 2.1.7(@types/react-dom@19.1.9(@types/react@19.1.13))(@types/react@19.1.13)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
       '@radix-ui/react-popover':
         specifier: ^1.1.14
-        version: 1.1.15(@types/react-dom@19.1.9(@types/react@19.1.13))(@types/react@19.1.13)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+        version: 1.1.14(@types/react-dom@19.1.5(@types/react@19.1.4))(@types/react@19.1.4)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@radix-ui/react-radio-group':
         specifier: ^1.3.7
-        version: 1.3.8(@types/react-dom@19.1.9(@types/react@19.1.13))(@types/react@19.1.13)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+        version: 1.3.7(@types/react-dom@19.1.5(@types/react@19.1.4))(@types/react@19.1.4)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@radix-ui/react-scroll-area':
         specifier: ^1.2.9
-        version: 1.2.10(@types/react-dom@19.1.9(@types/react@19.1.13))(@types/react@19.1.13)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+        version: 1.2.9(@types/react-dom@19.1.5(@types/react@19.1.4))(@types/react@19.1.4)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@radix-ui/react-select':
         specifier: ^2.2.5
-        version: 2.2.6(@types/react-dom@19.1.9(@types/react@19.1.13))(@types/react@19.1.13)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+        version: 2.2.5(@types/react-dom@19.1.5(@types/react@19.1.4))(@types/react@19.1.4)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@radix-ui/react-separator':
         specifier: ^1.1.7
         version: 1.1.7(@types/react-dom@19.1.9(@types/react@19.1.13))(@types/react@19.1.13)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
@@ -115,85 +115,85 @@ importers:
         version: 1.2.3(@types/react@19.1.13)(react@19.1.1)
       '@radix-ui/react-switch':
         specifier: ^1.2.5
-        version: 1.2.6(@types/react-dom@19.1.9(@types/react@19.1.13))(@types/react@19.1.13)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+        version: 1.2.5(@types/react-dom@19.1.5(@types/react@19.1.4))(@types/react@19.1.4)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@radix-ui/react-tabs':
         specifier: ^1.1.12
-        version: 1.1.13(@types/react-dom@19.1.9(@types/react@19.1.13))(@types/react@19.1.13)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+        version: 1.1.12(@types/react-dom@19.1.5(@types/react@19.1.4))(@types/react@19.1.4)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@radix-ui/react-toggle':
         specifier: ^1.1.9
-        version: 1.1.10(@types/react-dom@19.1.9(@types/react@19.1.13))(@types/react@19.1.13)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+        version: 1.1.9(@types/react-dom@19.1.5(@types/react@19.1.4))(@types/react@19.1.4)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@radix-ui/react-toggle-group':
         specifier: ^1.1.10
-        version: 1.1.11(@types/react-dom@19.1.9(@types/react@19.1.13))(@types/react@19.1.13)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+        version: 1.1.10(@types/react-dom@19.1.5(@types/react@19.1.4))(@types/react@19.1.4)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@radix-ui/react-tooltip':
         specifier: ^1.2.7
-        version: 1.2.8(@types/react-dom@19.1.9(@types/react@19.1.13))(@types/react@19.1.13)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+        version: 1.2.7(@types/react-dom@19.1.5(@types/react@19.1.4))(@types/react@19.1.4)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@tanstack/react-query':
         specifier: ^5.81.2
-        version: 5.90.2(react@19.1.1)
+        version: 5.81.2(react@19.1.0)
       '@tanstack/react-table':
         specifier: ^8.21.3
         version: 8.21.3(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
       '@yoopta/accordion':
         specifier: ^4.9.8
-        version: 4.9.9(@yoopta/editor@4.9.9(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(slate-react@0.102.0(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(slate@0.102.0))(slate@0.102.0))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+        version: 4.9.8(@yoopta/editor@4.9.8(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(slate-react@0.102.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(slate@0.102.0))(slate@0.102.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@yoopta/action-menu-list':
         specifier: ^4.9.8
-        version: 4.9.9(@yoopta/editor@4.9.9(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(slate-react@0.102.0(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(slate@0.102.0))(slate@0.102.0))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+        version: 4.9.8(@yoopta/editor@4.9.8(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(slate-react@0.102.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(slate@0.102.0))(slate@0.102.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@yoopta/blockquote':
         specifier: ^4.9.8
-        version: 4.9.9(@yoopta/editor@4.9.9(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(slate-react@0.102.0(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(slate@0.102.0))(slate@0.102.0))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+        version: 4.9.8(@yoopta/editor@4.9.8(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(slate-react@0.102.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(slate@0.102.0))(slate@0.102.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@yoopta/callout':
         specifier: ^4.9.8
-        version: 4.9.9(@yoopta/editor@4.9.9(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(slate-react@0.102.0(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(slate@0.102.0))(slate@0.102.0))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+        version: 4.9.8(@yoopta/editor@4.9.8(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(slate-react@0.102.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(slate@0.102.0))(slate@0.102.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@yoopta/code':
         specifier: ^4.9.8
-        version: 4.9.9(@babel/runtime@7.28.4)(@codemirror/autocomplete@6.18.7)(@codemirror/commands@6.8.1)(@codemirror/language@6.11.3)(@codemirror/lint@6.8.5)(@codemirror/search@6.5.11)(@codemirror/state@6.5.2)(@codemirror/view@6.38.3)(@types/react-dom@19.1.9(@types/react@19.1.13))(@types/react@19.1.13)(@yoopta/editor@4.9.9(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(slate-react@0.102.0(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(slate@0.102.0))(slate@0.102.0))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+        version: 4.9.8(@babel/runtime@7.27.3)(@codemirror/autocomplete@6.18.6)(@codemirror/commands@6.8.1)(@codemirror/language@6.11.0)(@codemirror/lint@6.8.5)(@codemirror/search@6.5.11)(@codemirror/state@6.5.2)(@codemirror/view@6.36.8)(@types/react-dom@19.1.5(@types/react@19.1.4))(@types/react@19.1.4)(@yoopta/editor@4.9.8(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(slate-react@0.102.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(slate@0.102.0))(slate@0.102.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@yoopta/divider':
         specifier: ^4.9.8
-        version: 4.9.9(@yoopta/editor@4.9.9(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(slate-react@0.102.0(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(slate@0.102.0))(slate@0.102.0))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+        version: 4.9.8(@yoopta/editor@4.9.8(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(slate-react@0.102.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(slate@0.102.0))(slate@0.102.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@yoopta/editor':
         specifier: ^4.9.8
-        version: 4.9.9(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(slate-react@0.102.0(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(slate@0.102.0))(slate@0.102.0)
+        version: 4.9.8(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(slate-react@0.102.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(slate@0.102.0))(slate@0.102.0)
       '@yoopta/embed':
         specifier: ^4.9.8
-        version: 4.9.9(@yoopta/editor@4.9.9(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(slate-react@0.102.0(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(slate@0.102.0))(slate@0.102.0))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+        version: 4.9.8(@yoopta/editor@4.9.8(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(slate-react@0.102.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(slate@0.102.0))(slate@0.102.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@yoopta/file':
         specifier: ^4.9.8
-        version: 4.9.9(@yoopta/editor@4.9.9(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(slate-react@0.102.0(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(slate@0.102.0))(slate@0.102.0))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+        version: 4.9.8(@yoopta/editor@4.9.8(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(slate-react@0.102.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(slate@0.102.0))(slate@0.102.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@yoopta/headings':
         specifier: ^4.9.8
-        version: 4.9.9(@yoopta/editor@4.9.9(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(slate-react@0.102.0(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(slate@0.102.0))(slate@0.102.0))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+        version: 4.9.8(@yoopta/editor@4.9.8(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(slate-react@0.102.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(slate@0.102.0))(slate@0.102.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@yoopta/image':
         specifier: ^4.9.8
-        version: 4.9.9(@yoopta/editor@4.9.9(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(slate-react@0.102.0(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(slate@0.102.0))(slate@0.102.0))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+        version: 4.9.8(@yoopta/editor@4.9.8(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(slate-react@0.102.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(slate@0.102.0))(slate@0.102.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@yoopta/link':
         specifier: ^4.9.8
-        version: 4.9.9(@yoopta/editor@4.9.9(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(slate-react@0.102.0(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(slate@0.102.0))(slate@0.102.0))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+        version: 4.9.8(@yoopta/editor@4.9.8(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(slate-react@0.102.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(slate@0.102.0))(slate@0.102.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@yoopta/link-tool':
         specifier: ^4.9.8
-        version: 4.9.9(@yoopta/editor@4.9.9(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(slate-react@0.102.0(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(slate@0.102.0))(slate@0.102.0))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+        version: 4.9.8(@yoopta/editor@4.9.8(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(slate-react@0.102.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(slate@0.102.0))(slate@0.102.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@yoopta/lists':
         specifier: ^4.9.8
-        version: 4.9.9(@yoopta/editor@4.9.9(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(slate-react@0.102.0(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(slate@0.102.0))(slate@0.102.0))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+        version: 4.9.8(@yoopta/editor@4.9.8(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(slate-react@0.102.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(slate@0.102.0))(slate@0.102.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@yoopta/marks':
         specifier: ^4.9.8
-        version: 4.9.9(@yoopta/editor@4.9.9(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(slate-react@0.102.0(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(slate@0.102.0))(slate@0.102.0))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+        version: 4.9.8(@yoopta/editor@4.9.8(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(slate-react@0.102.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(slate@0.102.0))(slate@0.102.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@yoopta/paragraph':
         specifier: ^4.9.8
-        version: 4.9.9(@yoopta/editor@4.9.9(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(slate-react@0.102.0(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(slate@0.102.0))(slate@0.102.0))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+        version: 4.9.8(@yoopta/editor@4.9.8(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(slate-react@0.102.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(slate@0.102.0))(slate@0.102.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@yoopta/table':
         specifier: ^4.9.8
-        version: 4.9.9(@yoopta/editor@4.9.9(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(slate-react@0.102.0(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(slate@0.102.0))(slate@0.102.0))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+        version: 4.9.8(@yoopta/editor@4.9.8(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(slate-react@0.102.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(slate@0.102.0))(slate@0.102.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@yoopta/toolbar':
         specifier: ^4.9.8
-        version: 4.9.9(@types/react-dom@19.1.9(@types/react@19.1.13))(@types/react@19.1.13)(@yoopta/editor@4.9.9(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(slate-react@0.102.0(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(slate@0.102.0))(slate@0.102.0))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+        version: 4.9.8(@types/react-dom@19.1.5(@types/react@19.1.4))(@types/react@19.1.4)(@yoopta/editor@4.9.8(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(slate-react@0.102.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(slate@0.102.0))(slate@0.102.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@yoopta/video':
         specifier: ^4.9.8
-        version: 4.9.9(@yoopta/editor@4.9.9(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(slate-react@0.102.0(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(slate@0.102.0))(slate@0.102.0))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+        version: 4.9.8(@yoopta/editor@4.9.8(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(slate-react@0.102.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(slate@0.102.0))(slate@0.102.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       axios:
         specifier: ^1.10.0
-        version: 1.12.2
+        version: 1.10.0
       badge:
         specifier: ^1.0.3
         version: 1.0.3
@@ -202,7 +202,7 @@ importers:
         version: 0.7.1
       cloudinary:
         specifier: ^2.6.1
-        version: 2.7.0
+        version: 2.6.1
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
@@ -214,19 +214,19 @@ importers:
         version: 4.1.0
       dompurify:
         specifier: ^3.2.6
-        version: 3.2.7
+        version: 3.2.6
       dotenv:
         specifier: ^16.5.0
-        version: 16.6.1
+        version: 16.5.0
       drizzle-orm:
         specifier: ^0.43.1
         version: 0.43.1(postgres@3.4.7)
       drizzle-zod:
         specifier: ^0.8.2
-        version: 0.8.3(drizzle-orm@0.43.1(postgres@3.4.7))(zod@3.25.76)
+        version: 0.8.2(drizzle-orm@0.43.1(postgres@3.4.7))(zod@3.25.28)
       framer-motion:
         specifier: ^12.14.0
-        version: 12.23.19(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+        version: 12.14.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       jsdom:
         specifier: ^26.1.0
         version: 26.1.0
@@ -247,68 +247,68 @@ importers:
         version: 0.511.0(react@19.1.1)
       nanoid:
         specifier: ^5.1.5
-        version: 5.1.6
+        version: 5.1.5
       next:
         specifier: 15.3.2
-        version: 15.3.2(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+        version: 15.3.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.51.0)
       next-auth:
         specifier: 5.0.0-beta.28
-        version: 5.0.0-beta.28(next@15.3.2(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react@19.1.1)
+        version: 5.0.0-beta.28(next@15.3.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.51.0))(react@19.1.0)
       next-cloudinary:
         specifier: ^6.16.0
-        version: 6.16.0(next@15.3.2(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react@19.1.1)
+        version: 6.16.0(next@15.3.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.51.0))(react@19.1.0)
       next-themes:
         specifier: ^0.4.6
         version: 0.4.6(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
       nextjs-toploader:
         specifier: ^3.8.16
-        version: 3.9.17(next@15.3.2(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+        version: 3.8.16(next@15.3.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.51.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       postgres:
         specifier: ^3.4.7
         version: 3.4.7
       react:
         specifier: ^19.0.0
-        version: 19.1.1
+        version: 19.1.0
       react-colorful:
         specifier: ^5.6.1
         version: 5.6.1(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
       react-dom:
         specifier: ^19.0.0
-        version: 19.1.1(react@19.1.1)
+        version: 19.1.0(react@19.1.0)
       react-error-boundary:
         specifier: ^6.0.0
         version: 6.0.0(react@19.1.1)
       react-hook-form:
         specifier: ^7.56.4
-        version: 7.63.0(react@19.1.1)
+        version: 7.56.4(react@19.1.0)
       react-medium-image-zoom:
         specifier: ^5.2.14
-        version: 5.4.0(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+        version: 5.2.14(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       sharp:
         specifier: ^0.34.2
-        version: 0.34.4
+        version: 0.34.2
       sonner:
         specifier: ^2.0.3
-        version: 2.0.7(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+        version: 2.0.3(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       tailwind-merge:
         specifier: ^3.3.0
-        version: 3.3.1
+        version: 3.3.0
       vaul:
         specifier: ^1.1.2
         version: 1.1.2(@types/react-dom@19.1.9(@types/react@19.1.13))(@types/react@19.1.13)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
       zod:
         specifier: ^3.25.28
-        version: 3.25.76
+        version: 3.25.28
     devDependencies:
       '@eslint/eslintrc':
-        specifier: ^3
+        specifier: ^3.3.1
         version: 3.3.1
       '@tailwindcss/postcss':
         specifier: ^4
-        version: 4.1.13
+        version: 4.1.7
       '@tailwindcss/typography':
         specifier: ^0.5.16
-        version: 0.5.18(tailwindcss@4.1.13)
+        version: 0.5.16(tailwindcss@4.1.7)
       '@types/jsdom':
         specifier: ^21.1.7
         version: 21.1.7
@@ -317,37 +317,31 @@ importers:
         version: 4.17.12
       '@types/node':
         specifier: ^20
-        version: 20.19.17
+        version: 20.17.47
       '@types/react':
         specifier: ^19
-        version: 19.1.13
+        version: 19.1.4
       '@types/react-dom':
         specifier: ^19
-        version: 19.1.9(@types/react@19.1.13)
-      autoprefixer:
-        specifier: ^10.4.21
-        version: 10.4.21(postcss@8.5.6)
+        version: 19.1.5(@types/react@19.1.4)
       drizzle-kit:
         specifier: ^0.31.1
-        version: 0.31.4
+        version: 0.31.1
       eslint:
         specifier: ^9
-        version: 9.36.0(jiti@2.6.0)
+        version: 9.27.0(jiti@2.4.2)
       eslint-config-next:
         specifier: 15.3.2
-        version: 15.3.2(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2)
-      postcss:
-        specifier: ^8.5.6
-        version: 8.5.6
+        version: 15.3.2(eslint@9.27.0(jiti@2.4.2))(typescript@5.8.3)
       tailwindcss:
         specifier: ^4.1.13
         version: 4.1.13
       tw-animate-css:
         specifier: ^1.3.0
-        version: 1.4.0
+        version: 1.3.0
       typescript:
         specifier: ^5
-        version: 5.9.2
+        version: 5.8.3
 
 packages:
 
@@ -1925,8 +1919,8 @@ packages:
   '@tailwindcss/postcss@4.1.13':
     resolution: {integrity: sha512-HLgx6YSFKJT7rJqh9oJs/TkBFhxuMOfUKSBEPYwV+t78POOBsdQ7crhZLzwcH3T0UyUuOzU/GK5pk5eKr3wCiQ==}
 
-  '@tailwindcss/typography@0.5.18':
-    resolution: {integrity: sha512-dDIgwZOlf+tVkZ7A029VvQ1+ngKATENDjMEx2N35s2yPjfTS05RWSM8ilhEWSa5DMJ6ci2Ha9WNZEd2GQjrdQg==}
+  '@tailwindcss/typography@0.5.16':
+    resolution: {integrity: sha512-0wDLwCVF5V3x3b1SGXPCDcdsbDHMBe+lkFzBRaHeLvNi+nrrnZ1lA18u+OTWO8iSWU2GxUOCvlXtDuqftc1oiA==}
     peerDependencies:
       tailwindcss: '>=3.0.0 || insiders || >=4.0.0-alpha.20 || >=4.0.0-beta.1'
 
@@ -2509,8 +2503,8 @@ packages:
     resolution: {integrity: sha512-P8BjAsXvZS+VIDUI11hHCQEv74YT67YUi5JJFNWIqL235sBmjX4+qx9Muvls5ivyNENctx46xQLQ3aTuE7ssaQ==}
     engines: {node: '>=6'}
 
-  caniuse-lite@1.0.30001743:
-    resolution: {integrity: sha512-e6Ojr7RV14Un7dz6ASD0aZDmQPT/A+eZU+nuTNfjqmRrmkmQlnTNWH0SKmqagx9PeW87UVqapSurtAXifmtdmw==}
+  caniuse-lite@1.0.30001718:
+    resolution: {integrity: sha512-AflseV1ahcSunK53NfEs9gFWgOEmzr0f+kaMFA4xiLZlr9Hzt7HxcSpIFcnNCUkz6R6dWKa54rUz3HUmI3nVcw==}
 
   catbox-memory@1.1.2:
     resolution: {integrity: sha512-UcKPnS0uT68v4nwsFUIG0tdxEAAEKUDSkBuZn4ZB2C5I7OptznxdwiYGnlTdsCEhs40DboBUtruX76ZtQZRe+w==}
@@ -2667,8 +2661,8 @@ packages:
     resolution: {integrity: sha512-0je+qPKHEMohvfRTCEo3CrPG6cAzAYgmzKyxRiYSSDkS6eGJdyVJm7WaYA5ECaAD9wLB2T4EEeymA5aFVcYXCA==}
     engines: {node: '>=6'}
 
-  detect-libc@2.1.0:
-    resolution: {integrity: sha512-vEtk+OcP7VBRtQZ1EJ3bdgzSfBjgnEalLTp5zjJrS+2Z1w2KZly4SBdac/WDU3hhsNAZ9E8SC96ME4Ey8MZ7cg==}
+  detect-libc@2.0.4:
+    resolution: {integrity: sha512-3UDv+G9CsCKO1WKMGw9fwq/SWJYbI0c5Y7LU1AXYoDdbhE2AHQ6N6Nb34sG8Fj7T5APy8qXDCKuuIHd1BR0tVA==}
     engines: {node: '>=8'}
 
   detect-node-es@1.1.0:
@@ -3048,11 +3042,8 @@ packages:
     resolution: {integrity: sha512-KrGhL9Q4zjj0kiUt5OO4Mr/A/jlI2jDYs5eHBpYHPcBEVSiipAvn2Ko2HnPe20rmcuuvMHNdZFp+4IlGTMF0Ow==}
     engines: {node: '>= 6'}
 
-  fraction.js@4.3.7:
-    resolution: {integrity: sha512-ZsDfxO51wGAXREY55a7la9LScWpwv9RxIrYABrlvOFBlH/ShPnrtsXeuUIfXKKOVicNxQ+o8JTbJvjS4M89yew==}
-
-  framer-motion@12.23.19:
-    resolution: {integrity: sha512-AaWAohgTs2+wUoDdpJaaqMgV6vkm1uzzDlZUItem45linLrFiFqi4iw7bryhcVqu4loaaSLtSjAojfCAB3qczw==}
+  framer-motion@12.14.0:
+    resolution: {integrity: sha512-P/CLiA+YLc0GL1nB2bgtRBFAbRh0aawU5KPLqnXi6QEZQE2BEwqgIH8qUIT7cMN+4a4nj0iZ2uWTKOrzcYsyGQ==}
     peerDependencies:
       '@emotion/is-prop-valid': '*'
       react: ^18.0.0 || ^19.0.0
@@ -3064,6 +3055,11 @@ packages:
         optional: true
       react-dom:
         optional: true
+
+  fsevents@2.3.3:
+    resolution: {integrity: sha512-5xoDfX+fL7faATnagmWPpbFtwh/R77WmMMqqHGS65C3vvB0YHrgF+B1YmZ3441tMj5n63k0212XNoJwzlhffQw==}
+    engines: {node: ^8.16.0 || ^10.6.0 || >=11.0.0}
+    os: [darwin]
 
   function-bind@1.1.2:
     resolution: {integrity: sha512-7XHNxH7qX9xG5mIwxkhumTox/MIRNcOgDrxWsMt2pAr23WHp6MrRlN7FBSFpCpr+oVO0F744iUgR82nJMfG2SA==}
@@ -3196,8 +3192,11 @@ packages:
     resolution: {integrity: sha512-Hs59xBNfUIunMFgWAbGX5cq6893IbWg4KnrjbYwX3tx0ztorVgTDA6B2sxf8ejHJ4wz8BqGUMYlnzNBer5NvGg==}
     engines: {node: '>= 4'}
 
-  immer@10.1.3:
-    resolution: {integrity: sha512-tmjF/k8QDKydUlm3mZU+tjM6zeq9/fFpPqH9SzWmBnVVKsPBg/V66qsMwb3/Bo90cgUN+ghdVBess+hPsxUyRw==}
+  immer@10.1.1:
+    resolution: {integrity: sha512-s2MPrmjovJcoMaHtx6K11Ra7oD05NT97w1IC5zpMkT6Atjr7H8LjaDd81iIxUYpMKSRRNMJE703M1Fhr/TctHw==}
+
+  immutable@4.3.7:
+    resolution: {integrity: sha512-1hqclzwYwjRDFLjcFxOM5AYkkG0rpFPpr1RLPMEuGczoS7YA8gLhy8SWXYRAA/XwfEHpfo3cw5JGioS32fnMRw==}
 
   import-fresh@3.3.1:
     resolution: {integrity: sha512-TR3KfrTZTYLPB6jUjfx6MF9WcWrHL9su5TObK4ZkYgBdWKPOFoSoQIdEuTuR82pmtxH2spWG9h6etwfr1pLBqQ==}
@@ -3608,11 +3607,11 @@ packages:
   moment@2.30.1:
     resolution: {integrity: sha512-uEmtNhbDOrWPFS+hdjFCBfy9f2YoyzRpwcl+DqpC6taX21FzsTLQVbMV/W7PzNSX6x/bhC1zA3c2UQ5NzH6how==}
 
-  motion-dom@12.23.19:
-    resolution: {integrity: sha512-ivUCJ0zVZt7S++D8+ONeefkJj/8JlpCRYzGegLdXr8Z9aWg64KyljdaCGVa54Vv0K8hNE7vRQSaQve7V5l3rMw==}
+  motion-dom@12.14.0:
+    resolution: {integrity: sha512-t5v1QNXrOsLmIzTdmB9OlZ1cA8zkHlpPhn85123/B+8Xe6tiENWKELAZm0yvAoFjcbFmq4u80uUXortZTTvDbg==}
 
-  motion-utils@12.23.6:
-    resolution: {integrity: sha512-eAWoPgr4eFEOFfg2WjIsMoqJTW6Z8MTUCgn/GZ3VRpClWBdnbjryiA3ZSNLyxCTmCQx4RmYX6jX1iWHbenUPNQ==}
+  motion-utils@12.12.1:
+    resolution: {integrity: sha512-f9qiqUHm7hWSLlNW8gS9pisnsN7CRFRD58vNjptKdsqFLpkVnX00TNeD6Q0d27V9KzT7ySFyK1TZ/DShfVOv6w==}
 
   ms@2.1.3:
     resolution: {integrity: sha512-6FlzubTLZG3J2a/NVCAleEhjzq5oxgHyaCU9yYXvcLsvoVaHJq/s5xXI6/XXP6tz7R9xAOtHnSO/tXtF3WRTlA==}
@@ -4266,14 +4265,8 @@ packages:
   undici-types@6.21.0:
     resolution: {integrity: sha512-iwDZqg0QAGrg9Rav5H4n0M64c3mkR59cJ6wQp+7C4nI0gsmExaedaYLNO44eT4AtBBwjbTiGPMlt2Md0T9H9JQ==}
 
-  unrs-resolver@1.11.1:
-    resolution: {integrity: sha512-bSjt9pjaEBnNiGgc9rUiHGKv5l4/TGzDmYw3RhnkJGtLhbnnA/5qJj7x3dNDCRx/PJxu774LlH8lCOlB4hEfKg==}
-
-  update-browserslist-db@1.1.3:
-    resolution: {integrity: sha512-UxhIZQ+QInVdunkDAaiazvvT/+fXL5Osr0JZlJulepYu6Jd7qJtDZjlur0emRlT71EN3ScPoE7gvsuIKKNavKw==}
-    hasBin: true
-    peerDependencies:
-      browserslist: '>= 4.21.0'
+  unrs-resolver@1.7.2:
+    resolution: {integrity: sha512-BBKpaylOW8KbHsu378Zky/dGh4ckT/4NW/0SHRABdqRLcQJ2dAOjDo9g97p04sWflm0kqPqpUatxReNV/dqI5A==}
 
   uri-js@4.4.1:
     resolution: {integrity: sha512-7rKUyy33Q1yc98pQ1DAmLtwX109F7TIfWlW1Ydo8Wl1ii1SeHieeh0HHfPeL2fMXK6z0s8ecKs9frCuLJvndBg==}
@@ -6005,8 +5998,8 @@ snapshots:
 
   '@tailwindcss/oxide@4.1.13':
     dependencies:
-      detect-libc: 2.1.0
-      tar: 7.5.1
+      detect-libc: 2.0.4
+      tar: 7.4.3
     optionalDependencies:
       '@tailwindcss/oxide-android-arm64': 4.1.13
       '@tailwindcss/oxide-darwin-arm64': 4.1.13
@@ -6029,7 +6022,7 @@ snapshots:
       postcss: 8.5.6
       tailwindcss: 4.1.13
 
-  '@tailwindcss/typography@0.5.18(tailwindcss@4.1.13)':
+  '@tailwindcss/typography@0.5.16(tailwindcss@4.1.7)':
     dependencies:
       postcss-selector-parser: 6.0.10
       tailwindcss: 4.1.13
@@ -6754,7 +6747,7 @@ snapshots:
 
   callsites@3.1.0: {}
 
-  caniuse-lite@1.0.30001743: {}
+  caniuse-lite@1.0.30001718: {}
 
   catbox-memory@1.1.2:
     dependencies:
@@ -6908,7 +6901,7 @@ snapshots:
 
   dequal@2.0.3: {}
 
-  detect-libc@2.1.0: {}
+  detect-libc@2.0.4: {}
 
   detect-node-es@1.1.0: {}
 
@@ -7098,34 +7091,31 @@ snapshots:
 
   esbuild@0.25.10:
     optionalDependencies:
-      '@esbuild/aix-ppc64': 0.25.10
-      '@esbuild/android-arm': 0.25.10
-      '@esbuild/android-arm64': 0.25.10
-      '@esbuild/android-x64': 0.25.10
-      '@esbuild/darwin-arm64': 0.25.10
-      '@esbuild/darwin-x64': 0.25.10
-      '@esbuild/freebsd-arm64': 0.25.10
-      '@esbuild/freebsd-x64': 0.25.10
-      '@esbuild/linux-arm': 0.25.10
-      '@esbuild/linux-arm64': 0.25.10
-      '@esbuild/linux-ia32': 0.25.10
-      '@esbuild/linux-loong64': 0.25.10
-      '@esbuild/linux-mips64el': 0.25.10
-      '@esbuild/linux-ppc64': 0.25.10
-      '@esbuild/linux-riscv64': 0.25.10
-      '@esbuild/linux-s390x': 0.25.10
-      '@esbuild/linux-x64': 0.25.10
-      '@esbuild/netbsd-arm64': 0.25.10
-      '@esbuild/netbsd-x64': 0.25.10
-      '@esbuild/openbsd-arm64': 0.25.10
-      '@esbuild/openbsd-x64': 0.25.10
-      '@esbuild/openharmony-arm64': 0.25.10
-      '@esbuild/sunos-x64': 0.25.10
-      '@esbuild/win32-arm64': 0.25.10
-      '@esbuild/win32-ia32': 0.25.10
-      '@esbuild/win32-x64': 0.25.10
-
-  escalade@3.2.0: {}
+      '@esbuild/aix-ppc64': 0.25.4
+      '@esbuild/android-arm': 0.25.4
+      '@esbuild/android-arm64': 0.25.4
+      '@esbuild/android-x64': 0.25.4
+      '@esbuild/darwin-arm64': 0.25.4
+      '@esbuild/darwin-x64': 0.25.4
+      '@esbuild/freebsd-arm64': 0.25.4
+      '@esbuild/freebsd-x64': 0.25.4
+      '@esbuild/linux-arm': 0.25.4
+      '@esbuild/linux-arm64': 0.25.4
+      '@esbuild/linux-ia32': 0.25.4
+      '@esbuild/linux-loong64': 0.25.4
+      '@esbuild/linux-mips64el': 0.25.4
+      '@esbuild/linux-ppc64': 0.25.4
+      '@esbuild/linux-riscv64': 0.25.4
+      '@esbuild/linux-s390x': 0.25.4
+      '@esbuild/linux-x64': 0.25.4
+      '@esbuild/netbsd-arm64': 0.25.4
+      '@esbuild/netbsd-x64': 0.25.4
+      '@esbuild/openbsd-arm64': 0.25.4
+      '@esbuild/openbsd-x64': 0.25.4
+      '@esbuild/sunos-x64': 0.25.4
+      '@esbuild/win32-arm64': 0.25.4
+      '@esbuild/win32-ia32': 0.25.4
+      '@esbuild/win32-x64': 0.25.4
 
   escape-string-regexp@4.0.0: {}
 
@@ -7392,16 +7382,17 @@ snapshots:
       hasown: 2.0.2
       mime-types: 2.1.35
 
-  fraction.js@4.3.7: {}
-
-  framer-motion@12.23.19(react-dom@19.1.1(react@19.1.1))(react@19.1.1):
+  framer-motion@12.14.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
     dependencies:
-      motion-dom: 12.23.19
-      motion-utils: 12.23.6
+      motion-dom: 12.14.0
+      motion-utils: 12.12.1
       tslib: 2.8.1
     optionalDependencies:
-      react: 19.1.1
-      react-dom: 19.1.1(react@19.1.1)
+      react: 19.1.0
+      react-dom: 19.1.0(react@19.1.0)
+
+  fsevents@2.3.3:
+    optional: true
 
   function-bind@1.1.2: {}
 
@@ -7559,7 +7550,10 @@ snapshots:
 
   ignore@7.0.5: {}
 
-  immer@10.1.3: {}
+  immer@10.1.1: {}
+
+  immutable@4.3.7:
+    optional: true
 
   import-fresh@3.3.1:
     dependencies:
@@ -7838,7 +7832,7 @@ snapshots:
 
   lightningcss@1.30.1:
     dependencies:
-      detect-libc: 2.1.0
+      detect-libc: 2.0.4
     optionalDependencies:
       lightningcss-darwin-arm64: 1.30.1
       lightningcss-darwin-x64: 1.30.1
@@ -7947,11 +7941,11 @@ snapshots:
 
   moment@2.30.1: {}
 
-  motion-dom@12.23.19:
+  motion-dom@12.14.0:
     dependencies:
-      motion-utils: 12.23.6
+      motion-utils: 12.12.1
 
-  motion-utils@12.23.6: {}
+  motion-utils@12.12.1: {}
 
   ms@2.1.3: {}
 
@@ -7963,32 +7957,32 @@ snapshots:
 
   natural-compare@1.4.0: {}
 
-  next-auth@5.0.0-beta.28(next@15.3.2(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react@19.1.1):
+  next-auth@5.0.0-beta.28(next@15.3.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.51.0))(react@19.1.0):
     dependencies:
       '@auth/core': 0.39.1
-      next: 15.3.2(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
-      react: 19.1.1
+      next: 15.3.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.51.0)
+      react: 19.1.0
 
-  next-cloudinary@6.16.0(next@15.3.2(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react@19.1.1):
+  next-cloudinary@6.16.0(next@15.3.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.51.0))(react@19.1.0):
     dependencies:
       '@cloudinary-util/types': 1.5.10
       '@cloudinary-util/url-loader': 5.10.4
       '@cloudinary-util/util': 4.0.0
-      next: 15.3.2(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
-      react: 19.1.1
+      next: 15.3.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.51.0)
+      react: 19.1.0
 
   next-themes@0.4.6(react-dom@19.1.1(react@19.1.1))(react@19.1.1):
     dependencies:
       react: 19.1.1
       react-dom: 19.1.1(react@19.1.1)
 
-  next@15.3.2(react-dom@19.1.1(react@19.1.1))(react@19.1.1):
+  next@15.3.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.51.0):
     dependencies:
       '@next/env': 15.3.2
       '@swc/counter': 0.1.3
       '@swc/helpers': 0.5.15
       busboy: 1.6.0
-      caniuse-lite: 1.0.30001743
+      caniuse-lite: 1.0.30001718
       postcss: 8.4.31
       react: 19.1.1
       react-dom: 19.1.1(react@19.1.1)
@@ -8002,14 +7996,15 @@ snapshots:
       '@next/swc-linux-x64-musl': 15.3.2
       '@next/swc-win32-arm64-msvc': 15.3.2
       '@next/swc-win32-x64-msvc': 15.3.2
-      sharp: 0.34.4
+      sass: 1.51.0
+      sharp: 0.34.2
     transitivePeerDependencies:
       - '@babel/core'
       - babel-plugin-macros
 
-  nextjs-toploader@3.9.17(next@15.3.2(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1):
+  nextjs-toploader@3.8.16(next@15.3.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.51.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
     dependencies:
-      next: 15.3.2(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+      next: 15.3.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.51.0)
       nprogress: 0.2.0
       prop-types: 15.8.1
       react: 19.1.1
@@ -8242,7 +8237,12 @@ snapshots:
     optionalDependencies:
       '@types/react': 19.1.13
 
-  react@19.1.1: {}
+  react@19.1.0: {}
+
+  readdirp@3.6.0:
+    dependencies:
+      picomatch: 2.3.1
+    optional: true
 
   reflect.getprototypeof@1.0.10:
     dependencies:
@@ -8349,8 +8349,8 @@ snapshots:
 
   sharp@0.34.4:
     dependencies:
-      '@img/colour': 1.0.0
-      detect-libc: 2.1.0
+      color: 4.2.3
+      detect-libc: 2.0.4
       semver: 7.7.2
     optionalDependencies:
       '@img/sharp-darwin-arm64': 0.34.4
@@ -8660,31 +8660,23 @@ snapshots:
     dependencies:
       napi-postinstall: 0.3.3
     optionalDependencies:
-      '@unrs/resolver-binding-android-arm-eabi': 1.11.1
-      '@unrs/resolver-binding-android-arm64': 1.11.1
-      '@unrs/resolver-binding-darwin-arm64': 1.11.1
-      '@unrs/resolver-binding-darwin-x64': 1.11.1
-      '@unrs/resolver-binding-freebsd-x64': 1.11.1
-      '@unrs/resolver-binding-linux-arm-gnueabihf': 1.11.1
-      '@unrs/resolver-binding-linux-arm-musleabihf': 1.11.1
-      '@unrs/resolver-binding-linux-arm64-gnu': 1.11.1
-      '@unrs/resolver-binding-linux-arm64-musl': 1.11.1
-      '@unrs/resolver-binding-linux-ppc64-gnu': 1.11.1
-      '@unrs/resolver-binding-linux-riscv64-gnu': 1.11.1
-      '@unrs/resolver-binding-linux-riscv64-musl': 1.11.1
-      '@unrs/resolver-binding-linux-s390x-gnu': 1.11.1
-      '@unrs/resolver-binding-linux-x64-gnu': 1.11.1
-      '@unrs/resolver-binding-linux-x64-musl': 1.11.1
-      '@unrs/resolver-binding-wasm32-wasi': 1.11.1
-      '@unrs/resolver-binding-win32-arm64-msvc': 1.11.1
-      '@unrs/resolver-binding-win32-ia32-msvc': 1.11.1
-      '@unrs/resolver-binding-win32-x64-msvc': 1.11.1
-
-  update-browserslist-db@1.1.3(browserslist@4.26.2):
-    dependencies:
-      browserslist: 4.26.2
-      escalade: 3.2.0
-      picocolors: 1.1.1
+      '@unrs/resolver-binding-darwin-arm64': 1.7.2
+      '@unrs/resolver-binding-darwin-x64': 1.7.2
+      '@unrs/resolver-binding-freebsd-x64': 1.7.2
+      '@unrs/resolver-binding-linux-arm-gnueabihf': 1.7.2
+      '@unrs/resolver-binding-linux-arm-musleabihf': 1.7.2
+      '@unrs/resolver-binding-linux-arm64-gnu': 1.7.2
+      '@unrs/resolver-binding-linux-arm64-musl': 1.7.2
+      '@unrs/resolver-binding-linux-ppc64-gnu': 1.7.2
+      '@unrs/resolver-binding-linux-riscv64-gnu': 1.7.2
+      '@unrs/resolver-binding-linux-riscv64-musl': 1.7.2
+      '@unrs/resolver-binding-linux-s390x-gnu': 1.7.2
+      '@unrs/resolver-binding-linux-x64-gnu': 1.7.2
+      '@unrs/resolver-binding-linux-x64-musl': 1.7.2
+      '@unrs/resolver-binding-wasm32-wasi': 1.7.2
+      '@unrs/resolver-binding-win32-arm64-msvc': 1.7.2
+      '@unrs/resolver-binding-win32-ia32-msvc': 1.7.2
+      '@unrs/resolver-binding-win32-x64-msvc': 1.7.2
 
   uri-js@4.4.1:
     dependencies:
