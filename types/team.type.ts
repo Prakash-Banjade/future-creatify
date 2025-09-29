@@ -5,3 +5,9 @@ export type TeamResponse = {
     data: Omit<TTeamTableSelect, "description" | "socialLinks" | "createdAt">[],
     meta: TMeta
 }
+
+
+export type TeamResponse_Public = {
+    data: TTeamTableSelect[],
+    meta: TMeta
+}

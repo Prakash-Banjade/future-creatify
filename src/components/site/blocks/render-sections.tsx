@@ -9,13 +9,13 @@ import RenderFormBlock from "./form";
 import { EAlignment } from "../../../../types/global.types";
 import { RenderContactTextBlock } from "./contact";
 import { RenderTestimonialBlock } from "./testimonials";
-import RenderTeamsBlock from "./teams";
 
 type Props = {
   sections: TPageDto["sections"];
 };
 
 export default function RenderSections({ sections }: Props) {
+  console.log("teams",sections)
   return (
     <section>
       {sections.map((s, idx) => {

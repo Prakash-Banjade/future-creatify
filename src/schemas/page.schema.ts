@@ -21,12 +21,11 @@ export const TextBlockSchema = BaseBlockSchema.extend({
   headline: z
     .string()
     .trim()
-    .min(3, { message: "Headline must be between 3 and 50 characters" })
-    .max(50, { message: "Headline must be between 3 and 50 characters" }),
+    .max(100, { message: "Headline must be less than 100 characters" }),
   subheadline: z
     .string()
     .trim()
-    .max(300, { message: "Subheadline must be between 3 and 300 characters" }),
+    .max(300, { message: "Subheadline must be less than 300 characters" }),
   body: richTextSchema,
   cta: z.array(CTADtoSchema).max(2, { message: "CTA must be less than 2" }),
   align: z.nativeEnum(EAlignment),

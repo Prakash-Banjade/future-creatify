@@ -20,12 +20,12 @@ import { headers } from "next/headers";
 
 
 
-const getSocialLogo = (socialLink: string) => {
- if(socialLink.includes("facebook")) return <Facebook size={20} />
- if(socialLink.includes("twitter")) return <Twitter size={20} />
- if(socialLink.includes("instagram")) return <Instagram size={20} />
- if(socialLink.includes("linkedin")) return <Linkedin size={20} />
- if(socialLink.includes("youtube")) return <Youtube size={20} />
+export const getSocialLogo = (socialLink: string) => {
+ if(socialLink.startsWith("https://www.facebook.com")) return <Facebook size={20} />
+ if(socialLink.startsWith("https://www.x.com")) return <Twitter size={20} />
+ if(socialLink.startsWith("https://www.instagram.com")) return <Instagram size={20} />
+ if(socialLink.startsWith("https://www.linkedin.com")) return <Linkedin size={20} />
+ if(socialLink.startsWith("https://www.youtube.com")) return <Youtube size={20} />
  return <Facebook size={20} /> // Default fallback
 }
 
