@@ -1,0 +1,1384 @@
+[
+  {
+    "id": "5a9ca9b3-7954-4339-a2cc-c6111217e0d9",
+    "name": "Blogs",
+    "slug": "blogs",
+    "sections": [
+      {
+        "title": "",
+        "blocks": {
+          "items": [
+            {
+              "type": "refItem",
+              "limit": 3,
+              "order": "DESC",
+              "refRelation": "blogs"
+            }
+          ],
+          "direction": "vertical"
+        },
+        "tagline": "",
+        "headline": "",
+        "container": false,
+        "subheadline": "",
+        "headlineAlignment": "center"
+      }
+    ],
+    "metadata": { "title": "Untitled", "keywords": [], "description": "" },
+    "heroSections": [
+      {
+        "cta": [],
+        "image": null,
+        "layout": { "type": "jumbotron", "alignment": "center" },
+        "headline": {
+          "html": "<p class=\"leading-7 [&amp;:not(:first-child)]:mt-6\" dir=\"ltr\"><span style=\"white-space: pre-wrap;\">                                                                                     </span><span style=\"color: rgb(222, 0, 165); white-space: pre-wrap;\"> Our Blog</span></p><h1 class=\"scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl\" dir=\"ltr\" style=\"text-align: center;\"><span style=\"color: rgb(222, 0, 165); white-space: pre-wrap;\">Educational</span><span style=\"white-space: pre-wrap;\">&nbsp;Insights &amp; Resources</span></h1><p class=\"leading-7 [&amp;:not(:first-child)]:mt-6\" dir=\"ltr\" style=\"text-align: center;\"><span style=\"white-space: pre-wrap;\">Explore our collection of articles, guides, and resources designed to inspire and empower educators on their teaching journey.</span></p>",
+          "json": {
+            "root": {
+              "type": "root",
+              "format": "",
+              "indent": 0,
+              "version": 1,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "format": "",
+                  "indent": 0,
+                  "version": 1,
+                  "children": [
+                    {
+                      "mode": "normal",
+                      "text": "                                                                                     ",
+                      "type": "text",
+                      "style": "",
+                      "detail": 0,
+                      "format": 0,
+                      "version": 1
+                    },
+                    {
+                      "mode": "normal",
+                      "text": " Our Blog",
+                      "type": "text",
+                      "style": "color: #de00a5;",
+                      "detail": 0,
+                      "format": 0,
+                      "version": 1
+                    }
+                  ],
+                  "direction": "ltr",
+                  "textStyle": "color: #de00a5;",
+                  "textFormat": 0
+                },
+                {
+                  "tag": "h1",
+                  "type": "heading",
+                  "format": "center",
+                  "indent": 0,
+                  "version": 1,
+                  "children": [
+                    {
+                      "mode": "normal",
+                      "text": "Educational",
+                      "type": "text",
+                      "style": "color: #de00a5;",
+                      "detail": 0,
+                      "format": 0,
+                      "version": 1
+                    },
+                    {
+                      "mode": "normal",
+                      "text": " Insights & Resources",
+                      "type": "text",
+                      "style": "",
+                      "detail": 0,
+                      "format": 0,
+                      "version": 1
+                    }
+                  ],
+                  "direction": "ltr",
+                  "textStyle": "color: #de00a5;"
+                },
+                {
+                  "type": "paragraph",
+                  "format": "center",
+                  "indent": 0,
+                  "version": 1,
+                  "children": [
+                    {
+                      "mode": "normal",
+                      "text": "Explore our collection of articles, guides, and resources designed to inspire and empower educators on their teaching journey.",
+                      "type": "text",
+                      "style": "",
+                      "detail": 0,
+                      "format": 0,
+                      "version": 1
+                    }
+                  ],
+                  "direction": "ltr",
+                  "textStyle": "",
+                  "textFormat": 0
+                }
+              ],
+              "direction": "ltr",
+              "textStyle": "color: #de00a5;"
+            }
+          }
+        }
+      }
+    ],
+    "created_at": "2025-09-24 07:01:43.268882",
+    "updated_at": "2025-10-07 06:00:54.73"
+  },
+  {
+    "id": "a4816d2f-7858-43e2-907f-14b140f940d6",
+    "name": "Home",
+    "slug": "home",
+    "sections": [
+      {
+        "title": "Our Mission",
+        "blocks": {
+          "items": [
+            {
+              "type": "cards",
+              "cards": [
+                {
+                  "title": "Innovative Pedagogy",
+                  "newTab": false,
+                  "subtitle": "Developing cutting-edge teaching methods that inspire creativity and critical thinking in students.",
+                  "borderLess": false,
+                  "description": {
+                    "html": "",
+                    "json": {
+                      "root": {
+                        "type": "root",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "type": "paragraph",
+                            "format": "",
+                            "indent": 0,
+                            "version": 1,
+                            "children": [],
+                            "direction": "ltr"
+                          }
+                        ],
+                        "direction": "ltr"
+                      }
+                    }
+                  }
+                },
+                {
+                  "title": "Developing",
+                  "newTab": false,
+                  "subtitle": "Developing cutting-edge teaching methods that inspire creativity and critical thinking in students.",
+                  "borderLess": false,
+                  "description": {
+                    "html": "",
+                    "json": {
+                      "root": {
+                        "type": "root",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "type": "paragraph",
+                            "format": "",
+                            "indent": 0,
+                            "version": 1,
+                            "children": [],
+                            "direction": "ltr"
+                          }
+                        ],
+                        "direction": "ltr"
+                      }
+                    }
+                  }
+                },
+                {
+                  "title": "Developing cutting-edge",
+                  "newTab": false,
+                  "subtitle": "Developing cutting-edge teaching methods that inspire creativity and critical thinking in students.",
+                  "borderLess": false,
+                  "description": {
+                    "html": "",
+                    "json": {
+                      "root": {
+                        "type": "root",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "type": "paragraph",
+                            "format": "",
+                            "indent": 0,
+                            "version": 1,
+                            "children": [],
+                            "direction": "ltr"
+                          }
+                        ],
+                        "direction": "ltr"
+                      }
+                    }
+                  }
+                }
+              ],
+              "layout": "grid",
+              "columns": { "lg": 3, "md": 2, "sm": 1, "xl": 3 }
+            }
+          ],
+          "direction": "horizontal"
+        },
+        "tagline": "Our Mission",
+        "headline": "Making a Difference in Education",
+        "container": false,
+        "subheadline": "At Future Creatify, we believe in the power of education to transform lives. Our mission is to empower\n educators with innovative teaching methodologies and resources to create meaningful learning experiences.",
+        "headlineAlignment": "center"
+      },
+      {
+        "title": "Our Blogs",
+        "blocks": {
+          "items": [
+            {
+              "type": "refItem",
+              "limit": 3,
+              "order": "DESC",
+              "selected": [
+                {
+                  "label": "Introducing the AI Gateway",
+                  "value": "introducing-the-ai-gateway"
+                }
+              ],
+              "refRelation": "blogs"
+            }
+          ],
+          "direction": "horizontal"
+        },
+        "tagline": "Our Blogs",
+        "headline": "Educational Insights & Resources",
+        "container": false,
+        "subheadline": "",
+        "headlineAlignment": "left"
+      },
+      {
+        "title": "Get In Touch",
+        "blocks": {
+          "items": [
+            { "type": "contactText" },
+            {
+              "form": {
+                "id": "2c284f1f-c7a8-45cc-a5de-322c21383700",
+                "title": "Contact Form"
+              },
+              "type": "form",
+              "introContent": {
+                "html": "<h3 class=\"scroll-m-20 text-2xl font-semibold tracking-tight\" dir=\"ltr\" style=\"text-align: start;\"><span style=\"white-space: pre-wrap;\">Send Us a Message</span></h3>",
+                "json": {
+                  "root": {
+                    "type": "root",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "tag": "h3",
+                        "type": "heading",
+                        "format": "start",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "mode": "normal",
+                            "text": "Send Us a Message",
+                            "type": "text",
+                            "style": "",
+                            "detail": 0,
+                            "format": 0,
+                            "version": 1
+                          }
+                        ],
+                        "direction": "ltr"
+                      }
+                    ],
+                    "direction": "ltr"
+                  }
+                }
+              }
+            }
+          ],
+          "direction": "horizontal"
+        },
+        "tagline": "",
+        "headline": "",
+        "container": false,
+        "subheadline": "",
+        "headlineAlignment": "center"
+      },
+      {
+        "title": "Testimonials",
+        "blocks": {
+          "items": [{ "type": "testimonial" }],
+          "direction": "horizontal"
+        },
+        "tagline": "Testimonials",
+        "headline": "What Our Community Says",
+        "container": false,
+        "subheadline": "Don't just take our word for it. Hear from the educators and institutions who have partnered with us and experienced transformative results.",
+        "headlineAlignment": "center"
+      }
+    ],
+    "metadata": { "title": "Untitled", "keywords": [], "description": "" },
+    "heroSections": [
+      {
+        "cta": [
+          {
+            "link": "untitled-bS5P742w__",
+            "text": "Learn More",
+            "type": "internal",
+            "arrow": false,
+            "newTab": false,
+            "variant": "default"
+          },
+          {
+            "link": "untitled-bS5P742w__",
+            "text": "Read Our Blogs",
+            "type": "internal",
+            "arrow": true,
+            "newTab": false,
+            "variant": "outline"
+          }
+        ],
+        "image": {
+          "alt": "",
+          "name": "pexels-photo-3769714.webp",
+          "bytes": 76616,
+          "width": 1200,
+          "format": "webp",
+          "height": 743,
+          "caption": "",
+          "public_id": "c15gt2ihtxskizpt0t13",
+          "secure_url": "https://res.cloudinary.com/dbj0ffzhn/image/upload/v1757835684/c15gt2ihtxskizpt0t13.webp",
+          "originalName": "pexels-photo-3769714.webp",
+          "resource_type": "image"
+        },
+        "layout": { "type": "splitHero", "imagePosition": "right" },
+        "headline": {
+          "html": "<p class=\"leading-7 [&amp;:not(:first-child)]:mt-6\" dir=\"ltr\"><span style=\"color: rgb(222, 0, 165); white-space: pre-wrap;\">Future Creatify</span></p><h1 class=\"scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl\" dir=\"ltr\" style=\"text-align: start;\"><span style=\"font-size: 53px; white-space: pre-wrap;\">Empowering Educators for a&nbsp;</span><span style=\"color: rgb(222, 0, 165); font-size: 53px; white-space: pre-wrap;\">Creative Future</span></h1><p class=\"leading-7 [&amp;:not(:first-child)]:mt-6\" dir=\"ltr\" style=\"text-align: start;\"><span style=\"white-space: pre-wrap;\">We train, facilitate, and design innovative programs through project-based integrated pedagogy to shape the minds and futures of students.</span></p>",
+          "json": {
+            "root": {
+              "type": "root",
+              "format": "",
+              "indent": 0,
+              "version": 1,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "format": "",
+                  "indent": 0,
+                  "version": 1,
+                  "children": [
+                    {
+                      "mode": "normal",
+                      "text": "Future Creatify",
+                      "type": "text",
+                      "style": "color: #de00a5;",
+                      "detail": 0,
+                      "format": 0,
+                      "version": 1
+                    }
+                  ],
+                  "direction": "ltr",
+                  "textStyle": "color: #de00a5;",
+                  "textFormat": 0
+                },
+                {
+                  "tag": "h1",
+                  "type": "heading",
+                  "format": "start",
+                  "indent": 0,
+                  "version": 1,
+                  "children": [
+                    {
+                      "mode": "normal",
+                      "text": "Empowering Educators for a ",
+                      "type": "text",
+                      "style": "font-size: 53px;",
+                      "detail": 0,
+                      "format": 0,
+                      "version": 1
+                    },
+                    {
+                      "mode": "normal",
+                      "text": "Creative Future",
+                      "type": "text",
+                      "style": "background-color: #de00a;color: #de00a5;font-size: 53px;",
+                      "detail": 0,
+                      "format": 0,
+                      "version": 1
+                    }
+                  ],
+                  "direction": "ltr",
+                  "textStyle": "font-size: 53px;"
+                },
+                {
+                  "type": "paragraph",
+                  "format": "start",
+                  "indent": 0,
+                  "version": 1,
+                  "children": [
+                    {
+                      "mode": "normal",
+                      "text": "We train, facilitate, and design innovative programs through project-based integrated pedagogy to shape the minds and futures of students.",
+                      "type": "text",
+                      "style": "",
+                      "detail": 0,
+                      "format": 0,
+                      "version": 1
+                    }
+                  ],
+                  "direction": "ltr",
+                  "textStyle": "",
+                  "textFormat": 0
+                }
+              ],
+              "direction": "ltr",
+              "textStyle": "font-size: 53px;"
+            }
+          }
+        }
+      }
+    ],
+    "created_at": "2025-09-15 11:10:26.902638",
+    "updated_at": "2025-09-24 14:49:00.119"
+  },
+  {
+    "id": "b5cd5284-03e3-412f-a2ca-311e3946102d",
+    "name": "Events",
+    "slug": "events",
+    "sections": [],
+    "metadata": { "title": "Untitled", "keywords": [], "description": "" },
+    "heroSections": [
+      {
+        "cta": [],
+        "layout": { "type": "jumbotron", "alignment": "center" },
+        "headline": {
+          "html": "<p class=\"leading-7 [&amp;:not(:first-child)]:mt-6\" dir=\"ltr\" style=\"text-align: center;\"><span style=\"white-space: pre-wrap;\">Events</span></p><h1 class=\"scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl\" dir=\"ltr\" style=\"text-align: center;\"><span style=\"white-space: pre-wrap;\">Join Our Educational Events</span></h1><p class=\"leading-7 [&amp;:not(:first-child)]:mt-6\" dir=\"ltr\" style=\"text-align: center;\"><span style=\"white-space: pre-wrap;\">Discover workshops, webinars, conferences, and other events designed to inspire and empower educators with new skills and perspectives.</span></p>",
+          "json": {
+            "root": {
+              "type": "root",
+              "format": "",
+              "indent": 0,
+              "version": 1,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "format": "center",
+                  "indent": 0,
+                  "version": 1,
+                  "children": [
+                    {
+                      "mode": "normal",
+                      "text": "Events",
+                      "type": "text",
+                      "style": "",
+                      "detail": 0,
+                      "format": 0,
+                      "version": 1
+                    }
+                  ],
+                  "direction": "ltr",
+                  "textStyle": "",
+                  "textFormat": 0
+                },
+                {
+                  "tag": "h1",
+                  "type": "heading",
+                  "format": "center",
+                  "indent": 0,
+                  "version": 1,
+                  "children": [
+                    {
+                      "mode": "normal",
+                      "text": "Join Our Educational Events",
+                      "type": "text",
+                      "style": "",
+                      "detail": 0,
+                      "format": 0,
+                      "version": 1
+                    }
+                  ],
+                  "direction": "ltr"
+                },
+                {
+                  "type": "paragraph",
+                  "format": "center",
+                  "indent": 0,
+                  "version": 1,
+                  "children": [
+                    {
+                      "mode": "normal",
+                      "text": "Discover workshops, webinars, conferences, and other events designed to inspire and empower educators with new skills and perspectives.",
+                      "type": "text",
+                      "style": "",
+                      "detail": 0,
+                      "format": 0,
+                      "version": 1
+                    }
+                  ],
+                  "direction": "ltr",
+                  "textStyle": "",
+                  "textFormat": 0
+                }
+              ],
+              "direction": "ltr"
+            }
+          }
+        }
+      }
+    ],
+    "created_at": "2025-10-07 06:01:12.581608",
+    "updated_at": "2025-10-07 06:02:03.338"
+  },
+  {
+    "id": "d4afddef-39a3-4f7a-bbf3-30be484f6dcf",
+    "name": "About",
+    "slug": "about",
+    "sections": [
+      {
+        "title": "Our  Story",
+        "blocks": {
+          "items": [
+            {
+              "type": "image",
+              "images": [
+                {
+                  "alt": "",
+                  "name": "pexels-photo-3184360 (1).webp",
+                  "bytes": 102384,
+                  "width": 1920,
+                  "format": "webp",
+                  "height": 1280,
+                  "caption": "",
+                  "public_id": "odk5yaplsdhb7sgb22sa",
+                  "secure_url": "https://res.cloudinary.com/dbj0ffzhn/image/upload/v1758017771/odk5yaplsdhb7sgb22sa.webp",
+                  "originalName": "pexels-photo-3184360 (1).webp",
+                  "resource_type": "image"
+                }
+              ]
+            },
+            {
+              "cta": [],
+              "body": {
+                "html": "<p class=\"leading-7 [&amp;:not(:first-child)]:mt-6\" dir=\"ltr\"><span style=\"color: var(--muted-foreground); white-space: pre-wrap;\">Future Creatify was founded in 2015 by a group of passionate educators who recognized the need for innovation in teaching methodologies. What started as a small initiative has grown into a comprehensive education hub serving thousands of educators worldwide.</span></p><p class=\"leading-7 [&amp;:not(:first-child)]:mt-6\" dir=\"ltr\" style=\"text-align: start;\"><span style=\"color: var(--muted-foreground); white-space: pre-wrap;\">Our journey has been defined by a commitment to excellence, a passion for creativity, and a belief in the transformative power of education. Through our work, we aim to inspire a new generation of educators who approach teaching with innovation, compassion, and a focus on student-centered learning.</span></p>",
+                "json": {
+                  "root": {
+                    "type": "root",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "type": "paragraph",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "mode": "normal",
+                            "text": "Future Creatify was founded in 2015 by a group of passionate educators who recognized the need for innovation in teaching methodologies. What started as a small initiative has grown into a comprehensive education hub serving thousands of educators worldwide.",
+                            "type": "text",
+                            "style": "color: var(--muted-foreground);",
+                            "detail": 0,
+                            "format": 0,
+                            "version": 1
+                          }
+                        ],
+                        "direction": "ltr",
+                        "textStyle": "color: var(--muted-foreground);",
+                        "textFormat": 0
+                      },
+                      {
+                        "type": "paragraph",
+                        "format": "start",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "mode": "normal",
+                            "text": "Our journey has been defined by a commitment to excellence, a passion for creativity, and a belief in the transformative power of education. Through our work, we aim to inspire a new generation of educators who approach teaching with innovation, compassion, and a focus on student-centered learning.",
+                            "type": "text",
+                            "style": "color: var(--muted-foreground);",
+                            "detail": 0,
+                            "format": 0,
+                            "version": 1
+                          }
+                        ],
+                        "direction": "ltr",
+                        "textStyle": "color: var(--muted-foreground);",
+                        "textFormat": 0
+                      }
+                    ],
+                    "direction": "ltr",
+                    "textStyle": "color: var(--muted-foreground);"
+                  }
+                }
+              },
+              "type": "text",
+              "align": "right",
+              "headline": "How Future Creatify Began",
+              "subheadline": ""
+            }
+          ],
+          "direction": "horizontal"
+        },
+        "tagline": "",
+        "headline": "",
+        "container": false,
+        "subheadline": "",
+        "headlineAlignment": "center"
+      },
+      {
+        "title": "Our  Values",
+        "blocks": {
+          "items": [
+            {
+              "type": "cards",
+              "cards": [
+                {
+                  "title": "Innovation",
+                  "newTab": false,
+                  "subtitle": "We constantly evolve our methods and embrace new ideas to stay at the forefront of educational excellence.",
+                  "borderLess": false,
+                  "description": {
+                    "html": "",
+                    "json": {
+                      "root": {
+                        "type": "root",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "type": "paragraph",
+                            "format": "",
+                            "indent": 0,
+                            "version": 1,
+                            "children": [],
+                            "direction": "ltr"
+                          }
+                        ],
+                        "direction": "ltr"
+                      }
+                    }
+                  }
+                },
+                {
+                  "title": "Excellence",
+                  "newTab": false,
+                  "subtitle": "We strive for the highest standards in all our programs, resources, and interactions with our community.",
+                  "borderLess": false,
+                  "description": {
+                    "html": "",
+                    "json": {
+                      "root": {
+                        "type": "root",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "type": "paragraph",
+                            "format": "",
+                            "indent": 0,
+                            "version": 1,
+                            "children": [],
+                            "direction": "ltr"
+                          }
+                        ],
+                        "direction": "ltr"
+                      }
+                    }
+                  }
+                },
+                {
+                  "title": "Collaboration",
+                  "newTab": false,
+                  "subtitle": "We believe in the power of working together, sharing knowledge, and learning from diverse perspectives.",
+                  "borderLess": false,
+                  "description": {
+                    "html": "",
+                    "json": {
+                      "root": {
+                        "type": "root",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "type": "paragraph",
+                            "format": "",
+                            "indent": 0,
+                            "version": 1,
+                            "children": [],
+                            "direction": "ltr"
+                          }
+                        ],
+                        "direction": "ltr"
+                      }
+                    }
+                  }
+                },
+                {
+                  "title": "Compassion",
+                  "newTab": false,
+                  "subtitle": "We approach education with empathy, understanding that each learner and educator has unique needs and challenges.",
+                  "borderLess": false,
+                  "description": {
+                    "html": "",
+                    "json": {
+                      "root": {
+                        "type": "root",
+                        "format": "",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "type": "paragraph",
+                            "format": "",
+                            "indent": 0,
+                            "version": 1,
+                            "children": [],
+                            "direction": "ltr"
+                          }
+                        ],
+                        "direction": "ltr"
+                      }
+                    }
+                  }
+                }
+              ],
+              "layout": "grid",
+              "columns": { "lg": 3, "md": 2, "sm": 1, "xl": 4 }
+            }
+          ],
+          "direction": "horizontal"
+        },
+        "tagline": "Our Values",
+        "headline": "What Drives Us Forward",
+        "container": false,
+        "subheadline": "Our core values guide everything we do at Future Creatify. They shape our programs, inform our interactions, and inspire our innovation.",
+        "headlineAlignment": "center"
+      },
+      {
+        "title": "Our Vision",
+        "blocks": {
+          "items": [
+            {
+              "cta": [],
+              "body": {
+                "html": "<p class=\"leading-7 [&amp;:not(:first-child)]:mt-6\" style=\"line-height: 0.25; text-align: center;\"><span style=\"color: var(--muted-foreground); white-space: pre-wrap;\">We envision a world where every educator is empowered with the tools, knowledge, and support to</span></p><p class=\"leading-7 [&amp;:not(:first-child)]:mt-6\" style=\"line-height: 0.25; text-align: center;\"><span style=\"color: var(--muted-foreground); white-space: pre-wrap;\"> create transformative learning experiences. A world where education is not just about </span></p><p class=\"leading-7 [&amp;:not(:first-child)]:mt-6\" style=\"line-height: 0.25; text-align: center;\"><span style=\"color: var(--muted-foreground); white-space: pre-wrap;\">imparting knowledge but about inspiring curiosity, fostering creativity, and nurturing holistic  </span></p><p class=\"leading-7 [&amp;:not(:first-child)]:mt-6\" style=\"line-height: 0.25; text-align: center;\"><span style=\"color: var(--muted-foreground); white-space: pre-wrap;\">development.</span></p><blockquote class=\"mt-6 border-l-2 pl-6 italic\" dir=\"ltr\" style=\"text-align: center;\"><span style=\"font-family: &quot;Times New Roman&quot;; white-space: pre-wrap;\">\"How do we, as educators, make a difference every day in shaping the minds and futures of </span></blockquote><p class=\"leading-7 [&amp;:not(:first-child)]:mt-6\" style=\"line-height: 0.5; text-align: center;\"><span style=\"font-family: &quot;Times New Roman&quot;; white-space: pre-wrap;\">our students? This question guides our work every day at Future Creatify.\"</span></p><p class=\"leading-7 [&amp;:not(:first-child)]:mt-6\" dir=\"ltr\" style=\"text-align: start;\"><br></p>",
+                "json": {
+                  "root": {
+                    "type": "root",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "type": "styled-paragraph",
+                        "style": "line-height:0.25",
+                        "format": "center",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "mode": "normal",
+                            "text": "We envision a world where every educator is empowered with the tools, knowledge, and support to",
+                            "type": "text",
+                            "style": "color: var(--muted-foreground);",
+                            "detail": 0,
+                            "format": 0,
+                            "version": 1
+                          }
+                        ],
+                        "direction": null,
+                        "textStyle": "color: var(--muted-foreground);",
+                        "textFormat": 0
+                      },
+                      {
+                        "type": "styled-paragraph",
+                        "style": "line-height:0.25",
+                        "format": "center",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "mode": "normal",
+                            "text": " create transformative learning experiences. A world where education is not just about ",
+                            "type": "text",
+                            "style": "color: var(--muted-foreground);",
+                            "detail": 0,
+                            "format": 0,
+                            "version": 1
+                          }
+                        ],
+                        "direction": null,
+                        "textStyle": "color: var(--muted-foreground);",
+                        "textFormat": 0
+                      },
+                      {
+                        "type": "styled-paragraph",
+                        "style": "line-height:0.25",
+                        "format": "center",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "mode": "normal",
+                            "text": "imparting knowledge but about inspiring curiosity, fostering creativity, and nurturing holistic  ",
+                            "type": "text",
+                            "style": "color: var(--muted-foreground);",
+                            "detail": 0,
+                            "format": 0,
+                            "version": 1
+                          }
+                        ],
+                        "direction": null,
+                        "textStyle": "color: var(--muted-foreground);",
+                        "textFormat": 0
+                      },
+                      {
+                        "type": "styled-paragraph",
+                        "style": "line-height:0.25",
+                        "format": "center",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "mode": "normal",
+                            "text": "development.",
+                            "type": "text",
+                            "style": "color: var(--muted-foreground);",
+                            "detail": 0,
+                            "format": 0,
+                            "version": 1
+                          }
+                        ],
+                        "direction": null,
+                        "textStyle": "color: var(--muted-foreground);",
+                        "textFormat": 0
+                      },
+                      {
+                        "type": "quote",
+                        "format": "center",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "mode": "normal",
+                            "text": "\"How do we, as educators, make a difference every day in shaping the minds and futures of ",
+                            "type": "text",
+                            "style": "font-family: Times New Roman;",
+                            "detail": 0,
+                            "format": 0,
+                            "version": 1
+                          }
+                        ],
+                        "direction": "ltr",
+                        "textStyle": "font-family: Times New Roman;"
+                      },
+                      {
+                        "type": "styled-paragraph",
+                        "style": "line-height:0.5",
+                        "format": "center",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "mode": "normal",
+                            "text": "our students? This question guides our work every day at Future Creatify.\"",
+                            "type": "text",
+                            "style": "font-family: Times New Roman;",
+                            "detail": 0,
+                            "format": 0,
+                            "version": 1
+                          }
+                        ],
+                        "direction": null,
+                        "textStyle": "font-family: Times New Roman;",
+                        "textFormat": 0
+                      },
+                      {
+                        "type": "paragraph",
+                        "format": "start",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [{ "type": "linebreak", "version": 1 }],
+                        "direction": "ltr",
+                        "textStyle": "",
+                        "textFormat": 0
+                      }
+                    ],
+                    "direction": "ltr",
+                    "textStyle": "font-family: Times New Roman;"
+                  }
+                }
+              },
+              "type": "text",
+              "align": "center",
+              "headline": "Looking to the Future",
+              "subheadline": ""
+            }
+          ],
+          "direction": "horizontal"
+        },
+        "tagline": "Our Vision",
+        "headline": "",
+        "container": false,
+        "subheadline": "",
+        "headlineAlignment": "center"
+      }
+    ],
+    "metadata": { "title": "Untitled", "keywords": [], "description": "" },
+    "heroSections": [
+      {
+        "cta": [],
+        "image": {
+          "alt": "",
+          "name": "pexels-photo-3184360 (1).webp",
+          "bytes": 102384,
+          "width": 1920,
+          "format": "webp",
+          "height": 1280,
+          "caption": "",
+          "public_id": "odk5yaplsdhb7sgb22sa",
+          "secure_url": "https://res.cloudinary.com/dbj0ffzhn/image/upload/v1758017771/odk5yaplsdhb7sgb22sa.webp",
+          "originalName": "pexels-photo-3184360 (1).webp",
+          "resource_type": "image"
+        },
+        "layout": { "type": "jumbotron", "alignment": "center" },
+        "headline": {
+          "html": "<p class=\"leading-7 [&amp;:not(:first-child)]:mt-6\" dir=\"ltr\" style=\"text-align: center;\"><span style=\"color: rgb(222, 0, 165); font-family: Verdana; white-space: pre-wrap;\">About us</span></p><h1 class=\"scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl\" dir=\"ltr\" style=\"text-align: center;\"><span style=\"white-space: pre-wrap;\">    Our Journey in&nbsp;</span><span style=\"color: rgb(222, 0, 165); white-space: pre-wrap;\">Educational</span></h1><h1 class=\"scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl\" dir=\"ltr\" style=\"text-align: center;\"><span style=\"color: rgb(222, 0, 165); white-space: pre-wrap;\">Innovation</span></h1><p class=\"leading-7 [&amp;:not(:first-child)]:mt-6\" style=\"line-height: 0.25; text-align: center;\"><span style=\"white-space: pre-wrap;\">We're passionate about transforming education through innovative pedagogy and empowering educators to</span></p><p class=\"leading-7 [&amp;:not(:first-child)]:mt-6\" style=\"line-height: 0.25; text-align: center;\"><span style=\"white-space: pre-wrap;\">make a difference in shaping the minds and futures of students.</span></p>",
+          "json": {
+            "root": {
+              "type": "root",
+              "format": "",
+              "indent": 0,
+              "version": 1,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "format": "center",
+                  "indent": 0,
+                  "version": 1,
+                  "children": [
+                    {
+                      "mode": "normal",
+                      "text": "About us",
+                      "type": "text",
+                      "style": "color: #de00a5;font-family: Verdana;",
+                      "detail": 0,
+                      "format": 0,
+                      "version": 1
+                    }
+                  ],
+                  "direction": "ltr",
+                  "textStyle": "color: #de00a5;font-family: Verdana;",
+                  "textFormat": 0
+                },
+                {
+                  "tag": "h1",
+                  "type": "heading",
+                  "format": "center",
+                  "indent": 0,
+                  "version": 1,
+                  "children": [
+                    {
+                      "mode": "normal",
+                      "text": "    Our Journey in ",
+                      "type": "text",
+                      "style": "",
+                      "detail": 0,
+                      "format": 0,
+                      "version": 1
+                    },
+                    {
+                      "mode": "normal",
+                      "text": "Educational",
+                      "type": "text",
+                      "style": "color: #de00a5;",
+                      "detail": 0,
+                      "format": 0,
+                      "version": 1
+                    }
+                  ],
+                  "direction": "ltr",
+                  "textStyle": "color: #de00a5;"
+                },
+                {
+                  "tag": "h1",
+                  "type": "heading",
+                  "format": "center",
+                  "indent": 0,
+                  "version": 1,
+                  "children": [
+                    {
+                      "mode": "normal",
+                      "text": "Innovation",
+                      "type": "text",
+                      "style": "color: #de00a5;",
+                      "detail": 0,
+                      "format": 0,
+                      "version": 1
+                    }
+                  ],
+                  "direction": "ltr",
+                  "textStyle": "color: #de00a5;"
+                },
+                {
+                  "type": "styled-paragraph",
+                  "style": "line-height:0.25",
+                  "format": "center",
+                  "indent": 0,
+                  "version": 1,
+                  "children": [
+                    {
+                      "mode": "normal",
+                      "text": "We're passionate about transforming education through innovative pedagogy and empowering educators to",
+                      "type": "text",
+                      "style": "",
+                      "detail": 0,
+                      "format": 0,
+                      "version": 1
+                    }
+                  ],
+                  "direction": null,
+                  "textStyle": "",
+                  "textFormat": 0
+                },
+                {
+                  "type": "styled-paragraph",
+                  "style": "line-height:0.25",
+                  "format": "center",
+                  "indent": 0,
+                  "version": 1,
+                  "children": [
+                    {
+                      "mode": "normal",
+                      "text": "make a difference in shaping the minds and futures of students.",
+                      "type": "text",
+                      "style": "",
+                      "detail": 0,
+                      "format": 0,
+                      "version": 1
+                    }
+                  ],
+                  "direction": null,
+                  "textStyle": "",
+                  "textFormat": 0
+                }
+              ],
+              "direction": "ltr",
+              "textStyle": "color: #de00a5;font-family: Verdana;"
+            }
+          }
+        }
+      }
+    ],
+    "created_at": "2025-09-25 07:59:07.383613",
+    "updated_at": "2025-09-25 09:54:51.115"
+  },
+  {
+    "id": "dfcc10d0-496f-475d-87a7-16f8f5dc25b9",
+    "name": "Our Teams",
+    "slug": "our-teams",
+    "sections": [
+      {
+        "title": "Our Leaders",
+        "blocks": {
+          "items": [
+            {
+              "type": "refItem",
+              "limit": 3,
+              "order": "DESC",
+              "refRelation": "teams"
+            }
+          ],
+          "direction": "horizontal"
+        },
+        "tagline": "Leadership",
+        "headline": "Our Visionary Leaders",
+        "container": false,
+        "subheadline": "Meet the dedicated individuals who guide our mission and drive our organization forward.",
+        "headlineAlignment": "center"
+      },
+      {
+        "title": "Education Experts",
+        "blocks": {
+          "items": [
+            {
+              "type": "refItem",
+              "limit": 5,
+              "order": "ASC",
+              "refRelation": "teams"
+            }
+          ],
+          "direction": "horizontal"
+        },
+        "tagline": "Education Experts",
+        "headline": "Our Curriculum Specialists",
+        "container": false,
+        "subheadline": "These talented educators develop our innovative programs and provide expert guidance.",
+        "headlineAlignment": "center"
+      },
+      {
+        "title": "Join Our Team",
+        "blocks": {
+          "items": [
+            {
+              "cta": [],
+              "body": {
+                "html": "<p class=\"leading-7 [&amp;:not(:first-child)]:mt-6\" dir=\"ltr\" style=\"text-align: center;\"><span style=\"color: var(--primary); white-space: pre-wrap;\">Join Our Team</span></p><h2 class=\"scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0\" dir=\"ltr\" style=\"text-align: center;\"><span style=\"white-space: pre-wrap;\">Become Part of Our Mission</span></h2><p class=\"leading-7 [&amp;:not(:first-child)]:mt-6\" dir=\"ltr\" style=\"text-align: center;\"><span style=\"white-space: pre-wrap;\">We're always looking for passionate educators and professionals to join our team. If you're committed to transforming education and making a difference in students' lives, we'd love to hear from you.</span></p>",
+                "json": {
+                  "root": {
+                    "type": "root",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "type": "paragraph",
+                        "format": "center",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "mode": "normal",
+                            "text": "Join Our Team",
+                            "type": "text",
+                            "style": "color: var(--primary);",
+                            "detail": 0,
+                            "format": 0,
+                            "version": 1
+                          }
+                        ],
+                        "direction": "ltr",
+                        "textStyle": "color: var(--primary);",
+                        "textFormat": 0
+                      },
+                      {
+                        "tag": "h2",
+                        "type": "heading",
+                        "format": "center",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "mode": "normal",
+                            "text": "Become Part of Our Mission",
+                            "type": "text",
+                            "style": "",
+                            "detail": 0,
+                            "format": 0,
+                            "version": 1
+                          }
+                        ],
+                        "direction": "ltr"
+                      },
+                      {
+                        "type": "paragraph",
+                        "format": "center",
+                        "indent": 0,
+                        "version": 1,
+                        "children": [
+                          {
+                            "mode": "normal",
+                            "text": "We're always looking for passionate educators and professionals to join our team. If you're committed to transforming education and making a difference in students' lives, we'd love to hear from you.",
+                            "type": "text",
+                            "style": "",
+                            "detail": 0,
+                            "format": 0,
+                            "version": 1
+                          }
+                        ],
+                        "direction": "ltr",
+                        "textStyle": "",
+                        "textFormat": 0
+                      }
+                    ],
+                    "direction": "ltr",
+                    "textStyle": "color: var(--primary);"
+                  }
+                }
+              },
+              "type": "text",
+              "align": "left",
+              "headline": "",
+              "subheadline": ""
+            }
+          ],
+          "direction": "horizontal"
+        },
+        "tagline": "Join Our Team",
+        "headline": "",
+        "container": false,
+        "subheadline": "",
+        "headlineAlignment": "center"
+      }
+    ],
+    "metadata": { "title": "Untitled", "keywords": [], "description": "" },
+    "heroSections": [
+      {
+        "cta": [],
+        "layout": { "type": "jumbotron", "alignment": "center" },
+        "headline": {
+          "html": "<p class=\"leading-7 [&amp;:not(:first-child)]:mt-6\" dir=\"ltr\"><span style=\"white-space: pre-wrap;\">                                                                     </span><span style=\"color: rgb(222, 0, 165); white-space: pre-wrap;\">Our Team</span></p><h1 class=\"scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl\" dir=\"ltr\" style=\"text-align: center;\"><span style=\"white-space: pre-wrap;\">Meet the </span><span style=\"color: rgb(222, 0, 165); white-space: pre-wrap;\">Passionate</span><span style=\"white-space: pre-wrap;\"> Educators </span></h1><h1 class=\"scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl\" dir=\"ltr\"><span style=\"white-space: pre-wrap;\">            Behind Future Creatify</span></h1><p class=\"leading-7 [&amp;:not(:first-child)]:mt-6\" style=\"line-height: 0.25; text-align: center;\"><span style=\"color: var(--muted-foreground); white-space: pre-wrap;\">Our team brings together diverse expertise in education, curriculum design, technology, </span></p><p class=\"leading-7 [&amp;:not(:first-child)]:mt-6\" style=\"line-height: 0.25; text-align: center;\"><span style=\"color: var(--muted-foreground); white-space: pre-wrap;\">and more to create innovative solutions for educators worldwide.</span></p>",
+          "json": {
+            "root": {
+              "type": "root",
+              "format": "",
+              "indent": 0,
+              "version": 1,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "format": "",
+                  "indent": 0,
+                  "version": 1,
+                  "children": [
+                    {
+                      "mode": "normal",
+                      "text": "                                                                     ",
+                      "type": "text",
+                      "style": "",
+                      "detail": 0,
+                      "format": 0,
+                      "version": 1
+                    },
+                    {
+                      "mode": "normal",
+                      "text": "Our Team",
+                      "type": "text",
+                      "style": "color: #de00a5;",
+                      "detail": 0,
+                      "format": 0,
+                      "version": 1
+                    }
+                  ],
+                  "direction": "ltr",
+                  "textStyle": "color: #de00a5;",
+                  "textFormat": 0
+                },
+                {
+                  "tag": "h1",
+                  "type": "heading",
+                  "format": "center",
+                  "indent": 0,
+                  "version": 1,
+                  "children": [
+                    {
+                      "mode": "normal",
+                      "text": "Meet the ",
+                      "type": "text",
+                      "style": "",
+                      "detail": 0,
+                      "format": 0,
+                      "version": 1
+                    },
+                    {
+                      "mode": "normal",
+                      "text": "Passionate",
+                      "type": "text",
+                      "style": "color: #de00a5;",
+                      "detail": 0,
+                      "format": 0,
+                      "version": 1
+                    },
+                    {
+                      "mode": "normal",
+                      "text": " Educators ",
+                      "type": "text",
+                      "style": "",
+                      "detail": 0,
+                      "format": 0,
+                      "version": 1
+                    }
+                  ],
+                  "direction": "ltr",
+                  "textStyle": "color: #de00a5;"
+                },
+                {
+                  "tag": "h1",
+                  "type": "heading",
+                  "format": "",
+                  "indent": 0,
+                  "version": 1,
+                  "children": [
+                    {
+                      "mode": "normal",
+                      "text": "            Behind Future Creatify",
+                      "type": "text",
+                      "style": "",
+                      "detail": 0,
+                      "format": 0,
+                      "version": 1
+                    }
+                  ],
+                  "direction": "ltr"
+                },
+                {
+                  "type": "styled-paragraph",
+                  "style": "line-height:0.25",
+                  "format": "center",
+                  "indent": 0,
+                  "version": 1,
+                  "children": [
+                    {
+                      "mode": "normal",
+                      "text": "Our team brings together diverse expertise in education, curriculum design, technology, ",
+                      "type": "text",
+                      "style": "color: var(--muted-foreground);",
+                      "detail": 0,
+                      "format": 0,
+                      "version": 1
+                    }
+                  ],
+                  "direction": null,
+                  "textStyle": "color: var(--muted-foreground);",
+                  "textFormat": 0
+                },
+                {
+                  "type": "styled-paragraph",
+                  "style": "line-height:0.25",
+                  "format": "center",
+                  "indent": 0,
+                  "version": 1,
+                  "children": [
+                    {
+                      "mode": "normal",
+                      "text": "and more to create innovative solutions for educators worldwide.",
+                      "type": "text",
+                      "style": "color: var(--muted-foreground);",
+                      "detail": 0,
+                      "format": 0,
+                      "version": 1
+                    }
+                  ],
+                  "direction": null,
+                  "textStyle": "color: var(--muted-foreground);",
+                  "textFormat": 0
+                }
+              ],
+              "direction": "ltr",
+              "textStyle": "color: var(--muted-foreground);"
+            }
+          }
+        }
+      }
+    ],
+    "created_at": "2025-09-25 08:01:39.997125",
+    "updated_at": "2025-09-25 10:13:04.724"
+  }
+]

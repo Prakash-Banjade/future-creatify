@@ -16,6 +16,11 @@ export const cmsSidebarMenuItems: TGroupMenuItem[] = [
                 icon: NotebookText,
             },
             {
+                title: "Events",
+                url: "/cms/events",
+                icon: NotebookText,
+            },
+            {
                 title: "Teams",
                 url: "/cms/teams",
                 icon: Users,
@@ -53,6 +58,11 @@ export const cmsSidebarMenuItems: TGroupMenuItem[] = [
             {
                 title: "Site Settings",
                 url: "/cms/site-settings",
+                icon: Settings
+            },
+            {
+                title: "Categories",
+                url: "/cms/categories",
                 icon: Settings
             }
         ]

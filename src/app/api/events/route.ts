@@ -1,0 +1,35 @@
+import { db } from "@/db";
+import { categories } from "@/db/schema/category";
+import { events } from "@/db/schema/event";
+import { and, desc, eq, ilike, SQL } from "drizzle-orm";
+import { NextRequest, NextResponse } from "next/server";
+
+export async function GET(request: NextRequest) {
+  const searchParams = request.nextUrl.searchParams;
+
+  const q = searchParams.get("q");
+  const category = searchParams.get("category");
+
+  const filters: SQL[] = [];
+  if (q) filters.push(ilike(categories.name, `%${q}%`));
+  if (category) filters.push(eq(categories.name, category));
+
+  const foundEvents = await db
+    .select({
+      id: events.id,
+      title: events.title,
+      slug: events.slug,
+      eventDate: events.eventDate,
+      venue: events.venue,
+      capacity: events.capacity,
+      coverImage: events.coverImage,
+      summary: events.summary,
+      categoryName: categories.name,
+    })
+    .from(events)
+    .leftJoin(categories, eq(events.categoryId, categories.id))
+    .where(and(...filters))
+    .orderBy(desc(events.eventDate));
+
+  return NextResponse.json(foundEvents);
+}
