@@ -1,4 +1,4 @@
-import { File, Footprints, Handshake, Heading, NotebookText, Settings, StretchHorizontal, Users } from "lucide-react";
+import { Calendar, File, Footprints, Handshake, Heading, NotebookText, Settings, StretchHorizontal, Tags, Users } from "lucide-react";
 import { TGroupMenuItem } from "./sidebar";
 
 export const cmsSidebarMenuItems: TGroupMenuItem[] = [
@@ -18,7 +18,7 @@ export const cmsSidebarMenuItems: TGroupMenuItem[] = [
             {
                 title: "Events",
                 url: "/cms/events",
-                icon: NotebookText,
+                icon: Calendar,
             },
             {
                 title: "Teams",
@@ -63,7 +63,7 @@ export const cmsSidebarMenuItems: TGroupMenuItem[] = [
             {
                 title: "Categories",
                 url: "/cms/categories",
-                icon: Settings
+                icon: Tags
             }
         ]
     }

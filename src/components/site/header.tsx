@@ -24,7 +24,7 @@ export default function Header({
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
+      setScrolled(window.scrollY > 5);
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -41,9 +41,10 @@ export default function Header({
 
   return (
     <header
-      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
-        scrolled ? "bg-white shadow-md py-2" : "bg-transparent py-4 md:py-4"
-      }`}
+      className={cn(
+        `sticky top-0 left-0 py-4 w-full z-50`,
+        scrolled && "bg-white/80 backdrop-blur-2xl border-b"
+      )}
     >
       <div className="container mx-auto flex items-center justify-between">
         <Link href="/" className="flex items-center">
@@ -51,19 +52,19 @@ export default function Header({
             width={64}
             height={64}
             src={siteData?.logoLight?.secure_url || `/logo.png`}
-            alt="Site Builder Logo"
+            alt="Feature Creatify Logo"
             className="h-16 w-auto"
           />
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center space-x-8">
+        <nav className="hidden md:flex items-center space-x-8 ">
           {navLinks.map((link) => (
             <Link
               key={link.label}
               href={link.href}
               className={cn(
-                "hover:text-primary w-fit",
+                "hover:text-primary w-fit font-medium  text-xl",
                 pathname === link.href &&
                   "text-primary underline underline-offset-3 decoration-primary",
                 hasHero && !scrolled && pathname !== link.href && "!text-white"

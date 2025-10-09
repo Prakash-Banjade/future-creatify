@@ -1,8 +1,6 @@
 import { RefItemBlockDto } from "@/schemas/page.schema";
 import { ERefRelation } from "../../../../../types/global.types";
 import { serverFetch } from "@/lib/data-access.ts/server-fetch";
-import { TBlogsResponse_Public } from "../../../../../types/blog.types";
-
 import Link from "next/link";
 import EventCard from "../../events/event-card";
 import { TEventsResponse_Public } from "../../../../../types/event.types";
@@ -12,7 +10,17 @@ export default async function EventsBlock({
   order,
   selected,
 }: RefItemBlockDto & { refRelation: ERefRelation.Events }) {
-  const res = await serverFetch("/events?limit=" + limit);
+  const urlSearchParams = new URLSearchParams({
+    limit: limit?.toString(),
+    order: order,
+  });
+
+  if (selected?.length)
+    urlSearchParams.set("slugs", selected.map((s) => s.value)?.join(","));
+
+  const res = await serverFetch("/events" + `?${urlSearchParams.toString()}`, {
+    next: { revalidate: parseInt(process.env.DATA_REVALIDATE_SEC!) },
+  });
 
   if (!res.ok) return null;
 
@@ -25,8 +33,8 @@ export default async function EventsBlock({
           return <EventCard key={b.slug} event={b} />;
         })}
       </section>
-      <div>
-        <Link className="text-primary flex justify-center" href={"/events"}>
+      <div className="flex justify-center">
+        <Link className="text-primary w-fit flex justify-center" href={"/events"}>
           View All Events
         </Link>
       </div>

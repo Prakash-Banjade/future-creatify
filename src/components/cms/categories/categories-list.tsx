@@ -2,7 +2,7 @@ import { CategoriesPageProps } from "@/app/(cms)/cms/categories/page";
 import { DataTable } from "@/components/data-table/data-table";
 import { db } from "@/db";
 import { categories, CategoryType } from "@/db/schema/category";
-import { and, asc, eq, ilike, sql, SQL } from "drizzle-orm";
+import { and, eq, ilike, sql, SQL } from "drizzle-orm";
 import { categoriesColumns } from "./category-column";
 import CategoriesSearchFilters from "./categories-search";
 

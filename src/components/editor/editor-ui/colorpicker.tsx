@@ -60,6 +60,7 @@ export default function ColorPicker({
           {
             EDITOR_COLORS.map(({ name, value }) => (
               <button
+              key={value}
                 type="button"
                 title={name}
                 className="size-7 rounded-md border shadow-sm"

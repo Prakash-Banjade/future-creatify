@@ -8,7 +8,6 @@ import { fetchPage } from "@/lib/utilities/fetchPage";
 import { Metadata } from "next";
 import { Suspense } from "react";
 import { TPaginatedOptions } from "../../../../types/global.types";
-import { EVENT_SLUG } from "./layout";
 
 type EventsPageProps = {
   searchParams: Promise<{
@@ -16,6 +15,8 @@ type EventsPageProps = {
     category?: string;
   }>;
 };
+
+const EVENT_SLUG = "events";
 
 export const generateMetadata = async (): Promise<Metadata> => {
   const page = await fetchPage(EVENT_SLUG);

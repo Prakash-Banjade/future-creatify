@@ -5,6 +5,7 @@ import Resend from "next-auth/providers/resend"
 import { db } from "./db"
 import { accounts, authenticators, sessions, users, verificationTokens } from "./db/schema/auth"
 import { sendVerificationRequest } from "./lib/authSendRequest"
+import { blogs } from "./db/schema/blog"
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
     theme: {
@@ -16,6 +17,8 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         sessionsTable: sessions,
         verificationTokensTable: verificationTokens,
         authenticatorsTable: authenticators,
+        
+
     }),
     pages: {
         signIn: '/auth/signin',

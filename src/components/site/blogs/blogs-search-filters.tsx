@@ -47,7 +47,13 @@ export default function BlogsSearchFilters_Public({ categories }: Props) {
     <div className="group mb-12 flex gap-1 border border-gray-300 rounded-lg items-center pr-3 focus-within:ring-2 focus-within:ring-primary transition-all">
       <Select
         defaultValue={searchParams.get("category") || ""}
-        onValueChange={(value) => setSearchParams("category", value)}
+        onValueChange={(value) =>
+          setSearchParams(
+            "category",
+            value === "all" ? undefined : value,
+            false
+          )
+        }
       >
         <SelectTrigger className="py-6 border-0 shadow-none focus-visible:ring-0">
           <SelectValue placeholder="All Categories" />
@@ -56,7 +62,7 @@ export default function BlogsSearchFilters_Public({ categories }: Props) {
           <SelectItem value="all">All Categories</SelectItem>
           {categories?.data.map((cat) => {
             return (
-              <SelectItem key={cat.value} value={cat.value}>
+              <SelectItem key={cat.value} value={cat.label}>
                 {cat.label}
               </SelectItem>
             );
@@ -65,6 +71,7 @@ export default function BlogsSearchFilters_Public({ categories }: Props) {
       </Select>
 
       <SearchInput
+      
         placeholder="Search blogs..."
         className={{
           input:

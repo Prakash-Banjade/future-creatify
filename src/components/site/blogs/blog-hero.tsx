@@ -1,13 +1,17 @@
 import CloudinaryImage from "@/components/ui/cloudinary-image";
 import { TBlog } from "../../../../types/blog.types";
 import { getReadingTimeInMinutes } from "@/lib/utils";
+import { auth } from "@/auth";
 
-export default function BlogHero({
+export default async function BlogHero({
   title,
   publishedAt,
   coverImage,
   length,
+  categoryName,
+  author
 }: TBlog) {
+
   return (
     <div className="relative -mt-[10.4rem] flex items-end">
       <div className="container z-10 relative pb-8">
@@ -19,7 +23,7 @@ export default function BlogHero({
             <div className="flex flex-col gap-4">
               <div className="flex flex-col gap-1">
                 <p className="text-sm">Author</p>
-                <p className="font-medium">Prakash Banjade</p>
+                <p className="font-medium">{author}</p>
               </div>
             </div>
             {publishedAt && (
@@ -39,6 +43,10 @@ export default function BlogHero({
               <p className="font-medium">
                 {getReadingTimeInMinutes(length)} min
               </p>
+            </div>
+            <div className="flex flex-col gap-1">
+              <p className="text-sm">Category</p>
+              <p className="font-medium">{categoryName}</p>
             </div>
           </div>
         </div>

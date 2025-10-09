@@ -1,19 +1,9 @@
 import { RefItemBlockDto } from "@/schemas/page.schema";
 import { ERefRelation } from "../../../../../types/global.types";
 import { serverFetch } from "@/lib/data-access.ts/server-fetch";
-import { TBlogsResponse_Public } from "../../../../../types/blog.types";
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
 import CloudinaryImage from "@/components/ui/cloudinary-image";
-import BlogCard from "../../blogs/blog-card";
 import { TeamResponse_Public } from "../../../../../types/team.type";
 import { getSocialLogo } from "../../footer";
 
@@ -22,12 +12,18 @@ export default async function TeamsBlock({
   order,
   selected,
 }: RefItemBlockDto & { refRelation: ERefRelation.Teams }) {
-  const url =
-    selected && selected?.length > 0
-      ? `/teams?ids=` + selected.map((value) => value.value)
-      : `/teams?pageSize=` + limit;
+  const urlSearchParams = new URLSearchParams({
+    limit: limit?.toString(),
+    order: order,
+  });
 
-  const res = await serverFetch(url);
+  if (selected?.length)
+    urlSearchParams.set("ids", selected.map((s) => s.value)?.join(","));
+
+  const res = await serverFetch("/teams" + `?${urlSearchParams.toString()}`, {
+    next: { revalidate: parseInt(process.env.DATA_REVALIDATE_SEC!) },
+  });
+
 
 
   if (!res.ok) return null;
@@ -40,9 +36,9 @@ export default async function TeamsBlock({
           return <TeamCard key={b.id} member={b} />;
         })}
       </section>
-      <div>
-        <Link className="text-primary flex justify-center" href={"/teams"}>
-          View All teams
+      <div className="flex justify-center">
+        <Link className="text-primary w-fit flex justify-center" href={"/teams"}>
+          View All Teams
         </Link>
       </div>
     </>
@@ -50,7 +46,6 @@ export default async function TeamsBlock({
 }
 
 const TeamCard = ({ member }: { member: TeamResponse_Public[`data`][0] }) => {
-  console.log(member)
   return (
     <div className="card overflow-hidden hover-scale group">
       <div className="relative">

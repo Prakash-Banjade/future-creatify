@@ -12,8 +12,8 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: {
-    default: "Site Builder",
-    template: "%s | Site Builder",
+    default: "Feature Creatify",
+    template: "%s | Feature Creatify",
   },
 };
 

@@ -2,17 +2,7 @@ import { RefItemBlockDto } from "@/schemas/page.schema";
 import { ERefRelation } from "../../../../../types/global.types";
 import { serverFetch } from "@/lib/data-access.ts/server-fetch";
 import { TBlogsResponse_Public } from "../../../../../types/blog.types";
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
-import CloudinaryImage from "@/components/ui/cloudinary-image";
 import BlogCard from "../../blogs/blog-card";
 
 export default async function BlogsBlock({
@@ -20,7 +10,16 @@ export default async function BlogsBlock({
   order,
   selected,
 }: RefItemBlockDto & { refRelation: ERefRelation.Blogs }) {
-  const res = await serverFetch("/blogs?limit=" + limit);
+  const urlSearchParams = new URLSearchParams({
+    limit: limit?.toString(),
+    order: order,
+  });
+
+  if (selected?.length)
+    urlSearchParams.set("slugs", selected.map((s) => s.value)?.join(","));
+  const res = await serverFetch("/blogs" + `?${urlSearchParams.toString()}`, {
+    next: { revalidate: parseInt(process.env.DATA_REVALIDATE_SEC!) },
+  });
 
   if (!res.ok) return null;
 
@@ -33,8 +32,10 @@ export default async function BlogsBlock({
           return <BlogCard key={b.slug} blog={b} />;
         })}
       </section>
-      <div>
-        <Link className="text-primary flex justify-center" href={"/blogs"}>View All Blogs</Link>
+      <div className="flex justify-center">
+        <Link className="text-primary  w-fit flex justify-center" href={"/blogs"}>
+          View All Blogs
+        </Link>
       </div>
     </>
   );

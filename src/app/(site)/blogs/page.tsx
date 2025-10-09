@@ -9,7 +9,18 @@ import { Metadata } from "next";
 import { Suspense } from "react";
 import { fetchCategories } from "../events/page";
 import { CategoryType } from "@/db/schema/category";
-import { BLOG_SLUG } from "./layout";
+
+const BLOG_SLUG = "blogs";
+
+export const generateMetadata = async (): Promise<Metadata> => {
+  const page = await fetchPage(BLOG_SLUG);
+
+  return {
+    title: page.metadata?.title,
+    description: page.metadata?.description,
+    keywords: page.metadata?.keywords,
+  };
+};
 
 export default async function BlogsPage({
   searchParams,
