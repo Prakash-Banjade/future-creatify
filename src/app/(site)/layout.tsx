@@ -12,10 +12,11 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: {
-    default: "Site Builder",
-    template: "%s | Site Builder",
+    default: "Feature Creatify",
+    template: "%s | Feature Creatify",
   },
 };
+
 type Props = {
   children: React.ReactNode;
 };
@@ -23,14 +24,13 @@ type Props = {
 export default function SiteLayout({ children }: Props) {
   return (
     <html lang="en">
-
       <body className={`${inter.variable} antialiased`}>
         <div className="flex flex-col min-h-screen">
           <Navbar />
           <main className="flex-grow">{children}</main>
           <Footer />
-          <Toaster richColors />
         </div>
+        <Toaster richColors />
       </body>
     </html>
   );

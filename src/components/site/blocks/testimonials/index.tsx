@@ -11,9 +11,9 @@ interface TestimonialCardProps {
 interface testimonialResponse {
   testimonials: TCredibilityAndSupport["testimonials"];
 }
-type Props = {};
 
-export const RenderTestimonialBlock = async (props: Props) => {
+
+export const RenderTestimonialBlock = async () => {
   const testimonialResponse = await serverFetch(
     "/credibility-and-support?col=testimonials"
   );

@@ -12,11 +12,11 @@ export const RenderContactTextBlock = async () => {
     <div>
       <span className="text-primary font-semibold">Get In Touch</span>
       <h2 className="text-3xl md:text-4xl font-bold mt-2 mb-6">
-        Let's Connect and Collaborate
+        Let&apos;s Connect and Collaborate
       </h2>
       <p className="text-slate-600 mb-8">
-        Whether you're an educator looking for resources, a school interested in
-        our programs, or just want to learn more about what we do, we'd love to
+        Whether you&apos;re an educator looking for resources, a school interested in
+        our programs, or just want to learn more about what we do, we&apos;d love to
         hear from you.
       </p>
 

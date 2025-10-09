@@ -1,4 +1,3 @@
-import { fetchForm } from "@/app/api/forms/[id]/route";
 import { RichTextPreview } from "@/components/editor/blocks/editor-x/rich-text-preview";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
@@ -17,6 +16,8 @@ import isEmptyHTML from "@/lib/utilities/isEmptyHTML";
 import { cn } from "@/lib/utils";
 import { FormBlockDto } from "@/schemas/page.schema";
 import { createFormSubmission } from "@/lib/actions/forms.action";
+import { serverFetch } from "@/lib/data-access.ts/server-fetch";
+import { TFetchForm } from "../../../../../types/form.types";
 
 export default async function RenderFormBlock({
   form: { id },
@@ -194,3 +195,16 @@ const Label = ({
     </label>
   );
 };
+
+
+ async function fetchForm(id: string) {
+  const res = await serverFetch(`/forms/${id}`, {
+    next: { revalidate: parseInt(process.env.DATA_REVALIDATE_SEC!) },
+  });
+
+  if (!res.ok) return null;
+
+  const form: TFetchForm = await res.json();
+
+  return form;
+}

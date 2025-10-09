@@ -5,16 +5,22 @@ import { Suspense } from "react";
 import { Skeleton } from "../../ui/skeleton";
 import AppBreadCrumb from "./app-bread-crumb";
 import { ThemeToggleBtn } from "@/components/ui/theme-toggle";
+import { serverFetch } from "@/lib/data-access.ts/server-fetch";
+import { TSiteSettingSchema } from "@/schemas/site-setting.schema";
 
 type AppRootLayoutProps = {
     children: React.ReactNode,
 }
 
-export default function SidebarLayout({ children }: AppRootLayoutProps) {
-
+export default async function SidebarLayout({ children }: AppRootLayoutProps) {
+  const siteResponse = await serverFetch(`/site-settings`);
+ 
+ const siteData = siteResponse.ok
+    ? ((await siteResponse.json()) as TSiteSettingSchema)
+    : null;
     return (
         <SidebarProvider>
-            <AppSidebar />
+            <AppSidebar siteData={siteData} />
             <SidebarInset>
                 <header className="flex h-16 shrink-0 items-center gap-2 px-4">
                     <SidebarTrigger className="-ml-1" />

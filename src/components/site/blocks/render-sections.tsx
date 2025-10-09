@@ -15,7 +15,6 @@ type Props = {
 };
 
 export default function RenderSections({ sections }: Props) {
-  console.log("teams",sections)
   return (
     <section>
       {sections.map((s, idx) => {

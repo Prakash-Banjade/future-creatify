@@ -26,6 +26,7 @@ import { cn } from "@/lib/utils"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { cmsSidebarMenuItems } from "./menu-items"
+import { TSiteSettingSchema } from "@/schemas/site-setting.schema"
 
 export type TSidebarMenuItem = {
     title: string,
@@ -39,11 +40,13 @@ export type TGroupMenuItem = {
     menuItems: TSidebarMenuItem[]
 }
 
-export function AppSidebar() {
+
+
+export function AppSidebar({siteData}:{siteData: TSiteSettingSchema | null}) {
 
     return (
         <Sidebar variant="sidebar" collapsible="icon" className="pr-0">
-            <AppSidebarHeader />
+            <AppSidebarHeader siteData={siteData} />
             <SidebarContent className="overflow-hidden">
                 <ScrollArea className="max-h-full overflow-auto">
                     {

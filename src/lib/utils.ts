@@ -1,22 +1,23 @@
-import { clsx, type ClassValue } from "clsx"
+import { clsx, type ClassValue } from "clsx";
 import { toast } from "sonner";
-import { twMerge } from "tailwind-merge"
+import { twMerge } from "tailwind-merge";
 import { ZodError } from "zod";
-import { getCldImageUrl } from 'next-cloudinary';
-import * as crypto from 'crypto';
+import { getCldImageUrl } from "next-cloudinary";
+import * as crypto from "crypto";
 
 export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs))
+  return twMerge(clsx(inputs));
 }
 
-export function throwZodErrorMsg(error: ZodError): never { // if this function gets called, you won’t come back
+export function throwZodErrorMsg(error: ZodError): never {
+  // if this function gets called, you won’t come back
   const msg = JSON.parse(error.message);
 
   if (Array.isArray(msg)) {
     throw new Error(msg[0]?.message);
   }
 
-  throw new Error(error.message)
+  throw new Error(error.message);
 }
 
 export function showServerError(e: unknown) {
@@ -27,7 +28,7 @@ export function showServerError(e: unknown) {
       return toast.error(msg[0]?.message);
     }
 
-    toast.error(e.message)
+    toast.error(e.message);
   } else if (e instanceof Error) {
     toast.error("Error", {
       description: e.message,
@@ -37,8 +38,15 @@ export function showServerError(e: unknown) {
   }
 }
 
-export function generateSlug(title: string, genUniqueId: boolean = true): string {
-  const slug = title.trim().toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, '')
+export function generateSlug(
+  title: string,
+  genUniqueId: boolean = true
+): string {
+  const slug = title
+    .trim()
+    .toLowerCase()
+    .replace(/ /g, "-")
+    .replace(/[^\w-]+/g, "");
 
   if (!genUniqueId) return slug;
 
@@ -54,14 +62,15 @@ export function generateSlug(title: string, genUniqueId: boolean = true): string
  */
 export function generateUniqueId(size: number = 21): string {
   // URL-friendly alphabet (64 characters)
-  const alphabet = '_-0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  const alphabet =
+    "_-0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
   const mask = (2 << 5) - 1; // 0b111111 = 63
   const step = Math.ceil((size * 6) / 8);
-  let id = '';
+  let id = "";
   const randomBytes = new Uint8Array(step);
 
   // Fill randomBytes with cryptographically secure random values
-  if (typeof crypto !== 'undefined' && crypto.getRandomValues) {
+  if (typeof crypto !== "undefined" && crypto.getRandomValues) {
     crypto.getRandomValues(randomBytes);
   } else {
     // Node.js fallback
@@ -77,8 +86,11 @@ export function generateUniqueId(size: number = 21): string {
   return id;
 }
 
-export async function getBlurDataUrl(src: string | null, width: number = 100): Promise<string> {
-  if (!src) return '';
+export async function getBlurDataUrl(
+  src: string | null,
+  width: number = 100
+): Promise<string> {
+  if (!src) return "";
 
   const imageUrl = getCldImageUrl({
     src,
@@ -99,16 +111,21 @@ export async function getBlurDataUrl(src: string | null, width: number = 100): P
  * @param charsPerMinute - Average number of characters read per minute (default 1000).
  * @returns Estimated reading time in minutes (rounded up).
  */
-export function getReadingTimeInMinutes(characters: number, charsPerMinute: number = 1000): number {
+export function getReadingTimeInMinutes(
+  characters: number,
+  charsPerMinute: number = 1000
+): number {
   if (characters <= 0) return 0;
   return Math.ceil(characters / charsPerMinute);
 }
 
-
-export function createQueryString(params: Record<string, string | boolean | undefined | null>) {
+export function createQueryString(
+  params: Record<string, string | boolean | undefined | null>
+) {
   // Remove undefined values
   const filteredParams = Object.fromEntries(
-    Object.entries(params).filter(([key, value]) => !!value && !!key)
+    Object.entries(params)
+      .filter(([key, value]) => !!value && !!key)
       .map(([key, value]) => [key, String(value)])
   );
 
@@ -124,7 +141,7 @@ export function createQueryString(params: Record<string, string | boolean | unde
  * @returns {string} e.g. "512 B", "0.92 MB", "1.20 GB"
  */
 export function formatBytes(bytes: number): string {
-  const units = ['B', 'KB', 'MB', 'GB'];
+  const units = ["B", "KB", "MB", "GB"];
   let value = bytes;
   let idx = 0;
 
@@ -144,4 +161,13 @@ export function formatBytes(bytes: number): string {
   const rounded = parseFloat(value.toFixed(2));
 
   return `${rounded} ${units[idx]}`;
+}
+
+export function getTimeFromDate(date: Date): string {
+  return date.toLocaleTimeString("ne-NP", {
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hour12: false,
+  });
 }
