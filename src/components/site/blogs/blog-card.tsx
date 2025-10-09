@@ -16,8 +16,8 @@ type Props = {
 export default async function BlogCard({ blog, imgHeight = 500 }: Props) {
   return (
     <article className="@container">
-      <div className="card bg-white shadow-sm rounded-b-xl">
-        <div className="flex flex-col @2xl:flex-row">
+      <div className="card h-full bg-white shadow-sm rounded-b-xl">
+        <div className="flex flex-col h-full @2xl:flex-row">
           <div className="@2xl:rounded-l-xl @2xl:rounded-tr-none rounded-t-xl overflow-hidden">
             {blog.coverImage && (
               <CloudinaryImage
@@ -32,7 +32,7 @@ export default async function BlogCard({ blog, imgHeight = 500 }: Props) {
             )}
           </div>
 
-          <div className="p-6 flex flex-col">
+          <div className="grow p-6 flex flex-col">
             <Badge variant={"secondary"} className="text-primary mb-1">
               {blog.categoryName}
             </Badge>

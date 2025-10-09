@@ -36,11 +36,11 @@ export default async function TeamsBlock({
           return <TeamCard key={b.id} member={b} />;
         })}
       </section>
-      <div className="flex justify-center">
+      {/* <div className="flex justify-center">
         <Link className="text-primary w-fit flex justify-center" href={"/teams"}>
           View All Teams
         </Link>
-      </div>
+      </div> */}
     </>
   );
 }

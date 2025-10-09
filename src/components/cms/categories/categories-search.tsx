@@ -20,7 +20,7 @@ export default function CategoriesSearchFilters() {
 
       <Select
         defaultValue={searchParams.get("type") || ""}
-        onValueChange={(value) => setSearchParams("type", value)}
+        onValueChange={(value) => setSearchParams("type", value === "all" ? undefined : value)}
       >
         <SelectTrigger className="w-[180px] capitalize">
           <SelectValue placeholder="Related to" />

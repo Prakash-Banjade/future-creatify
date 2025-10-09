@@ -51,7 +51,7 @@ const CategoryModal = ({
 
     startTransition(async () => {
       try {
-        isEditing
+        isEditing   
           ? await updateCategory(defaultValues.id, values)
           : await createCategory(values);
         toast.success("Category created successfully");
@@ -79,8 +79,8 @@ const CategoryModal = ({
       <div className="flex flex-col gap-4">
         <div className="flex flex-row items-center justify-center gap-2">
           <Input
-            className="w-full p-2 border rounded bg-zinc-900 text-white"
-            placeholder="Category Name..."
+            className="w-full p-2 border rounded !bg-white !text-black"
+            placeholder="Category Name.."
             value={values.name}
             onChange={(e) =>
               setValues((prev) => ({ ...prev, name: e.target.value }))

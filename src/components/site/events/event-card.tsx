@@ -40,7 +40,7 @@ export default function EventCard({ event }: Props) {
           </div>
 
           <div className="grow flex flex-col p-6">
-            <Badge variant="outline" className="text-primary border-primary">
+            <Badge variant="outline" className="text-primary mb-1 border-primary">
               {event.categoryName}
             </Badge>
 

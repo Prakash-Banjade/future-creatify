@@ -17,7 +17,11 @@ export async function createEvent(values: eventSchemaType) {
 
   const inserted = await db
     .insert(events)
-    .values({ ...data, content: {}, slug: generateSlug(data.title) })
+    .values({
+      ...data,
+      content: { html: "", json: {} },
+      slug: generateSlug(data.title),
+    })
     .returning({ id: events.id });
 
   if (inserted.length === 0) throw new Error("Failed to create event");

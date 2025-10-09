@@ -64,7 +64,7 @@ export default function Header({
               key={link.label}
               href={link.href}
               className={cn(
-                "hover:text-primary w-fit font-medium  text-xl",
+                "hover:text-primary w-fit  text-xl",
                 pathname === link.href &&
                   "text-primary underline underline-offset-3 decoration-primary",
                 hasHero && !scrolled && pathname !== link.href && "!text-white"

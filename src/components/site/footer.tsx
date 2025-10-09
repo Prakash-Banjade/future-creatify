@@ -59,7 +59,7 @@ export default async function Footer() {
                 className="h-16 w-auto"
               />
             </Link>
-            <p className="mb-4 text-sm text-muted-foreground">
+            <p className="mb-4 text-muted-foreground">
               {footerData?.footerText || ""}
             </p>
             <div className="flex space-x-4">
