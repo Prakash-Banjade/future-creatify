@@ -1,5 +1,5 @@
 import { relations } from "drizzle-orm";
-import { pgTable, text, uniqueIndex } from "drizzle-orm/pg-core";
+import { index, pgTable, text } from "drizzle-orm/pg-core";
 import { blogs } from "./blog";
 import { events } from "./event";
 
@@ -20,10 +20,15 @@ export const categories = pgTable(
       .default(CategoryType.BLOG)
       .notNull(),
   },
-  (table) => [uniqueIndex("category_name_idx").on(table.name)]
+  (table) => [
+    index("category_name_idx").on(table.name),
+    index("category_type_idx").on(table.name),
+  ]
 );
 
 export const categoriesRelations = relations(categories, ({ many }) => ({
   blogs: many(blogs),
   events: many(events),
 }));
+
+export type CategoriesSelect = typeof categories.$inferSelect;

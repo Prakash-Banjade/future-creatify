@@ -1,13 +1,10 @@
 import CloudinaryImage from "@/components/ui/cloudinary-image";
-import { TBlog } from "../../../../types/blog.types";
-import { getReadingTimeInMinutes } from "@/lib/utils";
+import { TEvent } from "@/db/schema/event";
 
-export default function BlogHero({
+export default function EventHero({
   title,
-  publishedAt,
   coverImage,
-  length,
-}: TBlog) {
+}: Pick<TEvent, "title" | "coverImage">) {
   return (
     <div className="relative -mt-[10.4rem] flex items-end">
       <div className="container z-10 relative pb-8">
@@ -22,24 +19,6 @@ export default function BlogHero({
                 <p className="font-medium">Prakash Banjade</p>
               </div>
             </div>
-            {publishedAt && (
-              <div className="flex flex-col gap-1">
-                <p className="text-sm">Date Published</p>
-
-                <time
-                  dateTime={new Date(publishedAt).toDateString()}
-                  className="font-medium"
-                >
-                  {new Date(publishedAt).toDateString()}
-                </time>
-              </div>
-            )}
-            <div className="flex flex-col gap-1">
-              <p className="text-sm">Read Time</p>
-              <p className="font-medium">
-                {getReadingTimeInMinutes(length)} min
-              </p>
-            </div>
           </div>
         </div>
       </div>
@@ -48,7 +27,7 @@ export default function BlogHero({
           <CloudinaryImage
             fill
             priority
-            src={coverImage}
+            src={coverImage.secure_url}
             alt={title}
             className="object-cover"
           />

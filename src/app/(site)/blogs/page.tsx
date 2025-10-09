@@ -1,46 +1,46 @@
-import { BlogsPageProps } from '@/app/(cms)/cms/blogs/page';
-import { BlogCardSkeleton } from '@/components/site/blogs/blog-card';
-import BlogsContainer from '@/components/site/blogs/blogs-container';
-import BlogsSearchFilters_Public from '@/components/site/blogs/blogs-search-filters';
-import RenderHero from '@/components/site/heros/render-hero';
-import { Skeleton } from '@/components/ui/skeleton';
-import { fetchPage } from '@/lib/utilities/fetchPage';
-import { Metadata } from 'next';
-import { Suspense } from 'react';
+import { BlogsPageProps } from "@/app/(cms)/cms/blogs/page";
+import { BlogCardSkeleton } from "@/components/site/blogs/blog-card";
+import BlogsContainer from "@/components/site/blogs/blogs-container";
+import BlogsSearchFilters_Public from "@/components/site/blogs/blogs-search-filters";
+import RenderHero from "@/components/site/heros/render-hero";
+import { Skeleton } from "@/components/ui/skeleton";
+import { fetchPage } from "@/lib/utilities/fetchPage";
+import { Metadata } from "next";
+import { Suspense } from "react";
+import { fetchCategories } from "../events/page";
+import { CategoryType } from "@/db/schema/category";
+import { BLOG_SLUG } from "./layout";
 
-const slug = "blogs";
+export default async function BlogsPage({
+  searchParams,
+}: {
+  searchParams: Promise<BlogsPageProps["searchParams"]>;
+}) {
+  const page = await fetchPage(BLOG_SLUG);
+  const categories = await fetchCategories(CategoryType.BLOG);
 
-export const generateMetadata = async (): Promise<Metadata> => {
-    const page = await fetchPage(slug);
+  return (
+    <>
+      <RenderHero hero={page.heroSections[0]} />
 
-    return {
-        title: page.metadata?.title,
-        description: page.metadata?.description,
-        keywords: page.metadata?.keywords
-    }
-}
+      {/* Blogs Section */}
+      <section className="container py-12">
+        {/* Search and Filter */}
+        <Suspense fallback={<Skeleton className="h-12" />}>
+          <BlogsSearchFilters_Public categories={categories} />
+        </Suspense>
 
-export default async function BlogsPage({ searchParams }: { searchParams: Promise<BlogsPageProps["searchParams"]> }) {
-    const page = await fetchPage(slug);
-
-    return (
-        <>
-            <RenderHero hero={page.heroSections[0]} />
-
-            {/* Blogs Section */}
-            <section className='container py-12'>
-                {/* Search and Filter */}
-                <Suspense fallback={<Skeleton className="h-12" />}>
-                    <BlogsSearchFilters_Public />
-                </Suspense>
-
-                {/* Blog Posts Stack */}
-                <div className="space-y-8">
-                    <Suspense fallback={Array.from({ length: 3 }, (_, index) => <BlogCardSkeleton key={index} />)}>
-                        <BlogsContainer searchParams={searchParams} />
-                    </Suspense>
-                </div>
-            </section>
-        </>
-    )
+        {/* Blog Posts Stack */}
+        <div className="space-y-8">
+          <Suspense
+            fallback={Array.from({ length: 3 }, (_, index) => (
+              <BlogCardSkeleton key={index} />
+            ))}
+          >
+            <BlogsContainer searchParams={searchParams} />
+          </Suspense>
+        </div>
+      </section>
+    </>
+  );
 }

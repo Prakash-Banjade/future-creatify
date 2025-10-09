@@ -19,7 +19,7 @@ export default function EventFilters({ categories }: Props) {
       </div>
 
       <button
-        onClick={() => setSearchParams("category", undefined)}
+        onClick={() => setSearchParams("category", undefined, false)}
         className={`px-4 py-2 rounded-full ${
           !searchParams.get("category")
             ? "bg-primary text-white"
@@ -32,7 +32,7 @@ export default function EventFilters({ categories }: Props) {
       {categories?.data.map((c) => (
         <button
           key={c.value}
-          onClick={() => setSearchParams("category", c.label)}
+          onClick={() => setSearchParams("category", c.label, false)}
           className={`px-4 py-2 rounded-full ${
             searchParams.get("category") === c.label
               ? "bg-primary text-white"

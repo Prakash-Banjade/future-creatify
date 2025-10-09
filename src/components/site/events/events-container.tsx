@@ -25,12 +25,8 @@ export default async function EventsContainer(props: {
     );
   }
 
-  const categories = await fetchCategories();
-
   return (
     <>
-      <EventFilters categories={categories} />
-
       {Object.keys(events).length > 0 && (
         <div className="space-y-16">
           {Object.entries(events).map(([month, monthEvents], monthIndex) => (
@@ -90,21 +86,4 @@ async function fetchEvents(searchParams: EventsPageProps["searchParams"]) {
   }, {} as Record<string, typeof events>);
 
   return groupedEvents;
-}
-
-async function fetchCategories() {
-  const res = await serverFetch(
-    `/categories/options?type=${CategoryType.EVENT}`,
-    {
-      next: { revalidate: parseInt(process.env.DATA_REVALIDATE_SEC!) },
-    }
-  );
-
-  if (!res.ok) {
-    return null;
-  }
-
-  const categories: TPaginatedOptions = await res.json();
-
-  return categories;
 }

@@ -6,7 +6,6 @@ import { RichTextPreview } from "@/components/editor/blocks/editor-x/rich-text-p
 import CMSLink from "@/components/ui/cms-link";
 
 export default function JumboTron({ hero }: RenderHeroProps) {
-  console.log("jumbotron hero",hero)
   const layoutType = hero.layout.type;
   if (layoutType !== EHeroLayoutTypes.Jumbotron) return null;
 
@@ -18,7 +17,7 @@ export default function JumboTron({ hero }: RenderHeroProps) {
       style={{
         background: hero.image?.secure_url
           ? `linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(${hero.image.secure_url}) no-repeat center center / cover`
-          : undefined
+          : undefined,
       }}
     >
       <section
@@ -27,23 +26,21 @@ export default function JumboTron({ hero }: RenderHeroProps) {
           alignment === EAlignment.Left
             ? "items-start"
             : alignment === EAlignment.Center
-              ? "items-center"
-              : "items-end"
+            ? "items-center"
+            : "items-end"
         )}
       >
         <RichTextPreview className="mb-6" html={hero.headline.html} />
-        {
-          Array.isArray(hero.cta) && hero.cta.length > 0 && (
-            <ul className="flex md:justify-center gap-4">
-              {hero.cta.map((cta, index) => (
-                <li key={index}>
-                  <CMSLink size={'lg'} {...cta} />
-                </li>
-              ))}
-            </ul>
-          )
-        }
+        {Array.isArray(hero.cta) && hero.cta.length > 0 && (
+          <ul className="flex md:justify-center gap-4">
+            {hero.cta.map((cta, index) => (
+              <li key={index}>
+                <CMSLink size={"lg"} {...cta} />
+              </li>
+            ))}
+          </ul>
+        )}
       </section>
     </section>
-  )
+  );
 }

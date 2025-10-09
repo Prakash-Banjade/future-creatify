@@ -12,6 +12,7 @@ import {
 } from "drizzle-orm/pg-core";
 import { categories } from "./category";
 import { TMediaSchema } from "@/schemas/media.schema";
+import { IRichTextSchema } from "@/schemas/rich-text.schema";
 
 export const events = pgTable(
   "events",
@@ -20,7 +21,7 @@ export const events = pgTable(
       .primaryKey()
       .$defaultFn(() => crypto.randomUUID()),
     title: text("title").default("Untitled").notNull(),
-    content: jsonb("content").$type<YooptaContentValue>().notNull(),
+    content: jsonb("content").$type<IRichTextSchema>().notNull(),
     summary: text("summary").default("").notNull(),
     slug: text("slug").unique().notNull(),
     coverImage: jsonb("coverImage").$type<TMediaSchema>(),
@@ -31,7 +32,9 @@ export const events = pgTable(
       .notNull()
       .default(new Date()),
     capacity: integer("capacity").default(0),
-    categoryId: text("category_id").references(() => categories.id).notNull(),
+    categoryId: text("category_id")
+      .references(() => categories.id)
+      .notNull(),
   },
   (table) => [
     uniqueIndex("event_slug_idx").on(table.slug),
