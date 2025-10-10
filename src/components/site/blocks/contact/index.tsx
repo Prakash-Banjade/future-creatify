@@ -9,7 +9,7 @@ export const RenderContactTextBlock = async () => {
     : null;
 
   return (
-    <div>
+    <div id="contact">
       <span className="text-primary font-semibold">Get In Touch</span>
       <h2 className="text-3xl md:text-4xl font-bold mt-2 mb-6">
         Let&apos;s Connect and Collaborate

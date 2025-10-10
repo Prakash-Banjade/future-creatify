@@ -2,11 +2,11 @@ import { db } from "@/db";
 import { header } from "@/db/schema/globals";
 import { cache } from "react";
 import Header from "./header";
-import { ENavLinkType, TFooterDto } from "@/schemas/globals.schema";
+import { ENavLinkType } from "@/schemas/globals.schema";
 import { ECtaVariant } from "../../../types/blocks.types";
 import { serverFetch } from "@/lib/data-access.ts/server-fetch";
 import { TSiteSettingSchema } from "@/schemas/site-setting.schema";
-import { fetchPage } from "@/lib/utilities/fetchPage";
+import { HOME_SLUG } from "@/app/slugs";
 
 const getHeader = cache(async () => {
   const [existing] = await db
@@ -49,7 +49,7 @@ export default async function Navbar({
     const href =
       n.type === ENavLinkType.External
         ? n.url
-        : n.url === "home"
+        : n.url === HOME_SLUG
         ? "/"
         : n.url.startsWith("/")
         ? n.url

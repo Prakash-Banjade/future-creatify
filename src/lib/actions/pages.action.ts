@@ -8,6 +8,7 @@ import { revalidatePath } from "next/cache";
 import { generateSlug, throwZodErrorMsg } from "../utils";
 import { heroSectionDtoDefaultValues } from "@/schemas/hero-section.schema";
 import { PageDtoSchema, TPageDto } from "@/schemas/page.schema";
+import { HOME_SLUG } from "@/app/slugs";
 
 export async function createNewPage() {
     await checkAuth('admin');
@@ -51,7 +52,7 @@ export async function updatePage(id: string, values: TPageDto) {
 
     await db.update(pages).set({ ...data, slug }).where(eq(pages.id, id));
 
-    revalidatePath(slug === "home" ? "/" : `/${slug}`);
+    revalidatePath(slug === HOME_SLUG ? "/" : `/${slug}`);
 
     return { success: true };
 }

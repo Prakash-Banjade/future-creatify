@@ -9,6 +9,7 @@ import { Metadata } from "next";
 import { Suspense } from "react";
 import { TPaginatedOptions } from "../../../../types/global.types";
 import { EventCardSkeleton } from "@/components/site/events/event-card";
+import { EVENTS_SLUG } from "@/app/slugs";
 
 type EventsPageProps = {
   searchParams: Promise<{
@@ -17,10 +18,8 @@ type EventsPageProps = {
   }>;
 };
 
-const EVENT_SLUG = "events";
-
 export const generateMetadata = async (): Promise<Metadata> => {
-  const page = await fetchPage(EVENT_SLUG);
+  const page = await fetchPage(EVENTS_SLUG);
 
   return {
     title: page.metadata?.title,
@@ -34,7 +33,7 @@ export default async function EventsPage({
 }: {
   searchParams: EventsPageProps["searchParams"];
 }) {
-  const page = await fetchPage(EVENT_SLUG);
+  const page = await fetchPage(EVENTS_SLUG);
   const categories = await fetchCategories(CategoryType.EVENT);
 
   return (

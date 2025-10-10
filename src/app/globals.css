@@ -167,6 +167,10 @@
   --color-error: var(--color-error-dark);
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   letter-spacing: var(--tracking-normal);
 }

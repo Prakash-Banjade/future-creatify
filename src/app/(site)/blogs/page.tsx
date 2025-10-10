@@ -9,11 +9,10 @@ import { Metadata } from "next";
 import { Suspense } from "react";
 import { fetchCategories } from "../events/page";
 import { CategoryType } from "@/db/schema/category";
-
-const BLOG_SLUG = "blogs";
+import { BLOGS_SLUG } from "@/app/slugs";
 
 export const generateMetadata = async (): Promise<Metadata> => {
-  const page = await fetchPage(BLOG_SLUG);
+  const page = await fetchPage(BLOGS_SLUG);
 
   return {
     title: page.metadata?.title,
@@ -27,7 +26,7 @@ export default async function BlogsPage({
 }: {
   searchParams: Promise<BlogsPageProps["searchParams"]>;
 }) {
-  const page = await fetchPage(BLOG_SLUG);
+  const page = await fetchPage(BLOGS_SLUG);
   const categories = await fetchCategories(CategoryType.BLOG);
 
   return (
