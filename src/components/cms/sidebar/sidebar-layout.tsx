@@ -13,11 +13,10 @@ type AppRootLayoutProps = {
 }
 
 export default async function SidebarLayout({ children }: AppRootLayoutProps) {
-  const siteResponse = await serverFetch(`/site-settings`);
- 
- const siteData = siteResponse.ok
-    ? ((await siteResponse.json()) as TSiteSettingSchema)
-    : null;
+    const response = await serverFetch(`/site-settings`);
+
+    const siteData = response.ok ? ((await response.json()) as TSiteSettingSchema) : null;
+
     return (
         <SidebarProvider>
             <AppSidebar siteData={siteData} />

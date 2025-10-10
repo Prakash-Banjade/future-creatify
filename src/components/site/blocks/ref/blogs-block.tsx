@@ -4,11 +4,15 @@ import { serverFetch } from "@/lib/data-access.ts/server-fetch";
 import { TBlogsResponse_Public } from "../../../../../types/blog.types";
 import Link from "next/link";
 import BlogCard from "../../blogs/blog-card";
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+import { gridClassName } from ".";
 
 export default async function BlogsBlock({
   limit,
   order,
   selected,
+  cols
 }: RefItemBlockDto & { refRelation: ERefRelation.Blogs }) {
   const urlSearchParams = new URLSearchParams({
     limit: limit?.toString(),
@@ -27,15 +31,20 @@ export default async function BlogsBlock({
 
   return (
     <>
-      <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <section className={cn(
+        "grid gap-6",
+        gridClassName[cols as keyof typeof gridClassName]
+      )}>
         {blogs.map((b) => {
           return <BlogCard key={b.slug} blog={b} />;
         })}
       </section>
       <div className="flex justify-center">
-        <Link className="text-primary  w-fit flex justify-center" href={"/blogs"}>
-          View All Blogs
-        </Link>
+        <Button variant={"link"} asChild>
+          <Link className="text-primary  w-fit flex justify-center" href={"/blogs"}>
+            View All Blogs
+          </Link>
+        </Button>
       </div>
     </>
   );

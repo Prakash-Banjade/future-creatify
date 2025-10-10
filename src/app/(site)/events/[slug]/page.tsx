@@ -81,7 +81,7 @@ export default async function SingleeventPage({ params }: Props) {
           >
             <ArrowLeft size={16} className="mr-2" /> Back to Events
           </Link>
-          <h1 className="text-3xl md:text-5xl font-bold leading-tight mb-8">
+          <h1 className="text-3xl md:text-5xl font-bold leading-tight mb-8 text-shadow-md">
             {event.title}
           </h1>
         </div>

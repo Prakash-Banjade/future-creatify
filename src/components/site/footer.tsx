@@ -1,13 +1,4 @@
-import {
-  Facebook,
-  Twitter,
-  Instagram,
-  Linkedin,
-  Mail,
-  MapPin,
-  Phone,
-  Youtube,
-} from "lucide-react";
+import { Mail, MapPin, Phone } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { Input } from "../ui/input";
@@ -15,21 +6,7 @@ import { Button } from "../ui/button";
 import { serverFetch } from "@/lib/data-access.ts/server-fetch";
 import { TFooterDto } from "@/schemas/globals.schema";
 import { TSiteSettingSelect } from "@/db/schema/site-setting";
-import { cn } from "@/lib/utils";
-import { headers } from "next/headers";
-
-export const getSocialLogo = (socialLink: string) => {
-  if (socialLink.startsWith("https://www.facebook.com"))
-    return <Facebook size={20} />;
-  if (socialLink.startsWith("https://www.x.com")) return <Twitter size={20} />;
-  if (socialLink.startsWith("https://www.instagram.com"))
-    return <Instagram size={20} />;
-  if (socialLink.startsWith("https://www.linkedin.com"))
-    return <Linkedin size={20} />;
-  if (socialLink.startsWith("https://www.youtube.com"))
-    return <Youtube size={20} />;
-  return <Facebook size={20} />; // Default fallback
-};
+import { cn, getSocialIcon } from "@/lib/utils";
 
 export default async function Footer() {
   const currentYear = new Date().getFullYear();
@@ -44,6 +21,7 @@ export default async function Footer() {
   const siteData = siteResponse.ok
     ? ((await siteResponse.json()) as TSiteSettingSelect)
     : null;
+
   return (
     <footer className="bg-[#fcfcfc] pt-16 pb-8">
       <div className="container mx-auto">
@@ -64,18 +42,22 @@ export default async function Footer() {
             </p>
             <div className="flex space-x-4">
               {siteData?.socialLinks?.map(
-                (social: { link: string }, index: number) => (
-                  <a
-                    key={index}
-                    href={social.link}
-                    aria-label={`Social Link ${index + 1}`}
-                    className="hover:text-primary"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    {getSocialLogo(social.link)}
-                  </a>
-                )
+                (social: { link: string }, index: number) => {
+                  const Icon = getSocialIcon(social.link);
+
+                  return (
+                    <a
+                      key={index}
+                      href={social.link}
+                      aria-label={`Social Link ${index + 1}`}
+                      className="hover:text-primary"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <Icon className="size-6" />
+                    </a>
+                  )
+                }
               )}
             </div>
           </div>
@@ -83,27 +65,33 @@ export default async function Footer() {
           {/* Quick Links */}
           <div>
             <h4 className="text-xl font-bold mb-4">Quick Links</h4>
-            {footerData?.navLinks?.map((link) => (
-              <Link key={link.text} href={link.url} className="block">
-                {link.text}
-              </Link>
-            ))}
+            <ul className="space-y-2">
+              {
+                footerData?.navLinks?.map((link) => (
+                  <Link key={link.text} href={link.url} className="block">
+                    {link.text}
+                  </Link>
+                ))
+              }
+            </ul>
           </div>
 
           {/* Contact Info */}
           <div>
             <h4 className="text-xl font-bold mb-4">Contact Info</h4>
             <ul className="space-y-3">
-              {siteData?.address && (
-                <li className="flex items-start">
-                  <MapPin size={20} className="mr-2 mt-1 flex-shrink-0" />
-                  <span>{siteData.address}</span>
-                </li>
-              )}
-              <span className="flex  gap-x-2">
-                {siteData?.phones && siteData.phones.length > 0 ? (
-                  <>
-                    <Phone size={20} className="mr-2 flex-shrink-0" />
+              {
+                siteData?.address && (
+                  <li className="flex gap-x-2">
+                    <MapPin size={20} className="flex-shrink-0" />
+                    <span>{siteData.address}</span>
+                  </li>
+                )
+              }
+              {
+                (siteData?.phones && siteData.phones.length > 0) && (
+                  <li className="flex gap-x-2">
+                    <Phone size={20} className="flex-shrink-0" />
                     <span className="flex flex-wrap gap-x-2">
                       {siteData.phones.map((phone: string, index: number) => (
                         <a
@@ -116,23 +104,13 @@ export default async function Footer() {
                         </a>
                       ))}
                     </span>
-                  </>
-                ) : (
-                  <>
-                    <Phone size={20} className="mr-2 flex-shrink-0" />
-                    <a
-                      href="tel:5551234567"
-                      className="hover:underline decoration-accent"
-                    >
-                      +1 (555) 123-4567
-                    </a>
-                  </>
-                )}
-              </span>
-              <span className="flex  gap-x-2">
-                {siteData?.emails && siteData.emails.length > 0 ? (
-                  <>
-                    <Mail size={20} className="mr-2 flex-shrink-0" />
+                  </li>
+                )
+              }
+              {
+                (siteData?.emails && siteData.emails.length > 0) && (
+                  <li className="flex gap-x-2">
+                    <Mail size={20} className="flex-shrink-0" />
                     <span className="flex flex-wrap gap-x-1">
                       {siteData.emails.map((email: string, index: number) => (
                         <a
@@ -148,19 +126,9 @@ export default async function Footer() {
                         </a>
                       ))}
                     </span>
-                  </>
-                ) : (
-                  <>
-                    <Mail size={20} className="mr-2 flex-shrink-0" />
-                    <a
-                      href="mailto:info@sitebuilder.com"
-                      className="hover:underline decoration-accent"
-                    >
-                      info@sitebuilder.com
-                    </a>
-                  </>
-                )}
-              </span>
+                  </li>
+                )
+              }
             </ul>
           </div>
 
@@ -182,6 +150,6 @@ export default async function Footer() {
           <p>&copy; {currentYear} Feature Creatify. All rights reserved.</p>
         </div>
       </div>
-    </footer>
+    </footer >
   );
 }

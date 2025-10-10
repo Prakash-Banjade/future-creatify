@@ -22,6 +22,7 @@ export default function Header({
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 5);
@@ -42,8 +43,7 @@ export default function Header({
   return (
     <header
       className={cn(
-        `sticky top-0 left-0 py-4 w-full z-50`,
-        scrolled && "bg-white/80 backdrop-blur-2xl border-b"
+        `sticky top-0 left-0 py-2 w-full z-50 bg-white/80 backdrop-blur-2xl border-b`,
       )}
     >
       <div className="container mx-auto flex items-center justify-between">
@@ -64,9 +64,9 @@ export default function Header({
               key={link.label}
               href={link.href}
               className={cn(
-                "hover:text-primary w-fit  text-xl",
+                "hover:text-primary w-fit text-base",
                 pathname === link.href &&
-                  "text-primary underline underline-offset-3 decoration-primary",
+                "text-primary underline underline-offset-3 decoration-primary",
                 hasHero && !scrolled && pathname !== link.href && "!text-white"
               )}
               target={link.newTab ? "_blank" : "_self"}

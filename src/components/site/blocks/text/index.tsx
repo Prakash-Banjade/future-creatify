@@ -12,43 +12,52 @@ export default function RenderTextBlock({
   headline,
   subheadline,
 }: TextBlockDto) {
-  console.log("text-block", align, body);
   const textAlignClassName =
     align === EAlignment.Center
       ? "text-center"
       : align === EAlignment.Right
-      ? "text-right"
-      : "text-left";
+        ? "text-right"
+        : "text-left";
 
   return (
     <section>
-      <div
-        className={cn(
-          "flex flex-col gap-2 mb-12",
-          align === EAlignment.Center
-            ? "items-center justify-center text-center"
-            : align === EAlignment.Right && "items-end"
-        )}
-      >
-        <h2
-          className={cn(
-            "text-4xl  font-bold",
-            align === EAlignment.Center ? "" : "w-full text-left"
-          )}
-        >
-          {headline}
-        </h2>
-        {subheadline && (
-          <p
+      {
+        !!headline && !!subheadline && (
+          <div
             className={cn(
-              "text-muted-foreground max-w-6xl",
-              textAlignClassName
+              "flex flex-col gap-2 mb-12",
+              align === EAlignment.Center
+                ? "items-center justify-center text-center"
+                : align === EAlignment.Right && "items-end"
             )}
           >
-            {subheadline}
-          </p>
-        )}
-      </div>
+            {
+              !!headline && (
+                <h2
+                  className={cn(
+                    "text-4xl font-bold",
+                    align === EAlignment.Center ? "" : "w-full text-left"
+                  )}
+                >
+                  {headline}
+                </h2>
+              )
+            }
+            {
+              !!subheadline && (
+                <p
+                  className={cn(
+                    "text-muted-foreground max-w-6xl",
+                    textAlignClassName
+                  )}
+                >
+                  {subheadline}
+                </p>
+              )
+            }
+          </div>
+        )
+      }
       <section>
         <RichTextPreview html={body.html} />
       </section>

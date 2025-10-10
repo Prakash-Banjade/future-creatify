@@ -4,7 +4,7 @@ import { Editor } from "@/components/editor/blocks/editor-x/editor";
 import { InfiniteSelect } from "@/components/forms/infinite-select";
 import { MediaInput, MediaItem } from "@/components/forms/media-field";
 import { LoadingButton } from "@/components/ui/button";
-import { Calendar24 } from "@/components/ui/date-time-picker";
+import { DatePicker } from "@/components/ui/date-picker";
 import {
   Form,
   FormControl,
@@ -25,6 +25,7 @@ import {
   eventSchemaType,
 } from "@/schemas/event.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { format } from "date-fns";
 import { useRouter } from "next/navigation";
 import { useTransition } from "react";
 import { useForm, useWatch } from "react-hook-form";
@@ -68,6 +69,8 @@ export default function EventForm({ defaultValues, selectedCategory }: Props) {
     control: form.control,
     name: "title",
   });
+  
+  console.log(form.getValues())
 
   return (
     <Form {...form}>
@@ -101,9 +104,7 @@ export default function EventForm({ defaultValues, selectedCategory }: Props) {
               name="title"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>
-                    Title<span className="text-destructive">*</span>
-                  </FormLabel>
+                  <FormLabel>Title<span className="text-destructive">*</span></FormLabel>
                   <FormControl>
                     <Input required className="min-h-10" {...field} />
                   </FormControl>
@@ -186,28 +187,15 @@ export default function EventForm({ defaultValues, selectedCategory }: Props) {
               name="eventDate"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>
-                    Event Schedule<span className="text-destructive">*</span>
-                  </FormLabel>
-
+                  <FormLabel>Event Schedule <span className="text-destructive">*</span></FormLabel>
                   <FormControl>
-                    <div className="p-4 border rounded-md flex items-center gap-6">
-                      <Calendar24
-                        value={field.value ? new Date(field.value) : undefined}
-                        onChange={(date) => field.onChange(date)}
-                      />
-                      <p>
-                        {field.value ? (
-                          <span>
-                            {new Date(field.value).toDateString()}
-                            {", "}
-                            {new Date(field.value).toTimeString().split(" ")[0]}
-                          </span>
-                        ) : (
-                          "No date selected"
-                        )}
-                      </p>
-                    </div>
+                    <Input
+                      type="datetime-local"
+                      className="min-h-10"
+                      {...field}
+                      value={format(field.value, "yyyy-MM-dd'T'HH:mm:ss")}
+                      onChange={e => field.onChange(new Date(e.target.value))}
+                    />
                   </FormControl>
 
                   <FormMessage />
@@ -270,7 +258,7 @@ export default function EventForm({ defaultValues, selectedCategory }: Props) {
                   <FormItem>
                     <FormControl>
                       <Editor
-                        placeholder="Eg. Leading Startup In Nepal"
+                        placeholder="Event description here..."
                         editorSerializedState={field.value.json}
                         onSerializedChange={field.onChange}
                       />

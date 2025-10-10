@@ -1,7 +1,6 @@
 import CloudinaryImage from "@/components/ui/cloudinary-image";
 import { TBlog } from "../../../../types/blog.types";
-import { getReadingTimeInMinutes } from "@/lib/utils";
-import { auth } from "@/auth";
+import { cn, getReadingTimeInMinutes } from "@/lib/utils";
 
 export default async function BlogHero({
   title,
@@ -11,9 +10,11 @@ export default async function BlogHero({
   categoryName,
   author
 }: TBlog) {
-
   return (
-    <div className="relative -mt-[10.4rem] flex items-end">
+    <div className={cn(
+      "relative flex items-end",
+      // "-mt-[10.4rem]"
+    )}>
       <div className="container z-10 relative pb-8">
         <div className="max-w-4xl mx-auto">
           <h1 className="mb-6 text-3xl md:text-5xl lg:text-6xl font-medium text-shadow-md">

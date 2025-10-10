@@ -50,6 +50,7 @@ export const blockLayouts: {
       type: EBlock.RefItem,
       refRelation: ERefRelation.Blogs,
       limit: 3,
+      cols: 3,
       order: EOrder.Desc,
       selected: undefined,
     },

@@ -28,6 +28,7 @@ export default async function BlogEditPage(props: {
       keywords: blogs.keywords,
       coverImage: blogs.coverImage,
       length: blogs.length,
+      categoryId: blogs.categoryId,
       categoryName: categories.name,
       author: blogs.author,
       isFavourite: blogs.isFavourite,

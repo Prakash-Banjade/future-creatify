@@ -97,7 +97,6 @@ export const UpdateProfileForm = ({ defaultValues }: { defaultValues?: UpdatePro
                                     <CldUploadWidget
                                         signatureEndpoint={CLOUDINARY_SIGNATURE_ENDPOINT}
                                         onSuccess={(result) => {
-                                            console.log(result.info)
                                             if (typeof result.info === "object" && "secure_url" in result.info) {
                                                 field.onChange(result.info.secure_url);
                                             }

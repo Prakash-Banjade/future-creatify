@@ -13,7 +13,7 @@ type Props = {
   imgHeight?: number; // this is used to control the height of the image based on the blog card layout
 };
 
-export default async function BlogCard({ blog, imgHeight = 500 }: Props) {
+export default async function BlogCard({ blog, imgHeight = 300 }: Props) {
   return (
     <article className="@container">
       <div className="card h-full bg-white shadow-sm rounded-b-xl">
@@ -21,13 +21,13 @@ export default async function BlogCard({ blog, imgHeight = 500 }: Props) {
           <div className="@2xl:rounded-l-xl @2xl:rounded-tr-none rounded-t-xl overflow-hidden">
             {blog.coverImage && (
               <CloudinaryImage
-                width={600}
+                width={400}
                 height={imgHeight}
                 src={blog.coverImage}
                 sizes="500px"
                 alt="Blog Cover Image"
                 crop="auto"
-                className="w-full h-full object-cover"
+                className="w-full h-[300px] @2xl:h-full @2xl:max-w-[400px] object-cover"
               />
             )}
           </div>

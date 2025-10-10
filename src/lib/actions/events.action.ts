@@ -19,7 +19,7 @@ export async function createEvent(values: eventSchemaType) {
     .insert(events)
     .values({
       ...data,
-      content: { html: "", json: {} },
+      content: data.content,
       slug: generateSlug(data.title),
     })
     .returning({ id: events.id });

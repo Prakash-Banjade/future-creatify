@@ -14,6 +14,7 @@ export function AppSidebarHeader({
   siteData: TSiteSettingSchema | null;
 }) {
   const { open } = useSidebar();
+
   return (
     <SidebarHeader>
       <SidebarMenu>

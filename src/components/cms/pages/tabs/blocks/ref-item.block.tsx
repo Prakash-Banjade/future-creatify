@@ -51,6 +51,27 @@ export default function RefItemBlock({ blockIdx, sectionIdx }: BlockComponentPro
                 )}
             />
 
+            <FormField
+                control={form.control}
+                name={`${blockName}.cols`}
+                render={({ field }) => (
+                    <FormItem>
+                        <FormLabel>Columns <span className='text-destructive'>*</span></FormLabel>
+                        <FormControl>
+                            <Input
+                                type="number"
+                                className='py-5'
+                                required
+                                pattern={NUMBER_REGEX_STRING}
+                                min={1}
+                                {...field}
+                            />
+                        </FormControl>
+                        <FormMessage />
+                    </FormItem>
+                )}
+            />
+
             <div className="flex items-center gap-3">
                 <Checkbox
                     id="manual"
@@ -130,7 +151,6 @@ export default function RefItemBlock({ blockIdx, sectionIdx }: BlockComponentPro
                                     <InfiniteMultiSelect
                                         endpoint={`${form.watch(`${blockName}.refRelation`)}/options`}
                                         onSelectionChange={val => {
-                                            console.log(val)
                                             field.onChange(val)
                                         }}
                                         selected={field.value}

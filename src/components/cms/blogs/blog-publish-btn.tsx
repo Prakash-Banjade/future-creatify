@@ -20,9 +20,10 @@ const schema = z.object({
     .min(1, { message: "Cover image is required" }),
 });
 
-export default function PublishButton({
-  blog: { id, summary = "", publishedAt, coverImage = "", categoryId },
-}: Props) {
+export default function PublishButton({ blog }: Props) {
+  const { id, summary = "", publishedAt, coverImage = "", categoryId } = blog;
+
+  console.log(blog)
   const [unpublishOpen, setUnpublishOpen] = useState(false);
   const [publishOpen, setpublishOpen] = useState(false);
   const [isPending, startTransition] = useTransition();

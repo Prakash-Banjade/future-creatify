@@ -15,8 +15,8 @@ export const CTADtoSchema = z.object({
     text: z
         .string()
         .trim()
-        .min(3, { message: "Text must be between 3 and 15 characters" })
-        .max(15, { message: "Text must be between 3 and 15 characters" }),
+        .min(3, { message: "Text must be between 3 and 30 characters" })
+        .max(30, { message: "Text must be between 3 and 30 characters" }),
     variant: z.nativeEnum(ECtaVariant),
     type: z.nativeEnum(ELinkType),
     arrow: z.boolean(),

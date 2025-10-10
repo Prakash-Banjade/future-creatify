@@ -2,13 +2,6 @@ import { EventsPageProps } from "@/app/(cms)/cms/events/page";
 import { TEventsResponse_Public } from "../../../../types/event.types";
 import { serverFetch } from "@/lib/data-access.ts/server-fetch";
 import EventCard from "./event-card";
-import EventFilters from "./event-filters";
-import { CategoryType } from "@/db/schema/category";
-import {
-  PaginatedResponse,
-  SelectOption,
-  TPaginatedOptions,
-} from "../../../../types/global.types";
 
 export default async function EventsContainer(props: {
   searchParams: Promise<EventsPageProps["searchParams"]>;
@@ -29,12 +22,12 @@ export default async function EventsContainer(props: {
     <>
       {Object.keys(events).length > 0 && (
         <div className="space-y-16">
-          {Object.entries(events).map(([month, monthEvents], monthIndex) => (
+          {Object.entries(events).map(([month, monthEvents]) => (
             <div key={month}>
               <h2 className="text-2xl font-bold mb-8 border-b pb-4">{month}</h2>
 
               <div className="space-y-8">
-                {monthEvents.map((event, eventIndex) => (
+                {monthEvents.map((event) => (
                   <EventCard key={event.slug} event={event} />
                 ))}
               </div>

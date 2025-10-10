@@ -40,10 +40,7 @@ export type TGroupMenuItem = {
     menuItems: TSidebarMenuItem[]
 }
 
-
-
-export function AppSidebar({siteData}:{siteData: TSiteSettingSchema | null}) {
-
+export function AppSidebar({ siteData }: { siteData: TSiteSettingSchema | null }) {
     return (
         <Sidebar variant="sidebar" collapsible="icon" className="pr-0">
             <AppSidebarHeader siteData={siteData} />

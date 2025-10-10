@@ -16,7 +16,6 @@ export async function GET(request: NextRequest) {
   const filters: SQL[] = [];
   if (q) filters.push(ilike(categories.name, `%${q}%`));
   if (category) filters.push(eq(categories.name, category));
-  console.log(slugs);
   if (slugs.length > 0) filters.push(inArray(events.slug, slugs));
 
   const foundEvents = await db

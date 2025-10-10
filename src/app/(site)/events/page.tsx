@@ -8,6 +8,7 @@ import { fetchPage } from "@/lib/utilities/fetchPage";
 import { Metadata } from "next";
 import { Suspense } from "react";
 import { TPaginatedOptions } from "../../../../types/global.types";
+import { EventCardSkeleton } from "@/components/site/events/event-card";
 
 type EventsPageProps = {
   searchParams: Promise<{
@@ -57,10 +58,6 @@ export default async function EventsPage({
       </section>
     </>
   );
-}
-
-function EventCardSkeleton() {
-  return <div className="h-48 bg-muted animate-pulse rounded-md" />;
 }
 
 export async function fetchCategories(type: CategoryType) {

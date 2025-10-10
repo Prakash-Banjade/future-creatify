@@ -2,7 +2,7 @@
 
 import { MediaInput, MediaItem } from "@/components/forms/media-field";
 import { Button, LoadingButton } from "@/components/ui/button";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import TagsInput from "@/components/ui/tags-input";
 import { TSiteSettingSelect } from "@/db/schema/site-setting";
@@ -141,19 +141,57 @@ export default function SiteSettingForm({ defaultValues }: Props) {
                                 )
                             }}
                         />
-                        <TagsInput
-                            name="emails"
-                            label="Emails"
-                            placeholder="Enter email and press space"
-                            max={3}
-                            description="You can add up to 3 emails."
+                        <FormField
+                            control={form.control}
+                            name={"emails"}
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Emails</FormLabel>
+                                    <FormControl>
+                                        <TagsInput
+                                            value={field.value}
+                                            onChange={field.onChange}
+                                            placeholder="Enter email and press space"
+                                            max={3}
+                                        />
+                                    </FormControl>
+                                    <FormDescription>
+                                        You can add up to 3 emails.
+                                    </FormDescription>
+                                    <FormMessage />
+                                    {
+                                        !!form.formState.errors.emails?.length && (
+                                            <p className="text-destructive text-sm">{form.formState.errors.emails[0]?.message}</p>
+                                        )
+                                    }
+                                </FormItem>
+                            )}
                         />
-                        <TagsInput
-                            name="phones"
-                            label="Phones"
-                            placeholder="Enter phone and press space"
-                            max={3}
-                            description="You can add up to 3 phone numbers."
+                        <FormField
+                            control={form.control}
+                            name={"phones"}
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Phones</FormLabel>
+                                    <FormControl>
+                                        <TagsInput
+                                            value={field.value}
+                                            onChange={field.onChange}
+                                            placeholder="Enter email and press space"
+                                            max={3}
+                                        />
+                                    </FormControl>
+                                    <FormDescription>
+                                        You can add up to 3 phone numbers.
+                                    </FormDescription>
+                                    <FormMessage />
+                                    {
+                                        !!form.formState.errors.phones?.length && (
+                                            <p className="text-destructive text-sm">{form.formState.errors.phones[0]?.message}</p>
+                                        )
+                                    }
+                                </FormItem>
+                            )}
                         />
                         <FormField
                             control={form.control}
@@ -195,7 +233,7 @@ export default function SiteSettingForm({ defaultValues }: Props) {
                             name="socialLinks"
                             render={() => (
                                 <FormItem>
-                                    <FormLabel>Social Links</FormLabel>
+                                    <FormLabel className="w-fit">Social Links</FormLabel>
                                     <section className="space-y-2">
                                         {
                                             fields.map((f, idx) => {
@@ -261,6 +299,6 @@ export default function SiteSettingForm({ defaultValues }: Props) {
                     </section>
                 </section>
             </form>
-        </Form>
+        </Form >
     )
 }

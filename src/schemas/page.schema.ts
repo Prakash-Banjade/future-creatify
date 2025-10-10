@@ -106,6 +106,7 @@ export const RefItemBlockSchema = BaseBlockSchema.extend({
   type: z.literal(EBlock.RefItem),
   refRelation: z.nativeEnum(ERefRelation),
   limit: z.coerce.number().int().min(1),
+  cols: z.coerce.number().int().min(1),
   order: z.nativeEnum(EOrder),
   selected: z
     .array(

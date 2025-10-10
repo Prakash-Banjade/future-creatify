@@ -163,7 +163,7 @@ export default function TeamForm({ defaultValues }: Props) {
                     Role <span className="text-destructive">*</span>
                   </FormLabel>
                   <FormControl>
-                    <Input {...field} />
+                    <Input className="min-h-10" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

@@ -4,16 +4,13 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(request: NextRequest) {
   try {
-    const siteData = await db.select().from(siteSetting).limit(1);
-    if (siteData.length === 0) {
-        return NextResponse.json({ message: "No footer data found" }, { status: 404 });
-    }
+    const [siteData] = await db.select().from(siteSetting).limit(1);
 
-    return NextResponse.json(siteData[0]);
-  } catch (error) {
-    console.error("Footer fetch error:", error);
+    return NextResponse.json(siteData);
+
+  } catch (error: any) {
     return NextResponse.json(
-      { error: "Failed to fetch footer" },
+      { error: error.message || "Failed to fetch site settings" },
       { status: 500 }
     );
   }

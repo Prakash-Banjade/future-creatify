@@ -16,7 +16,7 @@ type Props = {
 
 export default function RenderSections({ sections }: Props) {
   return (
-    <section>
+    <section className="hey">
       {sections.map((s, idx) => {
         const blocksLayoutClassName =
           s.blocks?.direction === "horizontal"
@@ -28,7 +28,6 @@ export default function RenderSections({ sections }: Props) {
             key={idx}
             className={cn(
               "py-20 even:bg-cream first:!pt-20",
-              s.container && "container mx-auto"
             )}
             style={
               {
@@ -36,51 +35,55 @@ export default function RenderSections({ sections }: Props) {
               } as React.CSSProperties
             }
           >
-            <section className={cn(!s.container && "container mx-auto")}>
-              <div
-                className={cn(
-                  "mb-8 flex flex-col gap-3",
-                  s.headlineAlignment === EAlignment.Left
-                    ? "justify-start items-start"
-                    : s.headlineAlignment === EAlignment.Center
-                    ? "justify-center items-center"
-                    : "justify-end items-end"
-                )}
-              >
-                {!!s.tagline && (
-                  <span className="text-primary font-semibold">
-                    {s.tagline}
-                  </span>
-                )}
-                {!!s.headline && (
-                  <h2
+            <section className={"container mx-auto"}>
+              {
+                (!!s.headline || !!s.tagline || !!s.subheadline) && (
+                  <div
                     className={cn(
-                      "text-4xl font-bold",
+                      "mb-10 flex flex-col gap-3",
                       s.headlineAlignment === EAlignment.Left
-                        ? "text-left"
+                        ? "justify-start items-start"
                         : s.headlineAlignment === EAlignment.Center
-                        ? "text-center"
-                        : "text-right"
+                          ? "justify-center items-center"
+                          : "justify-end items-end"
                     )}
                   >
-                    {s.headline}
-                  </h2>
-                )}
-                {!!s.subheadline && (
-                  <p
-                    className={cn(
-                      "text-muted-foreground max-w-4xl text-balance",
-                      s.headlineAlignment === EAlignment.Left
-                        ? "text-left"
-                        : s.headlineAlignment === EAlignment.Center
-                        ? "text-center"
-                        : "text-right"
+                    {!!s.tagline && (
+                      <span className="text-primary font-semibold">
+                        {s.tagline}
+                      </span>
                     )}
-                  >
-                    {s.subheadline}
-                  </p>
-                )}
-              </div>
+                    {!!s.headline && (
+                      <h2
+                        className={cn(
+                          "text-4xl font-bold",
+                          s.headlineAlignment === EAlignment.Left
+                            ? "text-left"
+                            : s.headlineAlignment === EAlignment.Center
+                              ? "text-center"
+                              : "text-right"
+                        )}
+                      >
+                        {s.headline}
+                      </h2>
+                    )}
+                    {!!s.subheadline && (
+                      <p
+                        className={cn(
+                          "text-muted-foreground max-w-4xl text-balance",
+                          s.headlineAlignment === EAlignment.Left
+                            ? "text-left"
+                            : s.headlineAlignment === EAlignment.Center
+                              ? "text-center"
+                              : "text-right"
+                        )}
+                      >
+                        {s.subheadline}
+                      </p>
+                    )}
+                  </div>
+                )
+              }
               <section className={cn(blocksLayoutClassName)}>
                 {s.blocks?.items?.map((b, idx) => {
                   return b.type === EBlock.Text ? (
@@ -96,7 +99,7 @@ export default function RenderSections({ sections }: Props) {
                   ) : b.type === EBlock.ContactText ? (
                     <RenderContactTextBlock key={idx} />
                   ) : b.type === EBlock.Testimonial ? (
-                    <RenderTestimonialBlock />
+                    <RenderTestimonialBlock key={idx} />
                   ) : null;
                 })}
               </section>

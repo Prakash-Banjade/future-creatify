@@ -4,6 +4,8 @@ import { twMerge } from "tailwind-merge";
 import { ZodError } from "zod";
 import { getCldImageUrl } from "next-cloudinary";
 import * as crypto from "crypto";
+import { Facebook, Github, Globe, Instagram, Linkedin, LucideProps, Twitter } from "lucide-react";
+import { ForwardRefExoticComponent, RefAttributes } from "react";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -170,4 +172,29 @@ export function getTimeFromDate(date: Date): string {
     second: "2-digit",
     hour12: false,
   });
+}
+
+
+export function getSocialIcon(url: string): ForwardRefExoticComponent<Omit<LucideProps, "ref"> & RefAttributes<SVGSVGElement>> {
+  try {
+    const { hostname } = new URL(url.toLowerCase());
+    const domain = hostname.replace(/^www\./, "");
+
+    switch (true) {
+      case domain.includes("facebook.com"):
+        return Facebook;
+      case domain.includes("twitter.com"):
+        return Twitter;
+      case domain.includes("linkedin.com"):
+        return Linkedin;
+      case domain.includes("github.com"):
+        return Github;
+      case domain.includes("instagram.com"):
+        return Instagram;
+      default:
+        return Globe;
+    }
+  } catch (err) {
+    return Globe;
+  }
 }

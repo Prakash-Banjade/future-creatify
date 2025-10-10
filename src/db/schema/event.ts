@@ -1,15 +1,5 @@
-import { YooptaContentValue } from "@yoopta/editor";
-import { relations, sql } from "drizzle-orm";
-import {
-  boolean,
-  index,
-  integer,
-  jsonb,
-  pgTable,
-  text,
-  timestamp,
-  uniqueIndex,
-} from "drizzle-orm/pg-core";
+import { relations } from "drizzle-orm";
+import { index, integer, jsonb, pgTable, text, timestamp, uniqueIndex } from "drizzle-orm/pg-core";
 import { categories } from "./category";
 import { TMediaSchema } from "@/schemas/media.schema";
 import { IRichTextSchema } from "@/schemas/rich-text.schema";

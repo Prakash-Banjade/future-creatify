@@ -1,4 +1,3 @@
-import React from "react";
 import { TEventsResponse_Public } from "../../../../types/event.types";
 import {
   Calendar,
@@ -11,6 +10,7 @@ import {
 import CloudinaryImage from "@/components/ui/cloudinary-image";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { Skeleton } from "@/components/ui/skeleton"
 
 type Props = {
   event: TEventsResponse_Public[0];
@@ -32,9 +32,9 @@ export default function EventCard({ event }: Props) {
                 crop="auto"
                 src={event.coverImage?.secure_url}
                 alt={event.title}
-                width={300}
-                height={250}
-                className="w-full h-full   object-cover"
+                width={400}
+                height={300}
+                className="w-full h-[300px] @2xl:h-full @2xl:max-w-[400px] object-cover"
               />
             )}
           </div>
@@ -97,4 +97,60 @@ export default function EventCard({ event }: Props) {
       </div>
     </article>
   );
+}
+
+export function EventCardSkeleton() {
+  return (
+    <article className="@container">
+      <div className="h-full card shadow-sm rounded-b-xl p-0 overflow-hidden">
+        <div className="flex flex-col @2xl:flex-row h-full">
+          {/* Image skeleton */}
+          <div className="@2xl:w-1/3 @4xl:w-1/4">
+            <Skeleton className="w-full h-[250px] @2xl:h-full @2xl:max-w-[400px] rounded-none" />
+          </div>
+
+          {/* Content skeleton */}
+          <div className="grow flex flex-col p-6">
+            {/* Badge skeleton */}
+            <Skeleton className="h-5 w-24 mb-1" />
+
+            {/* Title skeleton */}
+            <Skeleton className="h-7 w-3/4 mb-2" />
+
+            {/* Event details skeleton */}
+            <div className="flex flex-wrap gap-y-2 gap-x-4 mb-4">
+              <div className="flex items-center gap-1">
+                <Skeleton className="h-4 w-4 rounded-full" />
+                <Skeleton className="h-4 w-24" />
+              </div>
+
+              <div className="flex items-center gap-1">
+                <Skeleton className="h-4 w-4 rounded-full" />
+                <Skeleton className="h-4 w-16" />
+              </div>
+
+              <div className="flex items-center gap-1">
+                <Skeleton className="h-4 w-4 rounded-full" />
+                <Skeleton className="h-4 w-20" />
+              </div>
+
+              <div className="flex items-center gap-1">
+                <Skeleton className="h-4 w-4 rounded-full" />
+                <Skeleton className="h-4 w-28" />
+              </div>
+            </div>
+
+            {/* Summary skeleton */}
+            <div className="mb-6 space-y-2">
+              <Skeleton className="h-4 w-full @2xl:max-w-[80ch]" />
+              <Skeleton className="h-4 w-5/6 @2xl:max-w-[80ch]" />
+            </div>
+
+            {/* Button skeleton */}
+            <Skeleton className="mt-auto h-14 w-64" />
+          </div>
+        </div>
+      </div>
+    </article>
+  )
 }

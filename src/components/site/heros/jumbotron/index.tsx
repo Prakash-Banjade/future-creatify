@@ -13,7 +13,10 @@ export default function JumboTron({ hero }: RenderHeroProps) {
 
   return (
     <section
-      className="h-[80vh] max-h-[600px] bg-cream"
+      className={cn(
+        "bg-cream h-[80vh] max-h-[400px]",
+        hero.image?.secure_url && "h-[80vh] max-h-[600px]",
+      )}
       style={{
         background: hero.image?.secure_url
           ? `linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(${hero.image.secure_url}) no-repeat center center / cover`
@@ -26,11 +29,13 @@ export default function JumboTron({ hero }: RenderHeroProps) {
           alignment === EAlignment.Left
             ? "items-start"
             : alignment === EAlignment.Center
-            ? "items-center"
-            : "items-end"
+              ? "items-center"
+              : "items-end"
         )}
       >
-        <RichTextPreview className="mb-6" html={hero.headline.html} />
+        <section className="[&_h1]:text-shadow-md">
+          <RichTextPreview className="mb-6" html={hero.headline.html} />
+        </section>
         {Array.isArray(hero.cta) && hero.cta.length > 0 && (
           <ul className="flex md:justify-center gap-4">
             {hero.cta.map((cta, index) => (

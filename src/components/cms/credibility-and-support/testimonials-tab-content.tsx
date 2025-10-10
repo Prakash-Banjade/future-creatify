@@ -205,22 +205,6 @@ export default function TestimonialsTabContent() {
                                                                             />
                                                                             <FormField
                                                                                 control={form.control}
-                                                                                name={`testimonials.${idx}.role`}
-                                                                                render={({ field }) => (
-                                                                                    <FormItem>
-                                                                                        <FormLabel>Role</FormLabel>
-                                                                                        <FormControl>
-                                                                                            <Input
-                                                                                                type="text"
-                                                                                                className='py-5'
-                                                                                                {...field}
-                                                                                            />
-                                                                                        </FormControl>
-                                                                                    </FormItem>
-                                                                                )}
-                                                                            />
-                                                                            <FormField
-                                                                                control={form.control}
                                                                                 name={`testimonials.${idx}.image`}
                                                                                 render={({ field }) => {
                                                                                     const value = field.value as TMediaSchema | null;

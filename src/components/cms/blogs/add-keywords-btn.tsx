@@ -1,6 +1,6 @@
 import LoadingButton from '@/components/forms/loading-button';
 import { Button } from '@/components/ui/button'
-import { Form, } from '@/components/ui/form';
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { ResponsiveDialog } from '@/components/ui/responsive-dialog';
 import TagsInput from '@/components/ui/tags-input';
 import { updateBlog } from '@/lib/actions/blogs.action';
@@ -69,13 +69,31 @@ export default function AddKeywordsButton({ blogId, keywords = [], onChange, dis
             >
                 <Form {...form}>
                     <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-                        <TagsInput
-                            name='keywords'
-                            label='Keywords'
-                            placeholder='Type and press space to add a new keyword...'
-                            max={5}
-                            description='Max 5 keywords allowed'
-
+                        <FormField
+                            control={form.control}
+                            name={"keywords"}
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Keywords</FormLabel>
+                                    <FormControl>
+                                        <TagsInput
+                                            value={field.value}
+                                            onChange={field.onChange}
+                                            placeholder='Type and press space to add a new keyword...'
+                                            max={5}
+                                        />
+                                    </FormControl>
+                                    <FormDescription>
+                                        You can add up to 5 keywords.
+                                    </FormDescription>
+                                    <FormMessage />
+                                    {
+                                        !!form.formState.errors.keywords?.length && (
+                                            <p className="text-destructive text-sm">{form.formState.errors.keywords[0]?.message}</p>
+                                        )
+                                    }
+                                </FormItem>
+                            )}
                         />
 
                         <div className="mt-3 flex justify-end">

@@ -78,7 +78,7 @@ export function InfiniteMultiSelect({
 
     // Get selected option labels for display
     const selectedOptions = React.useMemo(() => {
-        return options.filter((option) => selected.some((item) => item.value === option.value))
+        return options.filter((option) => selected.some((item) => item.value === option.value)).reverse();
     }, [options, selected]);
 
     return (

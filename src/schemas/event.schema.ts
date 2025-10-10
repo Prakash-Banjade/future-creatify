@@ -14,14 +14,12 @@ export const eventKeywordsSchema = z
 
 export const eventSchema = z.object({
   title: z.string().min(1, { message: "Title is required" }).trim(),
-  summary: z.string().trim(), // before publishing, no need to validate length
+  summary: z.string().min(1, { message: "Summary is required" }).trim(),
   content: z.any(),
   coverImage: mediaSchema.nullish(),
   categoryId: z.string().uuid(),
   categoryName: z.string().optional(),
   eventDate: z.date(),
-  // .string()
-  // .refine((val) => !isNaN(Date.parse(val)), { message: "Invalid date" }),
   venue: z.string().max(100, "Venue must be at most 100 characters").trim(),
   capacity: z.coerce.number().min(0).nullish(),
 });

@@ -4,11 +4,15 @@ import { serverFetch } from "@/lib/data-access.ts/server-fetch";
 import Link from "next/link";
 import EventCard from "../../events/event-card";
 import { TEventsResponse_Public } from "../../../../../types/event.types";
+import { Button } from "@/components/ui/button";
+import { gridClassName } from ".";
+import { cn } from "@/lib/utils";
 
 export default async function EventsBlock({
   limit,
   order,
   selected,
+  cols
 }: RefItemBlockDto & { refRelation: ERefRelation.Events }) {
   const urlSearchParams = new URLSearchParams({
     limit: limit?.toString(),
@@ -28,15 +32,20 @@ export default async function EventsBlock({
 
   return (
     <>
-      <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <section className={cn(
+        "grid gap-6",
+        gridClassName[cols as keyof typeof gridClassName]
+      )}>
         {events.map((b) => {
           return <EventCard key={b.slug} event={b} />;
         })}
       </section>
       <div className="flex justify-center">
-        <Link className="text-primary w-fit flex justify-center" href={"/events"}>
-          View All Events
-        </Link>
+        <Button variant={"link"} asChild>
+          <Link className="text-primary  w-fit flex justify-center" href={"/blogs"}>
+            View All Events
+          </Link>
+        </Button>
       </div>
     </>
   );

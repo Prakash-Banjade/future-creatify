@@ -2,7 +2,7 @@ import { z } from "zod";
 
 export const blogSummarySchema = z
   .string({ required_error: "Summary is required" })
-  .min(200, "Summary must be at least 200 characters")
+  .min(100, "Summary must be at least 200 characters")
   .max(1000, "Summary must be at most 1000 characters")
   .trim();
 
