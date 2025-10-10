@@ -22,7 +22,7 @@ import { TeamResponse } from "../../../../../types/team.type"
 import CloudinaryImage from "@/components/ui/cloudinary-image"
 import { deleteTeam } from "@/lib/actions/teams.action"
 
-export const teamsColumns: ColumnDef<TeamResponse["data"][0]>[] = [
+export const teamsColumns: ColumnDef<TeamResponse[0]>[] = [
     {
         header: "S.N",
         cell: ({ row }) => <p className="text-14 font-medium"> {row.index + 1} </p>,
@@ -72,7 +72,7 @@ export const teamsColumns: ColumnDef<TeamResponse["data"][0]>[] = [
     },
 ]
 
-function TeamsColumnActions({ team }: { team: TeamResponse["data"][0] }) {
+function TeamsColumnActions({ team }: { team: TeamResponse[0] }) {
     const router = useRouter();
     const [isDeleting, startTransition] = useTransition();
     const [isDeleteOpen, setIsDeleteOpen] = useState(false);
