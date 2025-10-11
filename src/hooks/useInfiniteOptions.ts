@@ -21,7 +21,7 @@ export function useInfiniteOptions(endpoint: string, queryString = "") {
     const { data, error, fetchNextPage, hasNextPage, isFetching, isFetchingNextPage, status, refetch } = useInfiniteQuery({
         queryKey: [endpoint, queryString, "options"],
         queryFn: async ({ pageParam }) => {
-            const url = process.env.NEXT_PUBLIC_API_URL + '/' + endpoint + `?page=${pageParam}&` + queryString;
+            const url = process.env.NEXT_PUBLIC_URL + '/api/' + endpoint + `?page=${pageParam}&` + queryString;
             const response = await axios.get<TPaginatedOptions>(url);
             return response.data ?? emptyPaginatedData;
         },

@@ -26,7 +26,7 @@ export const useFetchData = <TData>({
     return useQuery<TData>({
         queryKey: queryKey,
         queryFn: async () => {
-            const response = await axios.get<TData>(process.env.NEXT_PUBLIC_API_URL + '/' + url);
+            const response = await axios.get<TData>(process.env.NEXT_PUBLIC_URL + '/api/' + url);
             return response.data;
         },
         placeholderData: keepPreviousData,
