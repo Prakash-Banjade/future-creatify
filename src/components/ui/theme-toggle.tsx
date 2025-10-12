@@ -15,6 +15,8 @@ import {
 export function ThemeToggleBtn() {
     const { setTheme } = useTheme()
 
+    if (process.env.NODE_ENV !== 'development') return null;
+    
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
