@@ -11,6 +11,7 @@ import CloudinaryImage from "@/components/ui/cloudinary-image";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton"
+import Link from "next/link";
 
 type Props = {
   event: TEventsResponse_Public[0];
@@ -88,9 +89,9 @@ export default function EventCard({ event }: Props) {
               size={"lg"}
               className="mt-auto flex w-fit py-6 px-40 bg-transparent  border-2 border-primary text-primary "
             >
-              <a href={"/events/" + event.slug}>
+              <Link href={"/events/" + event.slug}>
                 More Details <ExternalLink size={16} />
-              </a>
+              </Link>
             </Button>
           </div>
         </div>

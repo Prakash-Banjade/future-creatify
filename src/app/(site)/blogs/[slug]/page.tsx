@@ -11,6 +11,7 @@ import { db } from "@/db";
 import { blogs } from "@/db/schema/blog";
 import { serverFetch } from "@/lib/data-access.ts/server-fetch";
 import BlogHero from "@/components/site/blogs/blog-hero";
+import { isNull, not } from "drizzle-orm";
 
 type BlogPostProps = {
   params: Promise<{
@@ -126,7 +127,7 @@ export default async function SingleBlogPage({ params }: BlogPostProps) {
 
 export const generateStaticParams = async () => {
   try {
-    const foundBlogs = await db.select({ slug: blogs.slug }).from(blogs);
+    const foundBlogs = await db.select({ slug: blogs.slug }).from(blogs).where(not(isNull(blogs.publishedAt)));
     return foundBlogs.map((blog) => ({ slug: blog.slug }));
   } catch (e) {
     console.log(e);
