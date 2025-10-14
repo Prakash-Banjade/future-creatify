@@ -109,5 +109,12 @@ export const blockLayouts: {
     },
     alt: "Contact Text",
     image: jumboCenter,
+  },
+  {
+    block: {
+      type: EBlock.Map,
+    },
+    alt: "Map",
+    image: jumboCenter,
   }
 ];

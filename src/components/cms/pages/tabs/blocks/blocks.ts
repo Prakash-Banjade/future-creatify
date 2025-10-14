@@ -24,4 +24,5 @@ export const blocks: Partial<Record<EBlock, FC<BlockComponentProps>>> = {
   [EBlock.Partner]: FaqBlock,
   [EBlock.Certification]: FaqBlock,
   [EBlock.ContactText]: FaqBlock,
+  [EBlock.Map]: FaqBlock,
 };

@@ -252,14 +252,14 @@ export default function NavLinkFormField({
                                     <FormLabel>Appearance</FormLabel>
                                     <Select onValueChange={field.onChange} defaultValue={field.value}>
                                         <FormControl>
-                                            <SelectTrigger className="w-full">
+                                            <SelectTrigger className="w-full capitalize">
                                                 <SelectValue placeholder="Select an option" />
                                             </SelectTrigger>
                                         </FormControl>
                                         <SelectContent>
                                             {
-                                                Object.entries(ECtaVariant).map(([key, value]) => (
-                                                    <SelectItem key={key} value={value}>{key}</SelectItem>
+                                                [ECtaVariant.Default, ECtaVariant.Link].map((v) => (
+                                                    <SelectItem key={v} value={v} className="capitalize">{v}</SelectItem>
                                                 ))
                                             }
                                         </SelectContent>

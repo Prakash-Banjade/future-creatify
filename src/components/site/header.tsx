@@ -3,12 +3,13 @@
 import React, { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 import Link from "next/link";
-import { Button } from "../ui/button";
+import { Button, buttonVariants } from "../ui/button";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { RefinedSiteNavLinks } from "./navbar";
 import { TSiteSettingSchema } from "@/schemas/site-setting.schema";
+import { ECtaVariant } from "../../../types/blocks.types";
 
 export default function Header({
   navLinks,
@@ -22,7 +23,7 @@ export default function Header({
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  
+
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 5);
@@ -64,9 +65,11 @@ export default function Header({
               key={link.label}
               href={link.href}
               className={cn(
-                "hover:text-primary w-fit text-base",
-                pathname === link.href &&
-                "text-primary underline underline-offset-3 decoration-primary",
+                buttonVariants({ variant: link.variant }),
+                "px-0 text-base font-normal",
+                link.variant === ECtaVariant.Link && "text-black hover:text-primary",
+                link.variant === ECtaVariant.Link && pathname === link.href && "text-primary underline",
+                link.variant === ECtaVariant.Default && "px-4 py-5 font-medium",
                 hasHero && !scrolled && pathname !== link.href && "!text-white"
               )}
               target={link.newTab ? "_blank" : "_self"}
@@ -74,11 +77,7 @@ export default function Header({
               {link.label}
             </Link>
           ))}
-          <Button asChild className="p-6">
-            <Link href="/#contact" className="!text-base btn btn-primary">
-              Contact Us
-            </Link>
-          </Button>
+
         </nav>
 
         {/* Mobile Menu Button */}
@@ -105,13 +104,7 @@ export default function Header({
                 {link.label}
               </Link>
             ))}
-            <Link
-              href="/#contact"
-              className=""
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              Contact Us
-            </Link>
+
           </div>
         </div>
       )}

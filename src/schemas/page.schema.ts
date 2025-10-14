@@ -164,6 +164,13 @@ export const ContactBlockSchema = BaseBlockSchema.extend({
   type: z.literal(EBlock.ContactText),
 });
 
+
+//map
+
+export const MapBlockSchema = BaseBlockSchema.extend({
+  type: z.literal(EBlock.Map),
+});
+
 // ---- Discriminated union of all blocks ----
 export const BlockSchema = z.discriminatedUnion("type", [
   TextBlockSchema,
@@ -177,6 +184,7 @@ export const BlockSchema = z.discriminatedUnion("type", [
   PartnerBlockSchema,
   CertificationBlockSchema,
   ContactBlockSchema,
+  MapBlockSchema
 ]);
 
 export type TBlock = z.infer<typeof BlockSchema>;

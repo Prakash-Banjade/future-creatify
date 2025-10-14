@@ -33,7 +33,7 @@ export default function JumboTron({ hero }: RenderHeroProps) {
               : "items-end"
         )}
       >
-        <section className="[&_h1]:text-shadow-md">
+        <section className="[&_h1]:text-shadow-md [&_h1]:text-balance">
           <RichTextPreview className="mb-6" html={hero.headline.html} />
         </section>
         {Array.isArray(hero.cta) && hero.cta.length > 0 && (

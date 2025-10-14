@@ -49,9 +49,7 @@ export default function HeaderForm({ defaultValues }: Props) {
       }
     });
   }
-
-  console.log(form.formState.errors);
-
+  
     return (
         <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)}>

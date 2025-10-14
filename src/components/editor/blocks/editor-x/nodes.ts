@@ -36,7 +36,7 @@ export const nodes: ReadonlyArray<Klass<LexicalNode> | LexicalNodeReplacement> =
   [
     HeadingNode,
     ParagraphNode,
-    LineHeightNode,
+    // LineHeightNode,
     TextNode,
     QuoteNode,
     ListNode,

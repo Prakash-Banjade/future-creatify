@@ -23,6 +23,7 @@ export interface RefinedSiteNavLinks {
   label: string;
   href: string;
   type: ENavLinkType;
+  variant: ECtaVariant;
   subLinks: {
     type: ENavLinkType;
     text: string;
@@ -43,6 +44,7 @@ export default async function Navbar({
   const siteData = siteResponse.ok
     ? ((await siteResponse.json()) as TSiteSettingSchema)
     : null;
+
   if (!header) return null;
 
   const navLinks: RefinedSiteNavLinks[] = header.navLinks.map((n) => {
@@ -50,14 +52,15 @@ export default async function Navbar({
       n.type === ENavLinkType.External
         ? n.url
         : n.url === HOME_SLUG
-        ? "/"
-        : n.url.startsWith("/")
-        ? n.url
-        : `/${n.url}`;
+          ? "/"
+          : n.url.startsWith("/")
+            ? n.url
+            : `/${n.url}`;
 
     return {
       label: n.text,
       href,
+      variant: n.variant,
       type: n.type,
       subLinks: n.subLinks,
       newTab: n.newTab,

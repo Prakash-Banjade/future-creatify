@@ -99,7 +99,7 @@ export default async function SingleBlogPage({ params }: BlogPostProps) {
       <BlogHero {...blog} />
 
       {/* Blog Content */}
-      <section className="py-8 md:py-12 bg-white">
+      <section className="py-8 md:py-12 md:mt-0 mt-[200px] bg-white">
         <div className="container">
           <div className="max-w-4xl mx-auto">
             <div className="mb-10"></div>
