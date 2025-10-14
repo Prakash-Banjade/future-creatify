@@ -36,7 +36,7 @@ export default function SplitHero({ hero }: RenderHeroProps) {
         )}
 
         <div className="w-full space-y-12 md:flex-1">
-          <section className="[&_h1]:text-shadow-md">
+          <section className="[&_h1]:text-shadow-md [&_h1]:text-balance">
             <RichTextPreview className="mb-8" html={hero.headline.html} />
           </section>
           {Array.isArray(hero.cta) && hero.cta.length > 0 && (

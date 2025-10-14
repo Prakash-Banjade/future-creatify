@@ -188,7 +188,7 @@ export function Plugins({
                   <Separator orientation="vertical" className="h-8" />
                   <ElementFormatToolbarPlugin />
                   <Separator orientation="vertical" className="h-8" />
-                  <LineHeightToolbarPlugin />
+                  {/* <LineHeightToolbarPlugin /> */}
                   <Separator orientation="vertical" className="h-8" />
                   {
                     !!props.plugins && (

@@ -89,29 +89,12 @@ export default async function SingleeventPage({ params }: Props) {
 
       {/* Event Content */}
       <section className="py-8 md:py-12 bg-white">
-        <div className="container mx-auto grid grid-cols-3 gap-6">
-          <div className="col-span-2">
-            <div className="rounded-xl overflow-hidden mb-10 shadow-md">
-              {event.coverImage && (
-                <CloudinaryImage
-                  src={event.coverImage?.secure_url}
-                  alt={event.title}
-                  className="w-full h-auto"
-                  height={500}
-                  width={800}
-                />
-              )}
-            </div>
-            <div className="prose prose-lg max-w-none ">
-              <p className="text-lg leading-relaxed mb-6">{event.summary}</p>
-              <RichTextPreview html={event.content.html} />
-            </div>
-          </div>
-          <div className="col-span-1">
+        <div className="container mx-auto grid grid-cols-1 md:grid-cols-3 md:gap-x-6">
+           <div className="col-span-1 md:order-2 mb-6">
             <div
               className={cn(
-                "grid grid-cols-2 gap-3 text-sm text-slate-500 mb-4 space-x-4",
-                "[&>*]:p-6 [&>*]:border [&>*]:rounded-md [&>*]:shadow-sm [&>*]:w-full [&>*]:flex-col"
+                "grid grid-cols-1 md:grid-cols-2 gap-3 text-sm text-slate-500 mb-4 space-x-4",
+                "[&>*]:p-3 [&>*]:border [&>*]:rounded-md [&>*]:shadow-sm [&>*]:w-full [&>*]:flex-col"
               )}
             >
               <div className="space-y-2">
@@ -149,6 +132,24 @@ export default async function SingleeventPage({ params }: Props) {
               )}
             </div>
           </div>
+          <div className="col-span-2">
+            <div className="rounded-xl overflow-hidden mb-10 shadow-md">
+              {event.coverImage && (
+                <CloudinaryImage
+                  src={event.coverImage?.secure_url}
+                  alt={event.title}
+                  className="w-full h-auto"
+                  height={500}
+                  width={800}
+                />
+              )}
+            </div>
+            <div className="prose prose-lg max-w-none ">
+              <p className="text-lg leading-relaxed mb-6">{event.summary}</p>
+              <RichTextPreview html={event.content.html} />
+            </div>
+          </div>
+         
         </div>
       </section>
     </>

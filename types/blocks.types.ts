@@ -11,6 +11,7 @@ export enum EBlock {
   Partner = "partner",
   ContactText = "contactText",
   Team = "team",
+  Map = "map"
 }
 
 export type TextBlock = {

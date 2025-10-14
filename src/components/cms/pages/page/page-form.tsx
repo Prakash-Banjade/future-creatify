@@ -26,15 +26,15 @@ type Props = {
 const tabs = [
     {
         label: "Hero",
-        value: "hero",
+        value: "heroSections",
     },
     {
         label: "Content",
-        value: "content",
+        value: "sections",
     },
     {
         label: "SEO",
-        value: "seo",
+        value: "metadata",
     }
 ]
 
@@ -47,6 +47,7 @@ export default function PageForm({ page, defaultTab }: Props) {
         defaultValues: page,
     });
 
+    console.log(form.formState.errors)
     function onSubmit(data: TPageDto) {
         startTransition(async () => {
             try {

@@ -9,6 +9,7 @@ import RenderFormBlock from "./form";
 import { EAlignment } from "../../../../types/global.types";
 import { RenderContactTextBlock } from "./contact";
 import { RenderTestimonialBlock } from "./testimonials";
+import { RenderMapBlock } from "./map";
 
 type Props = {
   sections: TPageDto["sections"];
@@ -27,7 +28,7 @@ export default function RenderSections({ sections }: Props) {
           <section
             key={idx}
             className={cn(
-              "py-20 even:bg-cream first:!pt-20",
+              "py-20 relative even:bg-cream first:!pt-20",
             )}
             style={
               {
@@ -100,6 +101,12 @@ export default function RenderSections({ sections }: Props) {
                     <RenderContactTextBlock key={idx} />
                   ) : b.type === EBlock.Testimonial ? (
                     <RenderTestimonialBlock key={idx} />
+                  ) : b.type === EBlock.Map ? (
+                    <div className={cn(s.blocks?.items?.length === 1 ? "min-h-[400px]" : "h-full")}>
+                      <div className={cn(s.blocks?.items?.length === 1 && 'absolute inset-0')}>
+                        <RenderMapBlock key={idx} />
+                      </div>
+                    </div>
                   ) : null;
                 })}
               </section>

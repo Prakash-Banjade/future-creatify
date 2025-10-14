@@ -120,7 +120,7 @@ function SortableField({
                 render={({ field }) => {
                     const blockType = field.value.type;
                     const BlockComponent = blocks[blockType];
-                    const fieldError = Array.isArray(form.formState.errors.sections) && !!form.formState.errors.sections[sectionIdx].blocks.items[idx];
+                    const fieldError = Array.isArray(form.formState.errors.sections) && !!form.formState.errors.sections[sectionIdx]?.blocks.items[idx];
 
                     return (
                         <FormItem>
