@@ -30,7 +30,6 @@ import { LayoutItemNode } from "../../nodes/layout-item-node"
 import { MentionNode } from "../../nodes/mention-node"
 import { PageBreakNode } from "../../nodes/page-break-node"
 import { PollNode } from "../../nodes/poll-node"
-import { LineHeightNode } from "../../nodes/line-height-node"
 import { IconNode } from "../../nodes/icon-node"
 
 export const nodes: ReadonlyArray<Klass<LexicalNode> | LexicalNodeReplacement> =

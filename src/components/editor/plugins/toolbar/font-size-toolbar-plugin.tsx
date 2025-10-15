@@ -66,6 +66,7 @@ export function FontSizeToolbarPlugin() {
           <Minus className="size-3" />
         </Button>
         <Input
+          type="number"
           value={fontSize}
           onChange={(e) =>
             updateFontSize(parseInt(e.target.value) || DEFAULT_FONT_SIZE)
