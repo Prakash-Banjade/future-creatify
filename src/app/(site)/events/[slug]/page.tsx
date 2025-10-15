@@ -94,7 +94,7 @@ export default async function SingleeventPage({ params }: Props) {
             <div
               className={cn(
                 "grid grid-cols-1 md:grid-cols-2 gap-3 text-sm text-slate-500 mb-4 space-x-4",
-                "[&>*]:p-3 [&>*]:border [&>*]:rounded-md [&>*]:shadow-sm [&>*]:w-full [&>*]:flex-col"
+                "[&>*]:p-5 [&>*]:border [&>*]:rounded-md [&>*]:shadow-sm [&>*]:w-full [&>*]:flex-col"
               )}
             >
               <div className="space-y-2">

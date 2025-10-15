@@ -239,12 +239,12 @@ export function Plugins({
         <TabIndentationPlugin />
         <HashtagPlugin />
         <HistoryPlugin />
-
         <MentionsPlugin />
         <PageBreakPlugin />
         <DraggableBlockPlugin anchorElem={floatingAnchorElem} />
         <KeywordsPlugin />
         <EmojisPlugin />
+        <EmojiPickerPlugin />
         <ImagesPlugin />
         <InlineImagePlugin />
         <TableCellResizerPlugin />
@@ -316,7 +316,6 @@ export function Plugins({
 
         <ContextMenuPlugin />
         <DragDropPastePlugin />
-        <EmojiPickerPlugin />
 
         <FloatingLinkEditorPlugin anchorElem={floatingAnchorElem} />
         <FloatingTextFormatToolbarPlugin anchorElem={floatingAnchorElem} />

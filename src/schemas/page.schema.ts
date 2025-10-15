@@ -219,7 +219,7 @@ export const PageSectionSchema = z
       .optional(),
     headlineAlignment: z.nativeEnum(EAlignment),
     blocks: PageBlocksSchema.optional(),
-    container: z.boolean(),
+    container: z.boolean().optional(),
   })
   .strict();
 

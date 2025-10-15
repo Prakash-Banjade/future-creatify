@@ -68,6 +68,7 @@ type Emoji = {
 const MAX_EMOJI_SUGGESTION_COUNT = 10
 
 export function EmojiPickerPlugin() {
+  const [showEmojiPicker, setShowEmojiPicker] = useState(false)
   const [editor] = useLexicalComposerContext()
   const [queryString, setQueryString] = useState<string | null>(null)
   const [emojis, setEmojis] = useState<Array<Emoji>>([])
@@ -133,17 +134,18 @@ export function EmojiPickerPlugin() {
   )
 
   return (
-    // @ts-ignore
-    <LexicalTypeaheadMenuPlugin<EmojiOption>
+    <LexicalTypeaheadMenuPlugin
       onQueryChange={setQueryString}
-      onSelectOption={onSelectOption}
+      onSelectOption={(option, nodeToRemove, closeMenu) => {
+        onSelectOption(option as EmojiOption, nodeToRemove, closeMenu)
+      }}
       triggerFn={checkForTriggerMatch}
       options={options}
       onOpen={() => {
-        setIsOpen(true)
+        setShowEmojiPicker(true)
       }}
       onClose={() => {
-        setIsOpen(false)
+        setShowEmojiPicker(false)
       }}
       menuRenderFn={(
         anchorElementRef,

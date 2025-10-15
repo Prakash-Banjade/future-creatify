@@ -20,7 +20,6 @@ import { Textarea } from "@/components/ui/textarea";
 import BlockField from "./block-field";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { cn } from "@/lib/utils";
-import { Checkbox } from "@/components/ui/checkbox";
 import { EAlignment } from "../../../../../types/global.types";
 import FieldArraySortableContext from "@/components/dnd/field-array-sortable-context";
 import { useSortable } from "@dnd-kit/sortable";
@@ -36,7 +35,6 @@ const sectionDefaultValue: TPageSection = {
         direction: "horizontal",
         items: []
     },
-    container: false,
 }
 
 export default function ContentTabContent() {
@@ -293,7 +291,7 @@ function SortableField({
                                                 )
                                             }
 
-                                            <FormField
+                                            {/* <FormField
                                                 control={form.control}
                                                 name={`sections.${idx}.container`}
                                                 render={({ field }) => {
@@ -312,7 +310,7 @@ function SortableField({
                                                         </FormItem>
                                                     )
                                                 }}
-                                            />
+                                            /> */}
 
                                         </AccordionContent>
                                     </AccordionItem>
