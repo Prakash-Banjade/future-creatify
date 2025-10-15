@@ -11,6 +11,7 @@ export default function RenderCardsBlock({
     cards,
     columns,
 }: CardsBlockDto) {
+
     return (
         <section
             className={cn(
@@ -53,8 +54,8 @@ export default function RenderCardsBlock({
                                     />
                                 )
                             }
-                            <CardHeader>
-                                {card.title && (
+                            {card.title && (
+                                <CardHeader>
                                     <CardTitle className='sm:text-2xl leading-snug font-playfair'>
                                         {
                                             card.link?.url
@@ -66,8 +67,8 @@ export default function RenderCardsBlock({
                                                 : card.title
                                         }
                                     </CardTitle>
-                                )}
-                            </CardHeader>
+                                </CardHeader>
+                            )}
                             <CardContent>
                                 <p className='text-muted-foreground'>{card.subtitle}</p>
                                 {

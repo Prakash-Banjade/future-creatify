@@ -31,17 +31,18 @@ import { MentionNode } from "../../nodes/mention-node"
 import { PageBreakNode } from "../../nodes/page-break-node"
 import { PollNode } from "../../nodes/poll-node"
 import { LineHeightNode } from "../../nodes/line-height-node"
+import { IconNode } from "../../nodes/icon-node"
 
 export const nodes: ReadonlyArray<Klass<LexicalNode> | LexicalNodeReplacement> =
   [
     HeadingNode,
     ParagraphNode,
-    // LineHeightNode,
     TextNode,
     QuoteNode,
     ListNode,
     ListItemNode,
     LinkNode,
+    IconNode,
     OverflowNode,
     HashtagNode,
     TableNode,

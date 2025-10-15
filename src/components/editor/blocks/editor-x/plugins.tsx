@@ -107,7 +107,10 @@ import { Separator } from "@/components/ui/separator"
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
 import { cn } from "@/lib/utils"
 import { ElementFormatToolbarPlugin } from "../../plugins/toolbar/element-format-toolbar-plugin"
-import { LineHeightToolbarPlugin } from "../../plugins/toolbar/line-height-toolbar-plugin"
+import { IconSelectorToolbarPlugin } from "../../plugins/toolbar/icon-selector-toolbar-plugin"
+import { IconPickerPlugin } from "../../plugins/picker/icon-picker/icon-picker-plugin"
+import { useActiveIconNode } from "../../editor-hooks/use-active-icon-node"
+import { IconStyleEditor } from "../../plugins/picker/icon-picker/icon-style-editor"
 
 export type EditorPluginProps = {
   placeholder?: string
@@ -134,8 +137,8 @@ export function Plugins({
   className,
   ...props
 }: EditorPluginProps) {
-  const [floatingAnchorElem, setFloatingAnchorElem] =
-    useState<HTMLDivElement | null>(null)
+  const [floatingAnchorElem, setFloatingAnchorElem] = useState<HTMLDivElement | null>(null)
+  const activeIconKey = useActiveIconNode();
 
   const onRef = (_floatingAnchorElem: HTMLDivElement) => {
     if (_floatingAnchorElem !== null) {
@@ -149,19 +152,23 @@ export function Plugins({
         {({ blockType }) => (
           <ScrollArea>
             <div className="vertical-align-middle sticky top-0 z-10 flex gap-2 border rounded-md p-1">
-              {/* <HistoryToolbarPlugin /> */}
-              <Separator orientation="vertical" className="h-8" />
-              <BlockFormatDropDown>
-                <FormatParagraph />
-                <FormatHeading levels={["h1", "h2", "h3"]} />
-                <FormatNumberedList />
-                <FormatBulletedList />
-                <FormatCheckList />
-                <FormatCodeBlock />
-                <FormatQuote />
-              </BlockFormatDropDown>
+              {
+                !activeIconKey && (
+                  <BlockFormatDropDown>
+                    <FormatParagraph />
+                    <FormatHeading levels={["h1", "h2", "h3"]} />
+                    <FormatNumberedList />
+                    <FormatBulletedList />
+                    <FormatCheckList />
+                    <FormatCodeBlock />
+                    <FormatQuote />
+                  </BlockFormatDropDown>
+                )
+              }
               {blockType === "code" ? (
                 <CodeLanguageToolbarPlugin />
+              ) : activeIconKey ? (
+                <IconStyleEditor nodeKey={activeIconKey} />
               ) : (
                 <>
                   <FontFamilyToolbarPlugin />
@@ -188,21 +195,23 @@ export function Plugins({
                   <Separator orientation="vertical" className="h-8" />
                   <ElementFormatToolbarPlugin />
                   <Separator orientation="vertical" className="h-8" />
-                  {/* <LineHeightToolbarPlugin /> */}
-                  <Separator orientation="vertical" className="h-8" />
+                  <IconSelectorToolbarPlugin />
                   {
                     !!props.plugins && (
-                      <BlockInsertPlugin>
-                        {props.plugins?.horizontalRule && <InsertHorizontalRule />}
-                        {props.plugins?.pageBreak && <InsertPageBreak />}
-                        {props.plugins?.image && <InsertImage />}
-                        {props.plugins?.inlineImage && <InsertInlineImage />}
-                        {props.plugins?.collapsibleContainer && <InsertCollapsibleContainer />}
-                        {props.plugins?.table && <InsertTable />}
-                        {props.plugins?.poll && <InsertPoll />}
-                        {props.plugins?.columnsLayout && <InsertColumnsLayout />}
-                        {props.plugins?.embeds && <InsertEmbeds />}
-                      </BlockInsertPlugin>
+                      <>
+                        <Separator orientation="vertical" className="h-8" />
+                        <BlockInsertPlugin>
+                          {props.plugins?.horizontalRule && <InsertHorizontalRule />}
+                          {props.plugins?.pageBreak && <InsertPageBreak />}
+                          {props.plugins?.image && <InsertImage />}
+                          {props.plugins?.inlineImage && <InsertInlineImage />}
+                          {props.plugins?.collapsibleContainer && <InsertCollapsibleContainer />}
+                          {props.plugins?.table && <InsertTable />}
+                          {props.plugins?.poll && <InsertPoll />}
+                          {props.plugins?.columnsLayout && <InsertColumnsLayout />}
+                          {props.plugins?.embeds && <InsertEmbeds />}
+                        </BlockInsertPlugin>
+                      </>
                     )
                   }
                 </>
@@ -231,6 +240,7 @@ export function Plugins({
           ErrorBoundary={LexicalErrorBoundary}
         />
 
+        <IconPickerPlugin />
         <ClickableLinkPlugin />
         <CheckListPlugin />
         <HorizontalRulePlugin />

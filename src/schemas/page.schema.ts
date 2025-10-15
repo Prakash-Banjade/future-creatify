@@ -46,10 +46,10 @@ export type ImageBlockDto = z.infer<typeof ImageBlockSchema>;
 // ---- CardDto ----
 export const CardSchema = z.object({
   title: z
-    .string({ required_error: "Title is required" })
+    .string()
     .trim()
-    .min(3, { message: "Title must be between 3 and 50 characters" })
-    .max(100, { message: "Title must be between 3 and 100 characters" }),
+    .max(100, { message: "Title must be between 3 and 100 characters" })
+    .optional(),
   subtitle: z
     .string()
     .trim()

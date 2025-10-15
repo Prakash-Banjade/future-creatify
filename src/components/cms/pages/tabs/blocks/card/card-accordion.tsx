@@ -91,12 +91,10 @@ export default function CardAccordion({ fieldId, idx, name, onRemove, isFieldErr
                             name={`${name}.title`}
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>Title <span className="text-destructive">*</span></FormLabel>
+                                    <FormLabel>Title</FormLabel>
                                     <FormControl>
                                         <Input
                                             className="py-5"
-                                            required
-                                            minLength={3}
                                             maxLength={100}
                                             {...field}
                                         />
