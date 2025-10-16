@@ -17,8 +17,8 @@ export const media = pgTable(
         resource_type: text("resource_type").notNull(),
         bytes: integer("bytes").notNull(),
 
-        createdAt: timestamp("created_at").notNull().defaultNow(),
-        updatedAt: timestamp("updated_at").notNull().defaultNow().$onUpdate(() => new Date()),
+        createdAt: timestamp("createdAt").notNull().defaultNow(),
+        updatedAt: timestamp("updatedAt").notNull().defaultNow().$onUpdate(() => new Date()),
     },
     (table) => [
         index("name_idx").on(table.name),

@@ -22,7 +22,7 @@ export const events = pgTable(
       .notNull()
       .default(new Date()),
     capacity: integer("capacity").default(0),
-    categoryId: text("category_id")
+    categoryId: text("categoryId")
       .references(() => categories.id)
       .notNull(),
   },

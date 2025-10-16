@@ -9,10 +9,10 @@ export const forms = pgTable(
         title: text("title").notNull(),
         slug: text("slug").notNull(),
         fields: jsonb("fields").$type<TFormFieldDef[]>().notNull(),
-        submitBtnLabel: text("submit_btn_label").notNull().default("Submit"),
+        submitBtnLabel: text("submitBtnLabel").notNull().default("Submit"),
 
-        createdAt: timestamp("created_at").notNull().defaultNow(),
-        updatedAt: timestamp("updated_at").notNull().defaultNow().$onUpdate(() => new Date()),
+        createdAt: timestamp("createdAt").notNull().defaultNow(),
+        updatedAt: timestamp("updatedAt").notNull().defaultNow().$onUpdate(() => new Date()),
     },
     (table) => ({
         titleUnique: uniqueIndex("forms_title_unique").on(table.title),
@@ -24,12 +24,12 @@ export const formSubmissions = pgTable(
     "form_submissions",
     {
         id: text("id").primaryKey().$defaultFn(() => crypto.randomUUID()),
-        formId: text("form_id")
+        formId: text("formId")
             .references(() => forms.id, { onDelete: "cascade" }).notNull(),
         data: jsonb("data").$type<Record<string, unknown>>().notNull(),
 
-        createdAt: timestamp("created_at").notNull().defaultNow(),
-        updatedAt: timestamp("updated_at").notNull().defaultNow().$onUpdate(() => new Date()),
+        createdAt: timestamp("createdAt").notNull().defaultNow(),
+        updatedAt: timestamp("updatedAt").notNull().defaultNow().$onUpdate(() => new Date()),
     },
     (table) => ({
         formIdUnique: index("form_submissions_form_id_unique").on(table.formId),
@@ -44,3 +44,6 @@ export const formsRelations = relations(forms, ({ many }) => ({
 export const formSubmissionsRelations = relations(formSubmissions, ({ one }) => ({
     form: one(forms, { fields: [formSubmissions.formId], references: [forms.id] }),
 }));
+
+export type TFormTableSelect = typeof forms.$inferInsert;
+export type TFormSubmissionTableSelect = typeof formSubmissions.$inferInsert;

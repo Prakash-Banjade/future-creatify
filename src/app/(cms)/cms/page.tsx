@@ -3,7 +3,7 @@
 import { cmsSidebarMenuItems } from '@/components/cms/sidebar/menu-items';
 import { Button } from '@/components/ui/button'
 import { SITE_TITLE } from '@/CONSTANTS';
-import { seed } from '@/db/seed'
+import { seed, seedCompleteSite } from '@/db/seed'
 import { LoaderCircle } from 'lucide-react';
 import Link from 'next/link'
 import { useTransition } from 'react';
@@ -18,26 +18,48 @@ export default function CMSPage() {
       <p>Welcome to the {SITE_TITLE} CMS. Here you can manage your content.</p>
       {
         process.env.NODE_ENV === 'development' && (
-          <Button
-            type="button"
-            variant={'link'}
-            disabled={isPending}
-            className='mt-2 text-blue-500 p-0'
-            onClick={() => startTransition(async () => {
-              try {
-                await seed();
-                toast.success('Database seeded successfully');
-              } catch (e) {
-                console.log(e);
-                toast.error('An unexpected error occurred');
+          <div className='flex gap-12'>
+            <Button
+              type="button"
+              variant={'link'}
+              disabled={isPending}
+              className='mt-2 text-blue-500 p-0'
+              onClick={() => startTransition(async () => {
+                try {
+                  await seed();
+                  toast.success('Database seeded successfully');
+                } catch (e) {
+                  console.log(e);
+                  toast.error('An unexpected error occurred');
+                }
+              })}
+            >
+              {
+                isPending && <LoaderCircle className="animate-spin" />
               }
-            })}
-          >
-            {
-              isPending && <LoaderCircle className="animate-spin" />
-            }
-            Click to Seed
-          </Button>
+              Click to Seed
+            </Button>
+            <Button
+              type="button"
+              variant={'link'}
+              disabled={isPending}
+              className='mt-2 text-blue-500 p-0'
+              onClick={() => startTransition(async () => {
+                try {
+                  await seedCompleteSite();
+                  toast.success('Database seeded successfully');
+                } catch (e) {
+                  console.log(e);
+                  toast.error('An unexpected error occurred');
+                }
+              })}
+            >
+              {
+                isPending && <LoaderCircle className="animate-spin" />
+              }
+              Click to seed complete site
+            </Button>
+          </div>
         )
       }
 

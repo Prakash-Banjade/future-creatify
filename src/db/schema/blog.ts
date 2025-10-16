@@ -34,7 +34,7 @@ export const blogs = pgTable(
       .array()
       .default(sql`ARRAY[]::text[]`)
       .notNull(),
-    categoryId: text("category_id").references(() => categories.id),
+    categoryId: text("categoryId").references(() => categories.id),
     author: text("author").notNull().default("Unknown"),
   },
   (table) => [
@@ -42,6 +42,8 @@ export const blogs = pgTable(
     index("title_idx").on(table.title),
   ]
 );
+
+export type TBlogTableSelect = typeof blogs.$inferSelect;
 
 export const blogsRelations = relations(blogs, ({ one }) => ({
   category: one(categories, {

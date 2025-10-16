@@ -19,6 +19,7 @@ export const credibilityAndSupportSchema = z.object({
     z.object({
       name: z.string().min(1, { message: "Name is required" }),
       image: mediaSchema.nullish(),
+      
       link: z
         .string()
         .optional()

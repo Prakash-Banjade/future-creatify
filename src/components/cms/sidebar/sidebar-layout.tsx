@@ -7,6 +7,9 @@ import AppBreadCrumb from "./app-bread-crumb";
 import { ThemeToggleBtn } from "@/components/ui/theme-toggle";
 import { serverFetch } from "@/lib/data-access.ts/server-fetch";
 import { TSiteSettingSchema } from "@/schemas/site-setting.schema";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
+import { Globe } from "lucide-react";
 
 type AppRootLayoutProps = {
     children: React.ReactNode,
@@ -26,12 +29,24 @@ export default async function SidebarLayout({ children }: AppRootLayoutProps) {
                     <Separator orientation="vertical" className="mr-2 h-4" />
                     <AppBreadCrumb />
 
-                    <div className="ml-auto flex items-center gap-10">
-                        <ThemeToggleBtn />
+                    <div className="ml-auto flex items-center gap-4">
+                        <Button
+                            variant={'ghost'}
+                            size={'icon'}
+                            asChild
+                            title="Visit Site"
+                        >
+                            <Link href={"/"} target="_blank">
+                                <Globe />
+                            </Link>
+                        </Button>
+                        {
+                            process.env.NODE_ENV === 'development' && <ThemeToggleBtn />
+                        }
                     </div>
                 </header>
                 <main className="h-full">
-                    <Suspense fallback={<Skeleton className="h-full"></Skeleton>}>
+                    <Suspense fallback={<Skeleton className="h-full" />}>
                         {children}
                     </Suspense>
                 </main>
