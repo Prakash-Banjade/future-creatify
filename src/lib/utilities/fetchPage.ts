@@ -4,7 +4,8 @@ import { TPage } from "../../../types/page.types";
 
 export async function fetchPage(slug: string) {
     const res = await serverFetch(`/pages/${slug}`, {
-        next: { revalidate: parseInt(process.env.DATA_REVALIDATE_SEC!) },
+        next: { revalidate: parseInt(process.env.NEXT_PUBLIC_DATA_REVALIDATE_SEC!) },
+        cache: 'force-cache'
     });
     
     if (!res.ok) notFound();

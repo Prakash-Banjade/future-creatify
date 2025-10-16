@@ -14,7 +14,7 @@ export default async function BlogsContainer(props: {
     headers: {
       "Content-Type": "application/json",
     },
-    next: { revalidate: parseInt(process.env.DATA_REVALIDATE_SEC!) },
+    next: { revalidate: parseInt(process.env.NEXT_PUBLIC_DATA_REVALIDATE_SEC!) },
   });
 
   if (!res.ok) {

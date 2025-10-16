@@ -19,7 +19,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
 
   const res = await serverFetch(`/events/${slug}`, {
-    next: { revalidate: parseInt(process.env.DATA_REVALIDATE_SEC!) },
+    next: { revalidate: parseInt(process.env.NEXT_PUBLIC_DATA_REVALIDATE_SEC!) },
   });
 
   if (!res.ok) {
@@ -48,7 +48,7 @@ export default async function SingleeventPage({ params }: Props) {
   const { slug } = await params;
 
   const res = await fetch(`${API_URL}/events/${slug}`, {
-    next: { revalidate: parseInt(process.env.DATA_REVALIDATE_SEC!) },
+    next: { revalidate: parseInt(process.env.NEXT_PUBLIC_DATA_REVALIDATE_SEC!) },
   });
 
   if (!res.ok) {

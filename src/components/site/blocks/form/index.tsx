@@ -5,7 +5,7 @@ import RenderFormFields from "./render-form";
 
 export default async function RenderFormBlock(formBlock: FormBlockDto) {
   const res = await serverFetch(`/forms/${formBlock.form.id}`, {
-    next: { revalidate: parseInt(process.env.DATA_REVALIDATE_SEC!) },
+    next: { revalidate: parseInt(process.env.NEXT_PUBLIC_DATA_REVALIDATE_SEC!) },
   });
 
   if (!res.ok) return null;

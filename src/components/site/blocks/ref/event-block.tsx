@@ -23,7 +23,7 @@ export default async function EventsBlock({
     urlSearchParams.set("slugs", selected.map((s) => s.value)?.join(","));
 
   const res = await serverFetch("/events" + `?${urlSearchParams.toString()}`, {
-    next: { revalidate: parseInt(process.env.DATA_REVALIDATE_SEC!) },
+    next: { revalidate: parseInt(process.env.NEXT_PUBLIC_DATA_REVALIDATE_SEC!) },
   });
 
   if (!res.ok) return null;

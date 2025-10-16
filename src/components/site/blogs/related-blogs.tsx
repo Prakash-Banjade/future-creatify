@@ -8,7 +8,7 @@ type Props = {
 
 export default async function RelatedBlogs({ slug }: Props) {
     const res = await fetch(`${API_URL}/blogs/related?slug=${slug}`, {
-        next: { revalidate: parseInt(process.env.DATA_REVALIDATE_SEC!) },
+        next: { revalidate: parseInt(process.env.NEXT_PUBLIC_DATA_REVALIDATE_SEC!) },
     });
 
     if (!res.ok) return null;

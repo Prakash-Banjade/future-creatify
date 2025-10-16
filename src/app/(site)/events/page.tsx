@@ -61,7 +61,7 @@ export default async function EventsPage({
 
 export async function fetchCategories(type: CategoryType) {
   const res = await serverFetch(`/categories/options?type=${type}`, {
-    next: { revalidate: parseInt(process.env.DATA_REVALIDATE_SEC!) },
+    next: { revalidate: parseInt(process.env.NEXT_PUBLIC_DATA_REVALIDATE_SEC!) },
   });
 
   if (!res.ok) {

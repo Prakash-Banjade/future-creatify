@@ -5,7 +5,6 @@ import { fetchPage } from "@/lib/utilities/fetchPage";
 import { SITE_TITLE } from "@/CONSTANTS";
 import { HOME_SLUG } from "../slugs";
 
-
 export const generateMetadata = async (): Promise<Metadata> => {
   const { metadata: { title, description, keywords, ogImage } } = await fetchPage(HOME_SLUG);
 

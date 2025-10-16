@@ -25,7 +25,7 @@ export async function generateMetadata({
   const { slug } = await params;
 
   const res = await serverFetch(`/blogs/${slug}`, {
-    next: { revalidate: parseInt(process.env.DATA_REVALIDATE_SEC!) },
+    next: { revalidate: parseInt(process.env.NEXT_PUBLIC_DATA_REVALIDATE_SEC!) },
   });
 
   if (!res.ok) {
@@ -59,7 +59,7 @@ export default async function SingleBlogPage({ params }: BlogPostProps) {
   const { slug } = await params;
 
   const res = await fetch(`${API_URL}/blogs/${slug}`, {
-    next: { revalidate: parseInt(process.env.DATA_REVALIDATE_SEC!) },
+    next: { revalidate: parseInt(process.env.NEXT_PUBLIC_DATA_REVALIDATE_SEC!) },
   });
 
   if (!res.ok) {
