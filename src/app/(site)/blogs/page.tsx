@@ -1,4 +1,3 @@
-import { BlogsPageProps } from "@/app/(cms)/cms/blogs/page";
 import { BlogCardSkeleton } from "@/components/site/blogs/blog-card";
 import BlogsContainer from "@/components/site/blogs/blogs-container";
 import BlogsSearchFilters_Public from "@/components/site/blogs/blogs-search-filters";
@@ -45,7 +44,7 @@ export default async function BlogsPage() {
               <BlogCardSkeleton key={index} />
             ))}
           >
-            <BlogsContainer searchParams={searchParams} />
+            <BlogsContainer />
           </Suspense>
         </div>
       </section>
