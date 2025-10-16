@@ -33,6 +33,7 @@ export type TBlogsResponse_Public = (Pick<
   | "coverImage"
   | "length"
   | "author"
+  | "updatedAt"
 > & {
   categoryName: string;
 })[];

@@ -15,4 +15,5 @@ export type TEventsResponse_Public = (Pick<
   | "eventDate"
   | "venue"
   | "capacity"
+  | "updatedAt"
 > & { categoryName?: string })[];
