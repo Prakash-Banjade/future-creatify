@@ -21,15 +21,6 @@ export default function EventsContainer() {
     }
   })
 
-  if (error) {
-    return (
-      <div className="text-center py-12">
-        <h3 className="text-2xl font-bold mb-4">Fetch Failed</h3>
-        <p className="text-muted-foreground mb-6">Something is wrong.</p>
-      </div>
-    );
-  }
-
   const events = useMemo(() => {
     return data.reduce((groups, event) => {
       const date = new Date(event.eventDate);
@@ -47,6 +38,14 @@ export default function EventsContainer() {
     }, {} as Record<string, typeof data>);
   }, [data])
 
+  if (error) {
+    return (
+      <div className="text-center py-12">
+        <h3 className="text-2xl font-bold mb-4">Fetch Failed</h3>
+        <p className="text-muted-foreground mb-6">Something is wrong.</p>
+      </div>
+    );
+  }
 
   if ((!!searchParams.get("q") || !!searchParams.get("category")) && Object.keys(events).length === 0) {
     return (
