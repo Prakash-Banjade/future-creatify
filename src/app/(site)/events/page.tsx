@@ -11,6 +11,8 @@ import { TPaginatedOptions } from "../../../../types/global.types";
 import { EventCardSkeleton } from "@/components/site/events/event-card";
 import { EVENTS_SLUG } from "@/app/slugs";
 
+export const revalidate = 60;
+
 type EventsPageProps = {
   searchParams: Promise<{
     q?: string;
@@ -62,6 +64,7 @@ export default async function EventsPage({
 export async function fetchCategories(type: CategoryType) {
   const res = await serverFetch(`/categories/options?type=${type}`, {
     next: { revalidate: parseInt(process.env.NEXT_PUBLIC_DATA_REVALIDATE_SEC!) },
+    cache: "force-cache",
   });
 
   if (!res.ok) {

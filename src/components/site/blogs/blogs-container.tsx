@@ -1,7 +1,7 @@
 import { BlogsPageProps } from "@/app/(cms)/cms/blogs/page";
-import { API_URL } from "@/CONSTANTS";
 import BlogCard from "./blog-card";
 import { TBlogsResponse_Public } from "../../../../types/blog.types";
+import { serverFetch } from "@/lib/data-access.ts/server-fetch";
 
 export default async function BlogsContainer(props: {
   searchParams: Promise<BlogsPageProps["searchParams"]>;
@@ -10,11 +10,9 @@ export default async function BlogsContainer(props: {
 
   const queryString = new URLSearchParams(searchParams).toString();
 
-  const res = await fetch(`${API_URL}/blogs?${queryString}`, {
-    headers: {
-      "Content-Type": "application/json",
-    },
+  const res = await serverFetch(`/blogs?${queryString}`, {
     next: { revalidate: parseInt(process.env.NEXT_PUBLIC_DATA_REVALIDATE_SEC!) },
+    cache: "force-cache",
   });
 
   if (!res.ok) {
@@ -27,7 +25,6 @@ export default async function BlogsContainer(props: {
   }
 
   const blogs: TBlogsResponse_Public = await res.json();
-
 
   return (
     <>

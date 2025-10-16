@@ -11,6 +11,8 @@ import { fetchCategories } from "../events/page";
 import { CategoryType } from "@/db/schema/category";
 import { BLOGS_SLUG } from "@/app/slugs";
 
+export const revalidate = 60;
+
 export const generateMetadata = async (): Promise<Metadata> => {
   const page = await fetchPage(BLOGS_SLUG);
 
