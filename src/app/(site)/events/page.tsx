@@ -13,13 +13,6 @@ import { EVENTS_SLUG } from "@/app/slugs";
 
 export const revalidate = 60;
 
-type EventsPageProps = {
-  searchParams: Promise<{
-    q?: string;
-    category?: string;
-  }>;
-};
-
 export const generateMetadata = async (): Promise<Metadata> => {
   const page = await fetchPage(EVENTS_SLUG);
 
@@ -30,11 +23,7 @@ export const generateMetadata = async (): Promise<Metadata> => {
   };
 };
 
-export default async function EventsPage({
-  searchParams,
-}: {
-  searchParams: EventsPageProps["searchParams"];
-}) {
+export default async function EventsPage() {
   const page = await fetchPage(EVENTS_SLUG);
   const categories = await fetchCategories(CategoryType.EVENT);
 
@@ -53,7 +42,7 @@ export default async function EventsPage({
               <EventCardSkeleton key={index} />
             ))}
           >
-            <EventsContainer searchParams={searchParams} />
+            <EventsContainer />
           </Suspense>
         </div>
       </section>
