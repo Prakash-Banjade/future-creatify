@@ -1,4 +1,3 @@
-import { BlogsPageProps } from "@/app/(cms)/cms/blogs/page";
 import { BlogCardSkeleton } from "@/components/site/blogs/blog-card";
 import BlogsContainer from "@/components/site/blogs/blogs-container";
 import BlogsSearchFilters_Public from "@/components/site/blogs/blogs-search-filters";
@@ -23,11 +22,7 @@ export const generateMetadata = async (): Promise<Metadata> => {
   };
 };
 
-export default async function BlogsPage({
-  searchParams,
-}: {
-  searchParams: Promise<BlogsPageProps["searchParams"]>;
-}) {
+export default async function BlogsPage() {
   const page = await fetchPage(BLOGS_SLUG);
   const categories = await fetchCategories(CategoryType.BLOG);
 
@@ -49,7 +44,7 @@ export default async function BlogsPage({
               <BlogCardSkeleton key={index} />
             ))}
           >
-            <BlogsContainer searchParams={searchParams} />
+            <BlogsContainer />
           </Suspense>
         </div>
       </section>
