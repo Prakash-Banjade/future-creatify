@@ -13,7 +13,7 @@ type Props = {
   imgHeight?: number; // this is used to control the height of the image based on the blog card layout
 };
 
-export default async function BlogCard({ blog, imgHeight = 300 }: Props) {
+export default function BlogCard({ blog, imgHeight = 300 }: Props) {
   return (
     <article className="@container">
       <div className="card h-full bg-white shadow-sm rounded-b-xl">
