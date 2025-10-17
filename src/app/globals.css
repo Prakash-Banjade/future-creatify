@@ -277,5 +277,4 @@ body {
 
 .rich_text > p:empty, .rich_text > p:has(> br:first-child):not(:first-child):has(+ *) {
   line-height: 8px;
-  /* border: 1px solid red; */
 }

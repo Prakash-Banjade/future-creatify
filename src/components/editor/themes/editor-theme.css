@@ -89,6 +89,7 @@
 .Collapsible__container[open] > .Collapsible__title {
   list-style-type: disclosure-open;
 }
+
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {

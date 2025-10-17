@@ -22,6 +22,7 @@ import { cn } from "@/lib/utils";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities"
 import FieldArraySortableContext from "@/components/dnd/field-array-sortable-context";
+import { EBlock } from "../../../../../types/blocks.types";
 
 export default function BlockField({ sectionIdx }: { sectionIdx: number }) {
     const form = useFormContext<TPageDto>();
@@ -142,7 +143,7 @@ function SortableField({
                                             <AccordionTrigger className="text-sm hover:no-underline py-3">
                                                 <section className="space-x-3">
                                                     <span className="font-light">{(idx + 1).toString().padStart(2, "0")}</span>
-                                                    <Badge className="capitalize">{blockType}</Badge>
+                                                    <Badge className="capitalize">{blockType === EBlock.RefItem ? "Referenced Item" : blockType}</Badge>
                                                 </section>
                                             </AccordionTrigger>
                                             <section className="absolute right-10">

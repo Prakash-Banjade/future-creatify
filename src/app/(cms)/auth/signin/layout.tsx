@@ -11,7 +11,7 @@ export default async function SignInLayout({ children }: Props) {
     if (session) redirect('/cms');
 
     return (
-        <section className='min-h-screen flex flex-col items-center justify-center bg-gray-50'>
+        <section className='min-h-screen flex flex-col items-center justify-center'>
             {children}
         </section>
     )

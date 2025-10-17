@@ -1,6 +1,6 @@
 const emptyNodes = [
-    `<p class="leading-7 [&amp;:not(:first-child)]:mt-6"><br></p>`,
-    `<p class="leading-7 [&amp;:not(:first-child)]:mt-6" style="text-align: start;"><br></p>`,
+    `<p class="leading-7"><br></p>`,
+    `<p class="leading-7" style="text-align: start;"><br></p>`,
     `<p><br></p>`,
     `<p></p>`,
 ]

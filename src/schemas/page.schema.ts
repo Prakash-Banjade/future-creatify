@@ -164,9 +164,7 @@ export const ContactBlockSchema = BaseBlockSchema.extend({
   type: z.literal(EBlock.ContactText),
 });
 
-
 //map
-
 export const MapBlockSchema = BaseBlockSchema.extend({
   type: z.literal(EBlock.Map),
 });

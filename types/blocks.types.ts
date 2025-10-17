@@ -10,7 +10,6 @@ export enum EBlock {
   Testimonial = "testimonial",
   Partner = "partner",
   ContactText = "contactText",
-  Team = "team",
   Map = "map"
 }
 
