@@ -1,13 +1,13 @@
-import { API_URL } from '@/CONSTANTS';
 import BlogCard from './blog-card';
 import { TBlogsResponse_Public } from '../../../../types/blog.types';
+import { serverFetch } from '@/lib/data-access.ts/server-fetch';
 
 type Props = {
     slug: string;
 }
 
 export default async function RelatedBlogs({ slug }: Props) {
-    const res = await fetch(`${API_URL}/blogs/related?slug=${slug}`, {
+    const res = await serverFetch(`/blogs/related?slug=${slug}`, {
         next: { revalidate: parseInt(process.env.NEXT_PUBLIC_DATA_REVALIDATE_SEC!) },
     });
 

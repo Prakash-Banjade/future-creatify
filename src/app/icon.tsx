@@ -1,19 +1,21 @@
 import { ImageResponse } from "next/og";
-import { serverFetch } from "@/lib/data-access.ts/server-fetch";
-import { TSiteSettingSelect } from "@/db/schema/site-setting";
+import { siteSetting } from "@/db/schema/site-setting";
+import { db } from "@/db";
 
 export const size = { width: 32, height: 32 };
 export const contentType = "image/png";
 
 export default async function Icon() {
     try {
-        const res = await serverFetch("/site-settings");
-        if (!res.ok) {
+        const [setting] = await db.select({
+            logoLight: siteSetting.logoLight,
+        }).from(siteSetting).limit(1);
+
+        if (!setting) {
             return new Response(null, { status: 404 });
         }
 
-        const siteSettings = (await res.json()) as TSiteSettingSelect;
-        const logoUrl = siteSettings.logoLight?.secure_url;
+        const logoUrl = setting.logoLight?.secure_url;
 
         if (!logoUrl) {
             return new Response(null, { status: 404 });

@@ -4,10 +4,9 @@ import { TPagesResponse } from '../../types/page.types';
 import { HOME_SLUG } from './slugs';
 import { TBlogsResponse_Public } from '../../types/blog.types';
 import { TEventsResponse_Public } from '../../types/event.types';
+import { APP_URL } from '@/CONSTANTS';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-    const nextUrl = process.env.NEXT_PUBLIC_URL!
-
     const pagesResponse = await serverFetch("/pages", { next: { revalidate: 60 } });
     const pages: TPagesResponse["data"] = (pagesResponse.ok) ? await pagesResponse.json() : [];
 
@@ -19,7 +18,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
     const pagesSitemap: MetadataRoute.Sitemap = pages.map(p => {
         return ({
-            url: `${nextUrl}/${p.slug}`,
+            url: `${APP_URL}/${p.slug}`,
             lastModified: p.updatedAt,
             changeFrequency: 'yearly',
             priority: p.slug === HOME_SLUG ? 1 : 0.8
@@ -28,14 +27,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     });
 
     const blogsSitemap: MetadataRoute.Sitemap = blogs.map(b => ({
-        url: `${nextUrl}/blogs/${b.slug}`,
+        url: `${APP_URL}/blogs/${b.slug}`,
         lastModified: b.updatedAt,
         changeFrequency: 'yearly',
         priority: 0.8
     }));
 
     const eventsSitemap: MetadataRoute.Sitemap = events.map(e => ({
-        url: `${nextUrl}/events/${e.slug}`,
+        url: `${APP_URL}/events/${e.slug}`,
         lastModified: e.updatedAt,
         changeFrequency: 'yearly',
         priority: 0.8
