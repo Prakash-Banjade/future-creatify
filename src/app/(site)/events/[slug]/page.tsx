@@ -1,5 +1,4 @@
 import CloudinaryImage from "@/components/ui/cloudinary-image";
-import { API_URL } from "@/CONSTANTS";
 import { ArrowLeft, Calendar, Globe, MapPin, Tag, Users } from "lucide-react";
 import { Metadata } from "next";
 import Link from "next/link";
@@ -47,7 +46,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function SingleeventPage({ params }: Props) {
   const { slug } = await params;
 
-  const res = await fetch(`${API_URL}/events/${slug}`, {
+  const res = await serverFetch(`/events/${slug}`, {
     next: { revalidate: parseInt(process.env.NEXT_PUBLIC_DATA_REVALIDATE_SEC!) },
   });
 

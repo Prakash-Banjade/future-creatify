@@ -2,7 +2,6 @@ import { BlogCardSkeleton } from "@/components/site/blogs/blog-card";
 import RelatedBlogs from "@/components/site/blogs/related-blogs";
 import { Button } from "@/components/ui/button";
 import YooptaEditorReadonly from "@/components/yoopta-editor/readonly";
-import { API_URL } from "@/CONSTANTS";
 import { Metadata } from "next";
 import Link from "next/link";
 import { Suspense } from "react";
@@ -58,7 +57,7 @@ export async function generateMetadata({
 export default async function SingleBlogPage({ params }: BlogPostProps) {
   const { slug } = await params;
 
-  const res = await fetch(`${API_URL}/blogs/${slug}`, {
+  const res = await serverFetch(`/blogs/${slug}`, {
     next: { revalidate: parseInt(process.env.NEXT_PUBLIC_DATA_REVALIDATE_SEC!) },
   });
 
