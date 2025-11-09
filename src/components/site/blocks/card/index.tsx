@@ -47,7 +47,6 @@ export default function RenderCardsBlock({
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ duration: 0.5, delay: index * 0.1 }}
-                            className="card p-8 hover-scale"
                         >
                             <Card
                                 key={index}
