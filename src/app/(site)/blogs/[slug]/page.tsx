@@ -105,7 +105,6 @@ export default async function SingleBlogPage({ params }: BlogPostProps) {
 
             <div className="prose prose-lg max-w-none">
               <p className="text-lg leading-relaxed mb-6">{blog.summary}</p>
-
               <YooptaEditorReadonly value={blog.content} />
             </div>
           </div>

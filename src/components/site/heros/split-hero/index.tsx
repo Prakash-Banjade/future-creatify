@@ -31,6 +31,7 @@ export default function SplitHero({ hero }: RenderHeroProps) {
               width={500}
               height={300}
               alt={hero.image?.alt || "Image"}
+              priority
             />
           </div>
         )}

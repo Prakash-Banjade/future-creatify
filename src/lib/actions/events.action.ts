@@ -32,7 +32,6 @@ export async function createEvent(values: eventSchemaType) {
 export async function updateEvent(
   id: string,
   values: Partial<eventSchemaType>,
-  contentEdited: boolean = true
 ) {
   await checkAuth("admin");
 
@@ -74,6 +73,8 @@ export async function updateEvent(
     .set({ ...data, slug })
     .where(eq(events.id, id))
     .returning({ slug: events.slug });
+
+  console.log(updated.slug)
 
   revalidatePath(`/cms/events`);
   revalidatePath(`/events/${updated.slug}`);

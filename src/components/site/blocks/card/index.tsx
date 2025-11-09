@@ -1,3 +1,5 @@
+"use client";
+
 import { cn } from '@/lib/utils'
 import { CardsBlockDto } from '@/schemas/page.schema'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
@@ -6,6 +8,7 @@ import { ELinkType } from '../../../../../types/global.types'
 import CloudinaryImage from '@/components/ui/cloudinary-image'
 import { RichTextPreview } from '@/components/editor/blocks/editor-x/rich-text-preview'
 import isEmptyHTML from '@/lib/utilities/isEmptyHTML'
+import { motion } from 'framer-motion'
 
 export default function RenderCardsBlock({
     cards,
@@ -38,46 +41,57 @@ export default function RenderCardsBlock({
                             : `/${card.link}`
 
                     return (
-                        <Card
+                        <motion.div
                             key={index}
-                            className={cn(
-                                "overflow-hidden gap-4 py-8",
-                                card.borderLess && "border-0"
-                            )}
+                            initial={{ opacity: 0, y: 30 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.5, delay: index * 0.1 }}
+                            className="card p-8 hover-scale"
                         >
-                            {
-                                card.image?.secure_url && (
-                                    <CloudinaryImage
-                                        src={card.image.secure_url}
-                                        className='w-full h-64 object-cover'
-                                        {...card.image}
-                                    />
-                                )
-                            }
-                            {card.title && (
-                                <CardHeader className='px-8'>
-                                    <CardTitle className='sm:text-2xl leading-snug font-playfair'>
-                                        {
-                                            card.link?.url
-                                                ? (
-                                                    <Link href={href} className="hover:underline" {...newTabProps}>
-                                                        {card.title}
-                                                    </Link>
-                                                )
-                                                : card.title
-                                        }
-                                    </CardTitle>
-                                </CardHeader>
-                            )}
-                            <CardContent className='px-8'>
-                                <p className='text-muted-foreground'>{card.subtitle}</p>
+                            <Card
+                                key={index}
+                                className={cn(
+                                    "overflow-hidden py-0 gap-0",
+                                    card.borderLess && "border-0"
+                                )}
+                            >
                                 {
-                                    !isEmptyHTML(card.description.html) && (
-                                        <RichTextPreview html={card.description.html} />
+                                    card.image?.secure_url && (
+                                        <CloudinaryImage
+                                            src={card.image.secure_url}
+                                            className='w-full h-64 object-cover'
+                                            {...card.image}
+                                            height={400}
+                                            width={400}
+                                        />
                                     )
                                 }
-                            </CardContent>
-                        </Card>
+                                {card.title && (
+                                    <CardHeader className='px-8'>
+                                        <CardTitle className='sm:text-2xl leading-snug font-playfair'>
+                                            {
+                                                card.link?.url
+                                                    ? (
+                                                        <Link href={href} className="hover:underline" {...newTabProps}>
+                                                            {card.title}
+                                                        </Link>
+                                                    )
+                                                    : card.title
+                                            }
+                                        </CardTitle>
+                                    </CardHeader>
+                                )}
+                                <CardContent className='md:p-8 p-6'>
+                                    <p className='text-muted-foreground'>{card.subtitle}</p>
+                                    {
+                                        !isEmptyHTML(card.description.html) && (
+                                            <RichTextPreview html={card.description.html} />
+                                        )
+                                    }
+                                </CardContent>
+                            </Card>
+                        </motion.div>
                     )
                 })
             }

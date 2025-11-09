@@ -6,7 +6,6 @@ import {
   TEXT_FORMAT_TRANSFORMERS,
   TEXT_MATCH_TRANSFORMERS,
 } from "@lexical/markdown"
-import { AutoFocusPlugin } from "@lexical/react/LexicalAutoFocusPlugin"
 import { CheckListPlugin } from "@lexical/react/LexicalCheckListPlugin"
 import { ClickableLinkPlugin } from "@lexical/react/LexicalClickableLinkPlugin"
 import { LexicalErrorBoundary } from "@lexical/react/LexicalErrorBoundary"
@@ -222,7 +221,6 @@ export function Plugins({
         )}
       </ToolbarPlugin>
       <div className="relative">
-        <AutoFocusPlugin />
         <RichTextPlugin
           contentEditable={
             <div className="mt-3 border-l">

@@ -1,4 +1,4 @@
-import { FieldArrayWithId, useFieldArray, useFormContext } from "react-hook-form"
+import { useFieldArray, useFormContext } from "react-hook-form"
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
@@ -11,7 +11,6 @@ import { richTextDefaultValues } from "@/schemas/rich-text.schema";
 import { Input } from "@/components/ui/input";
 import { NUMBER_REGEX_STRING } from "@/CONSTANTS";
 import FieldArraySortableContext from "@/components/dnd/field-array-sortable-context";
-import { useSortable } from "@dnd-kit/sortable";
 
 export default function CardsBlock({ sectionIdx, blockIdx }: BlockComponentProps) {
     const form = useFormContext<TPageDto>();

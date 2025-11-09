@@ -25,6 +25,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { signInAction } from "@/app/(cms)/auth/signin/action";
 import { useTransition } from "react";
+import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
     email: z.string().email({ message: "Invalid email address" }).trim(),
@@ -32,6 +33,7 @@ const formSchema = z.object({
 
 export default function SignInForm() {
     const [isPending, startTransition] = useTransition();
+    const router = useRouter();
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -44,7 +46,9 @@ export default function SignInForm() {
         startTransition(async () => {
             try {
                 await signInAction(values.email);
+                router.push("/auth/signin/verify-request?email=" + values.email);
             } catch (e) {
+                console.log(e)
                 if (e instanceof Error) {
                     form.setError("email", { type: "manual", message: e.message });
                 } else {
@@ -118,7 +122,7 @@ export default function SignInForm() {
             <section className="mt-auto px-3 py-10">
                 <p className="text-sm text-muted-foreground text-center">
                     By continuing, you agree to our{" "}
-                    <Link href="/privacy-policy" className="underline">
+                    <Link href="/terms-of-service" className="underline">
                         Terms of Service
                     </Link>{" "}
                     and{" "}
