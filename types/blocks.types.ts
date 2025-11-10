@@ -10,7 +10,7 @@ export enum EBlock {
   Testimonial = "testimonial",
   Partner = "partner",
   ContactText = "contactText",
-  Map = "map"
+  Map = "map",
 }
 
 export type TextBlock = {
@@ -80,12 +80,36 @@ export type FormBlock = {
   formId: string;
 };
 
+export type PartnersBlock = {
+  type: EBlock.Partner;
+  name: string;
+  age: string;
+  link: string;
+  image: string;
+};
+export type CertificationBlock = {
+  type: EBlock.Certification;
+  name: string;
+  link: string;
+  image: string;
+};
+export type AlumniBlock = {
+  type: EBlock.Alumni;
+  name: string;
+  link: string;
+  image: string;
+  body: string;
+};
+
 export type PageBlock =
   | ImageBlock
   | CardsBlock
   | TextBlock
   | FormBlock
-  | RefItemBlock;
+  | RefItemBlock
+  |PartnersBlock
+  |CertificationBlock
+  |AlumniBlock;
 
 export type PageSection = {
   headline: string;

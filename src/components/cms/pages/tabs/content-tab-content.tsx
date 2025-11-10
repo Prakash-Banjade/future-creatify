@@ -37,7 +37,7 @@ const sectionDefaultValue: TPageSection = {
     },
 }
 
-export default function ContentTabContent() {
+export default function ContentTabContent({slug}:{slug: string}) {
     const form = useFormContext<TPageDto>();
 
     const { fields, append, remove, swap, insert, move } = useFieldArray({
@@ -45,6 +45,13 @@ export default function ContentTabContent() {
         name: "sections",
     });
 
+
+    if (slug === "blogs" || slug === "events") {
+        return <div className="py-12 max-w-2xl flex justify-center">
+            <p>{`You cannot update the content of ${slug}.`}</p>
+
+        </div>
+    }
     return (
         <section className="space-y-2">
             <p className="text-sm font-medium">Sections</p>

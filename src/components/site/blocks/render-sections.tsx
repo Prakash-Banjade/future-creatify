@@ -10,12 +10,16 @@ import { EAlignment } from "../../../../types/global.types";
 import { RenderContactTextBlock } from "./contact";
 import { RenderTestimonialBlock } from "./testimonials";
 import { RenderMapBlock } from "./map";
+import RenderPartners from "./partners";
+import RenderAlumni from "./Alumni";
+import RenderCerificates from "./Certificate";
 
 type Props = {
   sections: TPageDto["sections"];
 };
 
 export default function RenderSections({ sections }: Props) {
+  console.log(sections)
   return (
     <section className="hey">
       {sections.map((s, idx) => {
@@ -107,7 +111,17 @@ export default function RenderSections({ sections }: Props) {
                         <RenderMapBlock key={idx} />
                       </div>
                     </div>
-                  ) : null;
+                  ) : b.type === EBlock.Partner ? (
+                    <RenderPartners key={idx}  />
+                  ) : b.type === EBlock.Alumni ? (
+                    <RenderAlumni key={idx} />
+                  ) : b.type === EBlock.Certification ? (
+                    <RenderCerificates key={idx}  />
+                  )
+
+
+
+                    : null;
                 })}
               </section>
             </section>

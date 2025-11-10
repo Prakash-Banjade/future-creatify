@@ -61,7 +61,9 @@ export default function HeroTabContent() {
                     }
                 </section>
             </FieldArraySortableContext>
-            <AddHeroSectionDialog
+
+
+           {fields.length === 0 && (<AddHeroSectionDialog
                 length={fields.length}
                 onSelect={layout => {
                     append({
@@ -81,7 +83,9 @@ export default function HeroTabContent() {
                 >
                     <Plus size={16} /> Add Hero
                 </Button>
-            </AddHeroSectionDialog>
+            </AddHeroSectionDialog>)}
+
+
         </section>
     )
 }

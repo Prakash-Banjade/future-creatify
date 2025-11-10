@@ -47,7 +47,6 @@ export default function PageForm({ page, defaultTab }: Props) {
         defaultValues: page,
     });
 
-    console.log(form.formState.errors)
     function onSubmit(data: TPageDto) {
         startTransition(async () => {
             try {
@@ -158,7 +157,7 @@ export default function PageForm({ page, defaultTab }: Props) {
                                         <HeroTabContent />
                                     </TabsContent>
                                     <TabsContent value={tabs[1].value}>
-                                        <ContentTabContent />
+                                        <ContentTabContent slug={slug} />
                                     </TabsContent>
                                     <TabsContent value={tabs[2].value}>
                                         <SeoTabContent />
