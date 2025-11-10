@@ -17,8 +17,6 @@ import { Dispatch, SetStateAction, useEffect, useMemo, useState, useTransition }
 import { toast } from 'sonner';
 import { updatePage } from '@/lib/actions/pages.action';
 import { useCustomSearchParams } from '@/hooks/useCustomSearchParams';
-import PageLivePreview from './live-preview';
-import PageApiView from './api-view';
 
 type Props = {
     page: TPage,
@@ -59,6 +57,8 @@ const modes: { label: string, value: TMode }[] = [
     }
 ]
 
+const TOOL_BAR_HEIGHT = "66px";
+
 export default function PageForm({ page, defaultTab, children, defaultMode }: Props) {
     const [isPending, startTransition] = useTransition();
     const [mode, setMode] = useState<TMode>(defaultMode as TMode || modes[0].value);
@@ -97,17 +97,18 @@ export default function PageForm({ page, defaultTab, children, defaultMode }: Pr
     }, [defaultTab]);
 
     useEffect(() => {
-        const handleKeyDown = (event: KeyboardEvent) => {
+        const ctrl = new AbortController();
+
+        window.addEventListener("keydown", (event: KeyboardEvent) => {
             const isMac = navigator.userAgent.includes("Mac");
             if ((isMac ? event.metaKey : event.ctrlKey) && event.key === "s") {
-                event.preventDefault(); // prevent the default browser save
+                event.preventDefault();
                 onSubmit(form.getValues());
             }
-        };
+        }, ctrl);
 
-        window.addEventListener("keydown", handleKeyDown);
         return () => {
-            window.removeEventListener("keydown", handleKeyDown);
+            ctrl.abort();
         };
     }, []);
 
@@ -145,7 +146,7 @@ export default function PageForm({ page, defaultTab, children, defaultMode }: Pr
                         </section>
                     </section>
 
-                    <section className={cn('@6xl:grow gap-12 @6xl:gap-0 grid', mode !== "edit" && "@6xl:grid-cols-2")}>
+                    <section className={cn('@6xl:grow gap-12 space-y-12 @6xl:space-y-0 @6xl:gap-0 @6xl:grid', mode !== "edit" && "@6xl:grid-cols-3")}>
                         <section className='@container'>
                             <section className='@6xl/main:h-full @6xl:grid grid-cols-3 flex flex-col'>
                                 <section className={cn(
@@ -195,7 +196,9 @@ export default function PageForm({ page, defaultTab, children, defaultMode }: Pr
 
                             </section>
                         </section>
-                        {mode !== "edit" && children}
+                        <section className='col-span-2 @6xl:max-h-[calc(100vh-80px)] overflow-auto sticky' style={{ top: TOOL_BAR_HEIGHT }}>
+                            {mode !== "edit" && children}
+                        </section>
                     </section>
                 </section>
             </form>
