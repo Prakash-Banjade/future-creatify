@@ -21,7 +21,7 @@ export function AppSidebarHeader({
         <SidebarMenuItem>
           <section className="px-2">
             <Link href="/" className="flex items-center gap-4">
-              {siteData?.logoLight && (
+              {siteData?.logoLight && open && (
                 <Image
                   width={64}
                   height={64}
