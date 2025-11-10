@@ -1,7 +1,6 @@
 import RenderSections from '@/components/site/blocks/render-sections'
 import RenderHero from '@/components/site/heros/render-hero'
 import { TPageDto } from '@/schemas/page.schema'
-import React from 'react'
 
 type Props = {
     page: TPageDto

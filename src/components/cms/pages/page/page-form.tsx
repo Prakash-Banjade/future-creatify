@@ -116,12 +116,13 @@ export default function PageForm({ page, defaultTab, children, defaultMode }: Pr
         <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className='@container/main h-full'>
                 <section className="h-full flex flex-col space-y-6">
-                    <section className='sm:flex justify-between items-center @6xl/main:px-24 @3xl/main:px-16 px-8'>
+                    <section className='sm:flex justify-between items-center px-8'>
                         <h2 className="sm:mb-0 mb-2 text-3xl font-medium capitalize">{name || "Untitled"}</h2>
                         <RenderModeButtons mode={mode} setMode={setMode} />
                     </section>
+                    
                     <section className="sticky top-0 z-50 backdrop-blur-3xl border-y mb-0">
-                        <section className="@6xl/main:px-24 @3xl/main:px-16 px-8 py-3 flex items-center justify-between flex-wrap gap-6">
+                        <section className="px-8 py-3 flex items-center justify-between flex-wrap gap-6">
                             <section className="text-sm @sm:flex gap-6">
                                 <p>
                                     <span className="text-muted-foreground">Last Modified:&nbsp;</span>
@@ -153,7 +154,7 @@ export default function PageForm({ page, defaultTab, children, defaultMode }: Pr
                                     'col-span-2 @6xl/main:border-r py-8 border-b',
                                     mode === "edit" && "@6xl/main:pb-20"
                                 )}>
-                                    <div className='@6xl/main:ml-24 @3xl/main:ml-16 ml-8 @3xl/main:pr-16 pr-8'>
+                                    <div className='ml-8 pr-8'>
                                         <FormField
                                             control={form.control}
                                             name="name"
@@ -180,8 +181,8 @@ export default function PageForm({ page, defaultTab, children, defaultMode }: Pr
                                 <section className={cn(
                                     "@6xl/main:pb-20",
                                     mode === "edit"
-                                        ? "@6xl:mr-24 @3xl:mr-16 mr-8 @3xl:pl-16 pl-8 py-8 @6xl/main:border-t-0"
-                                        : "@6xl/main:ml-24 @3xl/main:ml-16 ml-8 @3xl/main:pr-16 pr-8 @6xl/main:border-r pt-8 grow"
+                                        ? "mr-8 pl-8 py-8 @6xl/main:border-t-0"
+                                        : "ml-8 pr-8 @6xl/main:border-r pt-8 grow"
                                 )}>
                                     <div className='space-y-2'>
                                         <Label>Slug</Label>
@@ -193,12 +194,15 @@ export default function PageForm({ page, defaultTab, children, defaultMode }: Pr
                                         />
                                     </div>
                                 </section>
-
                             </section>
                         </section>
-                        <section className='col-span-2 @6xl:max-h-[calc(100vh-80px)] overflow-auto sticky' style={{ top: TOOL_BAR_HEIGHT }}>
-                            {mode !== "edit" && children}
-                        </section>
+                        {
+                            mode !== "edit" && (
+                                <section className='col-span-2 @6xl:max-h-[calc(100vh-80px)] overflow-auto sticky z-40' style={{ top: TOOL_BAR_HEIGHT }}>
+                                    {children}
+                                </section>
+                            )
+                        }
                     </section>
                 </section>
             </form>
@@ -243,7 +247,7 @@ function RenderTabs({ selectedTab }: { selectedTab: string }) {
             className='mt-8 w-full'
             onValueChange={tab => setSearchParams("tab", tab)}
         >
-            <TabsList className="@6xl/main:pl-24 @3xl/main:pl-16 pl-8 py-0 space-x-2 w-full bg-transparent border-b rounded-none h-auto justify-start">
+            <TabsList className="pl-8 py-0 space-x-2 w-full bg-transparent border-b rounded-none h-auto justify-start">
                 {
                     tabs.map(t => (
                         <TabsTrigger
@@ -260,7 +264,7 @@ function RenderTabs({ selectedTab }: { selectedTab: string }) {
                     ))
                 }
             </TabsList>
-            <section className='@6xl/main:pl-24 @3xl/main:pl-16 pl-8 pt-4 @3xl/main:pr-16 pr-8'>
+            <section className='pl-8 pt-4 pr-8'>
                 <TabsContent value={tabs[0].value}>
                     <HeroTabContent />
                 </TabsContent>
