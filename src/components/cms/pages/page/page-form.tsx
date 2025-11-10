@@ -4,7 +4,7 @@ import { TPage } from '../../../../../types/page.types'
 import { Button, LoadingButton } from '@/components/ui/button'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { PageDtoSchema, TPageDto } from "@/schemas/page.schema"
-import { useForm, useWatch } from 'react-hook-form'
+import { useForm, useFormContext, useWatch } from 'react-hook-form'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Label } from '@/components/ui/label';
@@ -61,7 +61,6 @@ const modes: { label: string, value: TMode }[] = [
 
 export default function PageForm({ page, defaultTab, children, defaultMode }: Props) {
     const [isPending, startTransition] = useTransition();
-    const { setSearchParams } = useCustomSearchParams();
     const [mode, setMode] = useState<TMode>(defaultMode as TMode || modes[0].value);
 
     const form = useForm<TPageDto>({
@@ -96,6 +95,21 @@ export default function PageForm({ page, defaultTab, children, defaultMode }: Pr
     const selectedTab = useMemo(() => {
         return tabs.find(tab => tab.value === defaultTab)?.value || tabs[0].value;
     }, [defaultTab]);
+
+    useEffect(() => {
+        const handleKeyDown = (event: KeyboardEvent) => {
+            const isMac = navigator.userAgent.includes("Mac");
+            if ((isMac ? event.metaKey : event.ctrlKey) && event.key === "s") {
+                event.preventDefault(); // prevent the default browser save
+                onSubmit(form.getValues());
+            }
+        };
+
+        window.addEventListener("keydown", handleKeyDown);
+        return () => {
+            window.removeEventListener("keydown", handleKeyDown);
+        };
+    }, []);
 
     return (
         <Form {...form}>
@@ -159,40 +173,7 @@ export default function PageForm({ page, defaultTab, children, defaultMode }: Pr
                                         />
                                     </div>
 
-                                    <Tabs
-                                        defaultValue={selectedTab}
-                                        className='mt-8 w-full'
-                                        onValueChange={tab => setSearchParams("tab", tab)}
-                                    >
-                                        <TabsList className="@6xl/main:pl-24 @3xl/main:pl-16 pl-8 py-0 space-x-2 w-full bg-transparent border-b rounded-none h-auto justify-start">
-                                            {
-                                                tabs.map(t => (
-                                                    <TabsTrigger
-                                                        key={t.value}
-                                                        value={t.value}
-                                                        className={cn(
-                                                            "relative bg-transparent! max-w-fit border-0 rounded-none px-3 py-4",
-                                                            "data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:after:absolute data-[state=active]:after:bottom-0 data-[state=active]:after:left-0 data-[state=active]:after:right-0 data-[state=active]:after:h-0.5 data-[state=active]:after:bg-primary",
-                                                            form.formState.errors?.[t.value as keyof TPageDto] && "text-destructive! data-[state=active]:after:bg-destructive"
-                                                        )}
-                                                    >
-                                                        {t.label}
-                                                    </TabsTrigger>
-                                                ))
-                                            }
-                                        </TabsList>
-                                        <section className='@6xl/main:pl-24 @3xl/main:pl-16 pl-8 pt-4 @3xl/main:pr-16 pr-8'>
-                                            <TabsContent value={tabs[0].value}>
-                                                <HeroTabContent />
-                                            </TabsContent>
-                                            <TabsContent value={tabs[1].value}>
-                                                <ContentTabContent />
-                                            </TabsContent>
-                                            <TabsContent value={tabs[2].value}>
-                                                <SeoTabContent />
-                                            </TabsContent>
-                                        </section>
-                                    </Tabs>
+                                    <RenderTabs selectedTab={selectedTab} />
                                 </section>
 
                                 <section className={cn(
@@ -246,5 +227,47 @@ function RenderModeButtons({ mode, setMode }: { mode: TMode, setMode: Dispatch<S
                 ))
             }
         </div>
+    )
+}
+
+function RenderTabs({ selectedTab }: { selectedTab: string }) {
+    const { setSearchParams } = useCustomSearchParams();
+    const form = useFormContext<TPageDto>();
+
+    return (
+        <Tabs
+            defaultValue={selectedTab}
+            className='mt-8 w-full'
+            onValueChange={tab => setSearchParams("tab", tab)}
+        >
+            <TabsList className="@6xl/main:pl-24 @3xl/main:pl-16 pl-8 py-0 space-x-2 w-full bg-transparent border-b rounded-none h-auto justify-start">
+                {
+                    tabs.map(t => (
+                        <TabsTrigger
+                            key={t.value}
+                            value={t.value}
+                            className={cn(
+                                "relative bg-transparent! max-w-fit border-0 rounded-none px-3 py-4",
+                                "data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:after:absolute data-[state=active]:after:bottom-0 data-[state=active]:after:left-0 data-[state=active]:after:right-0 data-[state=active]:after:h-0.5 data-[state=active]:after:bg-primary",
+                                form.formState.errors?.[t.value as keyof TPageDto] && "text-destructive! data-[state=active]:after:bg-destructive"
+                            )}
+                        >
+                            {t.label}
+                        </TabsTrigger>
+                    ))
+                }
+            </TabsList>
+            <section className='@6xl/main:pl-24 @3xl/main:pl-16 pl-8 pt-4 @3xl/main:pr-16 pr-8'>
+                <TabsContent value={tabs[0].value}>
+                    <HeroTabContent />
+                </TabsContent>
+                <TabsContent value={tabs[1].value}>
+                    <ContentTabContent />
+                </TabsContent>
+                <TabsContent value={tabs[2].value}>
+                    <SeoTabContent />
+                </TabsContent>
+            </section>
+        </Tabs>
     )
 }
