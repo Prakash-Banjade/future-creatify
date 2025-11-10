@@ -120,7 +120,7 @@ export default function PageForm({ page, defaultTab, children, defaultMode }: Pr
                         <h2 className="sm:mb-0 mb-2 text-3xl font-medium capitalize">{name || "Untitled"}</h2>
                         <RenderModeButtons mode={mode} setMode={setMode} />
                     </section>
-                    
+
                     <section className="sticky top-0 z-50 backdrop-blur-3xl border-y mb-0">
                         <section className="px-8 py-3 flex items-center justify-between flex-wrap gap-6">
                             <section className="text-sm @sm:flex gap-6">
@@ -175,7 +175,7 @@ export default function PageForm({ page, defaultTab, children, defaultMode }: Pr
                                         />
                                     </div>
 
-                                    <RenderTabs selectedTab={selectedTab} />
+                                    <RenderTabs selectedTab={selectedTab} slug={slug} />
                                 </section>
 
                                 <section className={cn(
@@ -237,7 +237,7 @@ function RenderModeButtons({ mode, setMode }: { mode: TMode, setMode: Dispatch<S
     )
 }
 
-function RenderTabs({ selectedTab }: { selectedTab: string }) {
+function RenderTabs({ selectedTab, slug }: { selectedTab: string, slug: string }) {
     const { setSearchParams } = useCustomSearchParams();
     const form = useFormContext<TPageDto>();
 
@@ -269,7 +269,7 @@ function RenderTabs({ selectedTab }: { selectedTab: string }) {
                     <HeroTabContent />
                 </TabsContent>
                 <TabsContent value={tabs[1].value}>
-                    <ContentTabContent />
+                    <ContentTabContent slug={slug} />
                 </TabsContent>
                 <TabsContent value={tabs[2].value}>
                     <SeoTabContent />

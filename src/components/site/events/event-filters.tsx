@@ -3,6 +3,7 @@
 import { useCustomSearchParams } from "@/hooks/useCustomSearchParams";
 import { Filter } from "lucide-react";
 import { TPaginatedOptions } from "../../../../types/global.types";
+import { useEffect, useState } from "react";
 
 type Props = {
   categories: TPaginatedOptions | null;
@@ -10,6 +11,7 @@ type Props = {
 
 export default function EventFilters({ categories }: Props) {
   const { setSearchParams, searchParams } = useCustomSearchParams();
+  const [search, setSearch] = useState(searchParams.get("category") || "");
 
   return (
     <div className="mb-12 flex flex-wrap items-center gap-4">
@@ -19,12 +21,14 @@ export default function EventFilters({ categories }: Props) {
       </div>
 
       <button
-        onClick={() => setSearchParams("category", undefined, false)}
-        className={`px-4 py-2 rounded-full ${
-          !searchParams.get("category")
-            ? "bg-primary text-white"
-            : "bg-gray-100 text-slate-600 hover:bg-gray-200"
-        }`}
+        onClick={() => {
+          setSearch("all")
+          setSearchParams("category", undefined, false)
+        }}
+        className={`px-4 py-2 rounded-full ${!search
+          ? "bg-primary text-white"
+          : "bg-gray-100 text-slate-600 hover:bg-gray-200"
+          }`}
       >
         All
       </button>
@@ -32,12 +36,14 @@ export default function EventFilters({ categories }: Props) {
       {categories?.data.map((c) => (
         <button
           key={c.value}
-          onClick={() => setSearchParams("category", c.label, false)}
-          className={`px-4 py-2 rounded-full ${
-            searchParams.get("category") === c.label
-              ? "bg-primary text-white"
-              : "bg-gray-100 text-slate-600 hover:bg-gray-200"
-          }`}
+          onClick={() => {
+            setSearch(c.label)
+            setSearchParams("category", c.label, false)
+          }}
+          className={`px-4 py-2 rounded-full ${search === c.label
+            ? "bg-primary text-white"
+            : "bg-gray-100 text-slate-600 hover:bg-gray-200"
+            }`}
         >
           {c.label}
         </button>

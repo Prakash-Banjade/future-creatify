@@ -6,7 +6,7 @@ import {
 import { NextRequest, NextResponse } from "next/server";
 
 export const GET = async (request: NextRequest) => {
-   const searchParams = request.nextUrl.searchParams;
+  const searchParams = request.nextUrl.searchParams;
 
   const column = searchParams.get("col");
 
