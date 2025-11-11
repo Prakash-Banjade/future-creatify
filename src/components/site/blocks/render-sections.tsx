@@ -11,8 +11,8 @@ import { RenderContactTextBlock } from "./contact";
 import { RenderTestimonialBlock } from "./testimonials";
 import { RenderMapBlock } from "./map";
 import RenderPartners from "./partners";
-import RenderAlumni from "./Alumni";
-import RenderCerificates from "./Certificate";
+import RenderAlumni from "./alumni";
+import RenderCerificates from "./certificate";
 
 type Props = {
   sections: TPageDto["sections"];

@@ -96,11 +96,8 @@ function FaqsForm() {
                                                                                         <FormControl>
                                                                                             <input
                                                                                                 maxLength={50}
-                                                                                                onClick={(e) => e.stopPropagation()}
                                                                                                 className="focus:outline-0 text-sm field-sizing-content"
                                                                                                 placeholder="Untitled"
-                                                                                                readOnly
-                                                                                                disabled
                                                                                                 {...field}
                                                                                             />
                                                                                         </FormControl>
