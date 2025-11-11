@@ -71,11 +71,8 @@ export default function AlumniTabContent() {
                                                                                                 <FormControl>
                                                                                                     <input
                                                                                                         maxLength={50}
-                                                                                                        onClick={(e) => e.stopPropagation()}
                                                                                                         className="focus:outline-0 text-sm field-sizing-content"
                                                                                                         placeholder="Untitled"
-                                                                                                        readOnly
-                                                                                                        disabled
                                                                                                         {...field}
                                                                                                     />
                                                                                                 </FormControl>
@@ -101,7 +98,7 @@ export default function AlumniTabContent() {
                                                                                         <DropdownMenuItem onClick={() => insert(idx + 1, alumniDefaultvalue)}>
                                                                                             <Plus /> Add Below
                                                                                         </DropdownMenuItem>
-                                                                                        <DropdownMenuItem onClick={() => insert(idx + 1, field.value)}><Copy /> Duplicate
+                                                                                        <DropdownMenuItem onClick={() => insert(idx + 1, structuredClone(field.value))}><Copy /> Duplicate
                                                                                         </DropdownMenuItem>
                                                                                         <DropdownMenuItem onClick={() => remove(idx)}>
                                                                                             <X /> Remove

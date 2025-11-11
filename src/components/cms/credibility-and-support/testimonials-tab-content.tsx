@@ -70,12 +70,8 @@ export default function TestimonialsTabContent() {
                                                                                             <FormItem>
                                                                                                 <FormControl>
                                                                                                     <input
-                                                                                                        maxLength={50}
-                                                                                                        onClick={(e) => e.stopPropagation()}
                                                                                                         className="focus:outline-0 text-sm field-sizing-content"
                                                                                                         placeholder="Untitled"
-                                                                                                        readOnly
-                                                                                                        disabled
                                                                                                         {...field}
                                                                                                     />
                                                                                                 </FormControl>
@@ -101,7 +97,7 @@ export default function TestimonialsTabContent() {
                                                                                         <DropdownMenuItem onClick={() => insert(idx + 1, testimonialDefaultvalue)}>
                                                                                             <Plus /> Add Below
                                                                                         </DropdownMenuItem>
-                                                                                        <DropdownMenuItem onClick={() => insert(idx + 1, field.value)}><Copy /> Duplicate
+                                                                                        <DropdownMenuItem onClick={() => insert(idx + 1, structuredClone(field.value))}><Copy /> Duplicate
                                                                                         </DropdownMenuItem>
                                                                                         <DropdownMenuItem onClick={() => remove(idx)}>
                                                                                             <X /> Remove
@@ -120,7 +116,6 @@ export default function TestimonialsTabContent() {
                                                                                         <FormControl>
                                                                                             <Input
                                                                                                 className='py-5'
-                                                                                                maxLength={50}
                                                                                                 required
                                                                                                 {...field}
                                                                                             />

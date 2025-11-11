@@ -69,12 +69,8 @@ export default function CertificationsTabContent() {
                                                                                             <FormItem>
                                                                                                 <FormControl>
                                                                                                     <input
-                                                                                                        maxLength={50}
-                                                                                                        onClick={(e) => e.stopPropagation()}
                                                                                                         className="focus:outline-0 text-sm field-sizing-content"
                                                                                                         placeholder="Untitled"
-                                                                                                        readOnly
-                                                                                                        disabled
                                                                                                         {...field}
                                                                                                     />
                                                                                                 </FormControl>
@@ -100,7 +96,7 @@ export default function CertificationsTabContent() {
                                                                                         <DropdownMenuItem onClick={() => insert(idx + 1, certificationDefaultvalue)}>
                                                                                             <Plus /> Add Below
                                                                                         </DropdownMenuItem>
-                                                                                        <DropdownMenuItem onClick={() => insert(idx + 1, field.value)}><Copy /> Duplicate
+                                                                                        <DropdownMenuItem onClick={() => insert(idx + 1, structuredClone(form.getValues(`certifications.${idx}`)))}><Copy /> Duplicate
                                                                                         </DropdownMenuItem>
                                                                                         <DropdownMenuItem onClick={() => remove(idx)}>
                                                                                             <X /> Remove
@@ -119,7 +115,6 @@ export default function CertificationsTabContent() {
                                                                                         <FormControl>
                                                                                             <Input
                                                                                                 className='py-5'
-                                                                                                maxLength={50}
                                                                                                 {...field}
                                                                                             />
                                                                                         </FormControl>

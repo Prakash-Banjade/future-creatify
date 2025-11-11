@@ -95,12 +95,8 @@ function FaqsForm() {
                                                                                     <FormItem>
                                                                                         <FormControl>
                                                                                             <input
-                                                                                                maxLength={50}
-                                                                                                onClick={(e) => e.stopPropagation()}
                                                                                                 className="focus:outline-0 text-sm field-sizing-content"
                                                                                                 placeholder="Untitled"
-                                                                                                readOnly
-                                                                                                disabled
                                                                                                 {...field}
                                                                                             />
                                                                                         </FormControl>
@@ -126,7 +122,7 @@ function FaqsForm() {
                                                                                 <DropdownMenuItem onClick={() => insert(idx + 1, faqDefaultValue)}>
                                                                                     <Plus /> Add Below
                                                                                 </DropdownMenuItem>
-                                                                                <DropdownMenuItem onClick={() => insert(idx + 1, field.value)}><Copy /> Duplicate
+                                                                                <DropdownMenuItem onClick={() => insert(idx + 1, structuredClone(form.getValues(`faqs.${idx}`)))}><Copy /> Duplicate
                                                                                 </DropdownMenuItem>
                                                                                 <DropdownMenuItem onClick={() => remove(idx)}>
                                                                                     <X /> Remove
@@ -145,7 +141,6 @@ function FaqsForm() {
                                                                                 <FormControl>
                                                                                     <Input
                                                                                         className='py-5'
-                                                                                        maxLength={50}
                                                                                         required
                                                                                         {...field}
                                                                                     />
