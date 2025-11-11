@@ -12,14 +12,14 @@ import { RenderTestimonialBlock } from "./testimonials";
 import { RenderMapBlock } from "./map";
 import RenderPartners from "./partners";
 import RenderAlumni from "./Alumni";
-import RenderCerificates from "./Certificate";
+import RenderCertification from "./Certificate";
 
 type Props = {
   sections: TPageDto["sections"];
 };
 
 export default function RenderSections({ sections }: Props) {
-  
+
   return (
     <section className="hey">
       {sections.map((s, idx) => {
@@ -112,16 +112,12 @@ export default function RenderSections({ sections }: Props) {
                       </div>
                     </div>
                   ) : b.type === EBlock.Partner ? (
-                    <RenderPartners key={idx}  />
+                    <RenderPartners key={idx} />
                   ) : b.type === EBlock.Alumni ? (
                     <RenderAlumni key={idx} />
                   ) : b.type === EBlock.Certification ? (
-                    <RenderCerificates key={idx}  />
-                  )
-
-
-
-                    : null;
+                    <RenderCertification key={idx} />
+                  ) : null;
                 })}
               </section>
             </section>

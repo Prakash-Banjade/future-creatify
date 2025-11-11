@@ -122,7 +122,7 @@ function FaqsForm() {
                                                                                 <DropdownMenuItem onClick={() => insert(idx + 1, faqDefaultValue)}>
                                                                                     <Plus /> Add Below
                                                                                 </DropdownMenuItem>
-                                                                                <DropdownMenuItem onClick={() => insert(idx + 1, structuredClone(form.getValues(`faqs.${idx}`)))}><Copy /> Duplicate
+                                                                                <DropdownMenuItem onClick={() => insert(idx + 1, structuredClone(field.value))}><Copy /> Duplicate
                                                                                 </DropdownMenuItem>
                                                                                 <DropdownMenuItem onClick={() => remove(idx)}>
                                                                                     <X /> Remove

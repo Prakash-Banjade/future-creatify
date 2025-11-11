@@ -96,7 +96,7 @@ export default function PartnersTabContent() {
                                                                                         <DropdownMenuItem onClick={() => insert(idx + 1, partnerDefaultvalue)}>
                                                                                             <Plus /> Add Below
                                                                                         </DropdownMenuItem>
-                                                                                        <DropdownMenuItem onClick={() => insert(idx + 1, structuredClone(form.getValues(`partners.${idx}`)))}><Copy /> Duplicate
+                                                                                        <DropdownMenuItem onClick={() => insert(idx + 1, structuredClone(field.value))}><Copy /> Duplicate
                                                                                         </DropdownMenuItem>
                                                                                         <DropdownMenuItem onClick={() => remove(idx)}>
                                                                                             <X /> Remove

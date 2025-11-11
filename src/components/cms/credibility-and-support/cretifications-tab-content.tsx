@@ -96,7 +96,7 @@ export default function CertificationsTabContent() {
                                                                                         <DropdownMenuItem onClick={() => insert(idx + 1, certificationDefaultvalue)}>
                                                                                             <Plus /> Add Below
                                                                                         </DropdownMenuItem>
-                                                                                        <DropdownMenuItem onClick={() => insert(idx + 1, structuredClone(form.getValues(`certifications.${idx}`)))}><Copy /> Duplicate
+                                                                                        <DropdownMenuItem onClick={() => insert(idx + 1, structuredClone(field.value))}><Copy /> Duplicate
                                                                                         </DropdownMenuItem>
                                                                                         <DropdownMenuItem onClick={() => remove(idx)}>
                                                                                             <X /> Remove
