@@ -1,9 +1,9 @@
 import { serverFetch } from '@/lib/data-access.ts/server-fetch'
 import type { MetadataRoute } from 'next'
-import { TPagesResponse } from '../../types/page.types';
+import { TPagesResponse } from '../types/page.types';
 import { HOME_SLUG } from './slugs';
-import { TBlogsResponse_Public } from '../../types/blog.types';
-import { TEventsResponse_Public } from '../../types/event.types';
+import { TBlogsResponse_Public } from '../types/blog.types';
+import { TEventsResponse_Public } from '../types/event.types';
 import { APP_URL } from '@/CONSTANTS';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
@@ -23,7 +23,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             changeFrequency: 'yearly',
             priority: p.slug === HOME_SLUG ? 1 : 0.8
         })
-
     });
 
     const blogsSitemap: MetadataRoute.Sitemap = blogs.map(b => ({
@@ -41,6 +40,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }));
 
     return [
+        {
+            url: APP_URL || `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`,
+            lastModified: new Date(),
+            changeFrequency: 'yearly',
+            priority: 1
+        },
         ...pagesSitemap,
         ...blogsSitemap,
         ...eventsSitemap,

@@ -2,14 +2,12 @@
 
 import { db } from "./index";
 import { categories, CategoriesSelect } from "./schema/category";
-import { credibilityAndSupportTable, TCredibilityAndSupportTableSelect } from "./schema/credibility-and-support";
-import { footer, header, TFooterSelect, THeaderSelect } from "./schema/globals";
-import { siteSetting, TSiteSettingSelect } from "./schema/site-setting";
-import { blogs, TBlogTableSelect } from "./schema/blog";
-import { teamTable, TTeamTableSelect } from "./schema/team";
-import { pages, TPageTableSelect } from "./schema/page";
-import { forms, TFormTableSelect } from "./schema/form";
-import { blogsData } from "./data/blogs-data";
+import { credibilityAndSupportTable } from "./schema/credibility-and-support";
+import { footer, header } from "./schema/globals";
+import { siteSetting } from "./schema/site-setting";
+import { teamTable } from "./schema/team";
+import { pages } from "./schema/page";
+import { forms } from "./schema/form";
 import { events } from "./schema/event";
 import { eventsData } from "./data/events-data";
 import { categoriesData } from "./data/categories-data";
@@ -56,7 +54,6 @@ export async function seed() {
 export async function seedCompleteSite() {
     await db.transaction(async (tx) => {
         await tx.insert(categories).values(categoriesData as CategoriesSelect[]);
-        await tx.insert(blogs).values(blogsData);
         await tx.insert(events).values(eventsData);
         await tx.insert(footer).values(footerData);
         await tx.insert(header).values(headerData);

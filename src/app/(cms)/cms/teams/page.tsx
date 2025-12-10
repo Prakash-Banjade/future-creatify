@@ -1,6 +1,6 @@
 import ContainerLayout from "@/components/cms/container-layout"
 import { Suspense } from "react"
-import { TDataSearchParams } from "../../../../../types/global.types"
+import { TDataSearchParams } from "../../../../types/global.types"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { Plus } from "lucide-react"

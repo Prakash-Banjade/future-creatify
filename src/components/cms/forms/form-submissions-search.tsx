@@ -1,6 +1,6 @@
 "use client";
 
-import { SelectOption } from "../../../../types/global.types";
+import { SelectOption } from "../../../types/global.types";
 import { InfiniteSelect } from "@/components/forms/infinite-select";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 

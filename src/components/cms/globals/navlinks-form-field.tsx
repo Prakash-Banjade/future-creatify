@@ -24,7 +24,7 @@ import {
 } from "@/components/ui/select"
 import { Checkbox } from "@/components/ui/checkbox";
 import { InternalLinkField } from "../pages/tabs/common/internal-link-field";
-import { ECtaVariant } from "../../../../types/blocks.types";
+import { ECtaVariant } from "../../../types/blocks.types";
 import { ENavLinkType, MAX_NAV_SUB_LINKS, navLinkDefaultValue } from "@/schemas/globals.schema";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -234,7 +234,7 @@ export default function NavLinkFormField({
                                     <FormLabel>Label <span className='text-destructive'>*</span></FormLabel>
                                     <FormControl>
                                         <Input
-                                            placeholder="Eg. Learm More"
+                                            placeholder="Eg. Learn More"
                                             required
                                             {...field}
                                         />
@@ -292,7 +292,11 @@ export default function NavLinkFormField({
                                                                 idx={subIdx}
                                                                 name={name}
                                                                 subIdx={subIdx}
-                                                                actions={{ swap, remove, insert }}
+                                                                actions={{
+                                                                    swap,
+                                                                    remove,
+                                                                    insert: insert as UseFieldArrayInsert<any>
+                                                                }}
                                                             />
                                                         ))
                                                     }

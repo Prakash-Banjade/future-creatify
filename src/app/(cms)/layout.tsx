@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Playfair_Display } from "next/font/google";
 import "../globals.css";
 import { SessionProvider } from "next-auth/react";
 import { Toaster } from "@/components/ui/sonner";
@@ -8,6 +8,14 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "@/lib/queryClient";
 import NextTopLoader from 'nextjs-toploader';
 import { SITE_TITLE } from "@/CONSTANTS";
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+
+const playFair = Playfair_Display({
+  subsets: ["latin"],
+  display: "swap",
+  preload: true,
+  adjustFontFallback: true,
+});
 
 const inter = Inter({
   variable: "--font-inter",
@@ -30,7 +38,7 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.variable} antialiased`}
+        className={`${playFair.style} ${inter.variable} antialiased`}
       >
         <ThemeProvider
           attribute="class"
@@ -42,6 +50,7 @@ export default async function RootLayout({
             <QueryClientProvider client={queryClient}>
               <NextTopLoader />
               {children}
+              <ReactQueryDevtools initialIsOpen={false} />
             </QueryClientProvider>
           </SessionProvider>
           <Toaster richColors />

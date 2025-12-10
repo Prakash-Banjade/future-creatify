@@ -5,9 +5,9 @@ import { cn, createQueryString } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command"
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
-import { SelectOption } from '../../../../../../types/global.types';
+import { SelectOption } from '../../../../../types/global.types';
 import { useFetchData } from "@/hooks/useFetchData";
-import { TPaginatedOptions } from "../../../../../../types/global.types";
+import { TPaginatedOptions } from "../../../../../types/global.types";
 import { useFormContext } from 'react-hook-form';
 
 export function useInternalLinks(queryString: string = "") {
@@ -31,6 +31,16 @@ export function useInternalLinks(queryString: string = "") {
         }
     });
 
+    const { data: events, isLoading: isEventsLoading } = useFetchData<TPaginatedOptions>({
+        endpoint: '/events/options',
+        queryKey: ['events', 'options', queryString],
+        queryString,
+        options: {
+            staleTime: 1000 * 60, // 1 min
+            gcTime: 1000 * 60, // 1 min
+        }
+    });
+
     const { data: teams, isLoading: isTeamsLoading } = useFetchData<TPaginatedOptions>({
         endpoint: '/teams/options',
         queryKey: ['teams', 'options', queryString],
@@ -41,7 +51,7 @@ export function useInternalLinks(queryString: string = "") {
         }
     });
 
-    const isLoading = isPagesLoading || isBlogsLoading || isTeamsLoading;
+    const isLoading = isPagesLoading || isBlogsLoading || isTeamsLoading || isEventsLoading;
 
     return {
         data: [
@@ -56,6 +66,10 @@ export function useInternalLinks(queryString: string = "") {
             {
                 label: 'teams',
                 options: teams,
+            },
+            {
+                label: 'events',
+                options: events,
             },
         ],
         isLoading

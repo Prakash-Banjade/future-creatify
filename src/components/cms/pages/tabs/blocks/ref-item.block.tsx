@@ -2,7 +2,7 @@ import { BlockComponentProps } from './blocks'
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { useFormContext } from "react-hook-form";
-import { EOrder, ERefRelation } from '../../../../../../types/global.types';
+import { EOrder, ERefRelation } from '../../../../../types/global.types';
 import { Input } from '@/components/ui/input';
 import { NUMBER_REGEX_STRING } from '@/CONSTANTS';
 import { InfiniteMultiSelect } from '@/components/forms/infinite-multi-select';
@@ -28,7 +28,7 @@ export default function RefItemBlock({ blockIdx, sectionIdx }: BlockComponentPro
                         <Select
                             onValueChange={val => {
                                 field.onChange(val);
-                                form.setValue(`${blockName}.selected`, []); // reset selected on ref change
+                                form.setValue(`${blockName}.selected`, []);
                             }}
                             defaultValue={field.value}
                             required

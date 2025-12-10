@@ -1,7 +1,7 @@
 import { db } from "@/db";
 import { pages } from "@/db/schema/page";
 import { eq } from "drizzle-orm";
-import { TPage } from "../../../../../../types/page.types";
+import { TPage } from "../../../../../types/page.types";
 import PageForm from "@/components/cms/pages/page/page-form";
 import PageLivePreview from "@/components/cms/pages/page/live-preview";
 import PageApiView from "@/components/cms/pages/page/api-view";

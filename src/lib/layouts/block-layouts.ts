@@ -1,7 +1,7 @@
 import { TBlock } from "@/schemas/page.schema";
 import jumboCenter from "@/assets/layouts/hero-layout/jumbotron-center.svg";
-import { EBlock, ECardsBlockLayout } from "../../../types/blocks.types";
-import { EAlignment, EOrder, ERefRelation } from "../../../types/global.types";
+import { EBlock, ECardsBlockLayout } from "../../types/blocks.types";
+import { EAlignment, EOrder, ERefRelation } from "../../types/global.types";
 import { StaticImageData } from "next/image";
 import { richTextDefaultValues } from "@/schemas/rich-text.schema";
 
@@ -35,12 +35,7 @@ export const blockLayouts: {
                 type: EBlock.Cards,
                 layout: ECardsBlockLayout.Grid,
                 cards: [],
-                columns: {
-                    sm: 1,
-                    md: 2,
-                    lg: 3,
-                    xl: 4,
-                },
+                colWidthLimit: 300,
             },
             alt: "Cards",
             image: jumboCenter,
@@ -101,6 +96,14 @@ export const blockLayouts: {
                 type: EBlock.Certification,
             },
             alt: "Certifications",
+            image: jumboCenter,
+        },
+        {
+            block: {
+                type: EBlock.Timeline,
+                events: [],
+            },
+            alt: "Timeline",
             image: jumboCenter,
         },
         {

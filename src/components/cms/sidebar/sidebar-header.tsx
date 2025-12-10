@@ -1,3 +1,4 @@
+import CloudinaryImage from "@/components/ui/cloudinary-image";
 import {
   SidebarHeader,
   SidebarMenu,
@@ -5,7 +6,6 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar";
 import { TSiteSettingSchema } from "@/schemas/site-setting.schema";
-import Image from "next/image";
 import Link from "next/link";
 
 export function AppSidebarHeader({
@@ -21,24 +21,21 @@ export function AppSidebarHeader({
         <SidebarMenuItem>
           <section className="px-2">
             <Link href="/" className="flex items-center gap-4">
-              {siteData?.logoLight && open && (
-                <Image
+              {siteData?.logoLight && (
+                <CloudinaryImage
                   width={64}
                   height={64}
                   src={siteData?.logoLight?.secure_url}
-                  alt="Feature Creatify Logo"
-                  className="h-auto max-w-18"
+                  alt="Future Creatify Logo"
+                  className="max-h-28 max-auto"
                 />
               )}
 
               {open && (
                 <section className="overflow-hidden">
-                  <h1 className="font-semibold text-xl leading-5 whitespace-nowrap">
-                    Future <span className="text-primary">Creatify</span>
+                  <h1 className="font-semibold text-2xl leading-5 whitespace-nowrap">
+                    <span className="text-primary">FUTURE</span>CREATIFY
                   </h1>
-                  <p className="text-xs text-muted-foreground font-medium whitespace-nowrap">
-                    Education Hub
-                  </p>
                 </section>
               )}
             </Link>

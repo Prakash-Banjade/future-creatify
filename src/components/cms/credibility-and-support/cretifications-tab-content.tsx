@@ -18,7 +18,7 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { certificationDefaultvalue, TCredibilityAndSupport } from "@/schemas/credibility-and-support.schema";
 import { TMediaSchema } from "@/schemas/media.schema";
-import { MediaInput, MediaItem } from "@/components/forms/media-field";
+import { MediaInput, MediaItem } from "@/components/media/media-field";
 
 export default function CertificationsTabContent() {
     const form = useFormContext<TCredibilityAndSupport>();
@@ -69,8 +69,12 @@ export default function CertificationsTabContent() {
                                                                                             <FormItem>
                                                                                                 <FormControl>
                                                                                                     <input
+                                                                                                        maxLength={100}
+                                                                                                        onClick={(e) => e.stopPropagation()}
                                                                                                         className="focus:outline-0 text-sm field-sizing-content"
                                                                                                         placeholder="Untitled"
+                                                                                                        readOnly
+                                                                                                        disabled
                                                                                                         {...field}
                                                                                                     />
                                                                                                 </FormControl>
@@ -96,7 +100,7 @@ export default function CertificationsTabContent() {
                                                                                         <DropdownMenuItem onClick={() => insert(idx + 1, certificationDefaultvalue)}>
                                                                                             <Plus /> Add Below
                                                                                         </DropdownMenuItem>
-                                                                                        <DropdownMenuItem onClick={() => insert(idx + 1, structuredClone(field.value))}><Copy /> Duplicate
+                                                                                        <DropdownMenuItem onClick={() => insert(idx + 1, field.value)}><Copy /> Duplicate
                                                                                         </DropdownMenuItem>
                                                                                         <DropdownMenuItem onClick={() => remove(idx)}>
                                                                                             <X /> Remove
@@ -115,6 +119,7 @@ export default function CertificationsTabContent() {
                                                                                         <FormControl>
                                                                                             <Input
                                                                                                 className='py-5'
+                                                                                                maxLength={100}
                                                                                                 {...field}
                                                                                             />
                                                                                         </FormControl>

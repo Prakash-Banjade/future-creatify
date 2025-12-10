@@ -1,7 +1,7 @@
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { FieldValues, Path, useFormContext } from "react-hook-form";
-import { EAlignment, EAlignmentExcludeCenter } from "../../../../../../types/global.types";
+import { EAlignment, EAlignmentExcludeCenter } from "../../../../../types/global.types";
 type Props<T> = {
     name: Path<T>,
     label?: string,

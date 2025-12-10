@@ -1,10 +1,17 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Playfair_Display } from "next/font/google";
 import "../globals.css";
-import Footer from "@/components/site/footer";
+import Footer from "@/components/site/footer/footer";
 import { Toaster } from "sonner";
 import Navbar from "@/components/site/navbar";
 import { QCProvider } from "@/context/query-client-provider";
+
+const playFair = Playfair_Display({
+  subsets: ["latin"],
+  display: "swap",
+  preload: true,
+  adjustFontFallback: true,
+});
 
 const inter = Inter({
   variable: "--font-inter",
@@ -13,8 +20,8 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: {
-    default: "Feature Creatify",
-    template: "%s | Feature Creatify",
+    default: "Future Creatify",
+    template: "%s | Future Creatify",
   },
 };
 
@@ -22,15 +29,14 @@ type Props = {
   children: React.ReactNode;
 };
 
-
 export default function SiteLayout({ children }: Props) {
   return (
     <html lang="en">
       <QCProvider>
-        <body className={`${inter.variable} antialiased`}>
+        <body className={`${playFair.style} ${inter.variable} antialiased`}>
           <div className="flex flex-col min-h-screen">
             <Navbar />
-            <main className="flex-grow">{children}</main>
+            <div className="flex-grow">{children}</div>
             <Footer />
           </div>
           <Toaster richColors />

@@ -1,30 +1,32 @@
-import { THeroSectionDto } from "@/schemas/hero-section.schema"
-import SplitHero from "./split-hero"
-import JumboTron from "./jumbotron"
+"use client";
+
+import { THeroSectionDto } from "@/schemas/hero-section.schema";
+import SplitHero from "./split-hero";
+import JumboTron from "./jumbotron";
 
 export type RenderHeroProps = {
-    heroSections: THeroSectionDto[]
+  heroSections: THeroSectionDto[];
 }
 
 const heros = {
-    jumbotron: JumboTron,
-    splitHero: SplitHero
+  jumbotron: JumboTron,
+  splitHero: SplitHero
 }
 
 export default function RenderHero({ heroSections }: RenderHeroProps) {
-    if (!heroSections.length) return null;
+  if (!heroSections.length) return null;
 
-    const hero = heroSections[0];
+  const hero = heroSections[0];
 
-    const type = hero.layout.type;
+  const type = hero.layout.type;
 
-    if (!type) return null;
+  if (!type) return null;
 
-    const HeroToRender = heros[type];
+  const HeroToRender = heros[type];
 
-    if (!HeroToRender) return null;
+  if (!HeroToRender) return null;
 
-    return (
-        <HeroToRender hero={hero} />
-    )
+  return (
+    <HeroToRender hero={hero} />
+  )
 }

@@ -1,12 +1,12 @@
 import { FC } from "react";
-import { EBlock } from "../../../../../../types/blocks.types";
+import { EBlock } from "../../../../../types/blocks.types";
 import TextBlock from "./text-block";
 import ImageBlock from "./image-block";
 import CardsBlock from "./card/card-block";
 import RefItemBlock from "./ref-item.block";
 import FormBlock from "./form-block";
 import FaqBlock from "./faq-block";
-import PartnersBlock from "./partners-block";
+import TimelineBlock from "./timeline-block";
 
 export type BlockComponentProps = {
   sectionIdx: number;
@@ -19,11 +19,12 @@ export const blocks: Partial<Record<EBlock, FC<BlockComponentProps>>> = {
   [EBlock.Cards]: CardsBlock,
   [EBlock.RefItem]: RefItemBlock,
   [EBlock.Form]: FormBlock,
-  [EBlock.Faq]: FaqBlock, // FaqBlock means no setting block
+  [EBlock.Faq]: FaqBlock,
   [EBlock.Testimonial]: FaqBlock,
   [EBlock.Alumni]: FaqBlock,
-  [EBlock.Partner]: PartnersBlock,
+  [EBlock.Partner]: FaqBlock,
   [EBlock.Certification]: FaqBlock,
   [EBlock.ContactText]: FaqBlock,
   [EBlock.Map]: FaqBlock,
+  [EBlock.Timeline]: TimelineBlock,
 };

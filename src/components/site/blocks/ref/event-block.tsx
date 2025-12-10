@@ -1,9 +1,9 @@
 import { RefItemBlockDto } from "@/schemas/page.schema";
-import { ERefRelation } from "../../../../../types/global.types";
+import { ERefRelation } from "../../../../types/global.types";
 import { serverFetch } from "@/lib/data-access.ts/server-fetch";
 import Link from "next/link";
 import EventCard from "../../events/event-card";
-import { TEventsResponse_Public } from "../../../../../types/event.types";
+import { TEventsResponse_Public } from "../../../../types/event.types";
 import { Button } from "@/components/ui/button";
 import { gridClassName } from ".";
 import { cn } from "@/lib/utils";

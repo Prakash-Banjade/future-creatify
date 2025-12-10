@@ -13,7 +13,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { z } from "zod";
 import { Search } from "lucide-react";
-import { TPaginatedOptions } from "../../../../types/global.types";
+import { TPaginatedOptions } from "../../../types/global.types";
 
 const schema = z
   .object({
@@ -71,7 +71,7 @@ export default function BlogsSearchFilters_Public({ categories }: Props) {
       </Select>
 
       <SearchInput
-      
+
         placeholder="Search blogs..."
         className={{
           input:

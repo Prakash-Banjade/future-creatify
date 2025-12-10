@@ -21,15 +21,19 @@ export const useFetchData = <TData>({
     queryString = '',
     endpoint,
 }: UseFetchDataOptions<TData>) => {
-    const url = `/${endpoint}${queryString ? `?${queryString}` : ''}`;
+    const url = `${endpoint}${queryString ? `?${queryString}` : ''}`;
 
     return useQuery<TData>({
         queryKey: queryKey,
         queryFn: async () => {
-            const response = await axios.get<TData>(process.env.NEXT_PUBLIC_URL + '/api/' + url);
+            const response = await axiosInstance.get<TData>(url);
             return response.data;
         },
         placeholderData: keepPreviousData,
         ...options,
     });
 };
+
+export const axiosInstance = axios.create({
+    baseURL: process.env.NEXT_PUBLIC_URL + '/api',
+});

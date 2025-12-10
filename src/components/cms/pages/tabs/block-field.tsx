@@ -22,7 +22,7 @@ import { cn } from "@/lib/utils";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities"
 import FieldArraySortableContext from "@/components/dnd/field-array-sortable-context";
-import { EBlock } from "../../../../../types/blocks.types";
+import { EBlock } from "../../../../types/blocks.types";
 
 export default function BlockField({ sectionIdx }: { sectionIdx: number }) {
     const form = useFormContext<TPageDto>();
@@ -38,7 +38,6 @@ export default function BlockField({ sectionIdx }: { sectionIdx: number }) {
             name={`sections.${sectionIdx}.blocks`}
             render={() => (
                 <FormItem>
-                    <FormLabel>Blocks</FormLabel>
                     <FieldArraySortableContext
                         fields={fields}
                         move={move}

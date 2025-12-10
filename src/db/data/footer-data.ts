@@ -1,6 +1,6 @@
 import { ENavLinkType } from "@/schemas/globals.schema";
 import { TFooterSelect } from "../schema/globals";
-import { ECtaVariant } from "../../../types/blocks.types";
+import { ECtaVariant } from "@/types/blocks.types";
 
 export const footerData: TFooterSelect[] = [
   {

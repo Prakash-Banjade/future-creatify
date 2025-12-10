@@ -3,7 +3,7 @@ import { blogs } from "@/db/schema/blog";
 import { and, asc, desc, eq, ilike, inArray, isNull, not, SQL } from "drizzle-orm";
 import { NextResponse } from "next/server";
 import { type NextRequest } from "next/server";
-import { EOrder } from "../../../../types/global.types";
+import { EOrder } from "../../../types/global.types";
 import { categories } from "@/db/schema/category";
 
 export async function GET(request: NextRequest) {
@@ -30,7 +30,7 @@ export async function GET(request: NextRequest) {
             publishedAt: blogs.publishedAt,
             keywords: blogs.keywords,
             coverImage: blogs.coverImage,
-            length: blogs.length,
+            stats: blogs.stats,
             categoryName: categories.name,
             author: blogs.author,
             updatedAt: blogs.updatedAt,

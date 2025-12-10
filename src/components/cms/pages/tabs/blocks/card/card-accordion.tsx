@@ -1,4 +1,4 @@
-import { useFormContext } from "react-hook-form"
+import { useFormContext, useWatch } from "react-hook-form"
 import {
     Accordion,
     AccordionContent,
@@ -16,8 +16,8 @@ import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/comp
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { TMediaSchema } from "@/schemas/media.schema";
-import { MediaInput, MediaItem } from "@/components/forms/media-field";
-import { ELinkType } from "../../../../../../../types/global.types";
+import { MediaInput, MediaItem } from "@/components/media/media-field";
+import { ELinkType } from "../../../../../../types/global.types";
 import { InternalLinkField } from "../../common/internal-link-field";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -44,6 +44,11 @@ export default function CardAccordion({ fieldId, idx, name, onRemove, isFieldErr
         transform: CSS.Transform.toString(transform),
         transition,
     }
+
+    const link = useWatch({
+        control: form.control,
+        name: `${name}.link`
+    });
 
     return (
         <section ref={setNodeRef} style={style} className={`${isDragging ? "opacity-50" : ""}`}>
@@ -171,8 +176,9 @@ export default function CardAccordion({ fieldId, idx, name, onRemove, isFieldErr
                         <div className="flex items-center gap-3">
                             <Checkbox
                                 id={`${name}-enable-link`}
-                                checked={!!form.watch(`${name}.link`)}
+                                checked={link !== undefined}
                                 onCheckedChange={val => {
+                                    console.log(link === undefined)
                                     if (val) {
                                         form.setValue(`${name}.link`, {
                                             url: "",
@@ -187,7 +193,7 @@ export default function CardAccordion({ fieldId, idx, name, onRemove, isFieldErr
                         </div>
 
                         {
-                            !!form.watch(`${name}.link`) && (
+                            link !== undefined && (
                                 <>
                                     <section className="grid grid-cols-2 gap-6">
                                         <FormField

@@ -19,6 +19,7 @@ import {
 
 const FONT_FAMILY_OPTIONS = [
   "Arial",
+  "Playfair Display",
   "Verdana",
   "Times New Roman",
   "Georgia",

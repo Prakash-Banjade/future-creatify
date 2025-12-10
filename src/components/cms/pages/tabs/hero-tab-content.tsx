@@ -17,19 +17,21 @@ import {
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import CtaAccordion from "./common/cta-accordion";
 import { Button } from "@/components/ui/button";
-import { ECtaVariant } from "../../../../../types/blocks.types";
-import { MediaInput, MediaItem } from "@/components/forms/media-field";
+import { ECtaVariant } from "../../../../types/blocks.types";
+import { MediaInput, MediaItem } from "@/components/media/media-field";
 import AddHeroSectionDialog from "./add-herosection-dialog";
-import { EHeroLayoutTypes } from "../../../../../types/page.types";
+import { EHeroLayoutTypes } from "../../../../types/page.types";
 import AlignmentSelect from "./common/alignment-select";
 import { TMediaSchema } from "@/schemas/media.schema";
-import { ELinkType } from "../../../../../types/global.types";
+import { ELinkType } from "../../../../types/global.types";
 import { cn } from "@/lib/utils";
 import { Editor } from "@/components/editor/blocks/editor-x/editor";
 import { richTextDefaultValues } from "@/schemas/rich-text.schema";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities"
 import FieldArraySortableContext from "@/components/dnd/field-array-sortable-context";
+import { Label } from "@radix-ui/react-label";
+import { ColorPicker } from "@/components/ui/color-picker";
 
 export default function HeroTabContent() {
     const form = useFormContext<TPageDto>();
@@ -61,9 +63,7 @@ export default function HeroTabContent() {
                     }
                 </section>
             </FieldArraySortableContext>
-
-
-           {fields.length === 0 && (<AddHeroSectionDialog
+            <AddHeroSectionDialog
                 length={fields.length}
                 onSelect={layout => {
                     append({
@@ -83,9 +83,7 @@ export default function HeroTabContent() {
                 >
                     <Plus size={16} /> Add Hero
                 </Button>
-            </AddHeroSectionDialog>)}
-
-
+            </AddHeroSectionDialog>
         </section>
     )
 }
@@ -166,6 +164,7 @@ function SortableField({
                                                                 insert(idx + 1, {
                                                                     headline: richTextDefaultValues,
                                                                     image: undefined,
+                                                                    backgroundColor: undefined,
                                                                     cta: [],
                                                                     layout
                                                                 });
@@ -208,56 +207,59 @@ function SortableField({
                                                     )
                                                 }}
                                             />
-                                            {/* <FormField
-                                                                control={form.control}
-                                                                name={`heroSections.${idx}.subheadline`}
-                                                                render={({ field }) => (
-                                                                    <FormItem>
-                                                                        <FormLabel>Sub Headline</FormLabel>
-                                                                        <FormControl>
-                                                                            <Input
-                                                                                placeholder="Eg. Empowering Innovation and Growth in Nepal's Thriving Entrepreneurial Landscape"
-                                                                                className="py-5"
-                                                                                {...field}
-                                                                            />
-                                                                        </FormControl>
-                                                                        <FormMessage />
-                                                                    </FormItem>
-                                                                )}
-                                                            /> */}
                                             <CtaField heroIdx={idx} />
 
-                                            <FormField
-                                                control={form.control}
-                                                name={`heroSections.${idx}.image`}
-                                                render={({ field }) => {
-                                                    const value = field.value as TMediaSchema | null;
+                                            <section className="flex flex-col gap-2">
+                                                <Label className="font-medium">Background</Label>
+                                                <section className="space-y-2">
+                                                    <FormField
+                                                        control={form.control}
+                                                        name={`heroSections.${idx}.backgroundColor`}
+                                                        render={({ field }) => (
+                                                            <FormItem>
+                                                                <FormControl>
+                                                                    <ColorPicker
+                                                                        value={field.value || "#ffffff"}
+                                                                        onChange={color => field.onChange(color)}
+                                                                    />
+                                                                </FormControl>
+                                                                <FormMessage />
+                                                            </FormItem>
+                                                        )}
+                                                    />
 
-                                                    return (
-                                                        <FormItem>
-                                                            <FormLabel>Image <span className='text-destructive'>*</span></FormLabel>
-                                                            <FormControl>
-                                                                {
-                                                                    value ? (
-                                                                        <MediaItem
-                                                                            media={value}
-                                                                            onRemove={() => {
-                                                                                field.onChange(null)
-                                                                            }}
-                                                                        />
-                                                                    ) : (
-                                                                        <MediaInput onChange={(value) => {
-                                                                            field.onChange(value)
-                                                                        }} />
-                                                                    )
+                                                    <FormField
+                                                        control={form.control}
+                                                        name={`heroSections.${idx}.image`}
+                                                        render={({ field }) => {
+                                                            const value = field.value as TMediaSchema | null;
 
-                                                                }
-                                                            </FormControl>
-                                                            <FormMessage />
-                                                        </FormItem>
-                                                    )
-                                                }}
-                                            />
+                                                            return (
+                                                                <FormItem>
+                                                                    <FormControl>
+                                                                        {
+                                                                            value ? (
+                                                                                <MediaItem
+                                                                                    media={value}
+                                                                                    onRemove={() => {
+                                                                                        field.onChange(null)
+                                                                                    }}
+                                                                                />
+                                                                            ) : (
+                                                                                <MediaInput onChange={(value) => {
+                                                                                    field.onChange(value)
+                                                                                }} />
+                                                                            )
+
+                                                                        }
+                                                                    </FormControl>
+                                                                    <FormMessage />
+                                                                </FormItem>
+                                                            )
+                                                        }}
+                                                    />
+                                                </section>
+                                            </section>
 
                                             {
                                                 layout.type === EHeroLayoutTypes.Jumbotron ? (

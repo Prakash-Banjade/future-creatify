@@ -1,7 +1,7 @@
 import { z } from "zod";
-import { ECtaVariant } from "../../types/blocks.types";
-import { EHeroLayoutTypes } from "../../types/page.types";
-import { EAlignment, EAlignmentExcludeCenter, ELinkType } from "../../types/global.types";
+import { ECtaVariant } from "../types/blocks.types";
+import { EHeroLayoutTypes } from "../types/page.types";
+import { EAlignment, EAlignmentExcludeCenter, ELinkType } from "../types/global.types";
 import { mediaSchema } from "./media.schema";
 import { richTextDefaultValues, richTextSchema } from "./rich-text.schema";
 
@@ -57,6 +57,7 @@ export const HeroLayoutSchema = z.discriminatedUnion("type", [
 export const HeroSectionDtoSchema = z.object({
     headline: richTextSchema,
     image: mediaSchema.nullish(),
+    backgroundColor: z.string().optional(),
     cta: z
         .array(CTADtoSchema)
         .max(2, { message: "CTA must be less than 2" }),
@@ -68,6 +69,7 @@ export type THeroSectionDto = z.infer<typeof HeroSectionDtoSchema>;
 export const heroSectionDtoDefaultValues: THeroSectionDto = {
     headline: richTextDefaultValues,
     image: undefined,
+    backgroundColor: undefined,
     cta: [],
     layout: {
         type: EHeroLayoutTypes.Jumbotron,

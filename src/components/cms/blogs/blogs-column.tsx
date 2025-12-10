@@ -19,7 +19,7 @@ import { ResponsiveAlertDialog } from "@/components/ui/responsive-alert-dialog"
 import { toast } from "sonner"
 import { deleteBlog } from "@/lib/actions/blogs.action"
 import Link from "next/link"
-import { TBlogsResponse } from "../../../../types/blog.types"
+import { TBlogsResponse } from "../../../types/blog.types"
 
 export const blogsColumns: ColumnDef<TBlogsResponse[0]>[] = [
     {

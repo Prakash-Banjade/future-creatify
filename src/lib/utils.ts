@@ -6,6 +6,9 @@ import { getCldImageUrl } from "next-cloudinary";
 import * as crypto from "crypto";
 import { Facebook, Github, Globe, Instagram, Linkedin, LucideProps, Twitter } from "lucide-react";
 import { ForwardRefExoticComponent, RefAttributes } from "react";
+import { ENavLinkType, TNavLinksDto } from "@/schemas/globals.schema";
+import { HOME_SLUG } from "@/app/slugs";
+import { ECtaVariant } from "@/types/blocks.types";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -197,4 +200,46 @@ export function getSocialIcon(url: string): ForwardRefExoticComponent<Omit<Lucid
   } catch (err) {
     return Globe;
   }
+}
+
+export type RefinedNavLinks = {
+  label: string;
+  href: string;
+  variant: ECtaVariant;
+  type: ENavLinkType;
+  subLinks: {
+    text: string;
+    type: ENavLinkType;
+    url: string;
+    variant: ECtaVariant;
+    newTab: boolean;
+  }[];
+  newTab: boolean;
+}[]
+
+/**
+ * Refines navigation links by processing each link and generating a refined object.
+ * @param navLinks - The navigation links to refine.
+ * @returns An array of refined navigation links.
+ */
+export function refineNavLinks(navLinks: TNavLinksDto): RefinedNavLinks {
+  return navLinks.map((n) => {
+    const href =
+      n.type === ENavLinkType.External
+        ? n.url
+        : n.url === HOME_SLUG
+          ? "/"
+          : n.url.startsWith("/")
+            ? n.url
+            : `/${n.url}`;
+
+    return {
+      label: n.text,
+      href,
+      variant: n.variant,
+      type: n.type,
+      subLinks: n.subLinks,
+      newTab: n.newTab,
+    };
+  });
 }

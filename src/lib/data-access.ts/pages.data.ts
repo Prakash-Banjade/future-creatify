@@ -1,9 +1,9 @@
 import { db } from "@/db";
-import { TPagesResponse } from "../../../types/page.types";
+import { TPagesResponse } from "../../types/page.types";
 import { pages } from "@/db/schema/page";
 import { and, desc, ilike, SQL } from "drizzle-orm";
 import { getPaginationQueryParams, paginatedResponse } from "../db-utils";
-import { TDataSearchParams } from "../../../types/global.types";
+import { TDataSearchParams } from "../../types/global.types";
 
 export async function getPages(searchParams?: TDataSearchParams): Promise<TPagesResponse | null> {
     const urlSearchParams = new URLSearchParams(searchParams);

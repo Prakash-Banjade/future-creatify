@@ -3,7 +3,7 @@ import { categories } from "@/db/schema/category";
 import { events } from "@/db/schema/event";
 import { and, asc, desc, eq, ilike, inArray, SQL } from "drizzle-orm";
 import { NextRequest, NextResponse } from "next/server";
-import { EOrder } from "../../../../types/global.types";
+import { EOrder } from "../../../types/global.types";
 
 export async function GET(request: NextRequest) {
     const searchParams = request.nextUrl.searchParams;

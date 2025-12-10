@@ -1,5 +1,5 @@
 import { CTADto } from "@/schemas/hero-section.schema";
-import { ELinkType } from "../../../types/global.types";
+import { ELinkType } from "../../types/global.types";
 import { Button, ButtonProps } from "./button";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
@@ -11,7 +11,7 @@ export default function CMSLink({
     newTab,
     text,
     type,
-    variant,
+    variant, // "primary" | "outline"
     className,
     size
 }: CTADto & Pick<ButtonProps, 'className' | 'size'>) {

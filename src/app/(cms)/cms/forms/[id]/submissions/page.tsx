@@ -1,9 +1,9 @@
 import ContainerLayout from "@/components/cms/container-layout";
-import { TDataSearchParams } from "../../../../../../../types/global.types";
+import { TDataSearchParams } from "../../../../../../types/global.types";
 import { getFormById } from "@/lib/data-access.ts/forms.data";
 import { redirect } from "next/navigation";
 import FormSubmissionsList from "@/components/cms/forms/form-submissions-list";
-import { TForm } from "../../../../../../../types/form.types";
+import { TForm } from "../../../../../../types/form.types";
 
 export type SubmissionsPageProps = {
     params: Promise<{

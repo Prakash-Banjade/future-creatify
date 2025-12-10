@@ -1,11 +1,11 @@
 import { z } from "zod";
-import { EBlock, ECardsBlockLayout } from "../../types/blocks.types";
+import { EBlock, ECardsBlockLayout } from "../types/blocks.types";
 import {
   EAlignment,
   ELinkType,
   EOrder,
   ERefRelation,
-} from "../../types/global.types";
+} from "../types/global.types";
 import { CTADtoSchema, HeroSectionDtoSchema } from "./hero-section.schema";
 import { mediaSchema } from "./media.schema";
 import { richTextSchema } from "./rich-text.schema";
@@ -76,29 +76,12 @@ export const CardSchema = z.object({
   newTab: z.boolean(),
 });
 
-export const MAX_CARD_BLOCK_CARDS = 4;
-
-const maxColsSchema = z.coerce
-  .number()
-  .int()
-  .min(1, { message: "At least 1 column is required" })
-  .max(MAX_CARD_BLOCK_CARDS, {
-    message: `Max ${MAX_CARD_BLOCK_CARDS} columns allowed`,
-  });
-
 // ---- CardsBlockDto ----
 export const CardsBlockSchema = BaseBlockSchema.extend({
   type: z.literal(EBlock.Cards),
   layout: z.nativeEnum(ECardsBlockLayout),
-  columns: z.object({
-    sm: maxColsSchema.optional(),
-    md: maxColsSchema.optional(),
-    lg: maxColsSchema.optional(),
-    xl: maxColsSchema.optional(),
-  }),
-  cards: z
-    .array(CardSchema)
-    .min(1, { message: "At least one card is required" }),
+  colWidthLimit: z.coerce.number().int().min(100, { message: "At least 100px is required" }),
+  cards: z.array(CardSchema).min(1, { message: "At least one card is required" }),
 });
 export type CardsBlockDto = z.infer<typeof CardsBlockSchema>;
 // ---- RefItemBlockDto ----
@@ -164,10 +147,23 @@ export const ContactBlockSchema = BaseBlockSchema.extend({
   type: z.literal(EBlock.ContactText),
 });
 
-//map
+// --- MapBlockDto ---
 export const MapBlockSchema = BaseBlockSchema.extend({
   type: z.literal(EBlock.Map),
 });
+
+// --- TimelineBlockDto ---
+export const TimelineBlockSchema = BaseBlockSchema.extend({
+  type: z.literal(EBlock.Timeline),
+  events: z.array(z.object({
+    title: z.string().min(1, { message: "Title is required" }),
+    date: z.string().min(1, { message: "Date is required" }),
+    description: z.string(),
+    media: mediaSchema.nullish(),
+  })).min(1, { message: "At least one event is required" }),
+});
+
+export type TimelineBlockDto = z.infer<typeof TimelineBlockSchema>;
 
 // ---- Discriminated union of all blocks ----
 export const BlockSchema = z.discriminatedUnion("type", [
@@ -182,7 +178,8 @@ export const BlockSchema = z.discriminatedUnion("type", [
   PartnerBlockSchema,
   CertificationBlockSchema,
   ContactBlockSchema,
-  MapBlockSchema
+  MapBlockSchema,
+  TimelineBlockSchema
 ]);
 
 export type TBlock = z.infer<typeof BlockSchema>;
@@ -217,7 +214,9 @@ export const PageSectionSchema = z
       .optional(),
     headlineAlignment: z.nativeEnum(EAlignment),
     blocks: PageBlocksSchema.optional(),
-    container: z.boolean().optional(),
+    isContainer: z.boolean(),
+    backgroundColor: z.string().optional(),
+    backgroundImage: mediaSchema.nullish(),
   })
   .strict();
 

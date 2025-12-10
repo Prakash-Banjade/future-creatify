@@ -8,12 +8,12 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { ECtaVariant } from "../../../../../../types/blocks.types";
+import { ECtaVariant } from "../../../../../types/blocks.types";
 import { Plus } from "lucide-react";
 import CtaAccordion from "../common/cta-accordion";
 import { BlockComponentProps } from "./blocks";
 import AlignmentSelect from "../common/alignment-select";
-import { ELinkType } from "../../../../../../types/global.types";
+import { ELinkType } from "../../../../../types/global.types";
 import { TPageDto } from "@/schemas/page.schema";
 import { Editor } from "@/components/editor/blocks/editor-x/editor";
 
@@ -40,7 +40,7 @@ export default function TextBlock({
           <FormItem>
             <FormLabel>Headline</FormLabel>
             <FormControl>
-              <Input className="py-5" maxLength={50} {...field} />
+              <Input className="py-5" maxLength={100} {...field} />
             </FormControl>
             <FormMessage />
           </FormItem>
@@ -69,6 +69,18 @@ export default function TextBlock({
                 placeholder="Write something..."
                 editorSerializedState={field.value.json}
                 onSerializedChange={field.onChange}
+                plugins={{
+                  collapsibleContainer: true,
+                  columnsLayout: true,
+                  embeds: true,
+                  formatting: true,
+                  horizontalRule: true,
+                  image: true,
+                  inlineImage: true,
+                  pageBreak: true,
+                  poll: true,
+                  table: true,
+                }}
               />
             </FormControl>
             <FormMessage />

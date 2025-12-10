@@ -2,8 +2,8 @@
 
 import { useCustomSearchParams } from "@/hooks/useCustomSearchParams";
 import { Filter } from "lucide-react";
-import { TPaginatedOptions } from "../../../../types/global.types";
-import { useEffect, useState } from "react";
+import { TPaginatedOptions } from "@/types/global.types";
+import { useState } from "react";
 
 type Props = {
   categories: TPaginatedOptions | null;
@@ -25,7 +25,7 @@ export default function EventFilters({ categories }: Props) {
           setSearch("all")
           setSearchParams("category", undefined, false)
         }}
-        className={`px-4 py-2 rounded-full ${!search
+        className={`px-4 py-2 rounded-full ${!search || search === "all"
           ? "bg-primary text-white"
           : "bg-gray-100 text-slate-600 hover:bg-gray-200"
           }`}

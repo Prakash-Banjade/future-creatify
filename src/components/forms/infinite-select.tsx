@@ -26,7 +26,7 @@ import {
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { useDebounce } from "@/hooks/useDebounce";
 import { useInfiniteOptions } from "@/hooks/useInfiniteOptions";
-import { SelectOption } from "../../../types/global.types";
+import { SelectOption } from "../../types/global.types";
 
 interface InfiniteSelectProps {
   endpoint: string;
@@ -43,7 +43,6 @@ export function InfiniteSelect({
   selected = undefined,
   onSelectionChange,
   className,
-  limit = 10,
 }: InfiniteSelectProps) {
   const [open, setOpen] = React.useState(false);
   const [search, setSearch] = React.useState("");
@@ -63,7 +62,6 @@ export function InfiniteSelect({
   } = useInfiniteOptions(
     endpoint,
     createQueryString({
-      pageSize: limit.toString(),
       q: debouncedSearch,
     })
   );

@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
 import Link from "next/link";
 import { Suspense } from "react";
-import { TDataSearchParams } from "../../../../../types/global.types";
+import { TDataSearchParams } from "../../../../types/global.types";
 
 export const dynamic = "force-dynamic";
 

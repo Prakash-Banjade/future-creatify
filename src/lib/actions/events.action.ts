@@ -9,7 +9,7 @@ import { generateSlug, throwZodErrorMsg } from "../utils";
 import { eventSchema, eventSchemaType } from "@/schemas/event.schema";
 
 export async function createEvent(values: eventSchemaType) {
-  await checkAuth("admin");
+  await checkAuth(["admin", "moderator"]);
 
   const { success, data, error } = eventSchema.safeParse(values);
 
@@ -32,8 +32,9 @@ export async function createEvent(values: eventSchemaType) {
 export async function updateEvent(
   id: string,
   values: Partial<eventSchemaType>,
+  contentEdited: boolean = true
 ) {
-  await checkAuth("admin");
+  await checkAuth(["admin", "moderator"]);
 
   const { success, data, error } = eventSchema.partial().safeParse(values);
 
@@ -74,14 +75,12 @@ export async function updateEvent(
     .where(eq(events.id, id))
     .returning({ slug: events.slug });
 
-  console.log(updated.slug)
-
   revalidatePath(`/cms/events`);
   revalidatePath(`/events/${updated.slug}`);
 }
 
 export async function deleteEvent(id: string) {
-  await checkAuth("admin");
+  await checkAuth(["admin", "moderator"]);
 
   await db.delete(events).where(eq(events.id, id));
 
