@@ -16,7 +16,7 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select";
-import { TMeta } from "../../../types/global.types";
+import { TMeta } from "../../types/global.types";
 import { useCustomSearchParams } from "@/hooks/useCustomSearchParams";
 
 function getNearestTensArray(num: number) {

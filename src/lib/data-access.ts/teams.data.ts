@@ -1,7 +1,7 @@
 import { db } from "@/db";
 import { and, desc, eq, ilike, SQL } from "drizzle-orm";
-import { TDataSearchParams } from "../../../types/global.types";
-import { TeamResponse } from "../../../types/team.type";
+import { TDataSearchParams } from "../../types/global.types";
+import { TeamResponse } from "../../types/team.type";
 import { teamTable, TTeamTableSelect } from "@/db/schema/team";
 
 export async function getTeams(searchParams?: TDataSearchParams): Promise<TeamResponse | null> {

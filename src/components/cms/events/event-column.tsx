@@ -17,7 +17,7 @@ import { useState, useTransition } from "react"
 import { ResponsiveAlertDialog } from "@/components/ui/responsive-alert-dialog"
 import { toast } from "sonner"
 import Link from "next/link"
-import { TEventsResponse } from "../../../../types/event.types"
+import { TEventsResponse } from "../../../types/event.types"
 import { deleteEvent } from "@/lib/actions/events.action"
 import { format } from "date-fns"
 

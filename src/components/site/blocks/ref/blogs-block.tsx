@@ -1,7 +1,7 @@
 import { RefItemBlockDto } from "@/schemas/page.schema";
-import { ERefRelation } from "../../../../../types/global.types";
+import { ERefRelation } from "../../../../types/global.types";
 import { serverFetch } from "@/lib/data-access.ts/server-fetch";
-import { TBlogsResponse_Public } from "../../../../../types/blog.types";
+import { TBlogsResponse_Public } from "../../../../types/blog.types";
 import Link from "next/link";
 import BlogCard from "../../blogs/blog-card";
 import { Button } from "@/components/ui/button";
@@ -19,8 +19,10 @@ export default async function BlogsBlock({
     order: order,
   });
 
-  if (selected?.length)
+  if (selected?.length) {
     urlSearchParams.set("slugs", selected.map((s) => s.value)?.join(","));
+  }
+
   const res = await serverFetch("/blogs" + `?${urlSearchParams.toString()}`, {
     next: { revalidate: parseInt(process.env.NEXT_PUBLIC_DATA_REVALIDATE_SEC!) },
   });

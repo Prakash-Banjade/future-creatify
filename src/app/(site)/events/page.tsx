@@ -7,7 +7,7 @@ import { serverFetch } from "@/lib/data-access.ts/server-fetch";
 import { fetchPage } from "@/lib/utilities/fetchPage";
 import { Metadata } from "next";
 import { Suspense } from "react";
-import { TPaginatedOptions } from "../../../../types/global.types";
+import { TPaginatedOptions } from "@/types/global.types";
 import { EventCardSkeleton } from "@/components/site/events/event-card";
 import { EVENTS_SLUG } from "@/app/slugs";
 

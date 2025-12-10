@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { TFormDto } from '@/schemas/forms.schema';
 import { useFormContext } from 'react-hook-form';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { ERefRelation } from '../../../../../types/global.types';
+import { ERefRelation } from '../../../../types/global.types';
 
 export default function RelationField({ idx }: FormFieldComponentProps) {
     const form = useFormContext<TFormDto>();
@@ -24,7 +24,7 @@ export default function RelationField({ idx }: FormFieldComponentProps) {
                                     className="py-5"
                                     required
                                     minLength={3}
-                                    maxLength={50}
+                                    maxLength={100}
                                     {...field}
                                 />
                             </FormControl>
@@ -42,7 +42,7 @@ export default function RelationField({ idx }: FormFieldComponentProps) {
                             <FormControl>
                                 <Input
                                     className="py-5"
-                                    maxLength={50}
+                                    maxLength={100}
                                     {...field}
                                 />
                             </FormControl>
@@ -60,7 +60,7 @@ export default function RelationField({ idx }: FormFieldComponentProps) {
                             <FormControl>
                                 <Input
                                     className="py-5"
-                                    maxLength={50}
+                                    maxLength={100}
                                     {...field}
                                 />
                             </FormControl>
@@ -78,7 +78,7 @@ export default function RelationField({ idx }: FormFieldComponentProps) {
                             <FormControl>
                                 <Input
                                     className="py-5"
-                                    maxLength={50}
+                                    maxLength={100}
                                     {...field}
                                     value={field.value as string | number | undefined}
                                 />

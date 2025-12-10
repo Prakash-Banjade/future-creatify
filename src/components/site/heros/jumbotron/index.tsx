@@ -1,9 +1,11 @@
 import { cn } from "@/lib/utils";
-import { EHeroLayoutTypes } from "../../../../../types/page.types";
-import { EAlignment } from "../../../../../types/global.types";
-import { RichTextPreview } from "@/components/editor/blocks/editor-x/rich-text-preview";
+import { EHeroLayoutTypes } from "../../../../types/page.types";
+import { EAlignment } from "../../../../types/global.types";
+import { RichTextPreview } from "@/components/rich-text-preview";
 import CMSLink from "@/components/ui/cms-link";
 import { THeroSectionDto } from "@/schemas/hero-section.schema";
+import { ECtaVariant } from "../../../../types/blocks.types";
+import CloudinaryImage from "@/components/ui/cloudinary-image";
 
 export default function JumboTron({ hero }: { hero: THeroSectionDto }) {
   const layoutType = hero.layout.type;
@@ -14,18 +16,31 @@ export default function JumboTron({ hero }: { hero: THeroSectionDto }) {
   return (
     <section
       className={cn(
-        "bg-cream h-[80vh] max-h-[400px]",
+        "h-[80vh] max-h-[400px]",
         hero.image?.secure_url && "h-[80vh] max-h-[600px]",
       )}
-      style={{
-        background: hero.image?.secure_url
-          ? `linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(${hero.image.secure_url}) no-repeat center center / cover`
-          : undefined,
-      }}
+      aria-label="Hero section"
+      style={{ backgroundColor: hero.backgroundColor }}
     >
+      {hero.image?.secure_url && (
+        <>
+          <CloudinaryImage
+            src={hero.image.secure_url}
+            fill
+            alt={hero.image.alt || "Hero background"}
+            className="absolute inset-0 w-full h-full object-cover"
+            loading="eager"
+            priority
+            fetchPriority="high"
+            aria-hidden="true"
+            sizes="100vw"
+          />
+          <div className="absolute inset-0 bg-black/30" aria-hidden="true" />
+        </>
+      )}
       <section
         className={cn(
-          "h-full container mx-auto flex flex-col justify-center mb-12",
+          "relative z-10 h-full container mx-auto flex flex-col justify-center mb-12",
           alignment === EAlignment.Left
             ? "items-start"
             : alignment === EAlignment.Center
@@ -40,7 +55,11 @@ export default function JumboTron({ hero }: { hero: THeroSectionDto }) {
           <ul className="flex md:justify-center gap-4">
             {hero.cta.map((cta, index) => (
               <li key={index}>
-                <CMSLink size={"lg"} {...cta} />
+                <CMSLink
+                  size={"lg"}
+                  {...cta}
+                  className={cn(cta.variant === ECtaVariant.Gradient && "px-9! py-6! rounded-full! text-lg")}
+                />
               </li>
             ))}
           </ul>

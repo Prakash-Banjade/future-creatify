@@ -1,6 +1,6 @@
 import { FormBlockDto } from "@/schemas/page.schema";
 import { serverFetch } from "@/lib/data-access.ts/server-fetch";
-import { TForm } from "../../../../../types/form.types";
+import { TForm } from "../../../../types/form.types";
 import RenderFormFields from "./render-form";
 
 export default async function RenderFormBlock(formBlock: FormBlockDto) {

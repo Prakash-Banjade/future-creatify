@@ -1,7 +1,8 @@
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import CloudinaryImage from "@/components/ui/cloudinary-image";
 import { db } from "@/db";
-import { CheckCircle, Mail } from "lucide-react";
-import Image from "next/image";
+import { getSiteSettings } from "@/lib/data-access.ts/site-settings.data";
+import { Mail } from "lucide-react";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { z } from "zod";
@@ -25,6 +26,8 @@ export default async function VerifyRequest(props: {
     return redirect("/auth/signin");
   }
 
+  const { logoLight: logo } = await getSiteSettings();
+
   // check if a request is in the database for this email
   const verificationToken = await db.query.verificationTokens.findMany({
     where: (verificationToken, { eq }) =>
@@ -44,25 +47,21 @@ export default async function VerifyRequest(props: {
   }
 
   return (
-    <Card className="w-full max-w-md">
+    <Card className="w-full max-w-md shadow-none border-none bg-transparent">
       <CardHeader className="space-y-6">
-        <div className="flex justify-center">
-          <Link href={"/"}>
-            <Image
-              src={"/logo.png"}
-              alt="Feature Creatify Logo"
-              width={64}
-              height={64}
-              className="h-16 w-auto block mx-auto"
-            />
-          </Link>
-        </div>
-        <div className="text-center space-y-4">
+        {logo &&
           <div className="flex justify-center">
-            <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
-              <CheckCircle className="w-6 h-6 text-green-600" />
-            </div>
-          </div>
+            <Link href={"/"}>
+              <CloudinaryImage
+                src={logo.secure_url}
+                alt="Feature Creatify Logo"
+                width={64}
+                height={64}
+                className="h-16 w-auto block mx-auto"
+              />
+            </Link>
+          </div>}
+        <div className="text-center space-y-4">
           <div className="space-y-2">
             <h1 className="text-2xl font-semibold tracking-tight">
               Check your email

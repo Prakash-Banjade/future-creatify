@@ -1,6 +1,6 @@
 import { ENavLinkType } from "@/schemas/globals.schema";
 import { THeaderSelect } from "../schema/globals";
-import { ECtaVariant } from "../../../types/blocks.types";
+import { ECtaVariant } from "@/types/blocks.types";
 
 export const headerData: THeaderSelect[] = [
   {

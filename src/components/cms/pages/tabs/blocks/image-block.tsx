@@ -1,11 +1,11 @@
-import { MediaInput, MediaItem } from '@/components/forms/media-field'
+import { MediaInput, MediaItem } from '@/components/media/media-field'
 import { BlockComponentProps } from './blocks'
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { useFormContext } from 'react-hook-form'
 import { TMediaSchema } from '@/schemas/media.schema'
 import { TPageDto } from '@/schemas/page.schema'
 
-const MAX_IMAGES = 3;
+const MAX_IMAGES = 4;
 
 export default function ImageBlock({ blockIdx, sectionIdx }: BlockComponentProps) {
     const form = useFormContext<TPageDto>();

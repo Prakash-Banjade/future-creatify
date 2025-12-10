@@ -11,7 +11,7 @@ import * as credibilityAndSupport from "./schema/credibility-and-support"
 import * as teamsSchema from "./schema/team"
 import * as categoriesSchema from "./schema/category"
 import * as eventsSchema from "./schema/event"
-
+import * as galleriesSchema from "./schema/gallery"
 
 const connectionString = process.env.AUTH_DRIZZLE_URL!;
 const pool = postgres(connectionString, { max: 1 })
@@ -28,6 +28,7 @@ export const db = drizzle(pool, {
         ...teamsSchema,
         ...credibilityAndSupport,
         ...categoriesSchema,
-        ...eventsSchema
+        ...eventsSchema,
+        ...galleriesSchema
     }
 });

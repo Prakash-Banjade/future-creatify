@@ -1,15 +1,16 @@
 "use server";
 
 import { db } from "@/db";
-import { categories } from "@/db/schema/category";
+import { categories, CategoryType } from "@/db/schema/category";
 import checkAuth from "../utilities/check-auth";
 import { throwZodErrorMsg } from "../utils";
 import { categorySchema, CategorySchemaType } from "@/schemas/category.schema";
 import { revalidatePath } from "next/cache";
 import { and, eq } from "drizzle-orm";
+import { createGallery } from "./gallery.action";
 
 export async function createCategory(values: CategorySchemaType) {
-  await checkAuth("admin");
+  await checkAuth(["admin", "moderator"]);
 
   const { success, data, error } = categorySchema.safeParse(values);
 
@@ -32,13 +33,18 @@ export async function createCategory(values: CategorySchemaType) {
 
   if (inserted.length === 0) throw new Error("Failed to create category");
 
+  // if gallery category, create gallery
+  if (data.type === CategoryType.GALLERY) {
+    await createGallery(inserted[0].id);
+  }
+
   revalidatePath(`/cms/categories`);
 
   return { id: inserted[0].id };
 }
 
 export async function deleteCategory(id: string) {
-  await checkAuth("admin");
+  await checkAuth(["admin", "moderator"]);
 
   await db.delete(categories).where(eq(categories.id, id));
 
@@ -49,7 +55,7 @@ export async function updateCategory(
   id: string,
   values: Partial<CategorySchemaType>
 ) {
-  await checkAuth("admin");
+  await checkAuth(["admin", "moderator"]);
 
   const { success, data, error } = categorySchema.partial().safeParse(values);
 

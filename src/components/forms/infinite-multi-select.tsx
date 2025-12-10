@@ -10,7 +10,7 @@ import { Badge } from "@/components/ui/badge"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { useDebounce } from "@/hooks/useDebounce"
 import { useInfiniteOptions } from "@/hooks/useInfiniteOptions"
-import { SelectOption } from "../../../types/global.types"
+import { SelectOption } from "../../types/global.types"
 
 interface InfiniteMultiSelectProps {
     endpoint: string

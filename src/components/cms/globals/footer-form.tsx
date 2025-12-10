@@ -20,7 +20,7 @@ import { Plus } from "lucide-react";
 import { Textarea } from "@/components/ui/textarea";
 import { updateFooter } from "@/lib/actions/globals.action";
 import { toast } from "sonner";
-import { ECtaVariant } from "../../../../types/blocks.types";
+import { ECtaVariant } from "../../../types/blocks.types";
 import { TFooterSelect } from "@/db/schema/globals";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities"

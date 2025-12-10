@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { ECtaVariant } from '../../types/blocks.types';
+import { ECtaVariant } from '../types/blocks.types';
 
 export const MAX_NAV_LINKS = 10;
 export const MAX_NAV_SUB_LINKS = 20;

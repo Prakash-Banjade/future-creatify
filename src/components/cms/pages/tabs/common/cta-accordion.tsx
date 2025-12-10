@@ -23,8 +23,8 @@ import {
     SelectValue,
 } from "@/components/ui/select"
 import { Checkbox } from "@/components/ui/checkbox";
-import { ECtaVariant } from "../../../../../../types/blocks.types";
-import { ELinkType } from "../../../../../../types/global.types";
+import { ECtaVariant } from "../../../../../types/blocks.types";
+import { ELinkType } from "../../../../../types/global.types";
 import { InternalLinkField } from "./internal-link-field";
 import { cn } from "@/lib/utils";
 
@@ -190,7 +190,7 @@ export default function CtaAccordion({ idx, name, onRemove, isFieldError }: Prop
                                     <FormLabel>Label <span className='text-destructive'>*</span></FormLabel>
                                     <FormControl>
                                         <Input
-                                            placeholder="Eg. Learm More"
+                                            placeholder="Eg. Learn More"
                                             required
                                             {...field}
                                         />

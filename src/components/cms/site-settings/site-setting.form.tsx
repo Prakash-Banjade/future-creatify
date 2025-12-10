@@ -1,6 +1,6 @@
 "use client";
 
-import { MediaInput, MediaItem } from "@/components/forms/media-field";
+import { MediaInput, MediaItem } from "@/components/media/media-field";
 import { Button, LoadingButton } from "@/components/ui/button";
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
@@ -24,14 +24,14 @@ export default function SiteSettingForm({ defaultValues }: Props) {
 
     const form = useForm<TSiteSettingSchema>({
         resolver: zodResolver(siteSettingSchema),
-        defaultValues: defaultValues ?? {
-            address: "",
-            emails: [],
-            phones: [],
-            headerLogo: null,
-            footerLogo: null,
-            socialLinks: [],
-            mapLink: ""
+        defaultValues: {
+            logoLight: defaultValues.logoLight || null,
+            logoDark: defaultValues.logoDark || null,
+            address: defaultValues.address || "",
+            emails: defaultValues.emails || [],
+            phones: defaultValues.phones || [],
+            socialLinks: defaultValues.socialLinks || [],
+            mapLink: defaultValues.mapLink || "",
         }
     });
 
@@ -67,15 +67,17 @@ export default function SiteSettingForm({ defaultValues }: Props) {
                                     <time className="font-medium">{defaultValues.updatedAt.toLocaleString()}</time>
                                 </p>
                             </section>
-                            <LoadingButton
-                                type="submit"
-                                size={'lg'}
-                                isLoading={isPending}
-                                disabled={isPending}
-                                loadingText="Saving..."
-                            >
-                                Save
-                            </LoadingButton>
+                            <section className="space-x-3">
+                                <LoadingButton
+                                    type="submit"
+                                    size={"lg"}
+                                    isLoading={isPending}
+                                    disabled={isPending}
+                                    loadingText="Saving..."
+                                >
+                                    Save Changes
+                                </LoadingButton>
+                            </section>
                         </section>
                     </section>
 
@@ -88,7 +90,7 @@ export default function SiteSettingForm({ defaultValues }: Props) {
 
                                 return (
                                     <FormItem>
-                                        <FormLabel>Logo Light</FormLabel>
+                                        <FormLabel>Logo Light (Primary)</FormLabel>
                                         <FormControl>
                                             {
                                                 value ? (
@@ -118,7 +120,7 @@ export default function SiteSettingForm({ defaultValues }: Props) {
 
                                 return (
                                     <FormItem>
-                                        <FormLabel>Logo Dark</FormLabel>
+                                        <FormLabel>Logo Dark (Primary)</FormLabel>
                                         <FormControl>
                                             {
                                                 value ? (

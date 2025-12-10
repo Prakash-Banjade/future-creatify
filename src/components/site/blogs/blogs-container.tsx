@@ -1,7 +1,7 @@
 "use client";
 
 import BlogCard from "./blog-card";
-import { TBlogsResponse_Public } from "../../../../types/blog.types";
+import { TBlogsResponse_Public } from "../../../types/blog.types";
 import { useSearchParams } from "next/navigation";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { serverFetch } from "@/lib/data-access.ts/server-fetch";

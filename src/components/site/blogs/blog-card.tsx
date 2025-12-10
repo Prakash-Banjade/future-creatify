@@ -6,7 +6,7 @@ import { format } from "date-fns";
 import CloudinaryImage from "@/components/ui/cloudinary-image";
 import { getReadingTimeInMinutes } from "@/lib/utils";
 import { Skeleton } from "@/components/ui/skeleton";
-import { TBlogsResponse_Public } from "../../../../types/blog.types";
+import { TBlogsResponse_Public } from "@/types/blog.types";
 
 type Props = {
   blog: TBlogsResponse_Public[0];
@@ -57,7 +57,7 @@ export default function BlogCard({ blog, imgHeight = 300 }: Props) {
                 <div>
                   <span className="mr-4">|</span>
                   <span>
-                    {getReadingTimeInMinutes(blog.length)} minutes read
+                    {getReadingTimeInMinutes(blog.stats.characters)} minutes read
                   </span>
                 </div>
               </div>

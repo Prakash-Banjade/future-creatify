@@ -357,21 +357,17 @@ function TableCellResizer({ editor }: { editor: LexicalEditor }): JSX.Element {
 
       if (draggingDirection && mouseCurrentPos && tableRect) {
         if (isHeightChanging(draggingDirection)) {
-          styles[draggingDirection].left = `${
-            window.pageXOffset + tableRect.left
-          }px`
-          styles[draggingDirection].top = `${
-            window.pageYOffset + mouseCurrentPos.y / zoom
-          }px`
+          styles[draggingDirection].left = `${window.pageXOffset + tableRect.left
+            }px`
+          styles[draggingDirection].top = `${window.pageYOffset + mouseCurrentPos.y / zoom
+            }px`
           styles[draggingDirection].height = "3px"
           styles[draggingDirection].width = `${tableRect.width}px`
         } else {
-          styles[draggingDirection].top = `${
-            window.pageYOffset + tableRect.top
-          }px`
-          styles[draggingDirection].left = `${
-            window.pageXOffset + mouseCurrentPos.x / zoom
-          }px`
+          styles[draggingDirection].top = `${window.pageYOffset + tableRect.top
+            }px`
+          styles[draggingDirection].left = `${window.pageXOffset + mouseCurrentPos.x / zoom
+            }px`
           styles[draggingDirection].width = "3px"
           styles[draggingDirection].height = `${tableRect.height}px`
         }

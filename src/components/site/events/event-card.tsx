@@ -1,4 +1,4 @@
-import { TEventsResponse_Public } from "../../../../types/event.types";
+import { TEventsResponse_Public } from "@/types/event.types";
 import {
   Calendar,
   Clock,

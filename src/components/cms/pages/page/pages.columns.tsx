@@ -19,7 +19,7 @@ import { ResponsiveAlertDialog } from "@/components/ui/responsive-alert-dialog"
 import { toast } from "sonner"
 import Link from "next/link"
 import { deletePage } from "@/lib/actions/pages.action"
-import { TPagesResponse } from "../../../../../types/page.types"
+import { TPagesResponse } from "../../../../types/page.types"
 
 export const pagesColumns: ColumnDef<TPagesResponse["data"][0]>[] = [
     {

@@ -19,7 +19,7 @@ import { ResponsiveAlertDialog } from "@/components/ui/responsive-alert-dialog"
 import { toast } from "sonner"
 import { deleteForm } from "@/lib/actions/forms.action"
 import Link from "next/link"
-import { TFormsResponse } from "../../../../types/form.types"
+import { TFormsResponse } from "../../../types/form.types"
 
 export const formsColumns: ColumnDef<TFormsResponse["data"][0]>[] = [
     {

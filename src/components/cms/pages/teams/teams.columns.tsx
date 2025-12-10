@@ -18,7 +18,7 @@ import { useState, useTransition } from "react"
 import { ResponsiveAlertDialog } from "@/components/ui/responsive-alert-dialog"
 import { toast } from "sonner"
 import Link from "next/link"
-import { TeamResponse } from "../../../../../types/team.type"
+import { TeamResponse } from "../../../../types/team.type"
 import CloudinaryImage from "@/components/ui/cloudinary-image"
 import { deleteTeam } from "@/lib/actions/teams.action"
 

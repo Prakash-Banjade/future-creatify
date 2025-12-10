@@ -1,5 +1,5 @@
 import { RefItemBlockDto } from "@/schemas/page.schema";
-import { ERefRelation } from "../../../../../types/global.types";
+import { ERefRelation } from "../../../../types/global.types";
 import { serverFetch } from "@/lib/data-access.ts/server-fetch";
 import CloudinaryImage from "@/components/ui/cloudinary-image";
 import { cn, getSocialIcon } from "@/lib/utils";

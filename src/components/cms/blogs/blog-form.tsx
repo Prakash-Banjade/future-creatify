@@ -3,8 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useEffect, useTransition } from "react";
-import FullYooptaEditor from "@/components/yoopta-editor";
-import { blogSchema, blogSchemaType } from "@/schemas/blog.schema";
+import { blogSchema, TBlogSchema } from "@/schemas/blog.schema";
 import { toast } from "sonner";
 import { updateBlog } from "@/lib/actions/blogs.action";
 import { Badge } from "@/components/ui/badge";
@@ -18,10 +17,8 @@ import AddSummaryButton from "./add-summary-btn";
 import AddKeywordsBtn from "./add-keywords-btn";
 import CoverImageUploadBtn from "./cover-image-upload-btn";
 import useEffectAfterMount from "@/hooks/useEffectAfterMount";
-import YooptaEditorReadonly from "@/components/yoopta-editor/readonly";
-import { Form } from "@/components/ui/form";
-import { TBlog } from "../../../../types/blog.types";
-import { SelectOption } from "../../../../types/global.types";
+import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
+import { SelectOption } from "../../../types/global.types";
 import {
   Select,
   SelectContent,
@@ -29,17 +26,21 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useQueryClient } from "@tanstack/react-query";
+import { Editor } from "@/components/editor/blocks/editor-x/editor";
+import { TBlogTableSelect } from "@/db/schema/blog";
 
 type Props = {
-  defaultValues: TBlog;
+  defaultValues: TBlogTableSelect;
   categoriesOptions: SelectOption[];
 };
 
 export default function BlogForm({ defaultValues, categoriesOptions }: Props) {
   const [isPending, startTransition] = useTransition();
   const isPublished = defaultValues.publishedAt !== null;
+  const queryClient = useQueryClient();
 
-  const form = useForm<blogSchemaType>({
+  const form = useForm<TBlogSchema>({
     resolver: zodResolver(blogSchema),
     defaultValues,
   });
@@ -47,7 +48,7 @@ export default function BlogForm({ defaultValues, categoriesOptions }: Props) {
   function update({
     values = form.getValues(),
   }: {
-    values?: Partial<blogSchemaType>;
+    values?: Partial<TBlogSchema>;
   }) {
     if (isPublished) return;
 
@@ -58,7 +59,11 @@ export default function BlogForm({ defaultValues, categoriesOptions }: Props) {
           title: values.title?.length
             ? values.title
             : defaultValues.title || "Untitled",
-          length: form.getValues("length"),
+          stats: form.getValues("stats"),
+        });
+
+        queryClient.invalidateQueries({
+          queryKey: ['blogs', 'options', '']
         });
       } catch (e) {
         if (e instanceof Error) {
@@ -106,7 +111,7 @@ export default function BlogForm({ defaultValues, categoriesOptions }: Props) {
     };
   }, []);
 
-  async function onSubmit(values: blogSchemaType) {
+  async function onSubmit(values: TBlogSchema) {
     update({ values });
   }
 
@@ -154,7 +159,7 @@ export default function BlogForm({ defaultValues, categoriesOptions }: Props) {
         )}
       </div>
 
-      <section className="px-6 max-w-4xl mx-auto min-h-[calc(100vh-128px)]">
+      <section className="px-6 max-w-6xl mx-auto min-h-[calc(100vh-128px)]">
         {defaultValues.coverImage && (
           <CldImage
             width="200"
@@ -203,7 +208,7 @@ export default function BlogForm({ defaultValues, categoriesOptions }: Props) {
           >
             <SelectTrigger
               className={cn(
-                "border-none shadow-none !h-8 !text-muted-foreground",
+                "border-none shadow-none h-8! bg-transparent!",
                 buttonVariants({ variant: "ghost" })
               )}
             >
@@ -240,25 +245,43 @@ export default function BlogForm({ defaultValues, categoriesOptions }: Props) {
               <Badge variant={"secondary"}>
                 {isPending ? "Saving..." : "Saved"}
               </Badge>
-
-              <Badge variant={"secondary"}>
-                {form.getValues("length")} chars
-              </Badge>
             </section>
 
-            {isPublished ? (
-              <YooptaEditorReadonly value={defaultValues.content} />
-            ) : (
-              <FullYooptaEditor
-                value={form.watch("content")}
-                onChange={(value) => form.setValue("content", value)}
-                containerClassName="min-h-full"
-                setLength={(length) => {
-                  form.setValue("length", length);
-                }}
-                readOnly={defaultValues.publishedAt !== null} // TODO: idk why this prop is not causing the editor to be readonly, so used conditional editors
-              />
-            )}
+            <FormField
+              control={form.control}
+              name={`content`}
+              render={({ field }) => {
+                return (
+                  <FormItem className={cn(isPublished && "pointer-events-none")}>
+                    <FormControl>
+                      <Editor
+                        plugins={{
+                          collapsibleContainer: true,
+                          table: true,
+                          image: true,
+                          inlineImage: true,
+                          embeds: true,
+                          columnsLayout: true,
+                          pageBreak: true,
+                          horizontalRule: true,
+                          formatting: true,
+                          poll: true,
+                        }}
+                        placeholder="Start writing or type / for commands..."
+                        editorSerializedState={field.value?.json}
+                        onSerializedChange={field.onChange}
+                        onStatsChange={stat => {
+                          console.log(stat)
+                          form.setValue("stats", stat)
+                        }}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )
+              }}
+            />
+
           </form>
         </Form>
       </section>

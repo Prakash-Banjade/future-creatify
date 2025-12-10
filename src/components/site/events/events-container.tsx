@@ -1,6 +1,6 @@
 "use client";
 
-import { TEventsResponse_Public } from "../../../../types/event.types";
+import { TEventsResponse_Public } from "../../../types/event.types";
 import { serverFetch } from "@/lib/data-access.ts/server-fetch";
 import EventCard from "./event-card";
 import { useSearchParams } from "next/navigation";
