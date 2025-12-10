@@ -25,7 +25,7 @@ export default function GalleryMasonry({ images, onImageClick }: GalleryMasonryP
     }
 
     return (
-        <div className="columns-1 sm:columns-2 lg:columns-3 xl:columns-4 gap-4 space-y-4">
+        <div className="columns-1 sm:columns-2 lg:columns-3 xl:columns-4 gap-2 space-y-2">
             {images.map((image, index) => {
                 const aspectRatio = getAspectRatio(image.width, image.height)
 

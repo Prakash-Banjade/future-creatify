@@ -3,12 +3,13 @@
 import { useMemo, useState } from "react";
 import { TGalleryResponse } from "../../../types/gallery.types";
 import GalleryMasonry from "./gallery-masonry";
-import GalleryLightbox from "./gallery-lightbox";
 import GalleryFilters from "./gallery-filter";
+import ImageLightbox from "./image-lightbox";
 
 export default function GalleryContainer({ galleries }: { galleries: TGalleryResponse }) {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
-  const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null)
+  const [selectedImageIndex, setSelectedImageIndex] = useState<number>(0)
+  const [lightboxOpen, setLightboxOpen] = useState(false);
 
   const categories = useMemo(() => {
     return galleries.map((item) => ({
@@ -47,7 +48,10 @@ export default function GalleryContainer({ galleries }: { galleries: TGalleryRes
       {/* Gallery Grid */}
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {filteredImages.length > 0 ? (
-          <GalleryMasonry images={filteredImages} onImageClick={(index) => setSelectedImageIndex(index)} />
+          <GalleryMasonry images={filteredImages} onImageClick={(index) => {
+            setSelectedImageIndex(index)
+            setLightboxOpen(true)
+          }} />
         ) : (
           <div className="text-center py-16">
             <p className="text-muted-foreground text-lg">No images found in this category</p>
@@ -55,15 +59,12 @@ export default function GalleryContainer({ galleries }: { galleries: TGalleryRes
         )}
       </div>
 
-      {/* Lightbox Modal */}
-      {selectedImageIndex !== null && (
-        <GalleryLightbox
-          images={filteredImages}
-          initialIndex={selectedImageIndex}
-          onClose={() => setSelectedImageIndex(null)}
-          onNavigate={setSelectedImageIndex}
-        />
-      )}
+      <ImageLightbox
+        media={filteredImages}
+        initialIndex={selectedImageIndex}
+        isOpen={lightboxOpen}
+        onClose={() => setLightboxOpen(false)}
+      />
     </>
   );
 }
