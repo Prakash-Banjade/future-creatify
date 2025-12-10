@@ -26,7 +26,7 @@ export default async function VerifyRequest(props: {
     return redirect("/auth/signin");
   }
 
-  const { logoLight_primary: logo } = await getSiteSettings();
+  const { logoLight: logo } = await getSiteSettings();
 
   // check if a request is in the database for this email
   const verificationToken = await db.query.verificationTokens.findMany({

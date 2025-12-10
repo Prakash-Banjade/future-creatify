@@ -19,11 +19,12 @@ interface Props extends ImageProps {
     blurDataURL?: string
 }
 
-export default function CloudinaryImage({ 
+export default function CloudinaryImage({
     sizes = "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
     loading = "lazy",
     priority = false,
-    ...props 
+    quality = 85,
+    ...props
 }: Props) {
     return (
         <CldImage

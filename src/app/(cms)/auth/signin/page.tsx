@@ -11,6 +11,6 @@ export default async function SignInPage() {
     const setting = await getSiteSettings();
 
     return (
-        <SignInForm logo={setting?.logoLight_primary} />
+        <SignInForm logo={setting?.logoLight} />
     )
 }

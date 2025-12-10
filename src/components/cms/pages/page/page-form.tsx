@@ -176,10 +176,21 @@ export default function PageForm({ page, defaultTab, children, defaultMode }: Pr
                                                         <Input
                                                             placeholder="Eg. About us"
                                                             className='py-5'
+                                                            list='pages'
                                                             required
                                                             {...field}
                                                         />
                                                     </FormControl>
+                                                    <datalist id="pages">
+                                                        <option value="Home" />
+                                                        <option value="About" />
+                                                        <option value="Contact" />
+                                                        <option value="Gallery" />
+                                                        <option value="Services" />
+                                                        <option value="Teams" />
+                                                        <option value="Blogs" />
+                                                        <option value="Events" />
+                                                    </datalist>
                                                     <FormMessage />
                                                 </FormItem>
                                             )}
