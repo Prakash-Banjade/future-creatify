@@ -13,11 +13,11 @@ import { RenderMapBlock } from "./map";
 import { RenderPartnerBlock } from "./partner";
 import { RenderCertificationBlock } from "./certification";
 import { RenderFaqBlock } from "./faq";
-import { FC } from "react";
 import RenderTimelineBlock from "./timeline";
-import { RenderAlumniBlock } from "./alumni";
+import { RenderAlumniBlock } from "./alumni-stories";
 import contrastRatio from "@/lib/contrast-ratio";
 import CloudinaryImage from "@/components/ui/cloudinary-image";
+import { FC } from "react";
 
 type Props = {
   sections: TPageDto["sections"];

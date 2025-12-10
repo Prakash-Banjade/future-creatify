@@ -3,7 +3,7 @@ import { TCredibilityAndSupport } from "@/schemas/credibility-and-support.schema
 import CloudinaryImage from "@/components/ui/cloudinary-image";
 import { RichTextPreview } from "@/components/rich-text-preview";
 import Link from "next/link";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 
 interface AlumniResponse {
   alumni: TCredibilityAndSupport["alumni"];
