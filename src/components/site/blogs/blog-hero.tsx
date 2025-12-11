@@ -60,6 +60,9 @@ export default async function BlogHero({
             src={coverImage}
             alt={title}
             className="object-cover"
+            loading="eager"
+            fetchPriority="high"
+            sizes="100vw"
           />
         )}
         <div className="absolute pointer-events-none left-0 bottom-0 w-full h-1/2 bg-gradient-to-t from-background to-transparent" />

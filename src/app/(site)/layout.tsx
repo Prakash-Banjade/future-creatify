@@ -11,6 +11,7 @@ const playFair = Playfair_Display({
   display: "swap",
   preload: true,
   adjustFontFallback: true,
+  variable: "--font-playfair-display",
 });
 
 const inter = Inter({
@@ -23,6 +24,16 @@ export const metadata: Metadata = {
     default: "Future Creatify",
     template: "%s | Future Creatify",
   },
+  authors: [
+    {
+      name: "Future Creatify",
+      url: process.env.NEXT_PUBLIC_VERCEL_URL,
+    },
+    {
+      name: "Prakash Banjade",
+      url: "https://prakashbanjade.com",
+    }
+  ],
 };
 
 type Props = {
@@ -33,7 +44,7 @@ export default function SiteLayout({ children }: Props) {
   return (
     <html lang="en">
       <QCProvider>
-        <body className={`${playFair.style} ${inter.variable} antialiased`}>
+        <body className={`${playFair.className} ${inter.className} antialiased`}>
           <div className="flex flex-col min-h-screen">
             <Navbar />
             <div className="flex-grow">{children}</div>
