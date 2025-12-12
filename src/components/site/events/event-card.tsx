@@ -27,15 +27,16 @@ export default function EventCard({ event }: Props) {
     <article className="@container">
       <div className="h-full card shadow-sm rounded-b-xl p-0 overflow-hidden">
         <div className="flex flex-col @2xl:flex-row h-full">
-          <div className="@2xl:w-1/3 @4xl:w-1/4">
+          <div className="">
             {event.coverImage && (
               <CloudinaryImage
-                crop="auto"
-                src={event.coverImage?.secure_url}
-                alt={event.title}
                 width={400}
                 height={300}
-                className="w-full h-[300px] @2xl:h-full @2xl:max-w-[400px] object-cover"
+                src={event.coverImage?.secure_url}
+                sizes="500px"
+                alt="Event Cover Image"
+                crop="auto"
+                className="w-full h-[200px] sm:h-[300px] @2xl:h-full @2xl:max-w-[400px] object-cover"
               />
             )}
           </div>
@@ -45,7 +46,7 @@ export default function EventCard({ event }: Props) {
               {event.categoryName}
             </Badge>
 
-            <h3 className="text-xl font-bold mb-2">{event.title}</h3>
+            <h3 className="sm:text-2xl text-xl font-bold mb-2">{event.title}</h3>
 
             <div className="flex flex-wrap gap-y-2 gap-x-4 text-sm text-slate-600 mb-4">
               <div className="flex items-center">
@@ -79,7 +80,7 @@ export default function EventCard({ event }: Props) {
               )}
             </div>
 
-            <p className="text-slate-600 mb-6 line-clamp-2 @2xl:max-w-[80ch]">
+            <p className="text-slate-600 sm:mb-6 line-clamp-2 @2xl:max-w-[80ch] sm:text-base text-sm">
               {event.summary}
             </p>
 
@@ -87,7 +88,7 @@ export default function EventCard({ event }: Props) {
               asChild
               variant="outline"
               size={"lg"}
-              className="mt-auto flex w-fit py-6 px-40 bg-transparent  border-2 border-primary text-primary "
+              className="mt-auto sm:flex hidden w-fit py-6 px-40 bg-transparent border-2 border-primary text-primary"
             >
               <Link href={"/events/" + event.slug}>
                 More Details <ExternalLink size={16} />

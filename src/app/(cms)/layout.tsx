@@ -36,7 +36,7 @@ export default async function RootLayout({
 }>) {
 
   return (
-    <html lang="en">
+    <html lang="en" data-scroll-behavior="smooth">
       <body
         className={`${playFair.style} ${inter.variable} antialiased`}
       >

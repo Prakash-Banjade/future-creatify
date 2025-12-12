@@ -36,7 +36,7 @@ export default function GalleryMasonry({ images, onImageClick }: GalleryMasonryP
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.3, delay: index * 0.05 }}
                         onClick={() => onImageClick(index)}
-                        className="break-inside-avoid cursor-pointer group relative overflow-hidden rounded-lg bg-muted"
+                        className="break-inside-avoid cursor-pointer group relative overflow-hidden lg:rounded-2xl rounded-lg bg-muted"
                         role="button"
                         tabIndex={0}
                         onKeyDown={(e) => {

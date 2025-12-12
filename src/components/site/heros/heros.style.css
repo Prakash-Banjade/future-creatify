@@ -1,0 +1,24 @@
+.my_name {
+    color: red;
+}
+
+.hero__rich_text {
+    &>h1 {
+        text-wrap: balance;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        font-size: clamp(45px, 6vw, 60px) !important;
+
+        * {
+            font-size: clamp(45px, 6vw, 60px) !important;
+        }
+    }
+
+    &>p {
+        text-wrap: balance;
+        font-size: clamp(14px, 4vw, 18px) !important;
+
+        * {
+            font-size: clamp(14px, 4vw, 18px) !important;
+        }
+    }
+}

@@ -27,7 +27,7 @@ export default function BlogCard({ blog, imgHeight = 300 }: Props) {
                 sizes="500px"
                 alt="Blog Cover Image"
                 crop="auto"
-                className="w-full h-[300px] @2xl:h-full @2xl:max-w-[400px] object-cover"
+                className="w-full sm:h-[300px] h-[200px] @2xl:h-full @2xl:max-w-[400px] object-cover"
               />
             )}
           </div>
@@ -41,7 +41,7 @@ export default function BlogCard({ blog, imgHeight = 300 }: Props) {
               href={`/blogs/${blog.slug}`}
               className="hover:underline w-fit decoration-primary decoration-2"
             >
-              <h3 className="text-2xl font-semibold mb-3">
+              <h3 className="sm:text-2xl text-xl font-semibold mb-3">
                 {blog.title}
               </h3>
             </Link>
@@ -68,11 +68,14 @@ export default function BlogCard({ blog, imgHeight = 300 }: Props) {
               </div>
             </section>
 
-            <p className="text-slate-600 mb-4 line-clamp-3 max-w-5xl">
+            <p className="text-slate-600 sm:mb-4 line-clamp-3 @2xl:max-w-5xl sm:text-base text-sm">
               {blog.summary}
             </p>
 
-            <LinkButton href={`/blogs/${blog.slug}`} className="w-fit text-base">
+            <LinkButton
+              href={`/blogs/${blog.slug}`}
+              className="w-fit text-base sm:flex hidden"
+            >
               Read More
             </LinkButton>
           </div>

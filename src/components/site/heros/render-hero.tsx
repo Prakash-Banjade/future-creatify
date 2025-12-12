@@ -3,6 +3,7 @@
 import { THeroSectionDto } from "@/schemas/hero-section.schema";
 import SplitHero from "./split-hero";
 import JumboTron from "./jumbotron";
+import "./heros.style.css";
 
 export type RenderHeroProps = {
   heroSections: THeroSectionDto[];

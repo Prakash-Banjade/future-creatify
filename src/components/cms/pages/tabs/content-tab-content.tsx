@@ -42,7 +42,7 @@ const sectionDefaultValue: TPageSection = {
         items: []
     },
     isContainer: true,
-    backgroundColor: "#fff",
+    backgroundColor: "#ffffff",
 }
 
 export default function ContentTabContent({ slug }: { slug: string }) {

@@ -29,7 +29,6 @@ export enum ECtaVariant {
   Outline = "outline",
   Ghost = "ghost",
   Link = "link",
-  Gradient = "gradient"
 }
 
 export interface CTA {

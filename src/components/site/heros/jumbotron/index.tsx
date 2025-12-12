@@ -2,10 +2,9 @@ import { cn } from "@/lib/utils";
 import { EHeroLayoutTypes } from "../../../../types/page.types";
 import { EAlignment } from "../../../../types/global.types";
 import { RichTextPreview } from "@/components/rich-text-preview";
-import CMSLink from "@/components/ui/cms-link";
 import { THeroSectionDto } from "@/schemas/hero-section.schema";
-import { ECtaVariant } from "../../../../types/blocks.types";
 import CloudinaryImage from "@/components/ui/cloudinary-image";
+import RenderHeroCMSLink from "../render-hero-cms-link";
 
 export default function JumboTron({ hero }: { hero: THeroSectionDto }) {
   const layoutType = hero.layout.type;
@@ -16,7 +15,7 @@ export default function JumboTron({ hero }: { hero: THeroSectionDto }) {
   return (
     <section
       className={cn(
-        "h-[80vh] max-h-[400px]",
+        "sm:h-[80vh] sm:max-h-[400px]",
         hero.image?.secure_url && "h-[80vh] max-h-[600px]",
       )}
       aria-label="Hero section"
@@ -40,7 +39,7 @@ export default function JumboTron({ hero }: { hero: THeroSectionDto }) {
       )}
       <section
         className={cn(
-          "relative z-10 h-full container mx-auto flex flex-col justify-center mb-12",
+          "relative z-10 h-full container mx-auto flex flex-col justify-center py-10",
           alignment === EAlignment.Left
             ? "items-start"
             : alignment === EAlignment.Center
@@ -48,22 +47,8 @@ export default function JumboTron({ hero }: { hero: THeroSectionDto }) {
               : "items-end"
         )}
       >
-        <section className="[&_h1]:text-shadow-md [&_h1]:text-balance [&_p]:text-balance">
-          <RichTextPreview className="mb-6" html={hero.headline.html} />
-        </section>
-        {Array.isArray(hero.cta) && hero.cta.length > 0 && (
-          <ul className="flex md:justify-center gap-4">
-            {hero.cta.map((cta, index) => (
-              <li key={index}>
-                <CMSLink
-                  size={"lg"}
-                  {...cta}
-                  className={cn(cta.variant === ECtaVariant.Gradient && "px-9! py-6! rounded-full! text-lg")}
-                />
-              </li>
-            ))}
-          </ul>
-        )}
+        <RichTextPreview className="hero__rich_text hero__rich_text--jumbotron mb-6" html={hero.headline.html} />
+        <RenderHeroCMSLink ctas={hero.cta} />
       </section>
     </section>
   );

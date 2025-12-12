@@ -64,7 +64,7 @@ export default function EventsContainer() {
       <div className="space-y-16">
         {Object.entries(events).map(([month, monthEvents]) => (
           <div key={month}>
-            <h2 className="text-2xl font-bold mb-8 border-b pb-4">{month}</h2>
+            <h2 className="sm:text-2xl text-xl font-bold mb-8 border-b pb-4">{month}</h2>
 
             <div className="space-y-8">
               {monthEvents.map((event) => (

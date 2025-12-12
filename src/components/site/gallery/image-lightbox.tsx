@@ -21,6 +21,8 @@ export default function ImageLightbox({ media, initialIndex, isOpen, onClose }: 
     const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
     const imageRef = useRef<HTMLDivElement>(null);
     const selectedImageButtonRef = useRef<HTMLButtonElement>(null);
+    const startTouchDistance = useRef<number | null>(null);
+    const startScale = useRef<number>(1);
 
     useEffect(() => {
         setCurrentIndex(initialIndex);
@@ -141,6 +143,13 @@ export default function ImageLightbox({ media, initialIndex, isOpen, onClose }: 
                 x: e.touches[0].clientX - position.x,
                 y: e.touches[0].clientY - position.y
             });
+        } else if (e.touches.length === 2) {
+            const distance = Math.hypot(
+                e.touches[0].clientX - e.touches[1].clientX,
+                e.touches[0].clientY - e.touches[1].clientY
+            );
+            startTouchDistance.current = distance;
+            startScale.current = scale;
         }
     };
 
@@ -153,6 +162,20 @@ export default function ImageLightbox({ media, initialIndex, isOpen, onClose }: 
                 setPosition({ x: newX, y: newY });
             } else {
                 setPosition({ x: newX, y: 0 });
+            }
+        } else if (e.touches.length === 2 && startTouchDistance.current) {
+            const distance = Math.hypot(
+                e.touches[0].clientX - e.touches[1].clientX,
+                e.touches[0].clientY - e.touches[1].clientY
+            );
+
+            const scaleFactor = distance / startTouchDistance.current;
+            const newScale = Math.min(Math.max(startScale.current * scaleFactor, 1), 4);
+
+            setScale(newScale);
+
+            if (newScale === 1) {
+                setPosition({ x: 0, y: 0 });
             }
         }
     };

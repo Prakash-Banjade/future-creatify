@@ -144,7 +144,7 @@ function SectionHeadline(s: TPageDto["sections"][0]) {
   return (
     <h2
       className={cn(
-        "text-4xl font-bold",
+        "md:text-4xl text-3xl font-bold text-balance",
         ratio >= 4.5 ? "text-black" : "text-white",
         s.headlineAlignment === EAlignment.Left
           ? "text-left"

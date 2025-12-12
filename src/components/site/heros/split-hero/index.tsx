@@ -1,10 +1,10 @@
 import { cn } from "@/lib/utils";
 import { EHeroLayoutTypes } from "../../../../types/page.types";
 import { RichTextPreview } from "@/components/rich-text-preview";
-import CMSLink from "@/components/ui/cms-link";
 import CloudinaryImage from "@/components/ui/cloudinary-image";
 import { EAlignmentExcludeCenter } from "../../../../types/global.types";
 import { THeroSectionDto } from "@/schemas/hero-section.schema";
+import RenderHeroCMSLink from "../render-hero-cms-link";
 
 export default function SplitHero({ hero }: { hero: THeroSectionDto }) {
   const layoutType = hero.layout.type;
@@ -43,26 +43,8 @@ export default function SplitHero({ hero }: { hero: THeroSectionDto }) {
         )}
 
         <div className="w-full space-y-12 md:flex-1">
-          <section className="[&_h1]:text-shadow-md [&_h1]:text-balance [&_p]:text-balance">
-            <RichTextPreview className="mb-8" html={hero.headline.html} />
-          </section>
-          {Array.isArray(hero.cta) && hero.cta.length > 0 && (
-            <ul className="flex gap-4">
-              {hero.cta.map((cta, index) => (
-                <li key={index}>
-                  <CMSLink
-                    size={"lg"}
-                    {...cta}
-                    className={cn(
-                      "!px-8 py-6 text-base border-2",
-                      cta.variant === "outline" && "bg-transparent border-primary text-primary",
-                      cta.variant === "default" && "border-primary"
-                    )}
-                  />
-                </li>
-              ))}
-            </ul>
-          )}
+          <RichTextPreview className="hero__rich_text hero__rich_text--split-hero mb-8" html={hero.headline.html} />
+          <RenderHeroCMSLink ctas={hero.cta} />
         </div>
       </div>
     </section>
