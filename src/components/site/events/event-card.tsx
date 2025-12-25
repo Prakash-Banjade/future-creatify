@@ -92,7 +92,7 @@ export default function EventCard({ event, blurDataURL }: Props) {
               size={"lg"}
               className="mt-auto sm:flex hidden w-fit py-6 px-40 bg-transparent border-2 border-primary text-primary"
             >
-              <Link href={"/events/" + event.slug}>
+              <Link href={"/events/" + event.slug} aria-label={`Read more about ${event.title}`}>
                 More Details <ExternalLink size={16} />
               </Link>
             </Button>

@@ -42,6 +42,7 @@ export default function BlogCard({ blog, imgHeight = 300, blurDataURL }: Props) 
             <Link
               href={`/blogs/${blog.slug}`}
               className="hover:underline w-fit decoration-primary decoration-2"
+              aria-label={`Read more about ${blog.title}`}
             >
               <h3 className="sm:text-2xl text-xl font-semibold mb-3">
                 {blog.title}
