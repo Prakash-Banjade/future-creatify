@@ -77,6 +77,7 @@ export default function BlogCard({ blog, imgHeight = 300, blurDataURL }: Props) 
             <LinkButton
               href={`/blogs/${blog.slug}`}
               className="w-fit text-base sm:flex hidden"
+              aria-label={`Read more about ${blog.title}`}
             >
               Read More
             </LinkButton>

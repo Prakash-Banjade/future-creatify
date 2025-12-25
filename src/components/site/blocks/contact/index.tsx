@@ -30,7 +30,7 @@ export const RenderContactTextBlock = async () => {
                 <MapPin className="text-primary" />
               </div>
               <div>
-                <h4 className="font-semibold">Our Location</h4>
+                <h3 className="font-semibold">Our Location</h3>
                 <p className="text-slate-600">{siteData?.address}</p>
               </div>
             </div>
@@ -44,7 +44,7 @@ export const RenderContactTextBlock = async () => {
                 <Mail className="text-primary" />
               </div>
               <div>
-                <h4 className="font-semibold">Email Us</h4>
+                <h3 className="font-semibold">Email Us</h3>
                 <ul>
                   {siteData.emails.map((e, idx) => (
                     <li key={idx}>
@@ -65,7 +65,7 @@ export const RenderContactTextBlock = async () => {
                 <Phone className="text-primary" />
               </div>
               <div>
-                <h4 className="font-semibold">Call Us</h4>
+                <h3 className="font-semibold">Call Us</h3>
                 <ul>
                   {siteData.phones.map((p, idx) => (
                     <li key={idx}>

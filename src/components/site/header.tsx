@@ -60,7 +60,7 @@ export default function Header({
       )}
     >
       <div className="container mx-auto flex items-center justify-between">
-        <Link href="/" className="flex items-center" aria-label="Home">
+        <Link href="/" className="flex items-center" aria-label="Back to homepage">
           <CloudinaryImage
             width={64}
             height={64}

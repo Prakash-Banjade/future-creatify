@@ -46,12 +46,21 @@ export default async function Footer() {
               {siteSetting?.socialLinks?.map(
                 (social: { link: string }, index: number) => {
                   const Icon = getSocialIcon(social.link);
+                  let label = "Visit our social media page";
+                  try {
+                    const url = new URL(social.link);
+                    const hostname = url.hostname.replace("www.", "");
+                    const platform = hostname.split(".")[0];
+                    if (platform) label = `Visit our ${platform} page`;
+                  } catch (e) {
+                    // fallback to default label
+                  }
 
                   return (
                     <a
                       key={index}
                       href={social.link}
-                      aria-label={`Visit our social media page`}
+                      aria-label={label}
                       className="hover:text-secondary transition-transform duration-200 hover:scale-110"
                       target="_blank"
                       rel="noopener noreferrer"
@@ -66,13 +75,13 @@ export default async function Footer() {
 
           {/* Quick Links */}
           <div>
-            <h4 className="text-xl font-bold mb-4">Quick Links</h4>
+            <h3 className="text-xl font-bold mb-4">Quick Links</h3>
             <Footer__QuickLinks links={footer?.navLinks || []} />
           </div>
 
           {/* Contact Info */}
           <div>
-            <h4 className="text-xl font-bold mb-4">Contact Info</h4>
+            <h3 className="text-xl font-bold mb-4">Contact Info</h3>
             <ul className="space-y-3">
               {
                 siteSetting?.address && (
@@ -129,7 +138,7 @@ export default async function Footer() {
 
           {/* Newsletter */}
           <div>
-            <h4 className="text-xl font-bold mb-4">Newsletter</h4>
+            <h3 className="text-xl font-bold mb-4">Newsletter</h3>
             <p className="mb-4">
               Subscribe to our newsletter to get the latest updates on our
               events and blogs.

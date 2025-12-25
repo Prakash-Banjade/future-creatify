@@ -13,8 +13,9 @@ export default function CMSLink({
     type,
     variant, // "primary" | "outline"
     className,
-    size
-}: CTADto & Pick<ButtonProps, 'className' | 'size'>) {
+    size,
+    ariaLabel
+}: CTADto & Pick<ButtonProps, 'className' | 'size'> & { ariaLabel?: string }) {
     const href = type === ELinkType.External
         ? link
         : link.startsWith("/")
@@ -31,7 +32,7 @@ export default function CMSLink({
             size={size}
             className={cn("group", className)}
         >
-            <Link href={href} {...newTabProps}>
+            <Link href={href} {...newTabProps} aria-label={ariaLabel}>
                 {text}
                 {arrow && <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform ease-in-out duration-300" />}
             </Link>
