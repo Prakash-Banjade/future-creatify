@@ -15,9 +15,10 @@ import Link from "next/link";
 
 type Props = {
   event: TEventsResponse_Public[0];
+  blurDataURL?: string | undefined;
 };
 
-export default function EventCard({ event }: Props) {
+export default function EventCard({ event, blurDataURL }: Props) {
   const eventDate = new Date(event.eventDate);
 
   const hour = eventDate.getHours().toString().padStart(2, "0");
@@ -35,6 +36,7 @@ export default function EventCard({ event }: Props) {
                 src={event.coverImage?.secure_url}
                 sizes="500px"
                 alt="Event Cover Image"
+                blurDataURL={blurDataURL}
                 crop="auto"
                 className="w-full h-[200px] sm:h-[300px] @2xl:h-full @2xl:max-w-[400px] object-cover"
               />

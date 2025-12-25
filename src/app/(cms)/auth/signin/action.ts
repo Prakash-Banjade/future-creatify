@@ -26,5 +26,5 @@ export async function signInAction(email: string) {
         throw new Error("Invalid Email");
     }
 
-    await signIn("resend", { email, redirect: false });
+    await signIn("nodemailer", { email, redirect: false });
 }

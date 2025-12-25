@@ -1,10 +1,10 @@
 import { cn } from "@/lib/utils";
 import { EHeroLayoutTypes } from "../../../../types/page.types";
 import { RichTextPreview } from "@/components/rich-text-preview";
-import CloudinaryImage from "@/components/ui/cloudinary-image";
 import { EAlignmentExcludeCenter } from "../../../../types/global.types";
 import { THeroSectionDto } from "@/schemas/hero-section.schema";
 import RenderHeroCMSLink from "../render-hero-cms-link";
+import CloudinaryImage__Server from "@/components/ui/cloudinary-image-server";
 
 export default function SplitHero({ hero }: { hero: THeroSectionDto }) {
   const layoutType = hero.layout.type;
@@ -29,7 +29,8 @@ export default function SplitHero({ hero }: { hero: THeroSectionDto }) {
             "flex justify-center items-center w-full md:flex-1 mb-6 md:mb-0",
             imagePosition === EAlignmentExcludeCenter.Right && "order-2"
           )}>
-            <CloudinaryImage
+            <CloudinaryImage__Server
+              publicId={heroImage.public_id}
               src={heroImage.secure_url}
               width={heroImage.width}
               height={heroImage.height}

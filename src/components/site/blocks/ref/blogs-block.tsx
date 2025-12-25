@@ -7,6 +7,7 @@ import BlogCard from "../../blogs/blog-card";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { gridClassName } from ".";
+import { getBlurDataUrl } from "@/lib/getBlurDataUrl";
 
 export default async function BlogsBlock({
   limit,
@@ -38,7 +39,7 @@ export default async function BlogsBlock({
         gridClassName[cols as keyof typeof gridClassName]
       )}>
         {blogs.map((b) => {
-          return <BlogCard key={b.slug} blog={b} />;
+          return <BlogCard__WithBlurDataUrl key={b.slug} blog={b} />;
         })}
       </section>
       <div className="flex justify-center">
@@ -50,4 +51,13 @@ export default async function BlogsBlock({
       </div>
     </>
   );
+}
+
+async function BlogCard__WithBlurDataUrl({
+  blog,
+}: {
+  blog: TBlogsResponse_Public[0];
+}) {
+  const blurDataURL = blog.coverImage ? await getBlurDataUrl(blog.coverImage) : undefined;
+  return <BlogCard blog={blog} blurDataURL={blurDataURL} />;
 }

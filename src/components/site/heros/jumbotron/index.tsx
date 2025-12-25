@@ -3,8 +3,8 @@ import { EHeroLayoutTypes } from "../../../../types/page.types";
 import { EAlignment } from "../../../../types/global.types";
 import { RichTextPreview } from "@/components/rich-text-preview";
 import { THeroSectionDto } from "@/schemas/hero-section.schema";
-import CloudinaryImage from "@/components/ui/cloudinary-image";
 import RenderHeroCMSLink from "../render-hero-cms-link";
+import CloudinaryImage__Server from "@/components/ui/cloudinary-image-server";
 
 export default function JumboTron({ hero }: { hero: THeroSectionDto }) {
   const layoutType = hero.layout.type;
@@ -23,7 +23,8 @@ export default function JumboTron({ hero }: { hero: THeroSectionDto }) {
     >
       {hero.image?.secure_url && (
         <>
-          <CloudinaryImage
+          <CloudinaryImage__Server
+            publicId={hero.image.public_id}
             src={hero.image.secure_url}
             fill
             alt={hero.image.alt || "Hero background"}

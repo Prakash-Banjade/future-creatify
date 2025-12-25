@@ -5,6 +5,7 @@ import { Metadata } from "next";
 import { GALLERY_SLUG } from "@/app/slugs";
 import GalleryContainer from "@/components/site/gallery/gallery-container";
 import { TGalleryResponse } from "../../../types/gallery.types";
+import { getBlurDataUrl } from "@/lib/getBlurDataUrl";
 
 export const generateMetadata = async (): Promise<Metadata> => {
   const page = await fetchPage(GALLERY_SLUG);
@@ -27,12 +28,20 @@ export default async function GalleryPage() {
 
   const galleries = await res.json() as TGalleryResponse;
 
+  const galleriesWithBlurDataUrl = await Promise.all(galleries.map(async (gallery) => ({
+    ...gallery,
+    media: await Promise.all(gallery.media.map(async (media) => ({
+      ...media,
+      blurDataUrl: await getBlurDataUrl(media.public_id),
+    }))),
+  })));
+
   return (
     <>
       <RenderHero heroSections={page.heroSections} />
 
       <section className="container py-12">
-        <GalleryContainer galleries={galleries} />
+        <GalleryContainer galleries={galleriesWithBlurDataUrl} />
       </section>
     </>
   );

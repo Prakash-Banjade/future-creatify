@@ -11,9 +11,10 @@ import { TBlogsResponse_Public } from "@/types/blog.types";
 type Props = {
   blog: TBlogsResponse_Public[0];
   imgHeight?: number; // this is used to control the height of the image based on the blog card layout
+  blurDataURL?: string | undefined;
 };
 
-export default function BlogCard({ blog, imgHeight = 300 }: Props) {
+export default function BlogCard({ blog, imgHeight = 300, blurDataURL }: Props) {
   return (
     <article className="@container">
       <div className="card h-full bg-white shadow-sm rounded-b-xl">
@@ -26,6 +27,7 @@ export default function BlogCard({ blog, imgHeight = 300 }: Props) {
                 src={blog.coverImage}
                 sizes="500px"
                 alt="Blog Cover Image"
+                blurDataURL={blurDataURL}
                 crop="auto"
                 className="w-full sm:h-[300px] h-[200px] @2xl:h-full @2xl:max-w-[400px] object-cover"
               />

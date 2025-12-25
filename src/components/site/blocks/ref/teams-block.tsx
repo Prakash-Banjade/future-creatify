@@ -5,6 +5,8 @@ import CloudinaryImage from "@/components/ui/cloudinary-image";
 import { cn, getSocialIcon } from "@/lib/utils";
 import { TTeamTableSelect } from "@/db/schema/team";
 import { gridClassName } from ".";
+import { getBlurDataUrl } from "@/lib/getBlurDataUrl";
+import CloudinaryImage__Server from "@/components/ui/cloudinary-image-server";
 
 export default async function TeamsBlock({
   limit,
@@ -42,11 +44,13 @@ export default async function TeamsBlock({
 }
 
 const TeamCard = ({ member }: { member: TTeamTableSelect }) => {
+
   return (
     <div className="card overflow-hidden hover-scale group">
       <div className="relative">
         {member.image && (
-          <CloudinaryImage
+          <CloudinaryImage__Server
+            publicId={member.image?.public_id}
             src={member.image?.secure_url}
             alt={member.name}
             className="w-full h-80 object-cover"

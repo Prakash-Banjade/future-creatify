@@ -1,5 +1,3 @@
-"use client";
-
 import { THeroSectionDto } from "@/schemas/hero-section.schema";
 import SplitHero from "./split-hero";
 import JumboTron from "./jumbotron";

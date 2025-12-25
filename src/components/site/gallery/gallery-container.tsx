@@ -1,12 +1,23 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { TGalleryResponse } from "../../../types/gallery.types";
+import { TGallery } from "../../../types/gallery.types";
 import GalleryMasonry from "./gallery-masonry";
 import GalleryFilters from "./gallery-filter";
 import ImageLightbox from "./image-lightbox";
+import { TMediaSelect } from "@/db/schema/media";
 
-export default function GalleryContainer({ galleries }: { galleries: TGalleryResponse }) {
+type Props = {
+  /** 
+   * @description Array of galleries with media and blur data URL
+   * @dev blurDataUrl property is added in each media object otherwise the type is exactly the same as TGalleryResponse
+   */
+  galleries: (Omit<TGallery, "media"> & {
+    media: (TMediaSelect & { blurDataUrl: string | undefined })[]
+  })[]
+}
+
+export default function GalleryContainer({ galleries }: Props) {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
   const [selectedImageIndex, setSelectedImageIndex] = useState<number>(0)
   const [lightboxOpen, setLightboxOpen] = useState(false);

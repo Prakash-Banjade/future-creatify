@@ -1,7 +1,7 @@
 "use client"
 
-import { CldImage } from "next-cloudinary"
 import { motion } from "framer-motion"
+import CloudinaryImage from "@/components/ui/cloudinary-image"
 
 interface GalleryImage {
     id: string
@@ -11,6 +11,7 @@ interface GalleryImage {
     name: string
     categoryId: string
     categoryName: string
+    blurDataUrl: string | undefined
 }
 
 interface GalleryMasonryProps {
@@ -30,11 +31,11 @@ export default function GalleryMasonry({ images, onImageClick }: GalleryMasonryP
                 const aspectRatio = getAspectRatio(image.width, image.height)
 
                 return (
-                    <motion.div
+                    <div
                         key={image.id}
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.3, delay: index * 0.05 }}
+                        // initial={{ opacity: 0, y: 10 }}
+                        // animate={{ opacity: 1, y: 0 }}
+                        // transition={{ duration: 0.3, delay: index * 0.05 }}
                         onClick={() => onImageClick(index)}
                         className="break-inside-avoid cursor-pointer group relative overflow-hidden lg:rounded-2xl rounded-lg bg-muted"
                         role="button"
@@ -50,7 +51,7 @@ export default function GalleryMasonry({ images, onImageClick }: GalleryMasonryP
 
                         {/* Image */}
                         <div className="relative overflow-hidden">
-                            <CldImage
+                            <CloudinaryImage
                                 src={image.public_id}
                                 alt={image.name}
                                 width={image.width}
@@ -60,7 +61,7 @@ export default function GalleryMasonry({ images, onImageClick }: GalleryMasonryP
                                 loading="lazy"
                                 preload={false}
                                 placeholder="blur"
-                                blurDataURL="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect fill='%23e5e5e5' width='100' height='100'/%3E%3C/svg%3E"
+                                blurDataURL={image.blurDataUrl}
                                 className="w-full h-auto transition-transform duration-500 group-hover:scale-110"
                                 style={{
                                     aspectRatio: `${aspectRatio}`,
@@ -84,7 +85,7 @@ export default function GalleryMasonry({ images, onImageClick }: GalleryMasonryP
                                 </div>
                             </div>
                         </div>
-                    </motion.div>
+                    </div>
                 )
             })}
         </div>

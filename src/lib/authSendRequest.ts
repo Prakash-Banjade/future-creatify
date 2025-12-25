@@ -1,10 +1,12 @@
 import { SITE_TITLE } from "@/CONSTANTS"
 
+import { createTransport } from "nodemailer"
+
 type Props = {
   identifier: string,
   provider: {
-      apiKey: string,
-      from: string,
+    server: any,
+    from: string,
   },
   url: string
 }
@@ -18,24 +20,20 @@ const theme = {
 }
 
 export async function sendVerificationRequest(params: Props) {
-  const { identifier: to, provider, url } = params
+  const { identifier, url, provider } = params
   const { host } = new URL(url)
-  const res = await fetch("https://api.resend.com/emails", {
-      method: "POST",
-      headers: {
-          Authorization: `Bearer ${provider.apiKey}`,
-          "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-          from: provider.from,
-          to,
-          subject: `Sign in to ${host}`,
-          html: html({ url, host }),
-          text: text({ url, host }),
-      }),
-  })
-
-  if (!res.ok) throw new Error("Resend error: " + JSON.stringify(await res.json()));
+  const transport = createTransport(provider.server)
+  const result = await transport.sendMail({
+    to: identifier,
+    from: provider.from,
+    subject: `Sign in to ${host}`,
+    text: text({ url, host }),
+    html: html({ url, host }),
+  });
+  const failed = result.rejected.filter(Boolean)
+  if (failed.length) {
+    throw new Error(`Email(s) (${failed.join(", ")}) could not be sent`)
+  }
 }
 
 function html(params: { url: string; host: string }) {
@@ -45,12 +43,12 @@ function html(params: { url: string; host: string }) {
 
   const brandColor = theme.brandColor || "#222";
   const color = {
-      background: "#f9f9f9",
-      text: "#444",
-      mainBackground: "#fff",
-      buttonBackground: brandColor,
-      buttonBorder: brandColor,
-      buttonText: theme.buttonText || "#fff",
+    background: "#f9f9f9",
+    text: "#444",
+    mainBackground: "#fff",
+    buttonBackground: brandColor,
+    buttonBorder: brandColor,
+    buttonText: theme.buttonText || "#fff",
   }
 
   const logoUrl = `${new URL(url).origin}/_next/image?url=%2Flogo.png&w=128&q=75`;

@@ -7,6 +7,7 @@ import { TEventsResponse_Public } from "../../../../types/event.types";
 import { Button } from "@/components/ui/button";
 import { gridClassName } from ".";
 import { cn } from "@/lib/utils";
+import { getBlurDataUrl } from "@/lib/getBlurDataUrl";
 
 export default async function EventsBlock({
   limit,
@@ -37,7 +38,7 @@ export default async function EventsBlock({
         gridClassName[cols as keyof typeof gridClassName]
       )}>
         {events.map((b) => {
-          return <EventCard key={b.slug} event={b} />;
+          return <EventCard__WithBlurDataURL key={b.slug} event={b} />;
         })}
       </section>
       <div className="flex justify-center">
@@ -49,4 +50,10 @@ export default async function EventsBlock({
       </div>
     </>
   );
+}
+
+async function EventCard__WithBlurDataURL({ event }: { event: TEventsResponse_Public[0] }) {
+  const blurDataURL = event.coverImage ? await getBlurDataUrl(event.coverImage?.public_id) : undefined;
+
+  return <EventCard event={event} blurDataURL={blurDataURL} />;
 }

@@ -91,25 +91,6 @@ export function generateUniqueId(size: number = 21): string {
   return id;
 }
 
-export async function getBlurDataUrl(
-  src: string | null,
-  width: number = 100
-): Promise<string> {
-  if (!src) return "";
-
-  const imageUrl = getCldImageUrl({
-    src,
-    width,
-  });
-  const response = await fetch(imageUrl);
-  const arrayBuffer = await response.arrayBuffer();
-  const buffer = Buffer.from(arrayBuffer);
-  const base64 = buffer.toString("base64");
-  const dataUrl = `data:${response.type};base64,${base64}`;
-
-  return dataUrl;
-}
-
 /**
  * Calculates estimated reading time in minutes based on number of characters.
  * @param characters - Total number of characters in the text.

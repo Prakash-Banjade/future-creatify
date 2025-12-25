@@ -357,7 +357,7 @@ export const pagesData: TPageTableSelect[] = [
         },
         "tagline": "",
         "headline": "",
-        "isContainer": false,
+        "isContainer": true,
         "subheadline": "",
         "headlineAlignment": EAlignment.Center
       },
@@ -366,7 +366,7 @@ export const pagesData: TPageTableSelect[] = [
         "blocks": { "items": [{ "type": EBlock.Map }], "direction": "horizontal" },
         "tagline": "",
         "headline": "",
-        "isContainer": false,
+        "isContainer": true,
         "subheadline": "",
         "headlineAlignment": EAlignment.Center
       }
@@ -550,7 +550,7 @@ export const pagesData: TPageTableSelect[] = [
         },
         "tagline": "Leadership",
         "headline": "Our Visionary Leaders",
-        "isContainer": false,
+        "isContainer": true,
         "subheadline": "Meet the dedicated individuals who guide our mission and drive our organization forward.",
         "headlineAlignment": EAlignment.Center
       },
@@ -734,7 +734,7 @@ export const pagesData: TPageTableSelect[] = [
         },
         "tagline": "",
         "headline": "",
-        "isContainer": false,
+        "isContainer": true,
         "subheadline": "",
         "headlineAlignment": EAlignment.Center
       }
@@ -1436,7 +1436,7 @@ export const pagesData: TPageTableSelect[] = [
         },
         "tagline": "",
         "headline": "",
-        "isContainer": false,
+        "isContainer": true,
         "subheadline": "",
         "headlineAlignment": EAlignment.Center
       },
@@ -2103,7 +2103,7 @@ export const pagesData: TPageTableSelect[] = [
         },
         "tagline": "",
         "headline": "",
-        "isContainer": false,
+        "isContainer": true,
         "subheadline": "",
         "headlineAlignment": EAlignment.Center
       }
@@ -2606,7 +2606,7 @@ export const pagesData: TPageTableSelect[] = [
         },
         "tagline": "Our Mission",
         "headline": "Making a Difference in Education",
-        "isContainer": false,
+        "isContainer": true,
         "subheadline": "At Future Creatify, we believe in the power of education to transform lives. Our mission is to empower educators with innovative teaching methodologies and resources to create meaningful learning experiences.",
         "headlineAlignment": EAlignment.Center
       },
@@ -2638,7 +2638,7 @@ export const pagesData: TPageTableSelect[] = [
         },
         "tagline": "Testimonials",
         "headline": "What Our Community Says",
-        "isContainer": false,
+        "isContainer": true,
         "subheadline": "At Future Creatify, we believe in the power of education to transform lives. Our mission is to empower educators with innovative teaching methodologies and resources to create meaningful learning experiences.",
         "headlineAlignment": EAlignment.Center
       },

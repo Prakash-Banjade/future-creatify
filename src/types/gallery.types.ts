@@ -16,11 +16,13 @@ export type TMediaSelect = {
   updatedAt: Date;
 };
 
-export type TGalleryResponse = {
+export type TGallery = {
   id: string;
   categoryId: string;
   category: {
     name: string;
   };
   media: TMediaSelect[];
-}[];
+};
+
+export type TGalleryResponse = TGallery[];

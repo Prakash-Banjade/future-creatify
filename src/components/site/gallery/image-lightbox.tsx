@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
-import { AdvancedImage, lazyload } from '@cloudinary/react';
+import { AdvancedImage, lazyload, placeholder } from '@cloudinary/react';
 import { fill } from '@cloudinary/url-gen/actions/resize';
 import { X, ZoomIn, ZoomOut, ChevronLeft, ChevronRight } from 'lucide-react';
 import { TMedia } from '@/types/media.types';
@@ -291,7 +291,7 @@ export default function ImageLightbox({ media, initialIndex, isOpen, onClose }: 
                 >
                     <AdvancedImage
                         cldImg={cldImage}
-                        plugins={[lazyload()]}
+                        plugins={[lazyload(), placeholder({ mode: "blur" })]}
                         alt={currentMedia.alt || currentMedia.name}
                         className="max-w-screen max-h-screen object-contain pointer-events-none"
                         draggable={false}

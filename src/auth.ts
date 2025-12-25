@@ -1,7 +1,6 @@
 import NextAuth from "next-auth";
 import { DrizzleAdapter } from "@auth/drizzle-adapter";
-import Google from "next-auth/providers/google";
-import Resend from "next-auth/providers/resend";
+import Nodemailer from "next-auth/providers/nodemailer";
 import { db } from "./db";
 import {
   accounts,
@@ -40,23 +39,27 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     },
   },
   providers: [
-    Google,
-    Resend({
-      from: "no-reply@qubide.cloud",
-      maxAge: 60 * 60, // 1 hour
-      sendVerificationRequest({
-        // for custom email template
+    Nodemailer({
+      server: {
+        host: process.env.SMTP_HOST,
+        port: Number(process.env.SMTP_PORT),
+        auth: {
+          user: process.env.SMTP_USER,
+          pass: process.env.SMTP_PASS,
+        },
+        secure: process.env.SMTP_PORT === "465", // true if using port 465 with SSL
+      },
+      from: "no-reply@futurecreatify.com",
+      sendVerificationRequest: ({
         identifier,
         url,
         provider,
-      }) {
-        if (!provider.apiKey || !provider.from) return;
-
+      }) => {
         sendVerificationRequest({
           identifier,
           provider: {
-            apiKey: provider.apiKey,
-            from: provider.from,
+            server: provider.server,
+            from: provider.from || "",
           },
           url,
         });
