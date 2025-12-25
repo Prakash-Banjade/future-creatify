@@ -1,6 +1,6 @@
 import { serverFetch } from "@/lib/data-access.ts/server-fetch";
 import { TCredibilityAndSupport } from "@/schemas/credibility-and-support.schema";
-import CloudinaryImage from "@/components/ui/cloudinary-image";
+import CloudinaryImage__Server from "@/components/ui/cloudinary-image-server";
 import Link from "next/link";
 
 interface PartnerResponse {
@@ -55,7 +55,8 @@ const PartnerCard: React.FC<PartnerCardProps> = ({ partner }) => {
     <div className="flex-shrink-0 px-8 transition-all duration-500 hover:scale-110">
       <div className="p-6 bg-white rounded-xl shadow-sm hover:shadow-md border border-gray-100 transition-all duration-300 w-48 h-32 flex items-center justify-center">
         {partner.image ? (
-          <CloudinaryImage
+          <CloudinaryImage__Server
+            publicId={partner.image.public_id}
             src={partner.image.secure_url}
             alt={partner.image.alt || partner.name}
             width={160}

@@ -1,8 +1,8 @@
 import { serverFetch } from "@/lib/data-access.ts/server-fetch";
 import { TCredibilityAndSupport } from "@/schemas/credibility-and-support.schema";
-import CloudinaryImage from "@/components/ui/cloudinary-image";
+import CloudinaryImage__Server from "@/components/ui/cloudinary-image-server";
 import Link from "next/link";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 
 interface CertificationResponse {
   certifications: TCredibilityAndSupport["certifications"];
@@ -49,8 +49,9 @@ const CertificationCard: React.FC<CertificationCardProps> = ({ certification }) 
       <CardContent className="p-0 flex flex-col items-center text-center">
         {certification.image ? (
           <div className="relative w-20 h-20 mb-4">
-            <CloudinaryImage
+            <CloudinaryImage__Server
               className="object-contain"
+              publicId={certification.image.public_id}
               src={certification.image.secure_url}
               alt={certification.image.alt || certification.name}
               fill
@@ -61,7 +62,7 @@ const CertificationCard: React.FC<CertificationCardProps> = ({ certification }) 
             <span className="text-2xl">🏆</span>
           </div>
         )}
-        
+
         <h3 className="font-semibold text-gray-800 text-sm leading-tight">
           {certification.name}
         </h3>
@@ -71,9 +72,9 @@ const CertificationCard: React.FC<CertificationCardProps> = ({ certification }) 
 
   if (certification.link) {
     return (
-      <Link 
-        href={certification.link} 
-        target="_blank" 
+      <Link
+        href={certification.link}
+        target="_blank"
         rel="noopener noreferrer"
         className="block"
       >

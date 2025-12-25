@@ -1,4 +1,4 @@
-import CloudinaryImage from "@/components/ui/cloudinary-image";
+import CloudinaryImage__Server from "@/components/ui/cloudinary-image-server";
 import { cn } from "@/lib/utils";
 import { TMediaSchema } from "@/schemas/media.schema";
 import { ImageBlockDto } from "@/schemas/page.schema";
@@ -10,7 +10,8 @@ export default function RenderImageBlock({
   if (images.length === 1) {
     return (
       <div className="flex justify-center">
-        <CloudinaryImage
+        <CloudinaryImage__Server
+          publicId={images[0].public_id}
           className="w-full h-auto rounded-2xl shadow-lg object-cover"
           src={images[0].secure_url}
           width={images[0].width}
@@ -58,7 +59,8 @@ export default function RenderImageBlock({
 
 function ImageItem({ image, className }: { image: TMediaSchema; className?: string }) {
   return (
-    <CloudinaryImage
+    <CloudinaryImage__Server
+      publicId={image.public_id}
       className={cn("w-full h-full object-cover rounded-xl", className)}
       src={image.secure_url}
       width={image.width}

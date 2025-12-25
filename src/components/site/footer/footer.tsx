@@ -4,8 +4,8 @@ import { Input } from "../../ui/input";
 import { Button } from "../../ui/button";
 import { cn, getSocialIcon } from "@/lib/utils";
 import { getFooter, getSiteSettings } from "@/lib/data-access.ts/site-settings.data";
-import CloudinaryImage from "../../ui/cloudinary-image";
 import Footer__QuickLinks from "./quick-links";
+import CloudinaryImage__Server from "@/components/ui/cloudinary-image-server";
 
 export default async function Footer() {
   const [footer, siteSetting] = await Promise.all([
@@ -26,7 +26,8 @@ export default async function Footer() {
               {
                 siteSetting.logoDark && (
                   <Link href="/" className="flex items-center" aria-label="Home">
-                    <CloudinaryImage
+                    <CloudinaryImage__Server
+                      publicId={siteSetting.logoDark.public_id}
                       width={64}
                       height={64}
                       src={siteSetting.logoDark.secure_url}

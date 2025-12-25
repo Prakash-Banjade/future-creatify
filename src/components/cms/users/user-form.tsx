@@ -11,6 +11,7 @@ import { toast } from "sonner";
 import LoadingButton from "@/components/forms/loading-button";
 import { Plus } from "lucide-react";
 import { TUserFormSchema, userFormDefaultValues, userFormSchema } from "@/schemas/users.schema";
+import { showServerError } from "@/lib/utils";
 
 export default function UserForm({ setIsOpen }: { setIsOpen: (isOpen: boolean) => void }) {
     const [isPending, startTransition] = useTransition();
@@ -27,7 +28,7 @@ export default function UserForm({ setIsOpen }: { setIsOpen: (isOpen: boolean) =
                 toast.success("User created successfully");
                 setIsOpen(false);
             } catch (error) {
-                toast.error("Failed to create user");
+                showServerError(error);
                 console.error(error);
             }
         });
@@ -62,9 +63,7 @@ export default function UserForm({ setIsOpen }: { setIsOpen: (isOpen: boolean) =
                                     </SelectTrigger>
                                 </FormControl>
                                 <SelectContent>
-                                    <SelectItem value="admin">Admin</SelectItem>
                                     <SelectItem value="moderator">Moderator</SelectItem>
-                                    <SelectItem value="user">User</SelectItem>
                                 </SelectContent>
                             </Select>
                             <FormMessage />

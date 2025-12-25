@@ -9,6 +9,8 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Globe } from "lucide-react";
 import { getSiteSettings } from "@/lib/data-access.ts/site-settings.data";
+import getSession from "@/lib/getSession";
+import { redirect } from "next/navigation";
 
 type AppRootLayoutProps = {
     children: React.ReactNode,
@@ -16,10 +18,13 @@ type AppRootLayoutProps = {
 
 export default async function SidebarLayout({ children }: AppRootLayoutProps) {
     const siteData = await getSiteSettings();
+    const session = await getSession();
+
+    if (!session) redirect('/auth/signin');
 
     return (
         <SidebarProvider>
-            <AppSidebar siteData={siteData} />
+            <AppSidebar siteData={siteData} user={session.user} />
             <SidebarInset>
                 <header className="flex h-16 shrink-0 items-center gap-2 px-4">
                     <SidebarTrigger className="-ml-1" />

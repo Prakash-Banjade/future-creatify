@@ -9,12 +9,14 @@ import {
   StretchHorizontal,
   Tags,
   Users,
-  Briefcase,
-  BookOpen,
   Images,
   FileImage,
 } from "lucide-react";
 import { TGroupMenuItem } from "./sidebar";
+
+export const ONLY_ADMIN_GROUP_LABELS = {
+  admin: "Admin",
+};
 
 export const cmsSidebarMenuItems: TGroupMenuItem[] = [
   {
@@ -78,7 +80,7 @@ export const cmsSidebarMenuItems: TGroupMenuItem[] = [
     ],
   },
   {
-    groupLabel: "Admin",
+    groupLabel: ONLY_ADMIN_GROUP_LABELS.admin,
     menuItems: [
       {
         title: "Users",

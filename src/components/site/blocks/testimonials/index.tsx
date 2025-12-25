@@ -1,4 +1,4 @@
-import CloudinaryImage from "@/components/ui/cloudinary-image";
+import CloudinaryImage__Server from "@/components/ui/cloudinary-image-server";
 import { serverFetch } from "@/lib/data-access.ts/server-fetch";
 import { TCredibilityAndSupport } from "@/schemas/credibility-and-support.schema";
 import { Quote, Star } from "lucide-react";
@@ -43,12 +43,13 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({
   return (
     <div className="group relative bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border border-gray-100">
       <Quote className="absolute top-6 right-6 text-gray-200 text-4xl opacity-70" />
-      
+
       <div className="flex items-center mb-6 gap-4">
         {testimonial.image && (
           <div className="relative w-16 h-16 rounded-full overflow-hidden border-2 border-white shadow-md">
-            <CloudinaryImage
+            <CloudinaryImage__Server
               className="object-cover"
+              publicId={testimonial.image.public_id}
               src={testimonial.image.secure_url}
               alt={testimonial.image.alt || testimonial.name}
               fill
@@ -60,14 +61,14 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({
           <p className="text-sm text-gray-500">{testimonial.role}</p>
         </div>
       </div>
-      
+
       <div className="bg-gray-100 p-4 rounded-lg mb-6 relative">
         <p className="text-gray-700 italic relative z-10 wrap-break-word">
           &quot;{testimonial.quote}&quot;
         </p>
         <div className="absolute -bottom-3 left-6 w-4 h-4 transform rotate-45 bg-gray-100"></div>
       </div>
-      
+
       <div className="flex items-center justify-between">
         <div className="flex text-yellow-400 gap-1">
           {Array.from({ length: 5 }).map((_, i) => (

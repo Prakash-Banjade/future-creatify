@@ -7,14 +7,12 @@ import { useRouter } from "next/navigation"
 import { useSession } from "next-auth/react"
 import { useTransition } from "react"
 import logoutAction from "@/lib/actions/logout.action"
+import { User } from "next-auth"
 
-export const AppSidebarFooter = () => {
+export const AppSidebarFooter = ({ user }: { user: User }) => {
     const router = useRouter();
-    const { data } = useSession();
     const { open } = useSidebar();
     const [isPending, startTransition] = useTransition();
-
-    const user = data?.user;
 
     const handleLogout = () => {
         startTransition(async () => {
@@ -34,7 +32,10 @@ export const AppSidebarFooter = () => {
                                     name={user?.name ?? ""}
                                     className={cn(!open ? "absolute size-8" : "size-10")}
                                 />
-                                {open && <span>{user?.name ?? ""}</span>}
+                                {open && <div className="flex flex-col">
+                                    <span>{user?.name ?? ""}</span>
+                                    <span className="text-xs text-muted-foreground capitalize">{user?.role ?? ""}</span>
+                                </div>}
                                 {open && <ChevronUp className="ml-auto" />}
                             </SidebarMenuButton>
                         </DropdownMenuTrigger>

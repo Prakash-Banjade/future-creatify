@@ -19,10 +19,12 @@ export default function Header({
   navLinks,
   siteData,
   hasHero = false,
+  logoBlurDataUrl
 }: {
   navLinks: RefinedNavLinks;
   siteData: TSiteSettingSchema | null;
   hasHero?: boolean;
+  logoBlurDataUrl?: string | undefined
 }) {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
@@ -67,6 +69,7 @@ export default function Header({
             priority
             loading="eager"
             sizes="64px"
+            blurDataURL={logoBlurDataUrl}
             className={cn(
               "h-14 w-auto transition-all duration-300",
             )}

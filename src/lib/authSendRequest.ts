@@ -12,10 +12,10 @@ type Props = {
 }
 
 const theme = {
-  brandColor: "#21429a",
+  brandColor: "#de00a5",
   background: "#f9f9f9",
   text: "#444",
-  buttonColor: "#21429a",
+  buttonColor: "#de00a5",
   buttonText: "#fff",
 }
 
@@ -51,7 +51,7 @@ function html(params: { url: string; host: string }) {
     buttonText: theme.buttonText || "#fff",
   }
 
-  const logoUrl = `${new URL(url).origin}/_next/image?url=%2Flogo.png&w=128&q=75`;
+  const logoUrl = "https://res.cloudinary.com/dbj0ffzhn/image/upload/c_limit,w_80/f_auto/q_85/v1760072393/kms3yx2mwqajgpopego8";
 
   return `
 <body style="background: ${color.background}; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;">

@@ -1,4 +1,3 @@
-import CloudinaryImage from "@/components/ui/cloudinary-image";
 import { ArrowLeft, Calendar, Globe, MapPin, Tag, Users } from "lucide-react";
 import { Metadata } from "next";
 import Link from "next/link";
@@ -7,6 +6,7 @@ import { events, TEvent } from "@/db/schema/event";
 import { serverFetch } from "@/lib/data-access.ts/server-fetch";
 import { RichTextPreview } from "@/components/rich-text-preview";
 import { cn } from "@/lib/utils";
+import CloudinaryImage__Server from "@/components/ui/cloudinary-image-server";
 
 type Props = {
   params: Promise<{
@@ -134,8 +134,9 @@ export default async function SingleeventPage({ params }: Props) {
           <div className="col-span-2">
             <div className="rounded-xl overflow-hidden mb-10 shadow-md">
               {event.coverImage && (
-                <CloudinaryImage
-                  src={event.coverImage?.secure_url}
+                <CloudinaryImage__Server
+                  publicId={event.coverImage.public_id}
+                  src={event.coverImage.secure_url}
                   alt={event.title}
                   className="w-full h-auto"
                   height={500}

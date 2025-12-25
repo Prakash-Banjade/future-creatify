@@ -1,5 +1,6 @@
 import Header from "./header";
 import { getHeader, getSiteSettings } from "@/lib/data-access.ts/site-settings.data";
+import { getBlurDataUrl } from "@/lib/getBlurDataUrl";
 import { refineNavLinks } from "@/lib/utils";
 
 export default async function Navbar({
@@ -14,9 +15,11 @@ export default async function Navbar({
 
   const navLinks = refineNavLinks(header.navLinks);
 
+  const logoBlurDataUrl = siteData?.logoLight ? await getBlurDataUrl(siteData?.logoLight?.public_id) : undefined;
+
   return (
     <div className="sticky top-0 left-0 z-50">
-      <Header hasHero={hasHero} navLinks={navLinks} siteData={siteData} />
+      <Header hasHero={hasHero} navLinks={navLinks} siteData={siteData} logoBlurDataUrl={logoBlurDataUrl} />
     </div>
   );
 }

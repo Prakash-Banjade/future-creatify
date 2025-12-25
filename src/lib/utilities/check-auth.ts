@@ -2,7 +2,6 @@
 
 import { redirect } from "next/navigation";
 import getSession from "../getSession";
-import { signOut } from "@/auth";
 
 export default async function checkAuth(roles: ('admin' | 'user' | 'moderator')[] = []) {
     const session = await getSession();
@@ -12,7 +11,7 @@ export default async function checkAuth(roles: ('admin' | 'user' | 'moderator')[
     }
 
     if (roles && roles.length > 0 && !roles.includes(session.user.role)) {
-        await signOut();
+        throw new Error("Forbidden operation")
     }
 
     return session;

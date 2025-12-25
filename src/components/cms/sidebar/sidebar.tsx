@@ -25,8 +25,10 @@ import { ScrollArea } from "../../ui/scroll-area"
 import { cn } from "@/lib/utils"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { cmsSidebarMenuItems } from "./menu-items"
+import { cmsSidebarMenuItems, ONLY_ADMIN_GROUP_LABELS } from "./menu-items"
 import { TSiteSettingSchema } from "@/schemas/site-setting.schema"
+import { User } from "next-auth"
+import { role } from "@/db/schema/auth"
 
 export type TSidebarMenuItem = {
     title: string,
@@ -40,28 +42,34 @@ export type TGroupMenuItem = {
     menuItems: TSidebarMenuItem[]
 }
 
-export function AppSidebar({ siteData }: { siteData: TSiteSettingSchema | null }) {
+export function AppSidebar({ siteData, user }: { siteData: TSiteSettingSchema | null, user: User }) {
+    const adminRole = role.enumValues[0];
+
     return (
         <Sidebar variant="sidebar" collapsible="icon" className="pr-0">
             <AppSidebarHeader siteData={siteData} />
             <SidebarContent className="overflow-hidden">
                 <ScrollArea className="max-h-full overflow-auto">
                     {
-                        cmsSidebarMenuItems.map((item) => (
-                            <SidebarGroup key={item.groupLabel}>
-                                <SidebarGroupLabel>{item.groupLabel}</SidebarGroupLabel>
-                                <SidebarMenu>
-                                    {item.menuItems.map((item) => item.items?.length
-                                        ? <CollapsibleMenuItem key={item.title} item={item} />
-                                        : <NonCollapsibleMenuItem key={item.title} item={item} />
-                                    )}
-                                </SidebarMenu>
-                            </SidebarGroup>
-                        ))
+                        cmsSidebarMenuItems.map((item) => {
+                            if (user.role !== adminRole && Object.values(ONLY_ADMIN_GROUP_LABELS).includes(item.groupLabel)) return;
+
+                            return (
+                                <SidebarGroup key={item.groupLabel}>
+                                    <SidebarGroupLabel>{item.groupLabel}</SidebarGroupLabel>
+                                    <SidebarMenu>
+                                        {item.menuItems.map((item) => item.items?.length
+                                            ? <CollapsibleMenuItem key={item.title} item={item} />
+                                            : <NonCollapsibleMenuItem key={item.title} item={item} />
+                                        )}
+                                    </SidebarMenu>
+                                </SidebarGroup>
+                            )
+                        })
                     }
                 </ScrollArea>
             </SidebarContent>
-            <AppSidebarFooter />
+            <AppSidebarFooter user={user} />
         </Sidebar>
     )
 }

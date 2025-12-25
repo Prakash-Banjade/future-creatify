@@ -1,6 +1,6 @@
-import CloudinaryImage from "@/components/ui/cloudinary-image";
 import { cn, getReadingTimeInMinutes } from "@/lib/utils";
 import { TBlogsResponse_Public } from "../../../types/blog.types";
+import CloudinaryImage__Server from "@/components/ui/cloudinary-image-server";
 
 export default async function BlogHero({
   title,
@@ -54,7 +54,8 @@ export default async function BlogHero({
       </div>
       <div className="min-h-[80vh] select-none">
         {coverImage && (
-          <CloudinaryImage
+          <CloudinaryImage__Server
+            publicId={coverImage}
             fill
             priority
             src={coverImage}

@@ -1,3 +1,4 @@
+import { LoaderCircle } from 'lucide-react';
 import React, { Suspense } from 'react'
 
 type Props = {
@@ -6,7 +7,12 @@ type Props = {
 
 export default async function AuthLayout({ children }: Props) {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={
+      <div className="flex items-center justify-center h-screen gap-2 text-base">
+        <LoaderCircle className="size-5 animate-spin" />
+        Please wait...
+      </div>
+    }>
       {children}
     </Suspense>
   )
