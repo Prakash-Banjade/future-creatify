@@ -10,12 +10,11 @@ export default async function Navbar({
 }) {
   const header = await getHeader();
   const siteData = await getSiteSettings();
+  const logoBlurDataUrl = siteData?.logoLight ? await getBlurDataUrl(siteData?.logoLight?.public_id) : undefined;
 
   if (!header) return null;
 
   const navLinks = refineNavLinks(header.navLinks);
-
-  const logoBlurDataUrl = siteData?.logoLight ? await getBlurDataUrl(siteData?.logoLight?.public_id) : undefined;
 
   return (
     <div className="sticky top-0 left-0 z-50">

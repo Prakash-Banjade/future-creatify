@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { Activity, useMemo, useState } from "react";
 import { TGallery } from "../../../types/gallery.types";
 import GalleryMasonry from "./gallery-masonry";
 import GalleryFilters from "./gallery-filter";
@@ -70,12 +70,14 @@ export default function GalleryContainer({ galleries }: Props) {
         )}
       </div>
 
-      <ImageLightbox
-        media={filteredImages}
-        initialIndex={selectedImageIndex}
-        isOpen={lightboxOpen}
-        onClose={() => setLightboxOpen(false)}
-      />
+      <Activity mode={lightboxOpen ? "visible" : "hidden"}>
+        <ImageLightbox
+          media={filteredImages}
+          initialIndex={selectedImageIndex}
+          isOpen={lightboxOpen}
+          onClose={() => setLightboxOpen(false)}
+        />
+      </Activity>
     </>
   );
 }

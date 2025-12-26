@@ -8,8 +8,8 @@ import { getBlurDataUrl } from "@/lib/getBlurDataUrl";
  * @param props CloudinaryImageProps & { publicId: string }
  * @returns CloudinaryImage component
  */
-export default async function CloudinaryImage__Server(props: CloudinaryImageProps & { publicId: string }) {
-    const blurDataUrl = await getBlurDataUrl(props.publicId)
+export default async function CloudinaryImage__Server({ publicId, ...props }: CloudinaryImageProps & { publicId: string }) {
+    const blurDataUrl = await getBlurDataUrl(publicId)
 
     return (
         <CloudinaryImage {...props} blurDataURL={blurDataUrl} />

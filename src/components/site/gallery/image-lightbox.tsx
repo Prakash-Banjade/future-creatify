@@ -1,6 +1,9 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { AdvancedImage, lazyload, placeholder } from '@cloudinary/react';
 import { fill } from '@cloudinary/url-gen/actions/resize';
+import { format, quality } from '@cloudinary/url-gen/actions/delivery';
+import { auto } from '@cloudinary/url-gen/qualifiers/format';
+import { auto as qAuto } from '@cloudinary/url-gen/qualifiers/quality';
 import { X, ZoomIn, ZoomOut, ChevronLeft, ChevronRight } from 'lucide-react';
 import { TMedia } from '@/types/media.types';
 import { cloudinary } from '@/lib/cloudinary';
@@ -218,9 +221,16 @@ export default function ImageLightbox({ media, initialIndex, isOpen, onClose }: 
     // Safety check if media is empty or index is invalid
     if (!currentMedia) return null;
 
+
     const cldImage = cloudinary
         .image(currentMedia.public_id)
-        .resize(fill().width(2000));
+        .resize(fill().width(2000))
+        .delivery(format(auto()))
+        .delivery(quality(qAuto()));
+
+    const nextIndex = (currentIndex + 1) % media.length;
+    const prevIndex = (currentIndex - 1 + media.length) % media.length;
+    const preloadIndices = media.length > 1 ? Array.from(new Set([nextIndex, prevIndex])).filter(i => i !== currentIndex) : [];
 
     return (
         <div className="fixed inset-0 z-50 bg-black">
@@ -291,7 +301,7 @@ export default function ImageLightbox({ media, initialIndex, isOpen, onClose }: 
                 >
                     <AdvancedImage
                         cldImg={cldImage}
-                        plugins={[lazyload(), placeholder({ mode: "blur" })]}
+                        plugins={[lazyload()]}
                         alt={currentMedia.alt || currentMedia.name}
                         className="max-w-screen max-h-screen object-contain pointer-events-none"
                         draggable={false}
@@ -354,6 +364,26 @@ export default function ImageLightbox({ media, initialIndex, isOpen, onClose }: 
                         <ScrollBar orientation="horizontal" className='md:h-1 h-0' />
                     </div>
                 </ScrollArea>
+            </div>
+            {/* Hidden Preloader */}
+            <div className="hidden">
+                {preloadIndices.map((idx) => {
+                    const item = media[idx];
+                    if (!item) return null;
+                    const img = cloudinary
+                        .image(item.public_id)
+                        .resize(fill().width(2000))
+                        .delivery(format(auto()))
+                        .delivery(quality(qAuto()));
+
+                    return (
+                        <img
+                            key={`preload-${item.public_id}`}
+                            src={img.toURL()}
+                            alt=""
+                        />
+                    );
+                })}
             </div>
         </div>
     );
