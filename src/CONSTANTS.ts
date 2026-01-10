@@ -1,5 +1,5 @@
 export const NUMBER_REGEX_STRING = "^[0-9]*$";
-export const APP_URL = (process.env.NEXT_PUBLIC_URL || process.env.APP_URL);
+export const APP_URL = (process.env.APP_URL || process.env.NEXT_PUBLIC_URL);
 export const CLOUDINARY_SIGNATURE_ENDPOINT =
   "/api/cloudinary/sign-params" as const;
 

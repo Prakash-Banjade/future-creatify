@@ -49,7 +49,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         },
         secure: process.env.SMTP_PORT === "465", // true if using port 465 with SSL
       },
-      from: "no-reply@futurecreatify.com",
+      from: process.env.SMTP_FROM || "no-reply@futurecreatify.com",
       sendVerificationRequest: ({
         identifier,
         url,
@@ -59,7 +59,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           identifier,
           provider: {
             server: provider.server,
-            from: provider.from || "",
+            from: provider.from || "no-reply@futurecreatify.com",
           },
           url,
         });
